@@ -11,13 +11,9 @@ export function AboutSection() {
       >
         <defs>
           <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#bodyGradient)" stroke="none" />
@@ -63,13 +59,9 @@ export function AboutSection() {
       >
         <defs>
           <linearGradient id="bodyGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#bodyGradientBottom)" stroke="none" />

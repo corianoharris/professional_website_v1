@@ -45,13 +45,9 @@ export function PortfolioSection() {
       >
         <defs>
           <linearGradient id="portfolioGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#portfolioGradientTop)" stroke="none" />
@@ -71,40 +67,55 @@ export function PortfolioSection() {
             return (
               <div
                 key={index}
-                className="relative flex items-start gap-4 p-6 rounded-xl bg-card border-2 border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 overflow-hidden"
+                className="relative rounded-xl bg-card overflow-hidden hover:shadow-xl transition-all duration-300 group"
               >
-                {/* Top wave pattern for card */}
-                <svg 
-                  className="absolute top-0 left-0 w-full" 
-                  viewBox="0 0 1200 60" 
-                  preserveAspectRatio="none"
-                  style={{ height: "60px" }}
-                  stroke="none"
-                >
-                  <defs>
-                    <linearGradient id={`portfolioCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#FF6B6B" />
-                      <stop offset="16.67%" stopColor="#4ECDC4" />
-                      <stop offset="33.33%" stopColor="#45B7D1" />
-                      <stop offset="50%" stopColor="#96CEB4" />
-                      <stop offset="66.67%" stopColor="#FFEEAD" />
-                      <stop offset="83.33%" stopColor="#D4A5A5" />
-                      <stop offset="100%" stopColor="#9B59B6" />
-                    </linearGradient>
-                  </defs>
-                  <path 
-                    d="M0,40 Q300,20 600,40 T1200,40 L1200,0 L0,0 Z" 
-                    fill={`url(#portfolioCardGradient${index})`}
+                {/* Top wave pattern with gradient */}
+                <div className="relative h-14 overflow-hidden">
+                  <svg 
+                    className="absolute top-0 left-0 w-full" 
+                    viewBox="0 0 1200 60" 
+                    preserveAspectRatio="none"
+                    style={{ height: "60px" }}
                     stroke="none"
-                  />
-                </svg>
-                
-                <div className={`${outcome.color} p-3 rounded-lg flex items-center justify-center shrink-0 relative z-10`}>
-                  <IconComponent className="w-6 h-6 text-white" />
+                  >
+                    <defs>
+                      <linearGradient id={`portfolioCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#1e40af" />
+                        <stop offset="50%" stopColor="#7c3aed" />
+                        <stop offset="100%" stopColor="#14b8a6" />
+                      </linearGradient>
+                    </defs>
+                    <path 
+                      d="M0,30 Q300,5 600,30 T1200,30 L1200,0 L0,0 Z" 
+                      fill={`url(#portfolioCardGradient${index})`}
+                      stroke="none"
+                    />
+                  </svg>
+                  
+                  {/* Icon overlay on gradient */}
+                  <div className="absolute top-3 left-4 z-10">
+                    <div className={`${outcome.color} p-2 rounded-lg flex items-center justify-center shadow-lg`}>
+                      <IconComponent className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 relative z-10 pt-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">{outcome.title}</h3>
-                  <p className="text-base md:text-lg leading-relaxed text-muted-foreground">{outcome.description}</p>
+                
+                {/* Content area */}
+                <div className="p-5 md:p-6">
+                  {/* Magazine-style label */}
+                  <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-3">
+                    CASE STUDY {String(index + 1).padStart(2, '0')}
+                  </span>
+                  
+                  {/* Headline - magazine style */}
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-primary transition-colors">
+                    {outcome.title}
+                  </h3>
+                  
+                  {/* Body text - editorial style */}
+                  <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-serif">
+                    {outcome.description}
+                  </p>
                 </div>
               </div>
             )
@@ -140,13 +151,9 @@ export function PortfolioSection() {
       >
         <defs>
           <linearGradient id="portfolioGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#portfolioGradientBottom)" stroke="none" />

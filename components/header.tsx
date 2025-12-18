@@ -8,6 +8,7 @@ import { useTheme } from "@/components/theme-provider"
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("hero")
   const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
@@ -18,10 +19,69 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    const sections = ["hero", "about", "expertise", "portfolio", "engagement", "blog", "contact"]
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0
+    }
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        observer.observe(element)
+      }
+    })
+
+    return () => {
+      sections.forEach((sectionId) => {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          observer.unobserve(element)
+        }
+      })
+    }
+  }, [])
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      const start = window.pageYOffset
+      const target = element.offsetTop - 80
+      const distance = target - start
+      const duration = 2500 // Slower, more gradual scroll duration
+      let startTime: number | null = null
+
+      function easeInOutCubic(t: number): number {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      }
+
+      function animate(currentTime: number) {
+        if (startTime === null) startTime = currentTime
+        const timeElapsed = currentTime - startTime
+        const progress = Math.min(timeElapsed / duration, 1)
+        const ease = easeInOutCubic(progress)
+
+        window.scrollTo(0, start + distance * ease)
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animate)
+        }
+      }
+
+      requestAnimationFrame(animate)
     }
     setMobileMenuOpen(false)
   }
@@ -36,41 +96,81 @@ export function Header() {
         <nav className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection("hero")}
-            className="text-xl font-bold tracking-tight text-black hover:text-black/80 transition-colors"
+            className="flex items-center gap-3 text-xl font-bold tracking-tight text-black hover:text-black/80 transition-colors"
           >
+            <img 
+              src="/icon.svg" 
+              alt="Logo" 
+              className="w-8 h-8"
+            />
             yourname.com
           </button>
 
           <div className="hidden md:flex items-center gap-8">
             <button
               onClick={() => scrollToSection("about")}
-              className="text-sm font-medium text-black hover:text-black/80 transition-colors"
+              className={`text-sm font-medium transition-all duration-300 relative ${
+                activeSection === "about"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               What I Believe
+              {activeSection === "about" && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]"></span>
+              )}
             </button>
             <button
               onClick={() => scrollToSection("expertise")}
-              className="text-sm font-medium text-black hover:text-black/80 transition-colors"
+              className={`text-sm font-medium transition-all duration-300 relative ${
+                activeSection === "expertise"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               What I Do
+              {activeSection === "expertise" && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]"></span>
+              )}
             </button>
             <button
               onClick={() => scrollToSection("portfolio")}
-              className="text-sm font-medium text-black hover:text-black/80 transition-colors"
+              className={`text-sm font-medium transition-all duration-300 relative ${
+                activeSection === "portfolio"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               Outcomes
+              {activeSection === "portfolio" && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]"></span>
+              )}
             </button>
             <button
               onClick={() => scrollToSection("engagement")}
-              className="text-sm font-medium text-black hover:text-black/80 transition-colors"
+              className={`text-sm font-medium transition-all duration-300 relative ${
+                activeSection === "engagement"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               Speaking
+              {activeSection === "engagement" && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]"></span>
+              )}
             </button>
             <button
               onClick={() => scrollToSection("blog")}
-              className="text-sm font-medium text-black hover:text-black/80 transition-colors"
+              className={`text-sm font-medium transition-all duration-300 relative ${
+                activeSection === "blog"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               Blog
+              {activeSection === "blog" && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]"></span>
+              )}
             </button>
             <Button onClick={toggleTheme} variant="ghost" size="icon" className="text-black hover:text-black/80">
               {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -107,31 +207,51 @@ export function Header() {
           <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
             <button
               onClick={() => scrollToSection("about")}
-              className="text-base font-medium text-black hover:text-black/80 transition-colors text-left py-2"
+              className={`text-base font-medium transition-all duration-300 text-left py-2 ${
+                activeSection === "about"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               What I Believe
             </button>
             <button
               onClick={() => scrollToSection("expertise")}
-              className="text-base font-medium text-black hover:text-black/80 transition-colors text-left py-2"
+              className={`text-base font-medium transition-all duration-300 text-left py-2 ${
+                activeSection === "expertise"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               What I Do
             </button>
             <button
               onClick={() => scrollToSection("portfolio")}
-              className="text-base font-medium text-black hover:text-black/80 transition-colors text-left py-2"
+              className={`text-base font-medium transition-all duration-300 text-left py-2 ${
+                activeSection === "portfolio"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               Outcomes
             </button>
             <button
               onClick={() => scrollToSection("engagement")}
-              className="text-base font-medium text-black hover:text-black/80 transition-colors text-left py-2"
+              className={`text-base font-medium transition-all duration-300 text-left py-2 ${
+                activeSection === "engagement"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               Speaking
             </button>
             <button
               onClick={() => scrollToSection("blog")}
-              className="text-base font-medium text-black hover:text-black/80 transition-colors text-left py-2"
+              className={`text-base font-medium transition-all duration-300 text-left py-2 ${
+                activeSection === "blog"
+                  ? "text-[#7c3aed] font-semibold"
+                  : "text-black hover:text-[#7c3aed]"
+              }`}
             >
               Blog
             </button>

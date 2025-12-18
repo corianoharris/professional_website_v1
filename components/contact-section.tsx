@@ -30,6 +30,8 @@ export function ContactSection() {
     "UX Consultation",
     "Brand Identity",
     "Design Systems",
+    "Speaking",
+    "Workshop",
   ]
 
   const handleServiceToggle = (service: string) => {
@@ -117,13 +119,9 @@ export function ContactSection() {
       >
         <defs>
           <linearGradient id="contactGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#contactGradientTop)" stroke="none" />
@@ -149,138 +147,182 @@ export function ContactSection() {
           </div>
         </div>
 
-        <Card className="p-8 md:p-12 bg-muted/30 border-2">
-          <div className="mb-6 p-4 bg-primary/10 border border-primary/30 rounded-lg flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-muted-foreground">
-              For transparency: This form will open your default email client. Your information is never stored on this
-              website and is sent directly through your email provider.
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
-                  Your name
-                </label>
-                <Input
-                  id="name"
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => handleFieldChange("name", e.target.value)}
-                  className={`hover:border-primary/50 focus:border-primary transition-colors ${
-                    errors.name ? "border-destructive focus:border-destructive" : ""
-                  }`}
-                  required
-                />
-                {errors.name && (
-                  <p className="text-sm text-destructive flex items-center gap-1">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.name}
-                  </p>
-                )}
+        {/* Magazine-style layout: Form on left, sidebar on right */}
+        <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+          {/* Main form column - wider */}
+          <div className="md:col-span-8">
+            <Card className="p-8 md:p-12 bg-muted/30 border-2">
+              {/* Editorial header */}
+              <div className="mb-12 pb-8 border-b-2 border-foreground/20">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-4">INQUIRY</span>
+                <h3 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] tracking-tight text-foreground">
+                  Let's Start the Conversation
+                </h3>
               </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email address
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={(e) => handleFieldChange("email", e.target.value)}
-                  className={`hover:border-primary/50 focus:border-primary transition-colors ${
-                    errors.email ? "border-destructive focus:border-destructive" : ""
-                  }`}
-                  required
-                />
-                {errors.email && (
-                  <p className="text-sm text-destructive flex items-center gap-1">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Services you're interested in (select all that apply)</label>
-              <div className="grid md:grid-cols-2 gap-3 p-4 border rounded-lg bg-background">
-                {services.map((service) => (
-                  <div key={service} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={service}
-                      checked={formData.services.includes(service)}
-                      onCheckedChange={() => handleServiceToggle(service)}
-                    />
-                    <label htmlFor={service} className="text-sm cursor-pointer">
-                      {service}
+              <form onSubmit={handleSubmit} className="space-y-12">
+                {/* Name and Email - stacked */}
+                <div className="flex flex-col gap-8">
+                  <div className="space-y-4">
+                    <label htmlFor="name" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                      Your Name
                     </label>
+                    <Input
+                      id="name"
+                      placeholder="John Doe"
+                      value={formData.name}
+                      onChange={(e) => handleFieldChange("name", e.target.value)}
+                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors font-serif bg-background ${
+                        errors.name ? "border-destructive focus:border-destructive" : ""
+                      }`}
+                      required
+                    />
+                    {errors.name && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-2">
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div className="space-y-4">
+                    <label htmlFor="email" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                      Email Address
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={(e) => handleFieldChange("email", e.target.value)}
+                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors font-serif bg-background ${
+                        errors.email ? "border-destructive focus:border-destructive" : ""
+                      }`}
+                      required
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-2">
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+                </div>
 
-            <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium">
-                Your message
-              </label>
-              <Textarea
-                id="message"
-                placeholder="Tell me about your project..."
-                rows={6}
-                value={formData.message}
-                onChange={(e) => handleFieldChange("message", e.target.value)}
-                className={`hover:border-primary/50 focus:border-primary transition-colors ${
-                  errors.message ? "border-destructive focus:border-destructive" : ""
-                }`}
-                required
-              />
-              {errors.message && (
-                <p className="text-sm text-destructive flex items-center gap-1">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  {errors.message}
+                {/* Services - full width */}
+                <div className="space-y-6">
+                  <label className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                    Services You're Interested In
+                  </label>
+                  <div className="grid md:grid-cols-2 gap-4 p-8 border-2 border-foreground/20 rounded-lg bg-background">
+                    {services.map((service) => (
+                      <div key={service} className="flex items-center space-x-4">
+                        <Checkbox
+                          id={service}
+                          checked={formData.services.includes(service)}
+                          onCheckedChange={() => handleServiceToggle(service)}
+                          className="w-6 h-6 border-2 border-foreground/40 dark:border-foreground/60 dark:bg-background"
+                        />
+                        <label htmlFor={service} className="text-lg md:text-xl cursor-pointer font-medium text-foreground">
+                          {service}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Message - full width with drop cap style */}
+                <div className="space-y-6">
+                  <label htmlFor="message" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                    Your Message
+                  </label>
+                  <div className="relative">
+                    <Textarea
+                      id="message"
+                      placeholder="Tell me about your project, your vision, and what transformation you're seeking..."
+                      rows={10}
+                      value={formData.message}
+                      onChange={(e) => handleFieldChange("message", e.target.value)}
+                      className={`text-xl md:text-2xl py-6 px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors font-serif leading-relaxed resize-none bg-background ${
+                        errors.message ? "border-destructive focus:border-destructive" : ""
+                      }`}
+                      required
+                    />
+                  </div>
+                  {errors.message && (
+                    <p className="text-sm text-destructive flex items-center gap-1 mt-2">
+                      <AlertCircle className="w-4 h-4" />
+                      {errors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit button - right aligned */}
+                <div className="pt-6 border-t-2 border-foreground/20 flex justify-end">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 hover:shadow-xl transition-all duration-300 text-xl md:text-2xl px-10 py-7 font-black uppercase tracking-wider"
+                  >
+                    <Send className="w-6 h-6 mr-3" />
+                    Send Message
+                  </Button>
+                </div>
+              </form>
+            </Card>
+          </div>
+
+          {/* Sidebar column - narrower, magazine style */}
+          <div className="md:col-span-4 space-y-8">
+            {/* Transparency notice - pull quote style */}
+            <div className="p-8 bg-primary/10 border-l-4 border-primary/50 rounded-r-lg">
+              <div className="flex items-start gap-4">
+                <AlertCircle className="w-7 h-7 text-primary mt-1 flex-shrink-0" />
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  For transparency: This form will open your default email client. Your information is never stored on this
+                  website and is sent directly through your email provider.
                 </p>
-              )}
-            </div>
-            <Button
-              type="submit"
-              size="lg"
-              className="w-full md:w-auto bg-foreground text-background hover:bg-foreground/90 hover:scale-105 hover:shadow-lg transition-all duration-300"
-            >
-              <Send className="w-4 h-4 mr-2" />
-              Send message
-            </Button>
-          </form>
-
-          <div className="mt-12 pt-8 border-t">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <Mail className="w-5 h-5" />
-                <a href="mailto:hello@yourname.com" className="hover:text-primary transition-colors">
-                  hello@yourname.com
-                </a>
               </div>
-              <div className="flex items-center gap-4">
-                {socialLinks.map((social, index) => {
-                  const IconComponent = social.icon
-                  return (
-                    <a
-                      key={index}
-                      href={social.href}
-                      aria-label={social.label}
-                      className="w-10 h-10 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground hover:scale-110 hover:shadow-md transition-all duration-300 flex items-center justify-center"
-                    >
-                      <IconComponent className="w-5 h-5" />
-                    </a>
-                  )
-                })}
+            </div>
+
+            {/* Pull quote */}
+            <div className="p-8 bg-muted/30 rounded-lg">
+              <p className="text-2xl md:text-3xl font-bold text-foreground leading-tight italic mb-4">
+                "I price the transformation. Selective for high-impact."
+              </p>
+            </div>
+
+            {/* Contact info */}
+            <div className="p-8 bg-muted/30 rounded-lg">
+              <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-6">DIRECT CONTACT</span>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <Mail className="w-6 h-6 text-foreground" />
+                  <a href="mailto:hello@yourname.com" className="text-xl font-semibold text-foreground hover:text-primary transition-colors">
+                    hello@yourname.com
+                  </a>
+                </div>
+                <div className="pt-6 border-t border-foreground/20">
+                  <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-4">SOCIAL</span>
+                  <div className="flex items-center gap-3">
+                    {socialLinks.map((social, index) => {
+                      const IconComponent = social.icon
+                      return (
+                        <a
+                          key={index}
+                          href={social.href}
+                          aria-label={social.label}
+                          className="w-12 h-12 rounded-full bg-background hover:bg-foreground hover:text-background hover:scale-110 hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+                        >
+                          <IconComponent className="w-6 h-6" />
+                        </a>
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   )

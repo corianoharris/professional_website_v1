@@ -108,13 +108,9 @@ export function EngagementSection() {
       >
         <defs>
           <linearGradient id="engagementGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#engagementGradientTop)" stroke="none" />
@@ -156,67 +152,82 @@ export function EngagementSection() {
           {visibleEvents.map((event, index) => (
             <div
               key={index}
-              className="relative p-6 rounded-xl bg-background border border-border hover:shadow-lg transition-all duration-300 group overflow-hidden"
+              className="relative rounded-xl bg-card overflow-hidden hover:shadow-xl transition-all duration-300 group"
             >
-              {/* Top wave pattern for card */}
-              <svg 
-                className="absolute top-0 left-0 w-full" 
-                viewBox="0 0 1200 60" 
-                preserveAspectRatio="none"
-                style={{ height: "60px" }}
-                stroke="none"
-              >
-                <defs>
-                  <linearGradient id={`engagementCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FF6B6B" />
-                    <stop offset="16.67%" stopColor="#4ECDC4" />
-                    <stop offset="33.33%" stopColor="#45B7D1" />
-                    <stop offset="50%" stopColor="#96CEB4" />
-                    <stop offset="66.67%" stopColor="#FFEEAD" />
-                    <stop offset="83.33%" stopColor="#D4A5A5" />
-                    <stop offset="100%" stopColor="#9B59B6" />
-                  </linearGradient>
-                </defs>
-                <path 
-                  d="M0,40 Q300,20 600,40 T1200,40 L1200,0 L0,0 Z" 
-                  fill={`url(#engagementCardGradient${index})`}
+              {/* Top wave pattern with gradient */}
+              <div className="relative h-14 overflow-hidden">
+                <svg 
+                  className="absolute top-0 left-0 w-full" 
+                  viewBox="0 0 1200 60" 
+                  preserveAspectRatio="none"
+                  style={{ height: "60px" }}
                   stroke="none"
-                />
-              </svg>
-
-              <div className="flex items-start justify-between mb-4 relative z-10 pt-4">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`${getCategoryColor(event.category)} px-3 py-1 rounded-full text-xs text-white font-medium`}
-                  >
-                    {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                  </span>
-                  <span className="px-3 py-1 rounded-full text-xs bg-muted text-muted-foreground font-medium">
-                    {event.type}
-                  </span>
+                >
+                  <defs>
+                    <linearGradient id={`engagementCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#1e40af" />
+                      <stop offset="50%" stopColor="#7c3aed" />
+                      <stop offset="100%" stopColor="#14b8a6" />
+                    </linearGradient>
+                  </defs>
+                  <path 
+                    d="M0,30 Q300,5 600,30 T1200,30 L1200,0 L0,0 Z" 
+                    fill={`url(#engagementCardGradient${index})`}
+                    stroke="none"
+                  />
+                </svg>
+                
+                {/* Tags overlay on gradient */}
+                <div className="absolute top-2 left-4 right-4 z-10 flex items-start justify-between">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span
+                      className={`${getCategoryColor(event.category)} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider shadow-lg`}
+                    >
+                      {event.category}
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs bg-background/90 text-foreground font-medium backdrop-blur-sm">
+                      {event.type}
+                    </span>
+                  </div>
+                  {event.status === "upcoming" && (
+                    <span className="px-2 py-1 rounded-full text-xs bg-green-500 text-white font-bold uppercase tracking-wider shadow-lg">
+                      Upcoming
+                    </span>
+                  )}
                 </div>
-                {event.status === "upcoming" && (
-                  <span className="px-2 py-1 rounded-full text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 font-medium">
-                    Upcoming
-                  </span>
-                )}
               </div>
+              
+              {/* Content area */}
+              <div className="p-5 md:p-6">
+                {/* Magazine-style label */}
+                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-3">
+                  EVENT {String(index + 1).padStart(2, '0')}
+                </span>
+                
+                {/* Headline - magazine style */}
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-primary transition-colors">
+                  {event.title}
+                </h3>
+                
+                {/* Body text - editorial style */}
+                <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-serif mb-5">
+                  {event.description}
+                </p>
 
-              <h3 className="font-bold text-xl md:text-2xl mb-3 group-hover:text-primary transition-colors relative z-10 leading-tight">{event.title}</h3>
-              <p className="text-base md:text-lg text-muted-foreground mb-4 relative z-10 leading-relaxed">{event.description}</p>
-
-              <div className="space-y-2 text-sm text-muted-foreground relative z-10">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>{event.dateFormatted}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  <span>{event.location}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  <span>{event.attendees} attendees</span>
+                {/* Metadata - magazine style */}
+                <div className="space-y-2 pt-4 border-t border-foreground/10">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Calendar className="w-4 h-4" />
+                    <span className="font-medium">{event.dateFormatted}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <MapPin className="w-4 h-4" />
+                    <span className="font-medium">{event.location}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Users className="w-4 h-4" />
+                    <span className="font-medium">{event.attendees} attendees</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -258,13 +269,9 @@ export function EngagementSection() {
       >
         <defs>
           <linearGradient id="engagementGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B6B" />
-            <stop offset="16.67%" stopColor="#4ECDC4" />
-            <stop offset="33.33%" stopColor="#45B7D1" />
-            <stop offset="50%" stopColor="#96CEB4" />
-            <stop offset="66.67%" stopColor="#FFEEAD" />
-            <stop offset="83.33%" stopColor="#D4A5A5" />
-            <stop offset="100%" stopColor="#9B59B6" />
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#engagementGradientBottom)" stroke="none" />

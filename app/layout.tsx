@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter, Baloo_2 } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ScrollAnimations } from "@/components/scroll-animations"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -51,7 +52,10 @@ export default function RootLayout({
           animation: "funGradient 15s ease infinite",
         }}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ScrollAnimations />
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

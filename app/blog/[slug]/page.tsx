@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { AccessibilityControls } from "@/components/accessibility-controls"
 import { BlogShare } from "@/components/blog-share"
+import { BlogPageWrapper } from "@/components/blog-page-wrapper"
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -65,9 +66,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   })
 
   return (
-    <div className="min-h-screen w-full relative">
-      {/* Gradient background - always visible */}
-      <div className="fixed inset-0 -z-10" />
+    <BlogPageWrapper>
+      <div className="min-h-screen w-full relative">
+        {/* Gradient background - always visible */}
+        <div className="fixed inset-0 -z-10" />
 
       {/* Hero Section */}
       <div className="relative pt-32 pb-16 px-4 md:px-6">
@@ -240,5 +242,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Accessibility Controls */}
       <AccessibilityControls />
     </div>
+    </BlogPageWrapper>
   )
 }
