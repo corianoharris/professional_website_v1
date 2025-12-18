@@ -20,20 +20,27 @@ export function HeroWithContent() {
               className="w-full h-full object-cover transform -skew-y-3 scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-              <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/70 font-semibold block mb-4">FEATURED STORY</span>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-balance leading-[0.85] max-w-5xl mb-6">
-                Vulnerability is the birthplace of trust.
-              </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl mt-8 opacity-95 max-w-3xl text-balance font-medium leading-relaxed">
-                In a world of ordinary products, be remarkable—boldly distinctive and impossible to ignore.
-              </p>
+            <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-center justify-center text-white px-6 md:pl-16 md:pr-12 lg:pl-20 lg:pr-16 pt-12 md:pt-16 pb-32 z-10 gap-8 md:gap-12">
+              {/* Left side - Headline */}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2">
+                <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80 font-semibold block mb-3 md:mb-4">FEATURED STORY</span>
+                <h1 className="text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-tight text-balance leading-[1] max-w-5xl">
+                  Vulnerability is the birthplace of trust.
+                </h1>
+              </div>
+              
+              {/* Right side - Subtitle */}
+              <div className="flex flex-col items-center md:items-end justify-center text-center md:text-right">
+                <p className="text-lg md:text-xl lg:text-2xl opacity-95 max-w-2xl text-balance font-serif leading-snug">
+                  <span className="text-4xl md:text-5xl lg:text-6xl font-black leading-none text-white">I</span>n a world of ordinary products, be remarkable—boldly distinctive and impossible to ignore.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="relative px-4 md:px-6 -mt-[15vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32">
+      <div className="relative px-4 md:px-6 -mt-[10vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32">
         <div className="w-full max-w-6xl mx-auto bg-background rounded-2xl shadow-2xl overflow-visible md:overflow-hidden relative">
           <svg className="w-full relative z-30" viewBox="0 0 1200 80" preserveAspectRatio="none" style={{ height: "80px" }} stroke="none">
             <defs>
