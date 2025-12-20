@@ -2,6 +2,8 @@
 import { useState } from "react"
 import { Calendar, MapPin, Users, Filter } from "lucide-react"
 import { Button } from "./ui/button"
+import { AudioPlayer } from "./audio-player"
+import { ReadMoreText } from "./read-more-text"
 
 export function EngagementSection() {
   const [selectedFilter, setSelectedFilter] = useState<string>("all")
@@ -18,47 +20,47 @@ export function EngagementSection() {
 
   const events = [
     {
-      title: "Color Psychology in Modern Interfaces",
-      type: "Virtual",
-      category: "color",
-      date: "2025-01-15",
-      dateFormatted: "Jan 15, 2025",
-      location: "Virtual",
-      attendees: "50+",
-      description: "Deep dive into applying color psychology principles to digital product design",
-      status: "upcoming",
-    },
-    {
-      title: "Building Accessible Design Systems",
-      type: "Conference",
-      category: "design",
-      date: "2025-02-20",
-      dateFormatted: "Feb 20, 2025",
-      location: "SF",
-      attendees: "200+",
-      description: "How to create inclusive design systems that prioritize accessibility and color contrast",
-      status: "upcoming",
-    },
-    {
-      title: "User Research for Color Decisions",
-      type: "Virtual",
-      category: "research",
-      date: "2025-03-10",
-      dateFormatted: "Mar 10, 2025",
-      location: "Virtual",
-      attendees: "100+",
-      description: "Evidence-based approaches to validating color choices with users",
-      status: "upcoming",
-    },
-    {
-      title: "React Color Systems Workshop",
+      title: "Web Working the System",
       type: "Workshop",
       category: "development",
-      date: "2025-04-05",
-      dateFormatted: "Apr 5, 2025",
-      location: "NYC",
-      attendees: "30",
-      description: "Building dynamic theming systems with React and CSS-in-JS",
+      date: "2026-02-01",
+      dateFormatted: "Feb 2026",
+      location: "Memphis, TN",
+      attendees: "25",
+      description: "A deep dive into web workers—exploring how to leverage web workers for better performance and user experience in modern web applications.",
+      status: "upcoming",
+    },
+    {
+      title: "UX/UI Bytes",
+      type: "Virtual",
+      category: "design",
+      date: "2024-01-01",
+      dateFormatted: "Every 4th Friday",
+      location: "Virtual",
+      attendees: "Ongoing",
+      description: "UX/UI depth and conversation, and QA with Code Connector. A recurring virtual event for design discussions and community engagement.",
+      status: "upcoming",
+    },
+    {
+      title: "Hue Got This! Using Coloristic to Drive Action in UI Designs and Interfaces",
+      type: "Conference",
+      category: "color",
+      date: "2025-05-02",
+      dateFormatted: "May 2-4, 2025",
+      location: "Buffalo, NY",
+      attendees: "58",
+      description: "Color isn't just about aesthetics—it's a powerful tool for guiding user behavior and driving action. An engaging and interactive session exploring how color psychology influences decision-making.",
+      status: "upcoming",
+    },
+    {
+      title: "Keynote Speaker & UX/UI Workshop",
+      type: "Conference",
+      category: "design",
+      date: "2025-05-07",
+      dateFormatted: "May 7-9, 2025",
+      location: "Memphis, TN",
+      attendees: "76",
+      description: "Keynote speaker and UX/UI workshop at hackMemphis, sharing insights on design thinking and user experience.",
       status: "upcoming",
     },
   ]
@@ -97,7 +99,7 @@ export function EngagementSection() {
   }
 
   return (
-    <div id="engagement" className="px-8 md:px-16 py-12 md:py-16 border-b relative">
+    <section id="engagement" className="px-8 md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="engagement-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -105,6 +107,7 @@ export function EngagementSection() {
         preserveAspectRatio="none"
         style={{ height: "80px" }}
         stroke="none"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="engagementGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -119,7 +122,7 @@ export function EngagementSection() {
       <div className="relative max-w-6xl mx-auto z-10 pt-4">
         <div className="mb-12 -mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EVENTS</span>
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
+          <h2 id="engagement-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
             Speaking & Workshops
           </h2>
         </div>
@@ -127,8 +130,19 @@ export function EngagementSection() {
           Sharing vulnerability and ideas on stages:
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          <Filter className="w-5 h-5 text-muted-foreground self-center mr-2" />
+        {/* Featured Audio Talk */}
+        <div className="mb-12 max-w-4xl mx-auto">
+          <AudioPlayer
+            title="Never Be a Spectator"
+            description="A conversation about user experience strategy, the intersection of design and development, and how learning to accept failure led to success. Featured on The Code to Life podcast."
+            date="May 1, 2020"
+            location="The Code to Life Podcast"
+            url="https://www.iheart.com/podcast/269-the-code-to-life-62799139/episode/coriano-harris-never-be-a-spectator-62810785/"
+          />
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-2 mb-8" role="group" aria-label="Filter events by category">
+          <Filter className="w-5 h-5 text-muted-foreground self-center mr-2" aria-hidden="true" />
           {filters.map((filter) => (
             <Button
               key={filter.id}
@@ -136,7 +150,16 @@ export function EngagementSection() {
                 setSelectedFilter(filter.id)
                 setVisibleCount(4)
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  setSelectedFilter(filter.id)
+                  setVisibleCount(4)
+                }
+              }}
               variant={selectedFilter === filter.id ? "default" : "outline"}
+              aria-pressed={selectedFilter === filter.id}
+              aria-label={`Filter by ${filter.label}`}
               className={
                 selectedFilter === filter.id
                   ? "bg-foreground text-background hover:bg-foreground/90"
@@ -148,11 +171,14 @@ export function EngagementSection() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* 2x2 Grid Layout - Equal sized cards */}
+        <div className={`grid gap-6 max-w-6xl mx-auto ${visibleEvents.length === 1 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>
           {visibleEvents.map((event, index) => (
             <div
               key={index}
-              className="relative rounded-xl bg-card overflow-hidden hover:shadow-xl transition-all duration-300 group"
+              className={`relative rounded-xl bg-card overflow-hidden hover:shadow-xl transition-all duration-300 group ${
+                event.status === "upcoming" ? "border-4 border-[#7c3aed] shadow-lg" : "border-2 border-foreground/10"
+              }`}
             >
               {/* Top wave pattern with gradient */}
               <div className="relative h-14 overflow-hidden">
@@ -162,6 +188,7 @@ export function EngagementSection() {
                   preserveAspectRatio="none"
                   style={{ height: "60px" }}
                   stroke="none"
+                  aria-hidden="true"
                 >
                   <defs>
                     <linearGradient id={`engagementCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -209,23 +236,27 @@ export function EngagementSection() {
                   {event.title}
                 </h3>
                 
-                {/* Body text - editorial style */}
-                <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-serif mb-5">
-                  {event.description}
-                </p>
+                {/* Body text - editorial style with read more/less on mobile */}
+                <div className="mb-5">
+                  <ReadMoreText 
+                    text={event.description}
+                    maxLength={150}
+                    mobileOnly={true}
+                  />
+                </div>
 
                 {/* Metadata - magazine style */}
                 <div className="space-y-2 pt-4 border-t border-foreground/10">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4" />
+                    <Calendar className="w-4 h-4" aria-hidden="true" />
                     <span className="font-medium">{event.dateFormatted}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4" />
+                    <MapPin className="w-4 h-4" aria-hidden="true" />
                     <span className="font-medium">{event.location}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="w-4 h-4" />
+                    <Users className="w-4 h-4" aria-hidden="true" />
                     <span className="font-medium">{event.attendees} attendees</span>
                   </div>
                 </div>
@@ -266,6 +297,7 @@ export function EngagementSection() {
         preserveAspectRatio="none"
         style={{ height: "60px" }}
         stroke="none"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="engagementGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -276,6 +308,6 @@ export function EngagementSection() {
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#engagementGradientBottom)" stroke="none" />
       </svg>
-    </div>
+    </section>
   )
 }

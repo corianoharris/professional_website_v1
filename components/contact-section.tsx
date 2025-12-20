@@ -6,8 +6,19 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Mail, Send, Twitter, Linkedin, AlertCircle } from "lucide-react"
-import { useState } from "react"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { Mail, Send, Twitter, Linkedin, Github, AlertCircle } from "lucide-react"
+import { useState, useMemo } from "react"
+import { Filter } from "bad-words"
+import DOMPurify from "dompurify"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -22,6 +33,16 @@ export function ContactSection() {
     email: "",
     message: "",
   })
+
+  const [showBadWordsModal, setShowBadWordsModal] = useState(false)
+
+  // Initialize bad words filter
+  const filter = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return new Filter()
+    }
+    return null
+  }, [])
 
   const services = [
     "Color Strategy",
@@ -43,6 +64,13 @@ export function ContactSection() {
     }))
   }
 
+  // Character limits
+  const limits = {
+    name: { min: 2, max: 50 },
+    email: { min: 5, max: 100 },
+    message: { min: 10, max: 1000 },
+  }
+
   const validateForm = () => {
     const newErrors = {
       name: "",
@@ -54,13 +82,22 @@ export function ContactSection() {
     if (!formData.name.trim()) {
       newErrors.name = "Name is required"
       isValid = false
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = "Name must be at least 2 characters"
+    } else if (formData.name.trim().length < limits.name.min) {
+      newErrors.name = `Name must be at least ${limits.name.min} characters`
+      isValid = false
+    } else if (formData.name.trim().length > limits.name.max) {
+      newErrors.name = `Name must be no more than ${limits.name.max} characters`
       isValid = false
     }
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required"
+      isValid = false
+    } else if (formData.email.trim().length < limits.email.min) {
+      newErrors.email = `Email must be at least ${limits.email.min} characters`
+      isValid = false
+    } else if (formData.email.trim().length > limits.email.max) {
+      newErrors.email = `Email must be no more than ${limits.email.max} characters`
       isValid = false
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address"
@@ -70,12 +107,27 @@ export function ContactSection() {
     if (!formData.message.trim()) {
       newErrors.message = "Message is required"
       isValid = false
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters"
+    } else if (formData.message.trim().length < limits.message.min) {
+      newErrors.message = `Message must be at least ${limits.message.min} characters`
+      isValid = false
+    } else if (formData.message.trim().length > limits.message.max) {
+      newErrors.message = `Message must be no more than ${limits.message.max} characters`
       isValid = false
     }
 
     setErrors(newErrors)
+    
+    // Scroll to first error if validation fails
+    if (!isValid) {
+      setTimeout(() => {
+        const firstErrorField = document.querySelector('[id="name"], [id="email"], [id="message"]')
+        if (firstErrorField) {
+          firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          firstErrorField.focus()
+        }
+      }, 100)
+    }
+    
     return isValid
   }
 
@@ -86,29 +138,77 @@ export function ContactSection() {
       return
     }
 
+    // Sanitize all inputs with DOMPurify to prevent XSS attacks
+    const sanitizedName = DOMPurify.sanitize(formData.name, { ALLOWED_TAGS: [] })
+    const sanitizedEmail = DOMPurify.sanitize(formData.email, { ALLOWED_TAGS: [] })
+    const sanitizedMessage = DOMPurify.sanitize(formData.message, { ALLOWED_TAGS: [] })
+
+    // Check for bad words using the bad-words library
+    if (filter) {
+      if (filter.isProfane(sanitizedName) || filter.isProfane(sanitizedEmail) || filter.isProfane(sanitizedMessage)) {
+        setShowBadWordsModal(true)
+        return
+      }
+    }
+
     const subject = encodeURIComponent(`Inquiry about ${formData.services.join(", ") || "your services"}`)
     const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nServices Interested In: ${formData.services.join(", ")}\n\nMessage:\n${formData.message}`,
+      `Name: ${sanitizedName}\nEmail: ${sanitizedEmail}\n\nServices Interested In: ${formData.services.join(", ")}\n\nMessage:\n${sanitizedMessage}`,
     )
-    window.location.href = `mailto:hello@yourname.com?subject=${subject}&body=${body}`
+    window.location.href = `mailto:me@corianoharris.com?subject=${subject}&body=${body}`
   }
 
   const handleFieldChange = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value })
+    // Enforce max length limits
+    const limits = {
+      name: 50,
+      email: 100,
+      message: 1000,
+    }
+    
+    const maxLength = limits[field as keyof typeof limits]
+    const truncatedValue = maxLength ? value.slice(0, maxLength) : value
+    
+    // Sanitize input as user types to prevent XSS
+    const sanitizedValue = typeof window !== "undefined" 
+      ? DOMPurify.sanitize(truncatedValue, { ALLOWED_TAGS: [] })
+      : truncatedValue
+    setFormData({ ...formData, [field]: sanitizedValue })
     if (errors[field as keyof typeof errors]) {
       setErrors({ ...errors, [field]: "" })
     }
   }
 
   const socialLinks = [
-    { icon: Send, href: "#", label: "Telegram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@yourname.com", label: "Email" },
+    { icon: Twitter, href: "#", label: "Twitter", hidden: true },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/corianoharris/", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:me@corianoharris.com", label: "Email" },
+    { icon: Github, href: "https://github.com/corianoharris", label: "GitHub" },
   ]
 
   return (
-    <div id="contact" className="px-8 md:px-16 py-12 md:py-16 relative">
+    <>
+      <AlertDialog open={showBadWordsModal} onOpenChange={setShowBadWordsModal}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertCircle className="w-5 h-5" />
+              Inappropriate Content Detected
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
+              Your message contains inappropriate language or content that violates my site. 
+              Please revise your message to remove any offensive content before submitting.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setShowBadWordsModal(false)}>
+              I Understand
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <section id="contact" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="contact-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -130,7 +230,7 @@ export function ContactSection() {
       <div className="max-w-5xl mx-auto relative z-10 pt-4">
         <div className="mb-12 -mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">CONNECT</span>
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">Dare Greatly Together</h2>
+          <h2 id="contact-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">Dare Greatly Together</h2>
         </div>
         <div className="grid md:grid-cols-12 gap-8 md:gap-12 mb-12">
           <div className="md:col-span-7">
@@ -160,50 +260,84 @@ export function ContactSection() {
                 </h3>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-12">
+              <form id="contact-form" onSubmit={handleSubmit} className="space-y-12">
                 {/* Name and Email - stacked */}
                 <div className="flex flex-col gap-8">
                   <div className="space-y-4">
-                    <label htmlFor="name" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
-                      Your Name
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="name" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                        Your Name
+                      </label>
+                      <span className={`text-xs ${
+                        formData.name.length < limits.name.min || formData.name.length > limits.name.max
+                          ? 'text-orange-500' 
+                          : 'text-muted-foreground'
+                      }`}>
+                        {formData.name.length} / {limits.name.min} characters minimum
+                      </span>
+                    </div>
                     <Input
                       id="name"
                       placeholder="John Doe"
                       value={formData.name}
                       onChange={(e) => handleFieldChange("name", e.target.value)}
-                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors font-serif bg-background ${
-                        errors.name ? "border-destructive focus:border-destructive" : ""
+                      aria-describedby={errors.name ? "name-error" : "name-hint"}
+                      aria-invalid={!!errors.name}
+                      aria-required="true"
+                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors bg-background ${
+                        errors.name ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
-                      required
+                      style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
                     />
+                    <span id="name-hint" className="sr-only">
+                      Name must be between {limits.name.min} and {limits.name.max} characters
+                    </span>
                     {errors.name && (
-                      <p className="text-sm text-destructive flex items-center gap-1 mt-2">
-                        <AlertCircle className="w-4 h-4" />
-                        {errors.name}
-                      </p>
+                      <div id="name-error" className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 rounded-r" role="alert" aria-live="polite">
+                        <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold">
+                          <AlertCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                          {errors.name}
+                        </p>
+                      </div>
                     )}
                   </div>
                   <div className="space-y-4">
-                    <label htmlFor="email" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
-                      Email Address
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="email" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                        Email Address
+                      </label>
+                      <span className={`text-xs ${
+                        formData.email.length < limits.email.min || formData.email.length > limits.email.max
+                          ? 'text-orange-500' 
+                          : 'text-muted-foreground'
+                      }`}>
+                        {formData.email.length} / {limits.email.min} characters minimum
+                      </span>
+                    </div>
                     <Input
                       id="email"
                       type="email"
                       placeholder="john@example.com"
                       value={formData.email}
                       onChange={(e) => handleFieldChange("email", e.target.value)}
-                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors font-serif bg-background ${
-                        errors.email ? "border-destructive focus:border-destructive" : ""
+                      aria-describedby={errors.email ? "email-error" : "email-hint"}
+                      aria-invalid={!!errors.email}
+                      aria-required="true"
+                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors bg-background ${
+                        errors.email ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
-                      required
+                      style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
                     />
+                    <span id="email-hint" className="sr-only">
+                      Email must be between {limits.email.min} and {limits.email.max} characters and be a valid email address
+                    </span>
                     {errors.email && (
-                      <p className="text-sm text-destructive flex items-center gap-1 mt-2">
-                        <AlertCircle className="w-4 h-4" />
-                        {errors.email}
-                      </p>
+                      <div id="email-error" className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 rounded-r" role="alert" aria-live="polite">
+                        <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold">
+                          <AlertCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                          {errors.email}
+                        </p>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -232,9 +366,18 @@ export function ContactSection() {
 
                 {/* Message - full width with drop cap style */}
                 <div className="space-y-6">
-                  <label htmlFor="message" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
-                    Your Message
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="message" className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
+                      Your Message
+                    </label>
+                    <span className={`text-xs ${
+                      formData.message.length < limits.message.min || formData.message.length > limits.message.max
+                        ? 'text-orange-500' 
+                        : 'text-muted-foreground'
+                    }`}>
+                      {formData.message.length} / {limits.message.min} characters minimum
+                    </span>
+                  </div>
                   <div className="relative">
                     <Textarea
                       id="message"
@@ -242,17 +385,25 @@ export function ContactSection() {
                       rows={10}
                       value={formData.message}
                       onChange={(e) => handleFieldChange("message", e.target.value)}
-                      className={`text-xl md:text-2xl py-6 px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors font-serif leading-relaxed resize-none bg-background ${
-                        errors.message ? "border-destructive focus:border-destructive" : ""
+                      aria-describedby={errors.message ? "message-error" : "message-hint"}
+                      aria-invalid={!!errors.message}
+                      aria-required="true"
+                      className={`text-xl md:text-2xl py-6 px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors leading-relaxed resize-none bg-background ${
+                        errors.message ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
-                      required
+                      style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
                     />
+                    <span id="message-hint" className="sr-only">
+                      Message must be between {limits.message.min} and {limits.message.max} characters
+                    </span>
                   </div>
                   {errors.message && (
-                    <p className="text-sm text-destructive flex items-center gap-1 mt-2">
-                      <AlertCircle className="w-4 h-4" />
-                      {errors.message}
-                    </p>
+                    <div id="message-error" className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 rounded-r" role="alert" aria-live="polite">
+                      <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold">
+                        <AlertCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                        {errors.message}
+                      </p>
+                    </div>
                   )}
                 </div>
 
@@ -278,8 +429,9 @@ export function ContactSection() {
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-7 h-7 text-primary mt-1 flex-shrink-0" />
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  For transparency: This form will open your default email client. Your information is never stored on this
-                  website and is sent directly through your email provider.
+                  For your convenience: This form will automatically populate your email information, so you don't have to retype it in your email provider. It will open your default email client, and your information is never stored on this website — it's securely sent directly through your email provider.
+                  <br /><br />
+                  If you'd prefer, you can also contact me directly via email: <a href="mailto:me@corianoharris.com" className="text-primary hover:underline font-semibold">me@corianoharris.com</a>.
                 </p>
               </div>
             </div>
@@ -297,26 +449,32 @@ export function ContactSection() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <Mail className="w-6 h-6 text-foreground" />
-                  <a href="mailto:hello@yourname.com" className="text-xl font-semibold text-foreground hover:text-primary transition-colors">
-                    hello@yourname.com
+                  <a href="mailto:me@corianoharris.com" className="text-xl font-semibold text-foreground hover:text-primary transition-colors">
+                    me@corianoharris.com
                   </a>
                 </div>
                 <div className="pt-6 border-t border-foreground/20">
                   <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-4">SOCIAL</span>
-                  <div className="flex items-center gap-3">
-                    {socialLinks.map((social, index) => {
-                      const IconComponent = social.icon
-                      return (
-                        <a
-                          key={index}
-                          href={social.href}
-                          aria-label={social.label}
-                          className="w-12 h-12 rounded-full bg-background hover:bg-foreground hover:text-background hover:scale-110 hover:shadow-lg transition-all duration-300 flex items-center justify-center"
-                        >
-                          <IconComponent className="w-6 h-6" />
-                        </a>
-                      )
-                    })}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-semibold text-foreground">Connect with me</h4>
+                    <div className="flex items-center gap-3">
+                      {socialLinks.map((social, index) => {
+                        const IconComponent = social.icon
+                        if (social.hidden) {
+                          return null
+                        }
+                        return (
+                          <a
+                            key={index}
+                            href={social.href}
+                            aria-label={social.label}
+                            className="w-12 h-12 rounded-full bg-background hover:bg-foreground hover:text-background hover:scale-110 hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+                          >
+                            <IconComponent className="w-6 h-6" />
+                          </a>
+                        )
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -324,6 +482,26 @@ export function ContactSection() {
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Bottom wave pattern */}
+      <svg
+        className="absolute bottom-0 left-0 w-full"
+        viewBox="0 0 1200 60"
+        preserveAspectRatio="none"
+        style={{ height: "60px" }}
+        stroke="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="contactGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1e40af" />
+            <stop offset="50%" stopColor="#7c3aed" />
+            <stop offset="100%" stopColor="#14b8a6" />
+          </linearGradient>
+        </defs>
+        <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#contactGradientBottom)" stroke="none" />
+      </svg>
+    </section>
+    </>
   )
 }

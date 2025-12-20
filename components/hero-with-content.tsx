@@ -3,8 +3,10 @@
 import { AboutSection } from "@/components/about-section"
 import { ExpertiseSection } from "@/components/expertise-section"
 import { ServicesSection } from "@/components/services-section"
+import { LeadershipSection } from "@/components/leadership-section"
 import { PortfolioSection } from "@/components/portfolio-section"
 import { EngagementSection } from "@/components/engagement-section"
+import { PressSection } from "@/components/press-section"
 import { BlogSection } from "@/components/blog-section"
 import { ContactSection } from "@/components/contact-section"
 
@@ -16,8 +18,9 @@ export function HeroWithContent() {
           <div className="absolute inset-0 z-0">
             <img
               src="/images/background-site-image.jpg"
-              alt=""
+              alt="Abstract colorful background"
               className="w-full h-full object-cover transform -skew-y-3 scale-110"
+              aria-hidden="true"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
             <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-center justify-center text-white px-6 md:pl-16 md:pr-12 lg:pl-20 lg:pr-16 pt-12 md:pt-16 pb-32 z-10 gap-8 md:gap-12">
@@ -31,7 +34,7 @@ export function HeroWithContent() {
               
               {/* Right side - Subtitle */}
               <div className="flex flex-col items-center md:items-end justify-center text-center md:text-right">
-                <p className="text-lg md:text-xl lg:text-2xl opacity-95 max-w-2xl text-balance font-serif leading-snug">
+                <p className="text-lg md:text-xl lg:text-2xl opacity-95 max-w-2xl text-balance leading-snug" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                   <span className="text-4xl md:text-5xl lg:text-6xl font-black leading-none text-white">I</span>n a world of ordinary products, be remarkable—boldly distinctive and impossible to ignore.
                 </p>
               </div>
@@ -42,7 +45,7 @@ export function HeroWithContent() {
 
       <div className="relative px-4 md:px-6 -mt-[10vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32">
         <div className="w-full max-w-6xl mx-auto bg-background rounded-2xl shadow-2xl overflow-visible md:overflow-hidden relative">
-          <svg className="w-full relative z-30" viewBox="0 0 1200 80" preserveAspectRatio="none" style={{ height: "80px" }} stroke="none">
+          <svg className="w-full relative z-30" viewBox="0 0 1200 80" preserveAspectRatio="none" style={{ height: "80px", animation: "none", transition: "none", transform: "none" }} stroke="none" aria-hidden="true">
             <defs>
               <linearGradient id="heroGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#1e40af" />
@@ -63,8 +66,8 @@ export function HeroWithContent() {
             <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start relative">
               <div className="md:col-span-7 space-y-6 relative z-20">
                 <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-balance leading-[1.1]">
-                  <span className="text-6xl md:text-7xl lg:text-8xl font-bold leading-none float-left mr-3 mt-1 text-foreground">T</span>
-                  o help brave teams create remarkable products worth millions more—building instant trust, deep belonging, and viral word-of-mouth through courageous color as the spark of human connection.
+                  <span className="text-6xl md:text-7xl lg:text-8xl font-bold leading-none float-left mr-3 mt-1 text-foreground [text-shadow:_3px_3px_8px_rgba(255,255,255,0.9),_-1px_-1px_2px_rgba(0,0,0,0.3)] dark:[text-shadow:_3px_3px_12px_rgba(0,0,0,0.95),_-1px_-1px_3px_rgba(255,255,255,0.3)]">T</span>
+                  <span className="text-foreground [text-shadow:_2px_2px_6px_rgba(255,255,255,0.9),_-1px_-1px_2px_rgba(0,0,0,0.2)] dark:[text-shadow:_2px_2px_8px_rgba(0,0,0,0.9),_-1px_-1px_2px_rgba(255,255,255,0.2)]">o help brave teams create remarkable products worth millions more—building instant trust, deep belonging, and viral word-of-mouth through courageous color as the spark of human connection.</span>
                 </h1>
               </div>
               <div className="md:col-span-5 flex justify-center md:justify-end md:absolute md:right-0 md:top-0 md:bottom-0 md:h-full md:w-auto md:-mr-16 relative z-0">
@@ -75,7 +78,7 @@ export function HeroWithContent() {
                   }}
                 >
                   <img 
-                    src="/professional-portrait.png" 
+                    src="/images/my-image.jpg" 
                     alt="Profile" 
                     className="w-full h-full object-cover"
                     style={{ 
@@ -89,8 +92,9 @@ export function HeroWithContent() {
               className="absolute bottom-0 left-0 w-full"
               viewBox="0 0 1200 60"
               preserveAspectRatio="none"
-              style={{ height: "60px" }}
+              style={{ height: "60px", animation: "none", transition: "none", transform: "none" }}
               stroke="none"
+              aria-hidden="true"
             >
               <defs>
                 <linearGradient id="heroGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -106,8 +110,10 @@ export function HeroWithContent() {
           <AboutSection />
           <ExpertiseSection />
           <ServicesSection />
+          <LeadershipSection />
           <PortfolioSection />
           <EngagementSection />
+          <PressSection />
           <BlogSection />
           <ContactSection />
         </div>

@@ -17,8 +17,8 @@ export const blogPosts: BlogPost[] = [
     title: "The Hidden Cost of Generic Blue",
     excerpt: "How hiding kills trust and growth.",
     image: "/colorful-abstract-branding.jpg",
-    date: "January 10, 2025",
-    author: "Your Name",
+    date: "March 15, 2025",
+    author: "Coriano Harris",
     tags: ["Color Strategy", "Trust", "Differentiation"],
     content: `
 # The Hidden Cost of Generic Blue
@@ -48,8 +48,8 @@ The hidden cost of generic blue isn't just lost revenue—it's lost opportunity 
     title: "Color as Courageous Remarkability",
     excerpt: "Dare to stand out boldly—own belonging and memory through remarkable distinction.",
     image: "/technology-color-interface.jpg",
-    date: "January 15, 2025",
-    author: "Your Name",
+    date: "June 22, 2025",
+    author: "Coriano Harris",
     tags: ["Remarkability", "Differentiation", "Standout"],
     content: `
 # Color as Courageous Remarkability
@@ -82,9 +82,9 @@ Dare to be boldly distinctive. Your market is waiting.
     slug: "accessibility-as-vulnerable-inclusion",
     title: "Accessibility as Vulnerable Inclusion",
     excerpt: "The remarkable edge of true connection.",
-    image: "/accessibility-design-interface.jpg",
-    date: "January 20, 2025",
-    author: "Your Name",
+    image: "/accessibility.png",
+    date: "September 8, 2025",
+    author: "Coriano Harris",
     tags: ["Accessibility", "Inclusion", "Connection"],
     content: `
 # Accessibility as Vulnerable Inclusion

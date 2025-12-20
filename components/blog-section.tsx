@@ -5,10 +5,13 @@ import { getAllBlogPosts } from "@/lib/blog-data"
 
 export function BlogSection() {
   const posts = getAllBlogPosts()
-  const [firstPost, ...remainingPosts] = posts
+  // Show exactly 3 posts: 1 featured (large) + 2 smaller
+  // The "rule of 3" creates visual balance, prevents overwhelm, and maintains focus on quality over quantity
+  const displayedPosts = posts.slice(0, 3)
+  const [firstPost, ...remainingPosts] = displayedPosts
 
   return (
-    <div id="blog" className="px-8 md:px-16 py-12 md:py-16 relative">
+    <section id="blog" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="blog-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -16,6 +19,7 @@ export function BlogSection() {
         preserveAspectRatio="none"
         style={{ height: "80px" }}
         stroke="none"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="blogGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -31,17 +35,17 @@ export function BlogSection() {
         <div className="relative max-w-6xl mx-auto mb-12">
           <div className="mb-12 -mt-8">
             <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EDITORIAL</span>
-            <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
+            <h2 id="blog-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
               Ideas Worth Feeling & Spreading
             </h2>
           </div>
         </div>
 
         {/* Desktop: Two-column layout, Mobile: Single column */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className={`grid gap-6 max-w-6xl mx-auto ${remainingPosts.length === 0 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>
           {/* Left Column: Large Featured Card */}
           {firstPost && (
-            <Link href={`/blog/${firstPost.slug}`} className="md:row-span-2">
+            <Link href={`/blog/${firstPost.slug}`} className={`${remainingPosts.length === 0 ? '' : 'md:row-span-2'} focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl`}>
               <div className="group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
                 <div className="relative w-full h-64 md:h-[400px] overflow-hidden">
                   <img
@@ -63,7 +67,7 @@ export function BlogSection() {
           {/* Right Column: Smaller Cards */}
           <div className="flex flex-col gap-6">
             {remainingPosts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`}>
+              <Link key={post.id} href={`/blog/${post.slug}`} className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl">
                 <div className="group cursor-pointer bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
                   <div className="relative w-full h-48 overflow-hidden">
                     <img
@@ -84,9 +88,9 @@ export function BlogSection() {
           </div>
         </div>
 
-        <p className="text-center text-xl md:text-2xl font-semibold text-muted-foreground mt-16 italic">
+        {/* <p className="text-center text-xl md:text-2xl font-semibold text-muted-foreground mt-16 italic">
           More soon. Subscribe to dare greatly together.
-        </p>
+        </p> */}
       </div>
 
       {/* Bottom wave pattern */}
@@ -96,6 +100,7 @@ export function BlogSection() {
         preserveAspectRatio="none"
         style={{ height: "60px" }}
         stroke="none"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="blogGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -106,6 +111,6 @@ export function BlogSection() {
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#blogGradientBottom)" stroke="none" />
       </svg>
-    </div>
+    </section>
   )
 }
