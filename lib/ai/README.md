@@ -6,7 +6,14 @@ This guide will help you set up the AI chat feature trained on your resume, Link
 
 The AI chat uses **RAG (Retrieval Augmented Generation)** with Hugging Face models:
 - **Embeddings**: `sentence-transformers/all-MiniLM-L6-v2` (for finding relevant content)
-- **Chat Model**: `mistralai/Mistral-7B-Instruct-v0.2` (for generating responses)
+- **Chat Model**: `meta-llama/Llama-3.1-8B-Instruct` (for generating responses)
+  
+  You can customize the model by setting `HUGGINGFACE_CHAT_MODEL` in your `.env.local` file.
+  
+  Alternative models that work well:
+  - `mistralai/Mistral-7B-Instruct-v0.3` - Newer Mistral model
+  - `meta-llama/Llama-3.1-8B-Instruct` - Good free tier support
+  - `HuggingFaceH4/zephyr-7b-beta` - Requires Inference Endpoint deployment
 
 ## Step 1: Get Hugging Face API Key
 
@@ -23,9 +30,15 @@ The AI chat uses **RAG (Retrieval Augmented Generation)** with Hugging Face mode
    cp .env.example .env.local
    ```
 
-2. Add your Hugging Face API key:
-   ```
+2. Add your Hugging Face API key to `.env.local`:
+   ```env
    HUGGINGFACE_API_KEY=hf_your_token_here
+   
+   # Optional: Customize the chat model (default: meta-llama/Llama-3.1-8B-Instruct)
+   # HUGGINGFACE_CHAT_MODEL=mistralai/Mistral-7B-Instruct-v0.3
+   
+   # Optional: Use a deployed Inference Endpoint instead of model name
+   # HUGGINGFACE_INFERENCE_ENDPOINT=https://your-endpoint-url-here
    ```
 
 ## Step 3: Add Your Brand Data

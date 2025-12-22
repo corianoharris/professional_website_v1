@@ -4,8 +4,11 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
-import { MessageCircle, X, Send, Loader2, ExternalLink } from "lucide-react"
+import { X, Send, Loader2, RefreshCw, Smile } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAIChat } from "@/components/ai-chat-context"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import ReactMarkdown from "react-markdown"
 
 interface Message {
   role: 'user' | 'assistant'
@@ -19,12 +22,36 @@ interface Message {
 }
 
 export function AIChat() {
-  const [isOpen, setIsOpen] = useState(false)
+  const { isOpen, setIsOpen } = useAIChat()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Common emojis for quick selection
+  const commonEmojis = [
+    '😊', '😄', '😁', '😆', '😅', '😂', '🤣', '😃', 
+    '😉', '😎', '🥳', '😍', '🤩', '😋', '😜', '🤪', 
+    '😝', '🤑', '🤗', '🤭', '🤫', '🤔', '🤐', '🤨', 
+    '😐', '😑', '😶', '😏', '😒', '🙄', '😬', '🤥', 
+    '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕', 
+    '🤢', '🤮', '🤧', '🥵', '🥶', '😵', '🤯', '🤠', 
+    '😇', '🤓', '🧐', '👍', '👎', '👌', '✌️', '🤞', 
+    '🤟', '🤘', '🤙', '👏', '🙌', '👐', '🤲', '🤝', 
+    '🙏', '✍️', '💪', '👀', '❤️', '🧡', '💛', '💚', 
+    '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️', '💕', 
+    '💞', '💓', '💗', '💖', '💘', '💝', '💟', '🔥', 
+    '⭐', '✨', '🎉', '🎊', '🎈', '🎁', '🏆', '🥇', 
+    '✅', '❌', '⚠️', '💡', '🚀', '💯', '🎯', '⚡'
+  ]
+
+  const insertEmoji = (emoji: string) => {
+    setInput(prev => prev + emoji)
+    setEmojiPickerOpen(false)
+    inputRef.current?.focus()
+  }
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -37,6 +64,28 @@ export function AIChat() {
       setTimeout(() => inputRef.current?.focus(), 100)
     }
   }, [isOpen])
+
+  // Close on Escape key and prevent body scroll when open
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false)
+      }
+    }
+    
+    if (isOpen) {
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', handleEscape)
+    } else {
+      document.body.style.overflow = ''
+    }
+    
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = ''
+    }
+  }, [isOpen, setIsOpen])
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return
@@ -63,7 +112,9 @@ export function AIChat() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to get response')
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
+        console.error('API error response:', errorData)
+        throw new Error(errorData.error || errorData.details || `Failed to get response (${response.status})`)
       }
 
       const data = await response.json()
@@ -92,61 +143,80 @@ export function AIChat() {
       e.preventDefault()
       handleSend()
     }
-    if (e.key === 'Escape' && isOpen) {
-      setIsOpen(false)
-    }
   }
+
+  // Don't render if not open
+  if (!isOpen) return null
 
   return (
     <>
-      {/* Chat Button */}
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        size="lg"
-        className={cn(
-          "fixed bottom-24 right-4 z-50 w-14 h-14 rounded-full shadow-2xl bg-primary hover:bg-primary/90 group relative ring-2 ring-primary/20 transition-all duration-300",
-          isOpen && "bg-primary/80"
-        )}
-        aria-label="Open AI chat assistant"
-        aria-expanded={isOpen}
-      >
-        <MessageCircle className={cn(
-          "w-6 h-6 transition-transform duration-300",
-          isOpen && "rotate-180"
-        )} />
-        <span className="absolute right-full mr-3 bg-foreground text-background px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          Ask me anything
-        </span>
-      </Button>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] animate-in fade-in-0"
+        onClick={(e) => {
+          // Only close if clicking directly on backdrop, not modal content
+          if (e.target === e.currentTarget) {
+            setIsOpen(false)
+          }
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Chat Window */}
-      {isOpen && (
-        <Card className="fixed bottom-32 right-4 z-50 w-[90vw] max-w-md h-[600px] flex flex-col shadow-2xl border-2">
+      {/* Centered Modal */}
+      <div
+        className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
+        role="dialog"
+        aria-modal="true"
+        aria-describedby="ai-chat-description"
+      >
+        <Card className="w-full max-w-md md:max-w-2xl h-[600px] flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-visible">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b bg-muted/30">
-            <div>
-              <h3 className="font-bold text-lg">Ask Coriano's AI</h3>
-              <p className="text-xs text-muted-foreground">
-                Trained on resume, talks & brand
-              </p>
+          <div className="flex items-center justify-between p-4 border-b bg-background">
+            <div className="flex items-center gap-3 flex-1">
+              <div className="flex-1 min-w-0">
+                <p id="ai-chat-description" className="text-xs text-muted-foreground">
+                  • We're online
+                </p>
+              </div>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(false)}
-              aria-label="Close chat"
-            >
-              <X className="w-4 h-4" />
-            </Button>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  setMessages([])
+                  setInput("")
+                }}
+                aria-label="Refresh chat"
+                className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              >
+                <RefreshCw className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                aria-label="Close chat"
+                className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background">
             {messages.length === 0 && (
-              <div className="text-center text-muted-foreground py-8">
-                <p className="font-semibold mb-2">Hi! I'm Coriano's AI assistant.</p>
+              <div className="text-center text-muted-foreground py-8 px-4">
+                <img 
+                  src="/chroma_avatar.png" 
+                  alt="Chroma" 
+                  className="w-24 h-24 rounded-full mx-auto mb-4"
+                  aria-hidden="true"
+                />
+                <p className="font-semibold mb-2">Hi! I'm Chroma.</p>
                 <p className="text-sm">
-                  Ask me about services, case studies, methodology, or philosophy.
+                  Ask me about services, case studies, methodology, philosophy, or general questions about colors, design, UX, UI, and software development.
                 </p>
                 <div className="mt-4 space-y-2 text-left">
                   <p className="text-xs font-medium">Try asking:</p>
@@ -154,6 +224,8 @@ export function AIChat() {
                     <li>• "Tell me about your color strategy approach"</li>
                     <li>• "What case studies do you have?"</li>
                     <li>• "How do you help teams?"</li>
+                    <li>• "What is color psychology?"</li>
+                    <li>• "How do I improve UX?"</li>
                   </ul>
                 </div>
               </div>
@@ -163,40 +235,60 @@ export function AIChat() {
               <div
                 key={index}
                 className={cn(
-                  "flex",
-                  message.role === 'user' ? "justify-end" : "justify-start"
+                  "flex items-start gap-2",
+                  message.role === 'user' ? "justify-end pr-4" : "justify-start pl-2"
                 )}
               >
+                {message.role === 'assistant' && (
+                  <img 
+                    src="/chroma_avatar.png" 
+                    alt="Chroma" 
+                    className="w-8 h-8 rounded-full flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                )}
                 <div
                   className={cn(
-                    "max-w-[80%] rounded-lg px-4 py-2",
+                    "rounded-lg px-4 py-2.5 shadow-md",
                     message.role === 'user'
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground"
+                      ? "bg-[#7c3aed] text-white max-w-[90%] ml-auto -mr-3"
+                      : "bg-muted text-foreground max-w-[85%] -ml-3"
                   )}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  
-                  {/* Sources */}
-                  {message.sources && message.sources.length > 0 && (
-                    <div className="mt-2 pt-2 border-t border-foreground/10">
-                      <p className="text-xs font-medium mb-1">Sources:</p>
-                      <div className="space-y-1">
-                        {message.sources.map((source, idx) => (
-                          <div key={idx} className="text-xs flex items-center gap-1">
-                            <ExternalLink className="w-3 h-3" />
-                            <span>{source.title}</span>
-                          </div>
-                        ))}
-                      </div>
+                  {message.role === 'assistant' ? (
+                    <div className="text-sm prose prose-sm max-w-none dark:prose-invert">
+                      <ReactMarkdown
+                        components={{
+                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                          ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                          ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                          li: ({ children }) => <li className="ml-2">{children}</li>,
+                          strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                          em: ({ children }) => <em className="italic">{children}</em>,
+                          code: ({ children }) => <code className="bg-background/50 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                          h1: ({ children }) => <h1 className="text-lg font-bold mb-2 mt-3 first:mt-0">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-base font-bold mb-2 mt-3 first:mt-0">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-sm font-bold mb-1 mt-2 first:mt-0">{children}</h3>,
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
                     </div>
+                  ) : (
+                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                   )}
                 </div>
               </div>
             ))}
 
             {isLoading && (
-              <div className="flex justify-start">
+              <div className="flex items-start gap-2 justify-start pl-2">
+                <img 
+                  src="/chroma_avatar.png" 
+                  alt="Chroma" 
+                  className="w-8 h-8 rounded-full flex-shrink-0"
+                  aria-hidden="true"
+                />
                 <div className="bg-muted rounded-lg px-4 py-2">
                   <Loader2 className="w-4 h-4 animate-spin" />
                 </div>
@@ -207,14 +299,50 @@ export function AIChat() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t">
-            <div className="flex gap-2">
+          <div className="p-4 border-t bg-background">
+            <div className="flex items-center gap-2">
+              <Popover open={emojiPickerOpen} onOpenChange={setEmojiPickerOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 flex-shrink-0"
+                    aria-label="Emoji"
+                    onClick={() => setEmojiPickerOpen(!emojiPickerOpen)}
+                  >
+                    <Smile className="w-4 h-4 text-muted-foreground" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent 
+                  className="w-80 p-3 z-[200] bg-background border shadow-lg" 
+                  align="start" 
+                  side="top"
+                  sideOffset={8}
+                  onOpenAutoFocus={(e) => e.preventDefault()}
+                >
+                  <div className="grid grid-cols-8 gap-1 max-h-64 overflow-y-auto">
+                    {commonEmojis.map((emoji, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => insertEmoji(emoji)}
+                        className="text-2xl hover:bg-muted rounded p-1.5 transition-colors cursor-pointer flex items-center justify-center aspect-square min-w-[2.5rem] min-h-[2.5rem]"
+                        aria-label={`Insert ${emoji} emoji`}
+                        title={emoji}
+                      >
+                        {emoji}
+                      </button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about services, case studies..."
+                placeholder="Enter message"
                 disabled={isLoading}
                 className="flex-1"
                 aria-label="Chat input"
@@ -223,6 +351,8 @@ export function AIChat() {
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
                 size="icon"
+                variant="ghost"
+                className="h-8 w-8 flex-shrink-0 text-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#7c3aed]/10"
                 aria-label="Send message"
               >
                 {isLoading ? (
@@ -232,12 +362,9 @@ export function AIChat() {
                 )}
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              Powered by Hugging Face • Trained on your brand data
-            </p>
           </div>
         </Card>
-      )}
+      </div>
     </>
   )
 }

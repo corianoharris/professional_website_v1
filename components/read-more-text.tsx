@@ -8,13 +8,15 @@ interface ReadMoreTextProps {
   maxLength?: number
   className?: string
   mobileOnly?: boolean
+  textClassName?: string
 }
 
 export function ReadMoreText({ 
   text, 
   maxLength = 150, 
   className = "",
-  mobileOnly = true 
+  mobileOnly = true,
+  textClassName = ""
 }: ReadMoreTextProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [needsTruncation, setNeedsTruncation] = useState(false)
@@ -48,12 +50,14 @@ export function ReadMoreText({
     ? text.slice(0, maxLength) + "..."
     : text
 
+  const hasSerifFont = textClassName.includes('font-serif')
+  
   return (
     <div className={className}>
       <p 
         ref={textRef}
-        className="text-base md:text-lg leading-relaxed text-muted-foreground" 
-        style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
+        className={`text-base md:text-lg leading-relaxed text-muted-foreground ${textClassName}`}
+        style={hasSerifFont ? {} : { fontFamily: 'var(--font-baloo2), sans-serif' }}
       >
         {displayText}
       </p>

@@ -3,12 +3,32 @@
  * Uses Hugging Face models for embeddings and generation
  */
 
+import { HfInference } from '@huggingface/inference'
 import { allBrandKnowledge, type BrandKnowledge } from './brand-knowledge'
 
 // Hugging Face API configuration
 const HF_API_KEY = process.env.HUGGINGFACE_API_KEY || ''
-const HF_EMBEDDINGS_API = 'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2'
-const HF_CHAT_API = 'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2'
+const HF_CHAT_MODEL = process.env.HUGGINGFACE_CHAT_MODEL || 'meta-llama/Llama-3.1-8B-Instruct'
+const HF_INFERENCE_ENDPOINT = process.env.HUGGINGFACE_INFERENCE_ENDPOINT || undefined
+
+// Check if API key is available
+if (!HF_API_KEY) {
+  console.warn('HUGGINGFACE_API_KEY is not set in environment variables')
+} else {
+  // Log first 10 chars for debugging (without exposing full key)
+  console.log('HUGGINGFACE_API_KEY found:', HF_API_KEY.substring(0, 10) + '...' + (HF_API_KEY.length > 10 ? ` (length: ${HF_API_KEY.length})` : ''))
+  if (!HF_API_KEY.startsWith('hf_')) {
+    console.warn('Warning: Hugging Face API key should start with "hf_"')
+  }
+}
+
+// Initialize Hugging Face Inference client
+// The client automatically uses the correct endpoint (router.huggingface.co)
+const hf = HF_API_KEY ? new HfInference(HF_API_KEY) : null
+
+if (!hf) {
+  console.warn('HfInference client not initialized - HUGGINGFACE_API_KEY is missing')
+}
 
 interface EmbeddingCache {
   [key: string]: number[]
@@ -26,27 +46,26 @@ async function generateEmbedding(text: string): Promise<number[]> {
     return embeddingCache[text]
   }
 
+  if (!hf) {
+    throw new Error('Hugging Face API key is not configured')
+  }
+
   try {
-    const response = await fetch(HF_EMBEDDINGS_API, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${HF_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputs: text,
-        options: { wait_for_model: true }
-      }),
+    const result = await hf.featureExtraction({
+      model: 'sentence-transformers/all-MiniLM-L6-v2',
+      inputs: text,
     })
-
-    if (!response.ok) {
-      throw new Error(`HF API error: ${response.statusText}`)
-    }
-
-    const embedding = await response.json()
     
-    // Handle array response
-    const embeddingArray = Array.isArray(embedding) ? embedding[0] : embedding
+    // featureExtraction returns number[] for single input
+    const embeddingArray = Array.isArray(result) && typeof result[0] === 'number'
+      ? result as number[]
+      : Array.isArray(result) && Array.isArray(result[0])
+      ? (result as number[][])[0] // Handle batch response
+      : []
+    
+    if (embeddingArray.length === 0) {
+      throw new Error('Invalid embedding response format')
+    }
     
     // Cache the embedding
     embeddingCache[text] = embeddingArray
@@ -54,6 +73,10 @@ async function generateEmbedding(text: string): Promise<number[]> {
     return embeddingArray
   } catch (error) {
     console.error('Error generating embedding:', error)
+    if (error instanceof Error) {
+      console.error('Error message:', error.message)
+      console.error('Error stack:', error.stack)
+    }
     throw error
   }
 }
@@ -112,62 +135,127 @@ export async function generateResponse(
     .map(k => `[${k.metadata.title || k.source}]\n${k.content}`)
     .join('\n\n---\n\n')
 
-  const systemPrompt = `You are Coriano's AI assistant—embodying vulnerability, authenticity, and human connection. You help brave teams understand how color and UX can drive measurable business results.
+  // Get current date for context
+  const currentDate = new Date().toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  })
+
+  const systemPrompt = `You are Chroma, Coriano's AI assistant—embodying vulnerability, authenticity, and human connection. You help brave teams understand how color, UX, product strategy, web strategy, design technology, and full-stack development can drive measurable business results.
+
+Current date: ${currentDate}
+Model: meta-llama/Llama-3.1-8B-Instruct (knowledge cutoff: April 2024)
+
+Coriano's expertise includes:
+- Product Strategy & Web Strategy
+- Color Strategy & Psychology
+- Product Design & UX Research
+- UI Design & Design Systems
+- Front-End Development (Full-Stack)
+- Design Technology & Tools (Figma, Design Systems)
+- Technology Integration
+- Brand Identity
+
+Your capabilities:
+- Answer general questions about colors, color psychology, color theory, and color strategy
+- Provide insights on design principles, design systems, and design best practices
+- Discuss UX research, user experience design, and usability principles
+- Share knowledge about UI design, interface design, and visual design
+- Answer questions about software development, front-end development, full-stack development, and web technologies
+- When relevant, connect general knowledge to Coriano's specific work, case studies, and philosophy
+- For questions about Coriano specifically, use the provided context
 
 Your personality:
 - Be conversational, insightful, and always point to real outcomes
 - Start with WHY, not features
 - Use Coriano's voice: "vulnerability creates trust," "color is the brave first whisper"
 - Be helpful but authentic—don't oversell
-- If you don't know something, admit it and suggest contacting Coriano directly
+- Share general knowledge confidently while staying true to Coriano's values
+- If you don't know something specific about Coriano, admit it and suggest contacting Coriano directly
 
-Use the following context to answer questions about Coriano's work, services, and philosophy:`
+Use the following context to answer questions about Coriano's work, services, expertise, and philosophy. For general questions about colors, design, UX, UI, or software development, use your knowledge while maintaining Coriano's authentic voice:`
 
-  const prompt = `${systemPrompt}
+  if (!hf) {
+    throw new Error('Hugging Face API key is not configured. Please set HUGGINGFACE_API_KEY in your .env.local file and restart the server.')
+  }
 
-${contextText}
-
-User question: ${query}
-
-Answer the question using the context above. Be concise, authentic, and helpful. If the context doesn't contain enough information, say so and suggest they contact Coriano directly.`
+  // Validate API key format if present
+  if (HF_API_KEY && !HF_API_KEY.startsWith('hf_')) {
+    console.warn('Warning: Hugging Face API key should start with "hf_"')
+  }
 
   try {
-    const response = await fetch(HF_CHAT_API, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${HF_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputs: prompt,
-        parameters: {
-          max_new_tokens: 500,
-          temperature: 0.7,
-          return_full_text: false
-        },
-        options: { wait_for_model: true }
-      }),
-    })
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(`HF API error: ${response.statusText} - ${errorText}`)
-    }
-
-    const data = await response.json()
+    // Use Inference Endpoint URL if provided, otherwise use model name
+    const modelOrEndpoint = HF_INFERENCE_ENDPOINT || HF_CHAT_MODEL
     
-    // Handle different response formats
-    if (Array.isArray(data) && data[0]?.generated_text) {
-      return data[0].generated_text.trim()
-    } else if (data.generated_text) {
-      return data.generated_text.trim()
-    } else if (typeof data === 'string') {
-      return data.trim()
-    } else {
-      throw new Error('Unexpected response format from HF API')
-    }
-  } catch (error) {
+    const result = await hf.chatCompletion({
+      model: modelOrEndpoint,
+      messages: [
+        {
+          role: 'system',
+          content: systemPrompt
+        },
+        {
+          role: 'user',
+          content: `${contextText}\n\nUser question: ${query}\n\nAnswer the question using the context above. Be concise, authentic, and helpful. If the context doesn't contain enough information, say so and suggest they contact Coriano directly.`
+        }
+      ],
+      max_tokens: 500,
+      temperature: 0.7
+    })
+    
+    // Extract generated text from response
+    const generatedText = result.choices?.[0]?.message?.content || ''
+    return generatedText.trim()
+  } catch (error: any) {
     console.error('Error generating response:', error)
+    if (error instanceof Error) {
+      console.error('Error message:', error.message)
+      console.error('Error stack:', error.stack)
+      
+      // Log more details if available
+      if (error.httpRequest) {
+        console.error('HTTP Request details:', JSON.stringify(error.httpRequest, null, 2))
+      }
+      if (error.httpResponse) {
+        console.error('HTTP Response status:', error.httpResponse?.status)
+        console.error('HTTP Response body:', error.httpResponse?.body)
+      }
+      
+      // Provide helpful error messages for common issues
+      if (error.message.includes('Invalid username or password') || error.message.includes('401')) {
+        const errorMsg = 'Hugging Face API authentication failed. Please check that:\n' +
+          '1. HUGGINGFACE_API_KEY is set in your .env.local file\n' +
+          '2. The API key starts with "hf_"\n' +
+          '3. The API key has valid permissions\n' +
+          '4. You have restarted your dev server after adding the key'
+        throw new Error(errorMsg)
+      }
+      
+      // Handle model not supported errors
+      const errorBody = error.httpResponse?.body
+      if (errorBody && typeof errorBody === 'object' && errorBody.error?.code === 'model_not_supported') {
+        const errorMsg = `Model '${errorBody.error?.param || 'current model'}' is not supported by any enabled provider.\n\n` +
+          'Solutions:\n' +
+          '1. Enable a provider that supports this model at: https://hf.co/settings/inference-providers\n' +
+          '2. Deploy the model to your own Inference Endpoint: https://hf.co/docs/api/inference/endpoints\n' +
+          '3. Use a different model that is available through your enabled providers\n' +
+          '4. Check available models: https://huggingface.co/models?pipeline_tag=text-generation'
+        throw new Error(errorMsg)
+      }
+      
+      // Handle HTTP provider errors
+      if (error.message.includes('HTTP error occurred') || error.message.includes('ProviderApiError')) {
+        const statusCode = error.httpResponse?.status || 'unknown'
+        const errorMsg = `Hugging Face provider error (HTTP ${statusCode}). This might mean:\n` +
+          '1. The model is not available through your selected provider\n' +
+          '2. Rate limiting or quota exceeded\n' +
+          '3. The model endpoint might require a different provider\n' +
+          '4. Try specifying a different provider in your HF settings: https://hf.co/settings/inference-providers'
+        throw new Error(errorMsg)
+      }
+    }
     throw error
   }
 }

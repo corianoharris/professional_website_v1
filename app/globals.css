@@ -212,9 +212,31 @@
     }
   }
 
+  /* Editorial Typography System */
+  /* Primary Headers/Titles - Bold, expressive (Baloo 2) */
+  .font-editorial-title {
+    font-family: var(--font-baloo2), sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  /* Sub-headers - Modern, readable (Space Grotesk) */
+  .font-editorial-subheader {
+    font-family: var(--font-space-grotesk), sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* Body content - Editorial serif (Playfair Display) */
+  .font-editorial-body {
+    font-family: var(--font-playfair), 'Georgia', serif;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
   /* Magazine-style typography */
   .font-serif {
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: var(--font-playfair), 'Georgia', 'Times New Roman', serif;
   }
 
   /* Modern magazine-style font for paragraphs */
@@ -232,47 +254,74 @@
   }
 
   /* Section-specific typography classes */
+  /* Editorial Magazine Style: Distinct fonts per section type */
   
-  /* Poster-style typography using Baloo 2 */
-  
-  /* Hero/Introduction Section */
-  .font-hero-title {
+  /* Primary Headers - Bold, expressive (Baloo 2) */
+  .font-hero-title,
+  .font-about-title,
+  .font-expertise-title,
+  .font-services-title,
+  .font-portfolio-title,
+  .font-engagement-title,
+  .font-blog-title,
+  .font-contact-title {
     font-family: var(--font-baloo2), sans-serif;
-    font-size: 4.5rem;
-    line-height: 1;
-    letter-spacing: -0.02em;
     font-weight: 800;
   }
   
-  .font-hero-subtitle {
-    font-family: var(--font-baloo2), sans-serif;
-    font-size: 1.75rem;
-    line-height: 1.3;
+  /* Sub-headers - Modern, readable (Space Grotesk) */
+  .font-hero-subtitle,
+  .font-about-subtitle,
+  .font-expertise-subtitle,
+  .font-services-subtitle,
+  .font-portfolio-subtitle,
+  .font-engagement-subtitle,
+  .font-blog-subtitle,
+  .font-contact-subtitle {
+    font-family: var(--font-space-grotesk), sans-serif;
     font-weight: 600;
   }
   
+  /* Body content - Editorial serif (Playfair Display) */
+  .font-hero-content,
+  .font-about-content,
+  .font-expertise-content,
+  .font-services-content,
+  .font-portfolio-content,
+  .font-engagement-content,
+  .font-blog-content,
+  .font-contact-content {
+    font-family: var(--font-playfair), 'Georgia', serif;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  /* Hero/Introduction Section */
+  .font-hero-title {
+    font-size: 4.5rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  
+  .font-hero-subtitle {
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+  
   .font-hero-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.5rem;
-    line-height: 1.5;
-    font-weight: 500;
   }
 
   /* About Section - "My WHY" */
   .font-about-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 4rem;
     line-height: 1.1;
     letter-spacing: 0.05em;
-    font-weight: 800;
     text-transform: uppercase;
   }
   
   .font-about-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.25rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
   
   .font-about-emphasis {
@@ -284,19 +333,14 @@
 
   /* Expertise Section - "How I Do It" */
   .font-expertise-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 4rem;
     line-height: 1.1;
     letter-spacing: 0.08em;
-    font-weight: 800;
     text-transform: uppercase;
   }
   
   .font-expertise-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.25rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
   
   .font-expertise-emphasis {
@@ -308,18 +352,13 @@
 
   /* Services Section - "What I Deliver" */
   .font-services-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 4.5rem;
     line-height: 1;
     letter-spacing: -0.01em;
-    font-weight: 800;
   }
   
   .font-services-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.25rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
   
   .font-services-emphasis {
@@ -331,18 +370,13 @@
 
   /* Portfolio Section - "Proof That It Works" */
   .font-portfolio-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 4rem;
     line-height: 1.1;
     letter-spacing: 0.05em;
-    font-weight: 800;
   }
   
   .font-portfolio-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.125rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
   
   .font-portfolio-emphasis {
@@ -354,51 +388,36 @@
 
   /* Engagement Section - "Speaking & Workshops" */
   .font-engagement-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 4rem;
     line-height: 1.1;
     letter-spacing: 0.05em;
-    font-weight: 800;
     text-transform: uppercase;
   }
   
   .font-engagement-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.125rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
 
   /* Blog Section - "Ideas Worth Feeling & Spreading" */
   .font-blog-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 4.5rem;
     line-height: 1.1;
     letter-spacing: -0.01em;
-    font-weight: 800;
   }
   
   .font-blog-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.125rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
 
   /* Contact Section - "Dare Greatly Together" */
   .font-contact-title {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 5rem;
     line-height: 1;
     letter-spacing: 0.02em;
-    font-weight: 800;
   }
   
   .font-contact-content {
-    font-family: var(--font-baloo2), sans-serif;
     font-size: 1.25rem;
-    line-height: 1.6;
-    font-weight: 400;
   }
   
   .font-contact-emphasis {
@@ -406,6 +425,27 @@
     font-size: 1.75rem;
     line-height: 1.4;
     font-weight: 700;
+  }
+
+  /* Desktop breakouts - Allow elements to intentionally overflow containers */
+  @media (min-width: 768px) {
+    .editorial-breakout {
+      position: relative;
+      z-index: 10;
+    }
+    
+    .editorial-breakout-left {
+      margin-left: -4rem;
+    }
+    
+    .editorial-breakout-right {
+      margin-right: -4rem;
+    }
+    
+    .editorial-breakout-full {
+      margin-left: -8rem;
+      margin-right: -8rem;
+    }
   }
 }
 
@@ -502,5 +542,51 @@ svg[viewBox*="1200"] stop {
     border-top-right-radius: 50% 50%;
     border-bottom-left-radius: 50% 100%;
     border-bottom-right-radius: 50% 100%;
+  }
+
+  /* Theme-aware diagonal background for introduction section */
+  .diagonal-theme {
+    background: linear-gradient(to bottom right, #000000 0%, #000000 50%, transparent 50%, transparent 100%);
+  }
+
+  .dark .diagonal-theme {
+    background: linear-gradient(to bottom right, oklch(0.98 0.01 120) 0%, oklch(0.98 0.01 120) 50%, transparent 50%, transparent 100%);
+  }
+
+  /* Diagonal triangle background - black in light mode, white in dark mode */
+  .diagonal-triangle {
+    background: linear-gradient(to bottom right, #000 0%, #000 50%, transparent 50%, transparent 100%);
+  }
+
+  .dark .diagonal-triangle {
+    background: linear-gradient(to bottom right, #ffffff 0%, #ffffff 50%, transparent 50%, transparent 100%);
+  }
+
+  /* Diagonal extends on desktop for introduction section */
+  @media (min-width: 768px) {
+    .diagonal-theme {
+      width: calc(100% + 8rem) !important;
+      left: -8rem !important;
+    }
+  }
+
+  /* Theme-aware text color for HUMAN title - using brand purple that works on both backgrounds */
+  .human-title-theme {
+    color: #7c3aed; /* Purple brand color - visible on both black and light backgrounds */
+  }
+
+  .dark .human-title-theme {
+    color: #a78bfa; /* Lighter purple for dark mode - more visible on light diagonal */
+  }
+
+  /* Highlighter effect for impactful words */
+  .highlighter {
+    background: linear-gradient(180deg, transparent 60%, #e9d5ff 60%);
+    padding: 0 2px;
+    display: inline;
+  }
+
+  .dark .highlighter {
+    background: linear-gradient(180deg, transparent 60%, #7c3aed 60%);
   }
 }

@@ -24,10 +24,13 @@ export const brandKnowledgeBase: BrandKnowledge[] = [
     content: `Coriano Harris - Human-Driven Color Product Technologist
 
 Expertise:
+- Product Strategy & Web Strategy
 - Color Strategy & Psychology
-- Product Design & UX
+- Product Design & UX Research
+- UI Design & Design Systems
+- Front-End Development (Full-Stack)
+- Design Technology & Tools (Figma, Design Systems)
 - Technology Integration
-- Design Systems
 - Brand Identity
 
 Key Achievements:
@@ -37,13 +40,19 @@ Key Achievements:
 - Shipped enterprise project in 3 weeks (ended 8-month stall)
 
 Services:
-- Color Strategy
-- Product Design
-- Technology Integration
-- UX Consultation
-- Brand Identity
-- Design Systems
-- Speaking & Workshops
+- Product Strategy: End-to-end product strategy and planning
+- Web Strategy: Comprehensive web strategy and digital presence
+- Color Strategy: Psychology-based color systems that drive measurable results
+- Product Design: Human-centered design that builds trust and belonging
+- UX Research: Evidence-based user experience research and insights
+- UI Design: Intuitive, accessible interface design using Figma and modern design tools
+- Front-End Development: Full-stack development capabilities
+- Design Systems: Scalable, accessible design systems and component libraries
+- Design Technology: Expertise in Figma, design tools, and design tech stack
+- Technology Integration: Implementing color systems and design in modern tech stacks
+- UX Consultation: Evidence-based UX improvements
+- Brand Identity: Remarkable brand differentiation through color and design
+- Speaking & Workshops: Sharing vulnerability and ideas on stages
 
 Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first whisper—evoking calm, understanding, and belonging in 0.05 seconds."`,
     metadata: {
@@ -140,12 +149,18 @@ The result: Conversion rate increased from 2% to 11%, a 340% improvement in stan
 I price the transformation. Selective for high-impact.
 
 Services include:
+- Product Strategy: End-to-end product strategy, roadmapping, and planning
+- Web Strategy: Comprehensive web strategy, digital presence, and online experience optimization
 - Color Strategy: Psychology-based color systems that drive measurable results
 - Product Design: Human-centered design that builds trust and belonging
-- Technology Integration: Implementing color systems in modern tech stacks
-- UX Consultation: Evidence-based UX improvements
-- Brand Identity: Remarkable brand differentiation through color
-- Design Systems: Scalable, accessible design systems
+- UX Research: User research, usability testing, and evidence-based insights
+- UI Design: Intuitive, accessible interface design using Figma and modern design tools
+- Front-End Development: Full-stack development with expertise in modern web technologies
+- Design Systems: Scalable, accessible design systems and component libraries
+- Design Technology: Expertise in Figma, design tools, design tokens, and design tech stack
+- Technology Integration: Implementing color systems and design in modern tech stacks
+- UX Consultation: Evidence-based UX improvements and optimization
+- Brand Identity: Remarkable brand differentiation through color and design
 - Speaking & Workshops: Sharing vulnerability and ideas on stages`,
     metadata: {
       title: 'Services & Deliverables',

@@ -12,8 +12,8 @@ import { ContactSection } from "@/components/contact-section"
 
 export function HeroWithContent() {
   return (
-    <section className="relative mt-7">
-      <div className="px-4 md:px-6 mt-24">
+    <section className="relative mt-7 overflow-x-visible">
+      <div className="px-4 md:px-6 mt-24 overflow-x-visible">
         <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[80vh] max-w-6xl mx-auto">
           <div className="absolute inset-0 z-0">
             <img
@@ -28,14 +28,14 @@ export function HeroWithContent() {
               <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2">
                 <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80 font-semibold block mb-3 md:mb-4">FEATURED STORY</span>
                 <h1 className="text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-tight text-balance leading-[1] max-w-5xl">
-                  Vulnerability is the birthplace of trust.
+                  <span className="highlighter">Vulnerability</span> is the birthplace of trust.
                 </h1>
               </div>
               
               {/* Right side - Subtitle */}
               <div className="flex flex-col items-center md:items-end justify-center text-center md:text-right">
                 <p className="text-lg md:text-xl lg:text-2xl opacity-95 max-w-2xl text-balance leading-snug" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                  <span className="text-4xl md:text-5xl lg:text-6xl font-black leading-none text-white">I</span>n a world of ordinary products, be remarkable—boldly distinctive and impossible to ignore.
+                  <span className="text-4xl md:text-5xl lg:text-6xl font-black leading-none text-white">I</span>n a world of ordinary products, be <span className="highlighter">remarkable</span>—boldly <span className="highlighter">distinctive</span> and impossible to ignore.
                 </p>
               </div>
             </div>
@@ -43,8 +43,8 @@ export function HeroWithContent() {
         </div>
       </div>
 
-      <div className="relative px-4 md:px-6 -mt-[10vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32">
-        <div className="w-full max-w-6xl mx-auto bg-background rounded-2xl shadow-2xl overflow-visible md:overflow-hidden relative">
+      <div className="relative px-4 md:px-6 -mt-[10vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32 overflow-visible">
+        <div className="w-full max-w-6xl mx-auto bg-background rounded-3xl shadow-2xl overflow-visible relative" style={{ overflowX: 'visible' }}>
           <svg className="w-full relative z-30" viewBox="0 0 1200 80" preserveAspectRatio="none" style={{ height: "80px", animation: "none", transition: "none", transform: "none" }} stroke="none" aria-hidden="true">
             <defs>
               <linearGradient id="heroGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -57,36 +57,103 @@ export function HeroWithContent() {
           </svg>
 
           <div className="px-8 md:px-16 py-12 md:py-16 border-b relative overflow-visible">
-            <div className="mb-8">
-              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-3">INTRODUCTION</span>
-              <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-8 leading-tight">
-                Human-Driven Color Product Technologist
-              </p>
+            {/* Label */}
+            <div className="mb-8 -mt-8">
+              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>INTRODUCTION</span>
             </div>
-            <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start relative">
-              <div className="md:col-span-7 space-y-6 relative z-20">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-balance leading-[1.1]">
-                  <span className="text-6xl md:text-7xl lg:text-8xl font-bold leading-none float-left mr-3 mt-1 text-foreground [text-shadow:_3px_3px_8px_rgba(255,255,255,0.9),_-1px_-1px_2px_rgba(0,0,0,0.3)] dark:[text-shadow:_3px_3px_12px_rgba(0,0,0,0.95),_-1px_-1px_3px_rgba(255,255,255,0.3)]">T</span>
-                  <span className="text-foreground [text-shadow:_2px_2px_6px_rgba(255,255,255,0.9),_-1px_-1px_2px_rgba(0,0,0,0.2)] dark:[text-shadow:_2px_2px_8px_rgba(0,0,0,0.9),_-1px_-1px_2px_rgba(255,255,255,0.2)]">o help brave teams create remarkable products worth millions more—building instant trust, deep belonging, and viral word-of-mouth through courageous color as the spark of human connection.</span>
-                </h1>
-              </div>
-              <div className="md:col-span-5 flex justify-center md:justify-end md:absolute md:right-0 md:top-0 md:bottom-0 md:h-full md:w-auto md:-mr-16 relative z-0">
-                <div
-                  className="w-48 h-64 md:w-[500px] md:h-[500px] rounded-2xl md:rounded-none overflow-hidden bg-muted transform rotate-12 md:rotate-0 shadow-xl md:shadow-2xl relative"
-                  style={{ 
-                    perspective: "1000px"
-                  }}
+
+            {/* Magazine-style two-column layout */}
+            <div className="relative grid md:grid-cols-2 gap-0 min-h-[600px] md:min-h-[700px] md:overflow-visible">
+              {/* Large Title - "HUMAN DRIVEN" positioned right side - Partially extends outside parent on desktop */}
+              <div className="absolute top-8 left-0 z-30 md:left-auto md:-right-56 flex items-center gap-4 md:gap-6 flex-wrap md:justify-end" style={{ overflow: 'visible' }}>
+                <h2 
+                  className="text-8xl md:text-9xl lg:text-[12rem] leading-none tracking-tight"
+                  style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 800, color: '#7c3aed' }}
                 >
-                  <img 
-                    src="/images/my-image.jpg" 
-                    alt="Profile" 
-                    className="w-full h-full object-cover"
-                    style={{ 
-                      objectPosition: "50% 20%"
-                    }}
-                  />
+                  HUMAN
+                </h2>
+                <h2 
+                  className="text-8xl md:text-9xl lg:text-[12rem] leading-none tracking-tight hidden md:block"
+                  style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
+                >
+                  DRIVEN
+                </h2>
+              </div>
+
+              {/* Left Column - Image with Diagonal Overlay */}
+              <div className="relative md:col-span-1 overflow-hidden md:overflow-visible">
+                {/* Diagonal Background Element */}
+                <div 
+                  className="absolute inset-0 z-0 diagonal-triangle"
+                  style={{
+                    clipPath: 'polygon(0 0, 100% 0, 60% 100%, 0 100%)'
+                  }}
+                  aria-hidden="true"
+                />
+
+                {/* Image - Overlapping the diagonal */}
+                <div className="relative z-20 mt-32 md:mt-40 ml-8 md:ml-12 mb-8 md:mb-0">
+                  <div className="relative w-full max-w-md md:max-w-xl aspect-[3/4] shadow-2xl">
+                    <img 
+                      src="/images/my-image.jpg" 
+                      alt="Coriano Harris" 
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: "50% 20%" }}
+                    />
+                    {/* Subtle overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
+                  </div>
+                </div>
+
+                {/* Subtitle below image */}
+                {/* <div className="relative z-20 ml-8 md:ml-12 mt-4">
+                  <h3 className="text-2xl md:text-3xl mb-2" style={{ fontFamily: 'var(--font-playfair), serif', fontWeight: 600 }}>
+                    Coriano Harris
+                  </h3>
+                  <div className="w-16 h-1 bg-foreground" />
+                </div> */}
+              </div>
+
+              {/* Right Column - Content */}
+              <div className="relative md:col-span-1 pt-16 md:pt-[23rem] pl-0 md:pl-12 md:overflow-visible z-20">
+                {/* Large Title - "DRIVEN" - Mobile only, desktop positioned in grid container */}
+                <div className="mb-8 md:mb-12 md:hidden">
+                  <h2 
+                    className="text-8xl leading-none tracking-tight text-foreground"
+                    style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
+                  >
+                    DRIVEN
+                  </h2>
+                </div>
+
+                {/* Subtitle */}
+                <div className="mt-8 md:mt-16 mb-8 md:mb-12 text-center md:text-left">
+                  <p 
+                    className="text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground mb-6"
+                    style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 600 }}
+                  >
+                    Color Product Technologist
+                  </p>
+                  <div className="w-24 h-0.5 border-t border-dashed border-foreground/30 mx-auto md:mx-0" />
+                </div>
+
+                {/* Body Content */}
+                <div className="space-y-6 md:space-y-8">
+                  <p 
+                    className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground"
+                    style={{ fontFamily: 'var(--font-playfair), serif' }}
+                  >
+                    <span 
+                      className="text-6xl md:text-7xl lg:text-8xl leading-none float-left mr-3 mt-2 text-foreground"
+                      style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 900 }}
+                    >
+                      T
+                    </span>
+                    o help <span className="highlighter">brave</span> teams create <span className="highlighter">remarkable</span> products worth millions more—building instant <span className="highlighter">trust</span>, deep <span className="highlighter">belonging</span>, and viral word-of-mouth through <span className="highlighter">courageous</span> <span className="highlighter">color</span> as the spark of human <span className="highlighter">connection</span>.
+                  </p>
                 </div>
               </div>
+
             </div>
             <svg
               className="absolute bottom-0 left-0 w-full"

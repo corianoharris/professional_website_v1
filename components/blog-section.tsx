@@ -11,7 +11,7 @@ export function BlogSection() {
   const [firstPost, ...remainingPosts] = displayedPosts
 
   return (
-    <section id="blog" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="blog-heading">
+    <section id="blog" className="px-8 md:px-16 py-12 md:py-16 relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -35,11 +35,12 @@ export function BlogSection() {
         <div className="relative max-w-6xl mx-auto mb-12">
           <div className="mb-12 -mt-8">
             <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EDITORIAL</span>
-            <h2 id="blog-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
-              Ideas Worth Feeling & Spreading
-            </h2>
           </div>
         </div>
+        
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+          Building with stories:
+        </p>
 
         {/* Desktop: Two-column layout, Mobile: Single column */}
         <div className={`grid gap-6 max-w-6xl mx-auto ${remainingPosts.length === 0 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>

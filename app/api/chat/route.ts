@@ -6,7 +6,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ragQuery } from '@/lib/ai/rag-pipeline'
 
-export const runtime = 'edge' // Use Edge Runtime for faster responses
+// Using Node.js runtime for better compatibility with Hugging Face API
+// export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
   try {

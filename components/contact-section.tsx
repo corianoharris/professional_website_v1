@@ -15,7 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Mail, Send, Twitter, Linkedin, Github, AlertCircle } from "lucide-react"
+import { Mail, Send, Twitter, Linkedin, Github, AlertCircle, Quote } from "lucide-react"
 import { useState, useMemo } from "react"
 import { Filter } from "bad-words"
 import DOMPurify from "dompurify"
@@ -208,7 +208,7 @@ export function ContactSection() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <section id="contact" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="contact-heading">
+      <section id="contact" className="px-8 md:px-16 py-12 md:py-16 relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -227,22 +227,42 @@ export function ContactSection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#contactGradientTop)" stroke="none" />
       </svg>
 
-      <div className="max-w-5xl mx-auto relative z-10 pt-4">
+      <div className="max-w-5xl mx-auto relative z-10 pt-4 md:overflow-visible" style={{ overflow: 'visible' }}>
         <div className="mb-12 -mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">CONNECT</span>
-          <h2 id="contact-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">Dare Greatly Together</h2>
         </div>
-        <div className="grid md:grid-cols-12 gap-8 md:gap-12 mb-12">
-          <div className="md:col-span-7">
-            <p className="text-2xl md:text-3xl leading-relaxed text-foreground font-semibold mb-6">
-              If you believe in starting with WHY—building remarkable products through vulnerability, heart, and human feeling—if you're ready to inspire tribes, dominate categories, and unlock millions in value—let's connect.
-            </p>
-          </div>
-          <div className="md:col-span-5">
-            <div className="border-l-4 border-foreground pl-6 py-4 bg-muted/30 rounded-r-lg">
-              <p className="text-xl md:text-2xl font-bold text-foreground leading-tight">
-                I price the transformation. Selective for high-impact.
+        
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+          Let's see solutions together:
+        </p>
+        
+        <div className="mb-12 md:overflow-visible" style={{ overflow: 'visible' }}>
+          <div className="md:overflow-visible" style={{ overflow: 'visible' }}>
+            <div className="pl-8 py-8 md:py-12 relative md:-ml-32 md:pl-32" style={{ overflow: 'visible' }}>
+              {/* Opening Quote Icon - Very Large */}
+              <div className="absolute -top-8 -left-8 md:-top-16 md:-left-32 z-0">
+                <Quote 
+                  className="w-32 h-32 md:w-64 md:h-64 text-foreground/80 md:text-foreground/70 rotate-180" 
+                  aria-hidden="true"
+                  strokeWidth={0}
+                  fill="currentColor"
+                />
+              </div>
+              <p 
+                className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl leading-relaxed text-foreground relative z-10 pl-20 md:pl-32"
+                style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
+              >
+                Starting with <span className="highlighter">WHY</span>. Building <span className="highlighter">remarkable</span> through <span className="highlighter">vulnerability</span> and <span className="highlighter">heart</span>. Let's connect.
               </p>
+              {/* Closing Quote Icon - Very Large */}
+              <div className="absolute -bottom-8 -right-8 md:-bottom-16 md:-right-32 z-0">
+                <Quote 
+                  className="w-32 h-32 md:w-64 md:h-64 text-foreground/80 md:text-foreground/70" 
+                  aria-hidden="true"
+                  strokeWidth={0}
+                  fill="currentColor"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -294,7 +314,7 @@ export function ContactSection() {
                     </span>
                     {errors.name && (
                       <div id="name-error" className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 rounded-r" role="alert" aria-live="polite">
-                        <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold">
+                        <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                           <AlertCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
                           {errors.name}
                         </p>
@@ -333,7 +353,7 @@ export function ContactSection() {
                     </span>
                     {errors.email && (
                       <div id="email-error" className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 rounded-r" role="alert" aria-live="polite">
-                        <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold">
+                        <p className="text-base md:text-lg text-amber-700 dark:text-amber-400 flex items-center gap-2 font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                           <AlertCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
                           {errors.email}
                         </p>
@@ -428,7 +448,7 @@ export function ContactSection() {
             <div className="p-8 bg-primary/10 border-l-4 border-primary/50 rounded-r-lg">
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-7 h-7 text-primary mt-1 flex-shrink-0" />
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                   For your convenience: This form will automatically populate your email information, so you don't have to retype it in your email provider. It will open your default email client, and your information is never stored on this website — it's securely sent directly through your email provider.
                   <br /><br />
                   If you'd prefer, you can also contact me directly via email: <a href="mailto:me@corianoharris.com" className="text-primary hover:underline font-semibold">me@corianoharris.com</a>.
@@ -436,11 +456,32 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* Pull quote */}
-            <div className="p-8 bg-muted/30 rounded-lg">
-              <p className="text-2xl md:text-3xl font-bold text-foreground leading-tight italic mb-4">
-                "I price the transformation. Selective for high-impact."
+            {/* Quote */}
+            <div className="pl-8 py-8 md:py-12 relative" style={{ overflow: 'visible' }}>
+              {/* Opening Quote Icon */}
+              <div className="absolute top-0 left-0 md:top-2 md:left-0 z-0">
+                <Quote 
+                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/80 md:text-foreground/70 rotate-180" 
+                  aria-hidden="true"
+                  strokeWidth={0}
+                  fill="currentColor"
+                />
+              </div>
+              <p 
+                className="text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground relative z-10 pl-8 md:pl-12"
+                style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
+              >
+                I price the <span className="highlighter">transformation</span>. Selective for <span className="highlighter">high-impact</span>.
               </p>
+              {/* Closing Quote Icon */}
+              <div className="absolute bottom-0 right-0 md:bottom-2 md:right-0 z-0">
+                <Quote 
+                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/80 md:text-foreground/70" 
+                  aria-hidden="true"
+                  strokeWidth={0}
+                  fill="currentColor"
+                />
+              </div>
             </div>
 
             {/* Contact info */}

@@ -37,7 +37,7 @@ export function LeadershipSection() {
       location: "Memphis, TN",
       startDate: "2019",
       endDate: "Present",
-      description: "Leading a community of developers, designers, and technologists. Organizing events, workshops, and networking opportunities to foster growth and collaboration in the tech community. Creating spaces for learning, mentorship, and professional development.",
+      description: <>Leading a <span className="highlighter">community</span> of developers, designers, and technologists. Organizing events, workshops, and networking opportunities to foster <span className="highlighter">growth</span> and <span className="highlighter">collaboration</span> in the tech community. Creating spaces for learning, <span className="highlighter">mentorship</span>, and professional development.</>,
       highlights: [
         "Organized community events and workshops",
         "Fostered mentorship and professional development",
@@ -52,7 +52,7 @@ export function LeadershipSection() {
       location: "Memphis, TN",
       startDate: "2024",
       endDate: "Present",
-      description: "Mentoring entrepreneurs in the ImagineU Summer Program. Sharing insights on design thinking, product development, and building remarkable businesses. Empowering the next generation of entrepreneurs with practical knowledge and strategic guidance.",
+      description: <>Mentoring entrepreneurs in the ImagineU Summer Program. Sharing insights on design thinking, product development, and building <span className="highlighter">remarkable</span> businesses. <span className="highlighter">Empowering</span> the next generation of entrepreneurs with practical knowledge and strategic guidance.</>,
       highlights: [
         "Mentored entrepreneurs in ImagineU Summer Program",
         "Shared expertise in design thinking and product development",
@@ -64,7 +64,7 @@ export function LeadershipSection() {
   ]
 
   return (
-    <section id="leadership" className="px-8 md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="leadership-heading">
+    <section id="leadership" className="px-8 md:px-16 py-12 md:py-16 border-b relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -84,105 +84,101 @@ export function LeadershipSection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#leadershipGradientTop)" stroke="none" />
       </svg>
 
-      <div className="relative max-w-6xl mx-auto z-10 pt-4">
+      <div className="relative max-w-6xl mx-auto z-10 pt-4 md:overflow-visible" style={{ overflow: 'visible' }}>
         <div className="mb-12 -mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">LEADERSHIP</span>
-          <h2 id="leadership-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
-            Building Communities
-          </h2>
         </div>
-        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold">
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Leading, mentoring, and empowering others:
         </p>
 
-        {/* 2x2 Grid Layout - Third card spans full width */}
-        <div className={`grid gap-6 max-w-6xl mx-auto ${roles.length === 1 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>
+        {/* Table of Contents Style Layout - No Borders */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto md:overflow-visible" style={{ overflow: 'visible' }}>
           {roles.map((role, index) => {
-            const IconComponent = role.icon
-            const isThirdCard = index === 2
+            const roleNumber = String(index + 1).padStart(2, '0')
+            const isLeftColumn = index % 2 === 0
+            const isThirdItem = index === 2
+            
+            const getCategoryColorHex = (color: string) => {
+              switch (color) {
+                case "bg-purple-500":
+                  return "#a855f7" // purple-500
+                case "bg-blue-500":
+                  return "#3b82f6" // blue-500
+                case "bg-green-500":
+                  return "#22c55e" // green-500
+                default:
+                  return "#6b7280" // gray-500
+              }
+            }
+            
             return (
               <div
                 key={index}
-                className={`relative rounded-xl bg-card overflow-hidden hover:shadow-xl transition-all duration-300 group border-2 border-foreground/10 ${isThirdCard ? 'md:col-span-2' : ''}`}
+                className={`relative flex items-start gap-2 md:gap-3 min-h-[200px] ${isThirdItem ? 'md:col-span-2' : ''} md:overflow-visible`}
+                style={{ overflow: 'visible' }}
               >
-                {/* Top wave pattern with gradient */}
-                <div className="relative h-14 overflow-hidden">
-                  <svg 
-                    className="absolute top-0 left-0 w-full" 
-                    viewBox="0 0 1200 60" 
-                    preserveAspectRatio="none"
-                    style={{ height: "60px" }}
-                    stroke="none"
-                    aria-hidden="true"
+                {/* Large Vertical Number - Rotated Sideways with Color */}
+                <div className={`flex-shrink-0 flex items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
+                  <div 
+                    className="text-8xl md:text-9xl lg:text-[10rem] font-black leading-none"
+                    style={{ 
+                      fontFamily: 'var(--font-baloo2), sans-serif',
+                      fontWeight: 800,
+                      transform: 'rotate(-90deg)',
+                      transformOrigin: 'center',
+                      whiteSpace: 'nowrap',
+                      color: getCategoryColorHex(role.color)
+                    }}
                   >
-                    <defs>
-                      <linearGradient id={`leadershipCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#1e40af" />
-                        <stop offset="50%" stopColor="#7c3aed" />
-                        <stop offset="100%" stopColor="#14b8a6" />
-                      </linearGradient>
-                    </defs>
-                    <path 
-                      d="M0,30 Q300,5 600,30 T1200,30 L1200,0 L0,0 Z" 
-                      fill={`url(#leadershipCardGradient${index})`}
-                      stroke="none"
-                    />
-                  </svg>
-                  
-                  {/* Icon overlay on gradient */}
-                  <div className="absolute top-3 left-4 z-10">
-                    <div className={`${role.color} p-2 rounded-lg flex items-center justify-center shadow-lg`}>
-                      <IconComponent className="w-4 h-4 text-white" />
-                    </div>
+                    {roleNumber}
                   </div>
                 </div>
-                
-                {/* Content area */}
-                <div className="p-5 md:p-6">
-                  {/* Magazine-style label */}
-                  <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-3">
-                    LEADERSHIP {String(index + 1).padStart(2, '0')}
-                  </span>
+
+                {/* Content */}
+                <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
+                  <div className="mb-2">
+                    <span 
+                      className={`${role.color} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider inline-block mb-2`}
+                    >
+                      Leadership
+                    </span>
+                  </div>
                   
-                  {/* Headline - magazine style */}
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-foreground mb-2 leading-[0.95] tracking-tight group-hover:text-primary transition-colors">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 leading-tight">
                     {role.title}
                   </h3>
                   
-                  {/* Organization */}
                   <div className="flex items-center gap-2 mb-3">
                     <Award className="w-4 h-4 text-muted-foreground" />
                     <span className="text-lg font-semibold text-foreground">{role.organization}</span>
                   </div>
                   
-                  {/* Date and Location */}
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
+                  <div className="mb-4">
+                    <p className="text-foreground font-serif text-base md:text-lg leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                      {role.description}
+                    </p>
+                  </div>
+
+                  {/* Metadata */}
+                  <div className="space-y-1 text-sm text-muted-foreground font-serif">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" aria-hidden="true" />
                       <span>
                         {role.startDate} - {role.endDate}
                       </span>
                     </div>
                     {role.location && (
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" aria-hidden="true" />
                         <span>{role.location}</span>
                       </div>
                     )}
                   </div>
                   
-                  {/* Body text - editorial style with read more/less on mobile */}
-                  <div className="mb-4">
-                    <ReadMoreText 
-                      text={role.description}
-                      maxLength={150}
-                      mobileOnly={true}
-                    />
-                  </div>
-                  
                   {/* Highlights */}
                   {role.highlights && role.highlights.length > 0 && (
-                    <div className="pt-4 border-t border-foreground/10">
+                    <div className="pt-4 mt-4 border-t border-foreground/10">
                       <ul className="space-y-2">
                         {role.highlights.map((highlight, idx) => (
                           <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">

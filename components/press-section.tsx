@@ -23,7 +23,7 @@ export function PressSection() {
       publication: "MemphisVoyager",
       date: "2025-03-25",
       url: "https://memphisvoyager.com/interview/conversations-with-coriano-harris",
-      excerpt: "A deep dive into the journey of a Full-Stack Creative Technologist who thrives at the intersection of design, development, and strategy—from tech support to game testing, UX/UI design, and full-stack development.",
+      excerpt: <>A deep dive into the journey of a Full-Stack Creative Technologist who thrives at the intersection of <span className="highlighter">design</span>, <span className="highlighter">development</span>, and <span className="highlighter">strategy</span>—from tech support to game testing, <span className="highlighter">UX/UI design</span>, and full-stack development.</>,
       category: "Design",
     },
     {
@@ -31,7 +31,7 @@ export function PressSection() {
       publication: "Design Week",
       date: "2024-12-15",
       url: "https://example.com/article2",
-      excerpt: "Exploring the psychological impact of color choices in modern web design...",
+      excerpt: <>Exploring the <span className="highlighter">psychological</span> impact of <span className="highlighter">color</span> choices in modern web <span className="highlighter">design</span>...</>,
       category: "Research",
     },
     {
@@ -39,7 +39,7 @@ export function PressSection() {
       publication: "UX Magazine",
       date: "2024-11-20",
       url: "https://example.com/article3",
-      excerpt: "A comprehensive guide to creating inclusive digital experiences...",
+      excerpt: <>A comprehensive guide to creating <span className="highlighter">inclusive</span> <span className="highlighter">digital experiences</span>...</>,
       category: "Accessibility",
     },
   ]
@@ -92,7 +92,7 @@ export function PressSection() {
             Featured In
           </h2>
         </div>
-        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold">
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Articles and features spotlighting my work and ideas:
         </p>
 
@@ -219,7 +219,7 @@ export function PressSection() {
         })()}
 
         {filteredArticles.length === 0 && (
-          <p className="text-center text-muted-foreground py-8 relative z-10">No articles found for this filter.</p>
+          <p className="text-center text-muted-foreground py-8 relative z-10" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>No articles found for this filter.</p>
         )}
       </div>
 
