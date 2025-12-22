@@ -2,6 +2,8 @@
 import { useState } from "react"
 import { Calendar, MapPin, Users, Filter } from "lucide-react"
 import { Button } from "./ui/button"
+import { AudioPlayer } from "./audio-player"
+import { ReadMoreText } from "./read-more-text"
 
 export function EngagementSection() {
   const [selectedFilter, setSelectedFilter] = useState<string>("all")
@@ -18,47 +20,47 @@ export function EngagementSection() {
 
   const events = [
     {
-      title: "Color Psychology in Modern Interfaces",
-      type: "Virtual",
-      category: "color",
-      date: "2025-01-15",
-      dateFormatted: "Jan 15, 2025",
-      location: "Virtual",
-      attendees: "50+",
-      description: "Deep dive into applying color psychology principles to digital product design",
-      status: "upcoming",
-    },
-    {
-      title: "Building Accessible Design Systems",
-      type: "Conference",
-      category: "design",
-      date: "2025-02-20",
-      dateFormatted: "Feb 20, 2025",
-      location: "SF",
-      attendees: "200+",
-      description: "How to create inclusive design systems that prioritize accessibility and color contrast",
-      status: "upcoming",
-    },
-    {
-      title: "User Research for Color Decisions",
-      type: "Virtual",
-      category: "research",
-      date: "2025-03-10",
-      dateFormatted: "Mar 10, 2025",
-      location: "Virtual",
-      attendees: "100+",
-      description: "Evidence-based approaches to validating color choices with users",
-      status: "upcoming",
-    },
-    {
-      title: "React Color Systems Workshop",
+      title: "Web Working the System",
       type: "Workshop",
       category: "development",
-      date: "2025-04-05",
-      dateFormatted: "Apr 5, 2025",
-      location: "NYC",
-      attendees: "30",
-      description: "Building dynamic theming systems with React and CSS-in-JS",
+      date: "2026-02-01",
+      dateFormatted: "Feb 2026",
+      location: "Memphis, TN",
+      attendees: "25",
+      description: <>A deep dive into web workers—exploring how to leverage web workers for better <span className="highlighter">performance</span> and <span className="highlighter">user experience</span> in modern web applications.</>,
+      status: "upcoming",
+    },
+    {
+      title: "UX/UI Bytes",
+      type: "Virtual",
+      category: "design",
+      date: "2024-01-01",
+      dateFormatted: "Every 4th Friday",
+      location: "Virtual",
+      attendees: "Ongoing",
+      description: <>UX/UI depth and conversation, and QA with Code Connector. A recurring virtual event for <span className="highlighter">design</span> discussions and <span className="highlighter">community</span> engagement.</>,
+      status: "upcoming",
+    },
+    {
+      title: "Hue Got This! Using Coloristic to Drive Action in UI Designs and Interfaces",
+      type: "Conference",
+      category: "color",
+      date: "2025-05-02",
+      dateFormatted: "May 2-4, 2025",
+      location: "Buffalo, NY",
+      attendees: "58",
+      description: <><span className="highlighter">Color</span> isn't just about aesthetics—it's a powerful tool for guiding user behavior and driving action. An engaging and interactive session exploring how <span className="highlighter">color psychology</span> influences decision-making.</>,
+      status: "upcoming",
+    },
+    {
+      title: "Keynote Speaker & UX/UI Workshop",
+      type: "Conference",
+      category: "design",
+      date: "2025-05-07",
+      dateFormatted: "May 7-9, 2025",
+      location: "Memphis, TN",
+      attendees: "76",
+      description: <>Keynote speaker and UX/UI workshop at hackMemphis, sharing insights on <span className="highlighter">design thinking</span> and <span className="highlighter">user experience</span>.</>,
       status: "upcoming",
     },
   ]
@@ -96,8 +98,23 @@ export function EngagementSection() {
     }
   }
 
+  const getCategoryColorHex = (category: string) => {
+    switch (category) {
+      case "color":
+        return "#06b6d4" // cyan-500
+      case "research":
+        return "#ec4899" // pink-500
+      case "design":
+        return "#a855f7" // purple-500
+      case "development":
+        return "#f97316" // orange-500
+      default:
+        return "#6b7280" // gray-500
+    }
+  }
+
   return (
-    <div id="engagement" className="px-8 md:px-16 py-12 md:py-16 border-b relative">
+    <section id="engagement" className="px-8 md:px-16 py-12 md:py-16 border-b relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -105,6 +122,7 @@ export function EngagementSection() {
         preserveAspectRatio="none"
         style={{ height: "80px" }}
         stroke="none"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="engagementGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -116,19 +134,27 @@ export function EngagementSection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#engagementGradientTop)" stroke="none" />
       </svg>
 
-      <div className="relative max-w-6xl mx-auto z-10 pt-4">
+      <div className="relative max-w-6xl mx-auto z-10 pt-4 md:overflow-visible" style={{ overflow: 'visible' }}>
         <div className="mb-12 -mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EVENTS</span>
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4">
-            Speaking & Workshops
-          </h2>
         </div>
-        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold">
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Sharing vulnerability and ideas on stages:
         </p>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          <Filter className="w-5 h-5 text-muted-foreground self-center mr-2" />
+        {/* Featured Audio Talk */}
+        <div className="mb-12 max-w-4xl mx-auto">
+          <AudioPlayer
+            title="Never Be a Spectator"
+            description="A conversation about user experience strategy, the intersection of design and development, and how learning to accept failure led to success. Featured on The Code to Life podcast."
+            date="May 1, 2020"
+            location="The Code to Life Podcast"
+            url="https://www.iheart.com/podcast/269-the-code-to-life-62799139/episode/coriano-harris-never-be-a-spectator-62810785/"
+          />
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-2 mb-8" role="group" aria-label="Filter events by category">
+          <Filter className="w-5 h-5 text-muted-foreground self-center mr-2" aria-hidden="true" />
           {filters.map((filter) => (
             <Button
               key={filter.id}
@@ -136,7 +162,16 @@ export function EngagementSection() {
                 setSelectedFilter(filter.id)
                 setVisibleCount(4)
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  setSelectedFilter(filter.id)
+                  setVisibleCount(4)
+                }
+              }}
               variant={selectedFilter === filter.id ? "default" : "outline"}
+              aria-pressed={selectedFilter === filter.id}
+              aria-label={`Filter by ${filter.label}`}
               className={
                 selectedFilter === filter.id
                   ? "bg-foreground text-background hover:bg-foreground/90"
@@ -148,95 +183,77 @@ export function EngagementSection() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
-          {visibleEvents.map((event, index) => (
-            <div
-              key={index}
-              className="relative rounded-xl bg-card overflow-hidden hover:shadow-xl transition-all duration-300 group"
-            >
-              {/* Top wave pattern with gradient */}
-              <div className="relative h-14 overflow-hidden">
-                <svg 
-                  className="absolute top-0 left-0 w-full" 
-                  viewBox="0 0 1200 60" 
-                  preserveAspectRatio="none"
-                  style={{ height: "60px" }}
-                  stroke="none"
-                >
-                  <defs>
-                    <linearGradient id={`engagementCardGradient${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#1e40af" />
-                      <stop offset="50%" stopColor="#7c3aed" />
-                      <stop offset="100%" stopColor="#14b8a6" />
-                    </linearGradient>
-                  </defs>
-                  <path 
-                    d="M0,30 Q300,5 600,30 T1200,30 L1200,0 L0,0 Z" 
-                    fill={`url(#engagementCardGradient${index})`}
-                    stroke="none"
-                  />
-                </svg>
-                
-                {/* Tags overlay on gradient */}
-                <div className="absolute top-2 left-4 right-4 z-10 flex items-start justify-between">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span
-                      className={`${getCategoryColor(event.category)} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider shadow-lg`}
+        {/* Table of Contents Style Layout - No Borders */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto md:overflow-visible" style={{ overflow: 'visible' }}>
+          {visibleEvents.map((event, index) => {
+            const eventNumber = String(index + 1).padStart(2, '0')
+            const isLeftColumn = index % 2 === 0
+            
+            return (
+              <div
+                key={index}
+                className="relative flex items-start gap-2 md:gap-3 min-h-[200px] md:overflow-visible"
+                style={{ overflow: 'visible' }}
+              >
+                {/* Large Vertical Number - Rotated Sideways with Color */}
+                <div className={`flex-shrink-0 flex items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
+                  <div 
+                    className="text-8xl md:text-9xl lg:text-[10rem] font-black leading-none"
+                    style={{ 
+                      fontFamily: 'var(--font-baloo2), sans-serif',
+                      fontWeight: 800,
+                      transform: 'rotate(-90deg)',
+                      transformOrigin: 'center',
+                      whiteSpace: 'nowrap',
+                      color: getCategoryColorHex(event.category)
+                    }}
+                  >
+                    {eventNumber}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
+                  <div className="mb-2">
+                    <span 
+                      className={`${getCategoryColor(event.category)} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider inline-block mb-2`}
                     >
                       {event.category}
                     </span>
-                    <span className="px-3 py-1 rounded-full text-xs bg-background/90 text-foreground font-medium backdrop-blur-sm">
-                      {event.type}
-                    </span>
                   </div>
-                  {event.status === "upcoming" && (
-                    <span className="px-2 py-1 rounded-full text-xs bg-green-500 text-white font-bold uppercase tracking-wider shadow-lg">
-                      Upcoming
-                    </span>
-                  )}
-                </div>
-              </div>
-              
-              {/* Content area */}
-              <div className="p-5 md:p-6">
-                {/* Magazine-style label */}
-                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-3">
-                  EVENT {String(index + 1).padStart(2, '0')}
-                </span>
-                
-                {/* Headline - magazine style */}
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-primary transition-colors">
-                  {event.title}
-                </h3>
-                
-                {/* Body text - editorial style */}
-                <p className="text-base md:text-lg leading-relaxed text-muted-foreground font-serif mb-5">
-                  {event.description}
-                </p>
+                  
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 leading-tight">
+                    {event.title}
+                  </h3>
+                  
+                  <p className="text-base md:text-lg leading-relaxed text-foreground mb-4" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                    {event.description}
+                  </p>
 
-                {/* Metadata - magazine style */}
-                <div className="space-y-2 pt-4 border-t border-foreground/10">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4" />
-                    <span className="font-medium">{event.dateFormatted}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4" />
-                    <span className="font-medium">{event.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="w-4 h-4" />
-                    <span className="font-medium">{event.attendees} attendees</span>
+                  {/* Metadata */}
+                  <div className="space-y-1 text-sm text-muted-foreground font-serif">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" aria-hidden="true" />
+                      <span>{event.dateFormatted}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" aria-hidden="true" />
+                      <span>{event.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4" aria-hidden="true" />
+                      <span>{event.attendees} attendees</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 
       {filteredEvents.length === 0 && (
-        <p className="text-center text-muted-foreground py-8 relative z-10">No events found for this category.</p>
+        <p className="text-center text-muted-foreground py-8 relative z-10" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>No events found for this category.</p>
       )}
 
       {(hasMore || canShowLess) && (
@@ -266,6 +283,7 @@ export function EngagementSection() {
         preserveAspectRatio="none"
         style={{ height: "60px" }}
         stroke="none"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="engagementGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -276,6 +294,6 @@ export function EngagementSection() {
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#engagementGradientBottom)" stroke="none" />
       </svg>
-    </div>
+    </section>
   )
 }

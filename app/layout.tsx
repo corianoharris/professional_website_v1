@@ -1,9 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Baloo_2 } from "next/font/google"
+import { Inter, Baloo_2, Space_Grotesk, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
-import { ScrollAnimations } from "@/components/scroll-animations"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -12,12 +11,22 @@ const baloo2 = Baloo_2({
   subsets: ["latin"], 
   variable: "--font-baloo2" 
 })
+const spaceGrotesk = Space_Grotesk({ 
+  weight: ["400", "500", "600", "700"], 
+  subsets: ["latin"], 
+  variable: "--font-space-grotesk" 
+})
+const playfairDisplay = Playfair_Display({ 
+  weight: ["400", "500", "600", "700", "800", "900"], 
+  subsets: ["latin"], 
+  variable: "--font-playfair" 
+})
 
 export const metadata: Metadata = {
-  title: "Human-Driven Color UX Technologist | Portfolio",
+  title: "Coriano Harris - Color Product Technologist",
   description:
-    "Personal portfolio of a Human-Driven Color UX Technologist and Frontend Developer specializing in creative digital experiences",
-  generator: "v0.app",
+    "Human-Driven Color UX Technologist and Full Stack Developer specializing in creative digital experiences",
+  manifest: "/manifest.json",
   icons: {
     icon: [
       {
@@ -29,7 +38,7 @@ export const metadata: Metadata = {
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
+        url: "/favicon.svg",
         type: "image/svg+xml",
       },
     ],
@@ -45,15 +54,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.className} ${baloo2.variable} font-sans antialiased`}
+        className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} font-sans antialiased`}
         style={{
           background: "linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEEAD, #D4A5A5, #9B59B6)",
           backgroundSize: "400% 400%",
           animation: "funGradient 15s ease infinite",
         }}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:font-semibold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider>
-          <ScrollAnimations />
           {children}
         </ThemeProvider>
         <Analytics />

@@ -5,9 +5,15 @@ import { ArrowDown } from "lucide-react"
 
 export function HeroSection() {
   const scrollToContact = () => {
-    const element = document.getElementById("contact")
+    const element = document.getElementById("contact-form")
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      const headerOffset = 80
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      })
     }
   }
 
@@ -30,11 +36,11 @@ export function HeroSection() {
       <div className="relative z-10 container mx-auto px-6 text-center max-w-sm">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="space-y-4">
-            <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium">Introduction</p>
+            <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>Introduction</p>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-balance">
               Human-Driven Color Product Technologist
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-balance">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-balance" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
               Founder of SpeciNate
             </p>
           </div>

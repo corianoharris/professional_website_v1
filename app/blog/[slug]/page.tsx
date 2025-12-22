@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center gap-6 text-sm text-black/60 border-t border-b border-black/10 py-4">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
-                <span className="font-medium">{post.author}</span>
+                <span className="font-medium">Written By {post.author}</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-black/40" />
               <div className="flex items-center gap-2">
@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Featured Image */}
-          <div className="relative w-full h-[60vh] mb-16 overflow-hidden rounded-lg">
+          <div className="relative w-full h-[60vh] mb-16 overflow-hidden rounded-lg shadow-2xl">
             <img
               src={post.image || "/images/background-site-image.jpg"}
               alt={post.title}
@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {/* First paragraph with drop cap */}
               {firstParagraph && (
                 <div className="mb-12">
-                  <p className="text-lg md:text-xl leading-relaxed text-black font-serif">
+                  <p className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                     <span className="float-left text-8xl md:text-9xl font-black leading-none mr-3 mt-2 text-black">
                       {firstParagraph.content.charAt(0)}
                     </span>
@@ -190,7 +190,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     )
                   } else if (section.type === "paragraph") {
                     return (
-                      <p key={index} className="text-lg md:text-xl leading-relaxed text-black font-serif">
+                      <p key={index} className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                         {section.content}
                       </p>
                     )
@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <aside className="md:col-span-4 md:sticky md:top-24 h-fit">
               <div className="space-y-8 pt-8">
                 {/* Share section with buttons and count */}
-                <div className="bg-muted/30 rounded-lg p-6 border border-border">
+                <div className="bg-white rounded-lg p-6">
                   <h3 className="text-sm font-semibold uppercase tracking-wider text-black/60 mb-4">
                     Share This Article
                   </h3>
