@@ -156,6 +156,21 @@ export function ContactSection() {
       `Name: ${sanitizedName}\nEmail: ${sanitizedEmail}\n\nServices Interested In: ${formData.services.join(", ")}\n\nMessage:\n${sanitizedMessage}`,
     )
     window.location.href = `mailto:me@corianoharris.com?subject=${subject}&body=${body}`
+    
+    // Clear form after submission
+    setTimeout(() => {
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+        services: [],
+      })
+      setErrors({
+        name: "",
+        email: "",
+        message: "",
+      })
+    }, 100)
   }
 
   const handleFieldChange = (field: string, value: string) => {

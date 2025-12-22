@@ -382,7 +382,7 @@ export function AIChat() {
                 <img 
                   src="/chroma_avatar.png" 
                   alt="Chroma" 
-                  className="w-24 h-24 rounded-full mx-auto mb-4"
+                  className="w-32 h-24 rounded-full mx-auto mb-4 object-cover"
                   aria-hidden="true"
                 />
                 <p className="font-semibold mb-2">Hi! I'm Chroma.</p>
