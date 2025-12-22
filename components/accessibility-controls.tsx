@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Settings, Moon, Sun, Type, Zap, ZapOff, ArrowUp } from "lucide-react"
+import { Settings, Moon, Sun, Type, Zap, ZapOff, ArrowUp, Contrast } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 
 export function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
-  const { theme, toggleTheme, fontSize, setFontSize, animationsEnabled, toggleAnimations } = useTheme()
+  const { theme, toggleTheme, fontSize, setFontSize, animationsEnabled, toggleAnimations, highContrast, toggleHighContrast } = useTheme()
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -161,6 +161,15 @@ export function AccessibilityControls() {
               <Button onClick={toggleAnimations} variant="outline" className="w-full justify-start bg-transparent">
                 {animationsEnabled ? <Zap className="w-4 h-4 mr-2" /> : <ZapOff className="w-4 h-4 mr-2" />}
                 {animationsEnabled ? "Enabled" : "Disabled"}
+              </Button>
+            </div>
+
+            {/* High Contrast */}
+            <div>
+              <p className="text-sm font-medium mb-2">High Contrast</p>
+              <Button onClick={toggleHighContrast} variant={highContrast ? "default" : "outline"} className="w-full justify-start bg-transparent">
+                <Contrast className="w-4 h-4 mr-2" />
+                {highContrast ? "Enabled" : "Disabled"}
               </Button>
             </div>
           </div>

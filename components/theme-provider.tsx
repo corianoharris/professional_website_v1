@@ -12,6 +12,8 @@ interface ThemeContextType {
   setFontSize: (size: FontSize) => void
   animationsEnabled: boolean
   toggleAnimations: () => void
+  highContrast: boolean
+  toggleHighContrast: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -20,15 +22,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light")
   const [fontSize, setFontSize] = useState<FontSize>("normal")
   const [animationsEnabled, setAnimationsEnabled] = useState(true)
+  const [highContrast, setHighContrast] = useState(false)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
     const savedAnimations = localStorage.getItem("animationsEnabled")
+    const savedHighContrast = localStorage.getItem("highContrast")
 
     if (savedTheme) setTheme(savedTheme)
     if (savedFontSize) setFontSize(savedFontSize)
     if (savedAnimations !== null) setAnimationsEnabled(savedAnimations === "true")
+    if (savedHighContrast !== null) setHighContrast(savedHighContrast === "true")
   }, [])
 
   useEffect(() => {
@@ -54,7 +59,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       root.classList.remove("no-animations")
     }
     localStorage.setItem("animationsEnabled", String(animationsEnabled))
-  }, [theme, fontSize, animationsEnabled])
+
+    // High contrast
+    if (highContrast) {
+      root.classList.add("high-contrast")
+    } else {
+      root.classList.remove("high-contrast")
+    }
+    localStorage.setItem("highContrast", String(highContrast))
+  }, [theme, fontSize, animationsEnabled, highContrast])
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"))
@@ -62,6 +75,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleAnimations = () => {
     setAnimationsEnabled((prev) => !prev)
+  }
+
+  const toggleHighContrast = () => {
+    setHighContrast((prev) => !prev)
   }
 
   return (
@@ -73,6 +90,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         setFontSize,
         animationsEnabled,
         toggleAnimations,
+        highContrast,
+        toggleHighContrast,
       }}
     >
       {children}

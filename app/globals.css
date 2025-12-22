@@ -76,6 +76,80 @@
   --sidebar-ring: oklch(0.439 0 0);
 }
 
+/* High Contrast Mode - WCAG AAA compliant */
+.high-contrast {
+  /* Light high contrast mode - black text on white background */
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #0000ff;
+  --primary-foreground: #ffffff;
+  --secondary: #000000;
+  --secondary-foreground: #ffffff;
+  --muted: #f0f0f0;
+  --muted-foreground: #000000;
+  --accent: #0000ff;
+  --accent-foreground: #ffffff;
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
+  --border: #000000;
+  --input: #ffffff;
+  --ring: #0000ff;
+  --chart-1: #0000ff;
+  --chart-2: #ff0000;
+  --chart-3: #008000;
+  --chart-4: #ffa500;
+  --chart-5: #800080;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #0000ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #000000;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #000000;
+  --sidebar-ring: #0000ff;
+}
+
+/* High contrast dark mode */
+.high-contrast.dark {
+  /* Dark high contrast mode - white text on black background */
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
+  --primary: #00ffff;
+  --primary-foreground: #000000;
+  --secondary: #ffffff;
+  --secondary-foreground: #000000;
+  --muted: #1a1a1a;
+  --muted-foreground: #ffffff;
+  --accent: #00ffff;
+  --accent-foreground: #000000;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #000000;
+  --border: #ffffff;
+  --input: #000000;
+  --ring: #00ffff;
+  --chart-1: #00ffff;
+  --chart-2: #ff6b6b;
+  --chart-3: #00ff00;
+  --chart-4: #ffa500;
+  --chart-5: #ff00ff;
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #00ffff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #ffffff;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #ffffff;
+  --sidebar-ring: #00ffff;
+}
+
 @theme inline {
   --font-sans: "Geist", "Geist Fallback";
   --font-mono: "Geist Mono", "Geist Mono Fallback";
@@ -197,6 +271,105 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Chat-specific font sizes */
+  .chat-font-normal {
+    font-size: 16px;
+  }
+
+  .chat-font-large {
+    font-size: 18px;
+  }
+
+  .chat-font-extra-large {
+    font-size: 20px;
+  }
+
+  /* Chat-specific animation controls */
+  .chat-no-animations *,
+  .chat-no-animations *::before,
+  .chat-no-animations *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Chat-specific high contrast mode */
+  .chat-high-contrast {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #ffffff;
+    --card-foreground: #000000;
+    --muted: #f0f0f0;
+    --muted-foreground: #000000;
+    --border: #000000;
+    --input: #ffffff;
+  }
+
+  .chat-high-contrast.dark {
+    --background: #000000;
+    --foreground: #ffffff;
+    --card: #000000;
+    --card-foreground: #ffffff;
+    --muted: #1a1a1a;
+    --muted-foreground: #ffffff;
+    --border: #ffffff;
+    --input: #000000;
+  }
+
+  .chat-high-contrast * {
+    text-shadow: none !important;
+  }
+
+  .chat-high-contrast button,
+  .chat-high-contrast [role="button"],
+  .chat-high-contrast input {
+    border: 2px solid currentColor !important;
+  }
+
+  .chat-high-contrast button:focus,
+  .chat-high-contrast input:focus,
+  .chat-high-contrast textarea:focus {
+    outline: 3px solid var(--ring) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* High contrast mode enhancements */
+  html.high-contrast * {
+    /* Ensure all text has maximum contrast */
+    text-shadow: none !important;
+  }
+
+  html.high-contrast a,
+  html.high-contrast button,
+  html.high-contrast [role="button"] {
+    /* Add visible borders to interactive elements */
+    border: 2px solid currentColor !important;
+    outline: 2px solid transparent !important;
+  }
+
+  html.high-contrast a:focus,
+  html.high-contrast button:focus,
+  html.high-contrast [role="button"]:focus,
+  html.high-contrast input:focus,
+  html.high-contrast textarea:focus,
+  html.high-contrast select:focus {
+    /* Strong focus indicators in high contrast mode */
+    outline: 3px solid var(--ring) !important;
+    outline-offset: 2px !important;
+  }
+
+  html.high-contrast img {
+    /* Ensure images have borders in high contrast mode */
+    border: 2px solid var(--border) !important;
+  }
+
+  html.high-contrast hr,
+  html.high-contrast .separator {
+    /* Make separators more visible */
+    border-color: var(--foreground) !important;
+    border-width: 2px !important;
   }
 
   /* Add animated gradient keyframes */
