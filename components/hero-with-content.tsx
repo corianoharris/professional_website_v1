@@ -5,6 +5,8 @@ import { ExpertiseSection } from "@/components/expertise-section"
 import { ServicesSection } from "@/components/services-section"
 import { LeadershipSection } from "@/components/leadership-section"
 import { PortfolioSection } from "@/components/portfolio-section"
+import { ColorPsychologySection } from "@/components/color-psychology-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { EngagementSection } from "@/components/engagement-section"
 import { PressSection } from "@/components/press-section"
 import { BlogSection } from "@/components/blog-section"
@@ -176,9 +178,11 @@ export function HeroWithContent() {
 
           <AboutSection />
           <ExpertiseSection />
+          <PortfolioSection />
           <ServicesSection />
           <LeadershipSection />
-          <PortfolioSection />
+          <ColorPsychologySection />
+          <TestimonialsSection />
           <EngagementSection />
           <PressSection />
           <BlogSection />

@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import type React from "react"
 import { Users, Calendar, MapPin, Award, GraduationCap } from "lucide-react"
 import { Button } from "./ui/button"
 
@@ -9,7 +10,7 @@ interface LeadershipRole {
   location?: string
   startDate: string
   endDate: string | "Present"
-  description: string
+  description: string | React.ReactNode
   highlights?: string[]
   icon: any
   color: string
@@ -26,7 +27,7 @@ export function LeadershipSection() {
       location: "San Diego, CA",
       startDate: "2024",
       endDate: "2025",
-      description: "Leading Figma-focused workshops and talks for designers, developers, project managers, and stakeholders. Participating in Figma feature beta testing to provide feedback on new tools and product updates. Speaker at San Diego Design Week for World Design Conference.",
+      description: <>Leading <span className="highlighter">Figma</span>-focused workshops and talks for designers, developers, project managers, and stakeholders. Participating in Figma feature <span className="highlighter">beta testing</span> to provide feedback on new tools and product updates. Speaker at San Diego <span className="highlighter">Design Week</span> for World Design Conference.</>,
       highlights: [
         "Speaker at San Diego Design Week for World Design Conference",
         "Organized and led design workshops for the community",
@@ -90,7 +91,7 @@ export function LeadershipSection() {
 
       <div className="relative max-w-6xl mx-auto z-10 pt-4 overflow-hidden md:overflow-visible">
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">LEADERSHIP</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>LEADERSHIP</span>
         </div>
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Leading, mentoring, and empowering others:

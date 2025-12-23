@@ -5,15 +5,45 @@ import { ArrowDown } from "lucide-react"
 
 export function HeroSection() {
   const scrollToContact = () => {
-    const element = document.getElementById("contact-form")
+    const element = document.getElementById("contact")
     if (element) {
+      const start = window.pageYOffset || window.scrollY
       const headerOffset = 80
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - headerOffset
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      })
+      const target = elementPosition - headerOffset
+      const distance = target - start
+      const duration = 2500 // Slower, smoother scroll duration (2.5 seconds)
+      let startTime: number | null = null
+      let animationId: number | null = null
+
+      // Smoother easing function - easeInOutQuart for very gentle acceleration/deceleration
+      function easeInOutQuart(t: number): number {
+        return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2
+      }
+
+      function animate(currentTime: number) {
+        if (startTime === null) startTime = currentTime
+        const timeElapsed = currentTime - startTime
+        const progress = Math.min(timeElapsed / duration, 1)
+        const ease = easeInOutQuart(progress)
+
+        const currentPosition = start + distance * ease
+        window.scrollTo({
+          top: currentPosition,
+          behavior: 'auto'
+        })
+
+        if (timeElapsed < duration) {
+          animationId = requestAnimationFrame(animate)
+        } else {
+          window.scrollTo({
+            top: target,
+            behavior: 'auto'
+          })
+        }
+      }
+
+      animationId = requestAnimationFrame(animate)
     }
   }
 
