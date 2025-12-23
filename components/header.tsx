@@ -213,15 +213,6 @@ export function Header() {
             >
               <MessageCircle className="w-5 h-5" aria-hidden="true" />
             </Button>
-            <Button 
-              onClick={toggleTheme} 
-              variant="ghost" 
-              size="icon" 
-              className="text-foreground/80 hover:text-[#7c3aed] transition-colors"
-              aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
-            >
-              {theme === "light" ? <Moon className="w-5 h-5" aria-hidden="true" /> : <Sun className="w-5 h-5" aria-hidden="true" />}
-            </Button>
             <Button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               variant="ghost"

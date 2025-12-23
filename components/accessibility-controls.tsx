@@ -117,7 +117,7 @@ export function AccessibilityControls() {
               <p className="text-sm font-medium mb-2">Theme</p>
               <Button onClick={toggleTheme} variant="outline" className="w-full justify-start bg-transparent">
                 {theme === "light" ? <Sun className="w-4 h-4 mr-2" /> : <Moon className="w-4 h-4 mr-2" />}
-                {theme === "light" ? "Light Mode" : "Dark Mode"}
+                {theme === "light" ? "Sunshine" : "Midnight"}
               </Button>
             </div>
 
