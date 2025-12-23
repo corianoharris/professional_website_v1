@@ -39,7 +39,7 @@ export function AboutSection() {
             {/* Opening Quote Icon - Very Large */}
             <div className="absolute -top-8 -left-8 md:-top-16 md:-left-32 z-0">
               <Quote 
-                className="w-32 h-32 md:w-64 md:h-64 text-foreground/80 md:text-foreground/70 rotate-180" 
+                className="w-32 h-32 md:w-64 md:h-64 text-foreground/40 md:text-foreground/30 dark:text-foreground/50 dark:md:text-foreground/40 rotate-180" 
                 aria-hidden="true"
                 strokeWidth={0}
                 fill="currentColor"
@@ -55,7 +55,7 @@ export function AboutSection() {
             {/* Closing Quote Icon - Very Large */}
             <div className="absolute -bottom-8 -right-8 md:-bottom-16 md:-right-32 z-0">
               <Quote 
-                className="w-32 h-32 md:w-64 md:h-64 text-foreground/80 md:text-foreground/70" 
+                className="w-32 h-32 md:w-64 md:h-64 text-foreground/40 md:text-foreground/30 dark:text-foreground/50 dark:md:text-foreground/40" 
                 aria-hidden="true"
                 strokeWidth={0}
                 fill="currentColor"
@@ -91,7 +91,7 @@ export function AboutSection() {
               {/* Opening Quote Icon */}
               <div className="absolute top-0 left-0 md:top-2 md:left-0 z-0">
                 <Quote 
-                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/80 md:text-foreground/70 rotate-180" 
+                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/40 md:text-foreground/30 dark:text-foreground/50 dark:md:text-foreground/40 rotate-180" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
@@ -106,7 +106,7 @@ export function AboutSection() {
               {/* Closing Quote Icon */}
               <div className="absolute bottom-0 right-0 md:bottom-2 md:right-0 z-0">
                 <Quote 
-                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/80 md:text-foreground/70" 
+                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/40 md:text-foreground/30 dark:text-foreground/50 dark:md:text-foreground/40" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"

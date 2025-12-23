@@ -21,7 +21,14 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
   }
 
   return (
-    <div className="container mx-auto px-6 pt-[73px] pb-6 flex flex-col gap-4">
+    <div 
+      className="container mx-auto px-6 pb-6 flex flex-col gap-4"
+      style={{
+        paddingTop: 'calc(73px + max(0px, env(safe-area-inset-top)))',
+        paddingLeft: 'max(1.5rem, calc(1.5rem + env(safe-area-inset-left)))',
+        paddingRight: 'max(1.5rem, calc(1.5rem + env(safe-area-inset-right)))',
+      }}
+    >
       {/* Close Button */}
       <div className="flex justify-end mb-2">
         <button

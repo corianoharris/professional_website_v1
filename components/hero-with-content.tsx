@@ -14,8 +14,8 @@ import { ContactSection } from "@/components/contact-section"
 
 export function HeroWithContent() {
   return (
-    <section className="relative mt-7 overflow-x-visible">
-      <div className="px-4 md:px-6 mt-24 overflow-x-visible">
+    <section className="relative mt-7 overflow-x-hidden md:overflow-x-visible">
+      <div className="px-4 md:px-6 mt-24 overflow-x-hidden md:overflow-x-visible">
         <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[80vh] max-w-6xl mx-auto">
           <div className="absolute inset-0 z-0">
             <img
@@ -25,11 +25,11 @@ export function HeroWithContent() {
               aria-hidden="true"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
-            <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-center justify-center text-white px-6 md:pl-16 md:pr-12 lg:pl-20 lg:pr-16 pt-12 md:pt-16 pb-32 z-10 gap-8 md:gap-12">
+            <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-center justify-center text-white px-4 sm:px-6 md:pl-16 md:pr-12 lg:pl-20 lg:pr-16 pt-12 md:pt-16 pb-32 z-10 gap-8 md:gap-12 overflow-hidden">
               {/* Left side - Headline */}
-              <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2">
+              <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2 w-full px-2 sm:px-0">
                 <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80 font-semibold block mb-3 md:mb-4">FEATURED STORY</span>
-                <h1 className="text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-tight text-balance leading-[1] max-w-5xl">
+                <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-tight text-balance leading-[1] max-w-5xl break-words">
                   <span className="highlighter">Vulnerability</span> is the birthplace of trust.
                 </h1>
               </div>
@@ -45,8 +45,8 @@ export function HeroWithContent() {
         </div>
       </div>
 
-      <div className="relative px-4 md:px-6 -mt-[10vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32 overflow-visible">
-        <div className="w-full max-w-6xl mx-auto bg-background rounded-3xl shadow-2xl overflow-visible relative" style={{ overflowX: 'visible' }}>
+      <div className="relative px-4 md:px-6 -mt-[10vh] z-20 max-w-5xl mx-auto flex flex-col justify-center items-center -mb-32 overflow-x-hidden md:overflow-visible">
+        <div className="w-full max-w-6xl mx-auto bg-background rounded-3xl shadow-2xl overflow-x-hidden md:overflow-visible relative">
           <svg className="w-full relative z-30" viewBox="0 0 1200 80" preserveAspectRatio="none" style={{ height: "80px", animation: "none", transition: "none", transform: "none" }} stroke="none" aria-hidden="true">
             <defs>
               <linearGradient id="heroGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -58,24 +58,24 @@ export function HeroWithContent() {
             <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#heroGradientTop)" stroke="none" />
           </svg>
 
-          <div className="px-8 md:px-16 py-12 md:py-16 border-b relative overflow-visible">
+          <div className="px-4 md:px-16 py-12 md:py-16 border-b relative overflow-x-hidden md:overflow-visible">
             {/* Label */}
             <div className="mb-8 mt-0 md:-mt-8">
               <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>INTRODUCTION</span>
             </div>
 
             {/* Magazine-style two-column layout */}
-            <div className="relative grid md:grid-cols-2 gap-0 min-h-[600px] md:min-h-[700px] md:overflow-visible">
+            <div className="relative grid md:grid-cols-2 gap-0 min-h-[600px] md:min-h-[700px] overflow-x-hidden md:overflow-visible">
               {/* Large Title - "HUMAN DRIVEN" positioned right side - Partially extends outside parent on desktop */}
-              <div className="absolute top-8 left-0 z-30 md:left-auto md:-right-56 flex items-center gap-4 md:gap-6 flex-wrap md:justify-end" style={{ overflow: 'visible' }}>
+              <div className="absolute top-8 left-4 md:left-auto md:-right-56 z-30 flex items-center gap-2 md:gap-6 flex-wrap md:justify-end" style={{ overflow: 'visible' }}>
                 <h2 
-                  className="text-8xl md:text-9xl lg:text-[12rem] leading-none tracking-tight"
+                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight break-words"
                   style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 800, color: '#7c3aed' }}
                 >
                   HUMAN
                 </h2>
                 <h2 
-                  className="text-8xl md:text-9xl lg:text-[12rem] leading-none tracking-tight hidden md:block"
+                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight hidden md:block"
                   style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
                 >
                   DRIVEN
@@ -94,8 +94,8 @@ export function HeroWithContent() {
                 />
 
                 {/* Image - Overlapping the diagonal */}
-                <div className="relative z-20 mt-32 md:mt-40 ml-8 md:ml-12 mb-8 md:mb-0">
-                  <div className="relative w-full max-w-md md:max-w-xl aspect-[3/4] shadow-2xl">
+                <div className="relative z-20 mt-32 md:mt-40 ml-4 md:ml-12 mb-8 md:mb-0 pr-4 md:pr-0">
+                  <div className="relative w-full max-w-[calc(100%-2rem)] md:max-w-xl aspect-[3/4] shadow-2xl">
                     <img 
                       src="/images/my-image.jpg" 
                       alt="Coriano Harris" 
@@ -117,11 +117,11 @@ export function HeroWithContent() {
               </div>
 
               {/* Right Column - Content */}
-              <div className="relative md:col-span-1 pt-16 md:pt-[23rem] pl-0 md:pl-12 md:overflow-visible z-20">
+              <div className="relative md:col-span-1 pt-16 md:pt-[23rem] pl-4 md:pl-12 pr-4 md:pr-0 md:overflow-visible z-20">
                 {/* Large Title - "DRIVEN" - Mobile only, desktop positioned in grid container */}
                 <div className="mb-8 md:mb-12 md:hidden">
                   <h2 
-                    className="text-8xl leading-none tracking-tight text-foreground"
+                    className="text-5xl sm:text-6xl leading-none tracking-tight text-foreground break-words"
                     style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
                   >
                     DRIVEN

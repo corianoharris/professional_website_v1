@@ -124,11 +124,15 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-visible ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-300 overflow-visible ${
         scrolled 
           ? "bg-background/80 dark:bg-gray-950 dark:backdrop-blur-2xl dark:backdrop-saturate-150 backdrop-blur-2xl backdrop-saturate-150 border-b border-foreground/10 dark:border-white/20" 
           : "bg-background/60 dark:bg-gray-950 dark:backdrop-blur-xl dark:backdrop-saturate-150 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/5 dark:border-white/15"
       }`}
+      style={{
+        top: 0,
+        paddingTop: 'max(0px, env(safe-area-inset-top))',
+      }}
     >
       <div className="container mx-auto px-6 py-3 relative z-10">
         {/* Top Row: Logo and Navigation */}
@@ -154,7 +158,7 @@ export function Header() {
               />
               <span>Coriano Harris</span>
             </button>
-            <div className="relative flex items-center hidden sm:flex">
+            <div className="relative hidden sm:flex items-center">
               <Button
                 onClick={toggleChat}
                 size="default"
@@ -235,9 +239,13 @@ export function Header() {
 
         <div
           id="mobile-menu"
-          className={`md:hidden fixed inset-x-0 top-0 bg-background/80 dark:bg-gray-950 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/10 dark:border-foreground/20 transition-all duration-300 z-50 ${
+          className={`md:hidden fixed inset-x-0 bg-background/80 dark:bg-gray-950 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/10 dark:border-foreground/20 transition-all duration-300 z-50 ${
             mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
           }`}
+          style={{
+            top: 0,
+            paddingTop: 'max(0px, env(safe-area-inset-top))',
+          }}
           role="menu"
           aria-label="Mobile navigation menu"
         >

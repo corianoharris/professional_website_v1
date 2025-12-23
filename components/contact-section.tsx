@@ -257,7 +257,7 @@ export function ContactSection() {
               {/* Opening Quote Icon - Very Large - Hidden on mobile */}
               <div className="hidden md:block absolute -top-16 -left-32 z-0">
                 <Quote 
-                  className="w-64 md:h-64 text-foreground/70 rotate-180" 
+                  className="w-64 md:h-64 text-foreground/30 dark:text-foreground/40 rotate-180" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
@@ -272,7 +272,7 @@ export function ContactSection() {
               {/* Closing Quote Icon - Very Large - Hidden on mobile */}
               <div className="hidden md:block absolute -bottom-16 -right-32 z-0">
                 <Quote 
-                  className="w-64 md:h-64 text-foreground/70" 
+                  className="w-64 md:h-64 text-foreground/30 dark:text-foreground/40" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
@@ -476,7 +476,7 @@ export function ContactSection() {
               {/* Opening Quote Icon - Hidden on mobile */}
               <div className="hidden md:block absolute top-2 left-0 z-0">
                 <Quote 
-                  className="w-20 md:h-20 text-foreground/70 rotate-180" 
+                  className="w-20 md:h-20 text-foreground/30 dark:text-foreground/40 rotate-180" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
@@ -491,7 +491,7 @@ export function ContactSection() {
               {/* Closing Quote Icon - Hidden on mobile */}
               <div className="hidden md:block absolute bottom-2 right-0 z-0">
                 <Quote 
-                  className="w-20 md:h-20 text-foreground/70" 
+                  className="w-20 md:h-20 text-foreground/30 dark:text-foreground/40" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
