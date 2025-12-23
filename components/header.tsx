@@ -146,7 +146,7 @@ export function Header() {
               />
               <span>Coriano Harris</span>
             </button>
-            <div className="relative flex items-center">
+            <div className="relative flex items-center hidden sm:flex">
               <img 
                 src="/chroma_avatar.png" 
                 alt="Chroma" 
