@@ -148,15 +148,15 @@ export function Header() {
                 }
               }}
               aria-label="Go to homepage"
-              className="flex items-center gap-3 text-xl font-bold tracking-tight text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
+              className="flex items-center gap-2 sm:gap-3 text-base sm:text-xl font-bold tracking-tight text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
             >
               <img 
                 src="/favicon.svg" 
                 alt="" 
-                className="w-8 h-8"
+                className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0"
                 aria-hidden="true"
               />
-              <span>Coriano Harris</span>
+              <span className="whitespace-nowrap">Coriano Harris</span>
             </button>
             <div className="relative hidden sm:flex items-center">
               <Button
