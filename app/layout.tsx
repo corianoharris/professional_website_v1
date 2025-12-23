@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Baloo_2, Space_Grotesk, Playfair_Display } from "next/font/google"
+import { Inter, Baloo_2, Space_Grotesk, Playfair_Display, Raleway } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
@@ -20,6 +20,11 @@ const playfairDisplay = Playfair_Display({
   weight: ["400", "500", "600", "700", "800", "900"], 
   subsets: ["latin"], 
   variable: "--font-playfair" 
+})
+const raleway = Raleway({ 
+  weight: ["400", "500", "600", "700", "800", "900"], 
+  subsets: ["latin"], 
+  variable: "--font-raleway" 
 })
 
 export const metadata: Metadata = {
@@ -54,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} font-sans antialiased`}
+        className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} font-sans antialiased`}
         style={{
           background: "linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEEAD, #D4A5A5, #9B59B6)",
           backgroundSize: "400% 400%",
