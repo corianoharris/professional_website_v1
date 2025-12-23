@@ -223,7 +223,7 @@ export function ContactSection() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <section id="contact" className="px-8 md:px-16 py-12 md:py-16 relative">
+      <section id="contact" className="px-4 md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -242,37 +242,37 @@ export function ContactSection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#contactGradientTop)" stroke="none" />
       </svg>
 
-      <div className="max-w-5xl mx-auto relative z-10 pt-4 md:overflow-visible" style={{ overflow: 'visible' }}>
-        <div className="mb-12 -mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">CONNECT</span>
+      <div className="max-w-5xl mx-auto relative z-10 pt-4 overflow-hidden md:overflow-visible">
+        <div className="mb-8 mt-0 md:-mt-8">
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">CONNECT</span>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Let's see solutions together:
         </p>
         
-        <div className="mb-12 md:overflow-visible" style={{ overflow: 'visible' }}>
-          <div className="md:overflow-visible" style={{ overflow: 'visible' }}>
-            <div className="pl-8 py-8 md:py-12 relative md:-ml-32 md:pl-32" style={{ overflow: 'visible' }}>
-              {/* Opening Quote Icon - Very Large */}
-              <div className="absolute -top-8 -left-8 md:-top-16 md:-left-32 z-0">
+        <div className="mb-12 overflow-hidden md:overflow-visible">
+          <div className="overflow-hidden md:overflow-visible">
+            <div className="pl-4 md:pl-8 py-8 md:py-12 relative md:-ml-32 md:pl-32">
+              {/* Opening Quote Icon - Very Large - Hidden on mobile */}
+              <div className="hidden md:block absolute -top-16 -left-32 z-0">
                 <Quote 
-                  className="w-32 h-32 md:w-64 md:h-64 text-foreground/80 md:text-foreground/70 rotate-180" 
+                  className="w-64 md:h-64 text-foreground/70 rotate-180" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
                 />
               </div>
               <p 
-                className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl leading-relaxed text-foreground relative z-10 pl-20 md:pl-32"
+                className="text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-relaxed text-foreground relative z-10 pl-8 md:pl-32"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
               >
                 Starting with <span className="highlighter">WHY</span>. Building <span className="highlighter">remarkable</span> through <span className="highlighter">vulnerability</span> and <span className="highlighter">heart</span>. Let's connect.
               </p>
-              {/* Closing Quote Icon - Very Large */}
-              <div className="absolute -bottom-8 -right-8 md:-bottom-16 md:-right-32 z-0">
+              {/* Closing Quote Icon - Very Large - Hidden on mobile */}
+              <div className="hidden md:block absolute -bottom-16 -right-32 z-0">
                 <Quote 
-                  className="w-32 h-32 md:w-64 md:h-64 text-foreground/80 md:text-foreground/70" 
+                  className="w-64 md:h-64 text-foreground/70" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
@@ -283,10 +283,10 @@ export function ContactSection() {
         </div>
 
         {/* Magazine-style layout: Form on left, sidebar on right */}
-        <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-12 gap-8 md:gap-12 overflow-hidden md:overflow-visible">
           {/* Main form column - wider */}
-          <div className="md:col-span-8">
-            <Card className="p-8 md:p-12 bg-muted/30 border-2">
+          <div className="md:col-span-8 overflow-hidden md:overflow-visible">
+            <Card className="p-4 md:p-8 lg:p-12 bg-muted/30 border-2 overflow-hidden md:overflow-visible">
               {/* Editorial header */}
               <div className="mb-12 pb-8 border-b-2 border-foreground/20">
                 <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-4">INQUIRY</span>
@@ -319,7 +319,7 @@ export function ContactSection() {
                       aria-describedby={errors.name ? "name-error" : "name-hint"}
                       aria-invalid={!!errors.name}
                       aria-required="true"
-                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors bg-background ${
+                      className={`text-base md:text-xl lg:text-2xl py-4 md:py-5 px-4 md:px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors bg-background w-full max-w-full ${
                         errors.name ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
                       style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
@@ -358,7 +358,7 @@ export function ContactSection() {
                       aria-describedby={errors.email ? "email-error" : "email-hint"}
                       aria-invalid={!!errors.email}
                       aria-required="true"
-                      className={`text-xl md:text-2xl py-5 px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors bg-background ${
+                      className={`text-base md:text-xl lg:text-2xl py-4 md:py-5 px-4 md:px-5 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors bg-background w-full max-w-full ${
                         errors.email ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
                       style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
@@ -382,16 +382,16 @@ export function ContactSection() {
                   <label className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
                     Services You're Interested In
                   </label>
-                  <div className="grid md:grid-cols-2 gap-4 p-8 border-2 border-foreground/20 rounded-lg bg-background">
+                  <div className="grid md:grid-cols-2 gap-4 p-4 md:p-8 border-2 border-foreground/20 rounded-lg bg-background">
                     {services.map((service) => (
-                      <div key={service} className="flex items-center space-x-4">
+                      <div key={service} className="flex items-center space-x-3 md:space-x-4">
                         <Checkbox
                           id={service}
                           checked={formData.services.includes(service)}
                           onCheckedChange={() => handleServiceToggle(service)}
-                          className="w-6 h-6 border-2 border-foreground/40 dark:border-foreground/60 dark:bg-background"
+                          className="w-5 h-5 md:w-6 md:h-6 border-2 border-foreground/40 dark:border-foreground/60 dark:bg-background flex-shrink-0"
                         />
-                        <label htmlFor={service} className="text-lg md:text-xl cursor-pointer font-medium text-foreground">
+                        <label htmlFor={service} className="text-base md:text-lg lg:text-xl cursor-pointer font-medium text-foreground break-words">
                           {service}
                         </label>
                       </div>
@@ -423,7 +423,7 @@ export function ContactSection() {
                       aria-describedby={errors.message ? "message-error" : "message-hint"}
                       aria-invalid={!!errors.message}
                       aria-required="true"
-                      className={`text-xl md:text-2xl py-6 px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors leading-relaxed resize-none bg-background ${
+                      className={`text-base md:text-xl lg:text-2xl py-4 md:py-6 px-4 md:px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors leading-relaxed resize-none bg-background w-full max-w-full ${
                         errors.message ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
                       style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
@@ -442,14 +442,14 @@ export function ContactSection() {
                   )}
                 </div>
 
-                {/* Submit button - right aligned */}
-                <div className="pt-6 border-t-2 border-foreground/20 flex justify-end">
+                {/* Submit button - centered on mobile, right aligned on desktop */}
+                <div className="pt-6 border-t-2 border-foreground/20 flex justify-center md:justify-end">
                   <Button
                     type="submit"
                     size="lg"
-                    className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 hover:shadow-xl transition-all duration-300 text-xl md:text-2xl px-10 py-7 font-black uppercase tracking-wider"
+                    className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 hover:shadow-xl transition-all duration-300 text-base md:text-xl lg:text-2xl px-8 md:px-10 py-6 md:py-7 font-black uppercase tracking-wider w-full md:w-auto"
                   >
-                    <Send className="w-6 h-6 mr-3" />
+                    <Send className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                     Send Message
                   </Button>
                 </div>
@@ -458,9 +458,9 @@ export function ContactSection() {
           </div>
 
           {/* Sidebar column - narrower, magazine style */}
-          <div className="md:col-span-4 space-y-8">
+          <div className="md:col-span-4 space-y-8 overflow-hidden md:overflow-visible">
             {/* Transparency notice - pull quote style */}
-            <div className="p-8 bg-primary/10 border-l-4 border-primary/50 rounded-r-lg">
+            <div className="p-4 md:p-8 bg-primary/10 border-l-4 border-primary/50 rounded-r-lg">
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-7 h-7 text-primary mt-1 flex-shrink-0" />
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
@@ -472,26 +472,26 @@ export function ContactSection() {
             </div>
 
             {/* Quote */}
-            <div className="pl-8 py-8 md:py-12 relative" style={{ overflow: 'visible' }}>
-              {/* Opening Quote Icon */}
-              <div className="absolute top-0 left-0 md:top-2 md:left-0 z-0">
+            <div className="pl-4 md:pl-8 py-6 md:py-8 lg:py-12 relative overflow-hidden md:overflow-visible">
+              {/* Opening Quote Icon - Hidden on mobile */}
+              <div className="hidden md:block absolute top-2 left-0 z-0">
                 <Quote 
-                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/80 md:text-foreground/70 rotate-180" 
+                  className="w-20 md:h-20 text-foreground/70 rotate-180" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
                 />
               </div>
               <p 
-                className="text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground relative z-10 pl-8 md:pl-12"
+                className="text-xl md:text-3xl lg:text-4xl leading-relaxed text-foreground relative z-10 pl-4 md:pl-12"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
               >
                 I price the <span className="highlighter">transformation</span>. Selective for <span className="highlighter">high-impact</span>.
               </p>
-              {/* Closing Quote Icon */}
-              <div className="absolute bottom-0 right-0 md:bottom-2 md:right-0 z-0">
+              {/* Closing Quote Icon - Hidden on mobile */}
+              <div className="hidden md:block absolute bottom-2 right-0 z-0">
                 <Quote 
-                  className="w-12 h-12 md:w-20 md:h-20 text-foreground/80 md:text-foreground/70" 
+                  className="w-20 md:h-20 text-foreground/70" 
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
@@ -500,7 +500,7 @@ export function ContactSection() {
             </div>
 
             {/* Contact info */}
-            <div className="p-8 bg-muted/30 rounded-lg">
+            <div className="p-4 md:p-8 bg-muted/30 rounded-lg">
               <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block mb-6">DIRECT CONTACT</span>
               <div className="space-y-6">
                 <div className="flex items-center gap-4">

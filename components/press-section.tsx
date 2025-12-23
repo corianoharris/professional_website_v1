@@ -86,7 +86,7 @@ export function PressSection() {
       </svg>
 
       <div className="relative max-w-6xl mx-auto z-10 pt-4">
-        <div className="mb-12 -mt-8">
+        <div className="mb-12 mt-0 md:-mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">PRESS</span>
           <h2 id="press-heading" className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-4 hidden">
             Featured In

@@ -24,7 +24,7 @@ export function AboutSection() {
 
       <div className="relative max-w-7xl mx-auto mb-12 z-10 pt-4 md:overflow-visible">
         {/* Label */}
-        <div className="mb-8 -mt-8">
+        <div className="mb-8 mt-0 md:-mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>FEATURE</span>
         </div>
         

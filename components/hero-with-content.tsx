@@ -58,7 +58,7 @@ export function HeroWithContent() {
 
           <div className="px-8 md:px-16 py-12 md:py-16 border-b relative overflow-visible">
             {/* Label */}
-            <div className="mb-8 -mt-8">
+            <div className="mb-8 mt-0 md:-mt-8">
               <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>INTRODUCTION</span>
             </div>
 

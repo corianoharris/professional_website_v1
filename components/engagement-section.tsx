@@ -134,9 +134,9 @@ export function EngagementSection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#engagementGradientTop)" stroke="none" />
       </svg>
 
-      <div className="relative max-w-6xl mx-auto z-10 pt-4 md:overflow-visible" style={{ overflow: 'visible' }}>
-        <div className="mb-12 -mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EVENTS</span>
+      <div className="relative max-w-6xl mx-auto z-10 pt-4 overflow-hidden md:overflow-visible">
+        <div className="mb-8 mt-0 md:-mt-8">
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">EVENTS</span>
         </div>
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Sharing vulnerability and ideas on stages:
@@ -184,7 +184,7 @@ export function EngagementSection() {
         </div>
 
         {/* Table of Contents Style Layout - No Borders */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto md:overflow-visible" style={{ overflow: 'visible' }}>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
           {visibleEvents.map((event, index) => {
             const eventNumber = String(index + 1).padStart(2, '0')
             const isLeftColumn = index % 2 === 0
@@ -192,13 +192,12 @@ export function EngagementSection() {
             return (
               <div
                 key={index}
-                className="relative flex items-start gap-2 md:gap-3 min-h-[200px] md:overflow-visible"
-                style={{ overflow: 'visible' }}
+                className="relative flex items-start gap-2 md:gap-3 min-h-[200px] overflow-hidden md:overflow-visible"
               >
                 {/* Large Vertical Number - Rotated Sideways with Color */}
-                <div className={`flex-shrink-0 flex items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
+                <div className={`hidden md:flex flex-shrink-0 items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
                   <div 
-                    className="text-8xl md:text-9xl lg:text-[10rem] font-black leading-none"
+                    className="text-9xl lg:text-[10rem] font-black leading-none"
                     style={{ 
                       fontFamily: 'var(--font-baloo2), sans-serif',
                       fontWeight: 800,
@@ -214,7 +213,19 @@ export function EngagementSection() {
 
                 {/* Content */}
                 <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
-                  <div className="mb-2">
+                  <div className="mb-2 flex items-center gap-3">
+                    {/* Mobile number - visible on mobile only */}
+                    <span 
+                      className="md:hidden text-4xl font-black leading-none"
+                      style={{ 
+                        fontFamily: 'var(--font-baloo2), sans-serif',
+                        fontWeight: 800,
+                        color: getCategoryColorHex(event.category),
+                        opacity: 0.3
+                      }}
+                    >
+                      {eventNumber}
+                    </span>
                     <span 
                       className={`${getCategoryColor(event.category)} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider inline-block mb-2`}
                     >

@@ -33,7 +33,7 @@ export function BlogSection() {
 
       <div className="relative z-10 pt-4">
         <div className="relative max-w-6xl mx-auto mb-12">
-          <div className="mb-12 -mt-8">
+          <div className="mb-12 mt-0 md:-mt-8">
             <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EDITORIAL</span>
           </div>
         </div>

@@ -1,7 +1,11 @@
 "use client"
+import { useState } from "react"
 import { TrendingUp, Building2, Sparkles } from "lucide-react"
+import { Button } from "./ui/button"
 
 export function PortfolioSection() {
+  const [visibleCount, setVisibleCount] = useState(2)
+  const [isLoading, setIsLoading] = useState(false)
   const outcomes = [
     {
       icon: Sparkles,
@@ -61,9 +65,9 @@ export function PortfolioSection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#portfolioGradientTop)" stroke="none" />
       </svg>
 
-      <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4 md:overflow-visible" style={{ overflow: 'visible' }}>
-        <div className="mb-12 -mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>CASE STUDIES</span>
+      <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
+        <div className="mb-8 mt-0 md:-mt-8">
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>CASE STUDIES</span>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
@@ -71,8 +75,8 @@ export function PortfolioSection() {
         </p>
 
         {/* Table of Contents Style Layout - No Borders */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto md:overflow-visible" style={{ overflow: 'visible' }}>
-          {outcomes.map((outcome, index) => {
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
+          {outcomes.slice(0, visibleCount).map((outcome, index) => {
             const caseNumber = String(index + 1).padStart(2, '0')
             const isLeftColumn = index % 2 === 0
             const isThirdItem = index === 2
@@ -84,9 +88,9 @@ export function PortfolioSection() {
                 style={{ overflow: 'visible' }}
               >
                 {/* Large Vertical Number - Rotated Sideways with Color */}
-                <div className={`shrink-0 flex items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
+                <div className={`hidden md:flex shrink-0 items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
                   <div 
-                    className="text-8xl md:text-9xl lg:text-[10rem] font-black leading-none"
+                    className="text-9xl lg:text-[10rem] font-black leading-none"
                     style={{ 
                       fontFamily: 'var(--font-baloo2), sans-serif',
                       fontWeight: 800,
@@ -102,7 +106,19 @@ export function PortfolioSection() {
 
                 {/* Content */}
                 <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
-                  <div className="mb-2">
+                  <div className="mb-2 flex items-center gap-3">
+                    {/* Mobile number - visible on mobile only */}
+                    <span 
+                      className="md:hidden text-4xl font-black leading-none"
+                      style={{ 
+                        fontFamily: 'var(--font-baloo2), sans-serif',
+                        fontWeight: 800,
+                        color: getCategoryColorHex(outcome.category),
+                        opacity: 0.3
+                      }}
+                    >
+                      {caseNumber}
+                    </span>
                     <span 
                       className={`${outcome.color} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider inline-block mb-2`}
                     >
@@ -132,6 +148,38 @@ export function PortfolioSection() {
             )
           })}
         </div>
+
+        {/* Show More/Less Buttons */}
+        {outcomes.length > 2 && (
+          <div className="flex justify-center gap-4 mt-8 relative z-10">
+            {visibleCount < outcomes.length && (
+              <Button
+                onClick={() => {
+                  setIsLoading(true)
+                  setTimeout(() => {
+                    setVisibleCount(outcomes.length)
+                    setIsLoading(false)
+                  }, 300)
+                }}
+                disabled={isLoading}
+                size="lg"
+                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 text-base md:text-lg"
+              >
+                {isLoading ? "Loading..." : "Show More"}
+              </Button>
+            )}
+            {visibleCount > 2 && (
+              <Button 
+                onClick={() => setVisibleCount(2)} 
+                size="lg" 
+                variant="outline" 
+                className="px-8 py-6 text-base md:text-lg bg-transparent"
+              >
+                Show Less
+              </Button>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="mt-16 max-w-4xl mx-auto p-10 md:p-12 bg-muted/30 rounded-2xl border-l-4 border-foreground relative z-10 editorial-breakout-full">

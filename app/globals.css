@@ -706,6 +706,15 @@ svg[viewBox*="1200"] stop {
   background: oklch(0.55 0.24 200);
 }
 
+/* Diagonal triangle background - black in light mode, white in dark mode - works on all screen sizes */
+.diagonal-triangle {
+  background: linear-gradient(to bottom right, #000 0%, #000 50%, transparent 50%, transparent 100%);
+}
+
+.dark .diagonal-triangle {
+  background: linear-gradient(to bottom right, #ffffff 0%, #ffffff 50%, transparent 50%, transparent 100%);
+}
+
 /* Half-sphere portrait image for desktop - circular top, rounded bottom */
 @media (min-width: 768px) {
   .portrait-half-circle {
@@ -724,15 +733,6 @@ svg[viewBox*="1200"] stop {
 
   .dark .diagonal-theme {
     background: linear-gradient(to bottom right, oklch(0.98 0.01 120) 0%, oklch(0.98 0.01 120) 50%, transparent 50%, transparent 100%);
-  }
-
-  /* Diagonal triangle background - black in light mode, white in dark mode */
-  .diagonal-triangle {
-    background: linear-gradient(to bottom right, #000 0%, #000 50%, transparent 50%, transparent 100%);
-  }
-
-  .dark .diagonal-triangle {
-    background: linear-gradient(to bottom right, #ffffff 0%, #ffffff 50%, transparent 50%, transparent 100%);
   }
 
   /* Diagonal extends on desktop for introduction section */
