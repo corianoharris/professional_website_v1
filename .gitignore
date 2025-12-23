@@ -6,6 +6,7 @@
 # next.js
 /.next/
 /out/
+/.swc/
 
 # production
 /build
@@ -25,3 +26,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scraped content (generated files)
+scripts/scraped-content/
+
+# pdfs
+docs/

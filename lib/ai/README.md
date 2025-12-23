@@ -43,7 +43,24 @@ The AI chat uses **RAG (Retrieval Augmented Generation)** with Hugging Face mode
 
 ## Step 3: Add Your Brand Data
 
-Edit `lib/ai/brand-knowledge.ts` and add your content:
+You can add your content in two ways:
+
+### Option A: Use the Content Scraper (Recommended)
+
+Use the scraper script to automatically extract content from URLs:
+
+```bash
+# Scrape LinkedIn posts, blog articles, etc.
+npm run scrape https://linkedin.com/posts/... https://medium.com/@user/article
+```
+
+The script will output formatted TypeScript code that you can copy into `brand-knowledge.ts`.
+
+See `scripts/README.md` for detailed usage instructions.
+
+### Option B: Manual Entry
+
+Edit `lib/ai/brand-knowledge.ts` and manually add your content:
 
 ### Add Your Resume
 

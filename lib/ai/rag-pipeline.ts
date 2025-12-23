@@ -15,8 +15,10 @@ const HF_INFERENCE_ENDPOINT = process.env.HUGGINGFACE_INFERENCE_ENDPOINT || unde
 if (!HF_API_KEY) {
   console.warn('HUGGINGFACE_API_KEY is not set in environment variables')
 } else {
-  // Log first 10 chars for debugging (without exposing full key)
-  console.log('HUGGINGFACE_API_KEY found:', HF_API_KEY.substring(0, 10) + '...' + (HF_API_KEY.length > 10 ? ` (length: ${HF_API_KEY.length})` : ''))
+  // Only log in development, not production (for security)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('HUGGINGFACE_API_KEY found:', HF_API_KEY.substring(0, 10) + '...' + (HF_API_KEY.length > 10 ? ` (length: ${HF_API_KEY.length})` : ''))
+  }
   if (!HF_API_KEY.startsWith('hf_')) {
     console.warn('Warning: Hugging Face API key should start with "hf_"')
   }
@@ -215,12 +217,13 @@ Use the following context to answer questions about Coriano's work, services, ex
       console.error('Error stack:', error.stack)
       
       // Log more details if available
-      if (error.httpRequest) {
-        console.error('HTTP Request details:', JSON.stringify(error.httpRequest, null, 2))
+      if ('httpRequest' in error && error.httpRequest) {
+        console.error('HTTP Request details:', JSON.stringify((error as any).httpRequest, null, 2))
       }
-      if (error.httpResponse) {
-        console.error('HTTP Response status:', error.httpResponse?.status)
-        console.error('HTTP Response body:', error.httpResponse?.body)
+      if ('httpResponse' in error && error.httpResponse) {
+        const httpResponse = (error as any).httpResponse
+        console.error('HTTP Response status:', httpResponse?.status)
+        console.error('HTTP Response body:', httpResponse?.body)
       }
       
       // Provide helpful error messages for common issues
@@ -234,7 +237,7 @@ Use the following context to answer questions about Coriano's work, services, ex
       }
       
       // Handle model not supported errors
-      const errorBody = error.httpResponse?.body
+      const errorBody = ('httpResponse' in error) ? (error as any).httpResponse?.body : undefined
       if (errorBody && typeof errorBody === 'object' && errorBody.error?.code === 'model_not_supported') {
         const errorMsg = `Model '${errorBody.error?.param || 'current model'}' is not supported by any enabled provider.\n\n` +
           'Solutions:\n' +
@@ -247,7 +250,7 @@ Use the following context to answer questions about Coriano's work, services, ex
       
       // Handle HTTP provider errors
       if (error.message.includes('HTTP error occurred') || error.message.includes('ProviderApiError')) {
-        const statusCode = error.httpResponse?.status || 'unknown'
+        const statusCode = ('httpResponse' in error) ? (error as any).httpResponse?.status || 'unknown' : 'unknown'
         const errorMsg = `Hugging Face provider error (HTTP ${statusCode}). This might mean:\n` +
           '1. The model is not available through your selected provider\n' +
           '2. Rate limiting or quota exceeded\n' +
