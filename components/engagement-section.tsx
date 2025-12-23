@@ -26,7 +26,7 @@ export function EngagementSection() {
       date: "2026-02-01",
       dateFormatted: "Feb 2026",
       location: "Memphis, TN",
-      attendees: "25",
+      attendees: "Upcoming",
       description: <>A deep dive into web workers—exploring how to leverage web workers for better <span className="highlighter">performance</span> and <span className="highlighter">user experience</span> in modern web applications.</>,
       status: "upcoming",
     },

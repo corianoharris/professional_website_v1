@@ -46,10 +46,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         sections.push({ type: "h3", content: line.replace("### ", "").trim() })
       } else if (line.trim().startsWith("> ")) {
         sections.push({ type: "quote", content: line.replace("> ", "").trim() })
-      } else if (line.trim().startsWith("**") && line.trim().endsWith("**")) {
+      } else if (line.trim().startsWith("**") && line.trim().endsWith("**") && line.trim().split("**").length === 3) {
         sections.push({ type: "emphasis", content: line.replace(/\*\*/g, "").trim() })
       } else if (line.trim()) {
-        sections.push({ type: "paragraph", content: line.trim() })
+        // Handle inline bold text in paragraphs
+        const processedContent = line.trim().replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        sections.push({ type: "paragraph", content: processedContent })
       }
     }
     
@@ -75,7 +77,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="relative pt-32 pb-16 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
-          <Link href="/" className="inline-block mb-12">
+          <Link href="/#blog" className="inline-block mb-12">
             <Button 
               variant="ghost" 
               className="text-black hover:bg-black/10 transition-all duration-300 group"
@@ -190,9 +192,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     )
                   } else if (section.type === "paragraph") {
                     return (
-                      <p key={index} className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                        {section.content}
-                      </p>
+                      <p key={index} className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   }
                   return null

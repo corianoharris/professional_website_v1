@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Moon, Sun, Menu, X, MessageCircle } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { useAIChat } from "@/components/ai-chat-context"
+import { DesktopNavigation } from "@/components/navigation/desktop-navigation"
+import { MobileNavigation } from "@/components/navigation/mobile-navigation"
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -22,7 +24,7 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    const sections = ["hero", "about", "expertise", "portfolio", "engagement", "blog", "contact"]
+    const sections = ["hero", "about", "expertise", "portfolio", "services", "leadership", "color-psychology", "testimonials", "engagement", "press", "blog", "contact"]
     
     const observerOptions = {
       root: null,
@@ -60,12 +62,20 @@ export function Header() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
+      // Temporarily disable smooth scroll on html element to prevent flickering
+      const htmlElement = document.documentElement
+      const originalScrollBehavior = htmlElement.style.scrollBehavior
+      htmlElement.style.scrollBehavior = 'auto'
+      
+      // Force a reflow to ensure the style change takes effect
+      void htmlElement.offsetHeight
+
       const start = window.pageYOffset || window.scrollY
       const headerOffset = 80
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
       const target = elementPosition - headerOffset
       const distance = target - start
-      const duration = 800 // Faster, smoother scroll duration (0.8 seconds)
+      const duration = 2500 // Slower, smoother scroll duration (2.5 seconds)
       let startTime: number | null = null
       let animationId: number | null = null
 
@@ -80,31 +90,29 @@ export function Header() {
       // Cancel any existing scroll animation
       cancelPreviousAnimation()
 
-      // Smoother easing function - easeInOutCubic for gentle acceleration/deceleration
-      function easeInOutCubic(t: number): number {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      // Smoother easing function - easeInOutQuart for very gentle acceleration/deceleration
+      function easeInOutQuart(t: number): number {
+        return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2
       }
 
       function animate(currentTime: number) {
         if (startTime === null) startTime = currentTime
         const timeElapsed = currentTime - startTime
         const progress = Math.min(timeElapsed / duration, 1)
-        const ease = easeInOutCubic(progress)
+        const ease = easeInOutQuart(progress)
 
         const currentPosition = start + distance * ease
-        window.scrollTo({
-          top: currentPosition,
-          behavior: 'auto' // Use 'auto' to override CSS smooth scroll for more control
-        })
+        window.scrollTo(0, currentPosition)
 
         if (timeElapsed < duration) {
           animationId = requestAnimationFrame(animate)
         } else {
           // Ensure we end exactly at the target position
-          window.scrollTo({
-            top: target,
-            behavior: 'auto'
-          })
+          window.scrollTo(0, target)
+          // Restore original scroll behavior after a short delay
+          setTimeout(() => {
+            htmlElement.style.scrollBehavior = originalScrollBehavior
+          }, 100)
           animationId = null
         }
       }
@@ -160,112 +168,11 @@ export function Header() {
           </div>
 
           {/* Right: Navigation Items */}
-          <div className="hidden md:flex items-center gap-8">
-            <button
-              onClick={() => scrollToSection("about")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("about")
-                }
-              }}
-              aria-label="Navigate to What I Believe section"
-              aria-current={activeSection === "about" ? "page" : undefined}
-              className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
-                activeSection === "about"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
-              }`}
-            >
-              What I Believe
-              {activeSection === "about" && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]" aria-hidden="true"></span>
-              )}
-            </button>
-            <button
-              onClick={() => scrollToSection("expertise")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("expertise")
-                }
-              }}
-              aria-label="Navigate to What I Do section"
-              aria-current={activeSection === "expertise" ? "page" : undefined}
-              className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
-                activeSection === "expertise"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
-              }`}
-            >
-              What I Do
-              {activeSection === "expertise" && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]" aria-hidden="true"></span>
-              )}
-            </button>
-            <button
-              onClick={() => scrollToSection("portfolio")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("portfolio")
-                }
-              }}
-              aria-label="Navigate to Outcomes section"
-              aria-current={activeSection === "portfolio" ? "page" : undefined}
-              className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
-                activeSection === "portfolio"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
-              }`}
-            >
-              Outcomes
-              {activeSection === "portfolio" && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]" aria-hidden="true"></span>
-              )}
-            </button>
-            <button
-              onClick={() => scrollToSection("engagement")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("engagement")
-                }
-              }}
-              aria-label="Navigate to Speaking section"
-              aria-current={activeSection === "engagement" ? "page" : undefined}
-              className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
-                activeSection === "engagement"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
-              }`}
-            >
-              Speaking
-              {activeSection === "engagement" && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]" aria-hidden="true"></span>
-              )}
-            </button>
-            <button
-              onClick={() => scrollToSection("blog")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("blog")
-                }
-              }}
-              aria-label="Navigate to Blog section"
-              aria-current={activeSection === "blog" ? "page" : undefined}
-              className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
-                activeSection === "blog"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
-              }`}
-            >
-              Blog
-              {activeSection === "blog" && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#7c3aed]" aria-hidden="true"></span>
-              )}
-            </button>
+          <DesktopNavigation 
+            activeSection={activeSection} 
+            scrollToSection={scrollToSection}
+          />
+          <div className="hidden md:flex items-center gap-4">
             <Button 
               onClick={toggleTheme} 
               variant="ghost" 
@@ -276,11 +183,11 @@ export function Header() {
               {theme === "light" ? <Moon className="w-5 h-5" aria-hidden="true" /> : <Sun className="w-5 h-5" aria-hidden="true" />}
             </Button>
             <Button
-              onClick={() => scrollToSection("contact-form")}
+              onClick={() => scrollToSection("contact")}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault()
-                  scrollToSection("contact-form")
+                  scrollToSection("contact")
                 }
               }}
               size="sm"
@@ -315,7 +222,8 @@ export function Header() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               variant="ghost"
               size="icon"
-              className="text-foreground/80 hover:text-[#7c3aed] transition-colors"
+              className="text-foreground/80 hover:text-[#ffffff] 
+              transition-colors"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -333,111 +241,11 @@ export function Header() {
           role="menu"
           aria-label="Mobile navigation menu"
         >
-          <div className="container mx-auto px-6 pt-[73px] pb-6 flex flex-col gap-4">
-            <button
-              onClick={() => scrollToSection("about")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("about")
-                }
-              }}
-              role="menuitem"
-              aria-label="Navigate to What I Believe section"
-              className={`text-base font-medium transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
-                activeSection === "about"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-foreground/80 hover:text-[#7c3aed]"
-              }`}
-            >
-              What I Believe
-            </button>
-            <button
-              onClick={() => scrollToSection("expertise")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("expertise")
-                }
-              }}
-              role="menuitem"
-              aria-label="Navigate to What I Do section"
-              className={`text-base font-medium transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
-                activeSection === "expertise"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-[#1e40af] hover:text-[#7c3aed]"
-              }`}
-            >
-              What I Do
-            </button>
-            <button
-              onClick={() => scrollToSection("portfolio")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("portfolio")
-                }
-              }}
-              role="menuitem"
-              aria-label="Navigate to Outcomes section"
-              className={`text-base font-medium transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
-                activeSection === "portfolio"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-[#1e40af] hover:text-[#7c3aed]"
-              }`}
-            >
-              Outcomes
-            </button>
-            <button
-              onClick={() => scrollToSection("engagement")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("engagement")
-                }
-              }}
-              role="menuitem"
-              aria-label="Navigate to Speaking section"
-              className={`text-base font-medium transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
-                activeSection === "engagement"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-[#1e40af] hover:text-[#7c3aed]"
-              }`}
-            >
-              Speaking
-            </button>
-            <button
-              onClick={() => scrollToSection("blog")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("blog")
-                }
-              }}
-              role="menuitem"
-              aria-label="Navigate to Blog section"
-              className={`text-base font-medium transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
-                activeSection === "blog"
-                  ? "text-[#7c3aed] font-semibold"
-                  : "text-[#1e40af] hover:text-[#7c3aed]"
-              }`}
-            >
-              Blog
-            </button>
-            <Button
-              onClick={() => scrollToSection("contact-form")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  scrollToSection("contact-form")
-                }
-              }}
-              className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[#7c3aed] hover:bg-[#7c3aed] hover:text-background dark:hover:text-background transition-all w-full mt-2"
-              aria-label="Navigate to contact form"
-            >
-              Get in touch
-            </Button>
-          </div>
+          <MobileNavigation 
+            activeSection={activeSection}
+            scrollToSection={scrollToSection}
+            onNavigate={() => setMobileMenuOpen(false)}
+          />
         </div>
       </div>
     </header>

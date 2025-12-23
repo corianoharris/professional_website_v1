@@ -16,30 +16,39 @@ export const blogPosts: BlogPost[] = [
     slug: "the-hidden-cost-of-generic-blue",
     title: "The Hidden Cost of Generic Blue",
     excerpt: "How hiding kills trust and growth.",
-    image: "/colorful-abstract-branding.jpg",
+    image: "/generic_blue.webp",
     date: "March 15, 2025",
     author: "Coriano Harris",
     tags: ["Color Strategy", "Trust", "Differentiation"],
     content: `
 # The Hidden Cost of Generic Blue
 
-How hiding kills trust and growth.
+## What this blue communicates (whether you want it to or not)
 
-Most brands default to "trustworthy blue" because it feels safe. But when everyone uses the same color, you become invisible. You blend into the noise.
+**Low risk, low memory** – Users trust it… and forget it instantly
 
-## The Cost of Blending In
+**Compliance over character** – "We're legit" but not "We're different"
 
-Generic blue doesn't build trust—it builds anonymity. When users can't distinguish you from competitors, they default to the cheapest option or the one they've heard of.
+**Borrowed credibility** – It leans on patterns users already know instead of earning its own voice
 
-## Standing Out Through Courage
+## Why teams keep choosing it
 
-The brands that win aren't the ones that look like everyone else. They're the ones brave enough to show their true colors—literally. They understand that vulnerability and differentiation are the same thing.
+- It passes accessibility checks easily
+- Stakeholders rarely object to it
+- It feels professional by default
+- It minimizes debate (and therefore thinking)
 
-## Building Real Trust
+## The real cost
 
-Trust isn't built by looking like everyone else. It's built by showing up authentically, by being remarkable, by daring to be different.
+- Your product blends into the SaaS crowd
+- Your brand becomes interchangeable
+- Your UI does not tell a story—only instructions
 
-The hidden cost of generic blue isn't just lost revenue—it's lost opportunity to connect, to belong, to matter.
+Generic blue isn't bad design.
+
+It's unopinionated design.
+
+And unopinionated design is expensive over time.
     `,
   },
   {
@@ -47,7 +56,7 @@ The hidden cost of generic blue isn't just lost revenue—it's lost opportunity 
     slug: "color-as-courageous-remarkability",
     title: "Color as Courageous Remarkability",
     excerpt: "Dare to stand out boldly—own belonging and memory through remarkable distinction.",
-    image: "/technology-color-interface.jpg",
+    image: "/colored_rocket.png",
     date: "June 22, 2025",
     author: "Coriano Harris",
     tags: ["Remarkability", "Differentiation", "Standout"],
