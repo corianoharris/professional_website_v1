@@ -453,11 +453,12 @@ export function AIChat() {
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground py-8 px-4">
                 <img 
-                  src="/chroma_avatar.png" 
+                  src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-32 h-24 rounded-full mx-auto mb-4 object-cover"
+                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+                  style={{ objectPosition: "50% 30%" }}
                 />
-                <p className="font-semibold mb-2">Hi! I'm Chroma.</p>
+                <p className="font-semibold mb-2">Hey! I'm Chroma, Coriano twin</p>
                 <p className="text-sm">
                   Ask me about services, case studies, methodology, philosophy, or general questions about colors, design, UX, UI, and software development.
                 </p>
@@ -486,9 +487,10 @@ export function AIChat() {
               >
                 {message.role === 'assistant' && (
                   <img 
-                    src="/chroma_avatar.png" 
+                    src="/images/chroma-icon.png" 
                     alt="Chroma avatar" 
-                    className="w-8 h-8 rounded-full flex-shrink-0"
+                    className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
+                    style={{ objectPosition: "50% 30%" }}
                     aria-hidden="true"
                   />
                 )}
@@ -534,9 +536,10 @@ export function AIChat() {
                 aria-label="Chroma is typing"
               >
                 <img 
-                  src="/chroma_avatar.png" 
+                  src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-8 h-8 rounded-full flex-shrink-0"
+                  className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
+                  style={{ objectPosition: "50% 30%" }}
                   aria-hidden="true"
                 />
                 <div className="bg-muted rounded-lg px-4 py-2">
