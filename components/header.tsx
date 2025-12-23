@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun, Menu, X, MessageCircle } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
@@ -14,6 +14,7 @@ export function Header() {
   const [activeSection, setActiveSection] = useState("hero")
   const { theme, toggleTheme } = useTheme()
   const { isOpen: chatOpen, toggleChat } = useAIChat()
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +59,51 @@ export function Header() {
       })
     }
   }, [])
+
+  // Focus management for mobile menu
+  useEffect(() => {
+    if (mobileMenuOpen && mobileMenuRef.current) {
+      // Focus the close button when menu opens
+      const closeButton = mobileMenuRef.current.querySelector('button[aria-label="Close navigation menu"]') as HTMLElement
+      if (closeButton) {
+        setTimeout(() => closeButton.focus(), 100)
+      }
+    }
+  }, [mobileMenuOpen])
+
+  // Focus trap for mobile menu
+  useEffect(() => {
+    if (!mobileMenuOpen || !mobileMenuRef.current) return
+
+    const menu = mobileMenuRef.current
+    const focusableElements = menu.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    const firstElement = focusableElements[0] as HTMLElement
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement?.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement?.focus()
+        }
+      }
+    }
+
+    menu.addEventListener("keydown", handleTabKey)
+
+    return () => {
+      menu.removeEventListener("keydown", handleTabKey)
+    }
+  }, [mobileMenuOpen])
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -118,6 +164,21 @@ export function Header() {
       }
 
       animationId = requestAnimationFrame(animate)
+      
+      // Focus management: Move focus to the target section after scroll completes
+      // This helps screen reader users know where they've navigated to
+      setTimeout(() => {
+        // Make section focusable temporarily if it isn't already
+        const originalTabIndex = element.getAttribute('tabindex')
+        if (!originalTabIndex) {
+          element.setAttribute('tabindex', '-1')
+        }
+        element.focus()
+        // Remove tabindex after focus to restore normal flow
+        if (!originalTabIndex) {
+          element.removeAttribute('tabindex')
+        }
+      }, duration + 100)
     }
     setMobileMenuOpen(false)
   }
@@ -213,22 +274,25 @@ export function Header() {
             >
               <MessageCircle className="w-5 h-5" aria-hidden="true" />
             </Button>
-            <Button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              variant="ghost"
-              size="icon"
-              className="text-foreground/80 hover:text-[#ffffff] 
-              transition-colors"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
-            </Button>
+            {!mobileMenuOpen && (
+              <Button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                variant="ghost"
+                size="icon"
+                className="text-foreground/80 hover:text-[#ffffff] 
+                transition-colors"
+                aria-label="Open menu"
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
+              >
+                <Menu className="w-6 h-6" aria-hidden="true" />
+              </Button>
+            )}
           </div>
         </nav>
 
         <div
+          ref={mobileMenuRef}
           id="mobile-menu"
           className={`md:hidden fixed inset-x-0 bg-background/80 dark:bg-gray-950 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/10 dark:border-foreground/20 transition-all duration-300 z-50 ${
             mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
@@ -239,6 +303,7 @@ export function Header() {
           }}
           role="menu"
           aria-label="Mobile navigation menu"
+          aria-hidden={!mobileMenuOpen}
         >
           <MobileNavigation 
             activeSection={activeSection}

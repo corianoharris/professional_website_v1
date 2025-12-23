@@ -8,7 +8,9 @@ import { AIChatProvider } from "@/components/ai-chat-context"
 export default function Page() {
   return (
     <AIChatProvider>
-      <main id="main-content" className="min-h-screen relative">
+      {/* Live region for screen reader announcements */}
+      <div id="announcements" aria-live="polite" aria-atomic="true" className="sr-only" />
+      <main id="main-content" className="min-h-screen relative" tabIndex={-1}>
         <Header />
         <HeroWithContent />
         <div className="relative z-10">

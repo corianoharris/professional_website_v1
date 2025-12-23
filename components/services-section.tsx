@@ -36,7 +36,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section id="services" className="px-8 md:px-16 py-12 md:py-16 relative">
+    <section id="services" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="services-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -58,7 +58,8 @@ export function ServicesSection() {
 
       <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">DELIVERABLES</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">DELIVERABLES</span>
+          <h2 id="services-heading" className="sr-only">Services and Deliverables</h2>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>

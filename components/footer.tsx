@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background py-12 border-t border-background/10">
+    <footer className="bg-foreground text-background py-12 border-t border-background/10" role="contentinfo" aria-label="Site footer">
       <div className="container mx-auto px-6">
         <div className="flex flex-col items-center justify-center gap-6 text-center">
           <div className="space-y-2">

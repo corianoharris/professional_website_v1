@@ -38,6 +38,7 @@ export function AIChat() {
   const inputRef = useRef<HTMLInputElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const previousMessageCountRef = useRef(0)
+  const triggerButtonRef = useRef<HTMLElement | null>(null)
 
   // Load chat-specific settings from localStorage
   useEffect(() => {
@@ -101,17 +102,35 @@ export function AIChat() {
     // Announce new messages to screen readers
     if (messages.length > previousMessageCountRef.current) {
       const newMessage = messages[messages.length - 1]
-      if (newMessage.role === 'assistant') {
-        // Screen reader will announce via aria-live region
+      const announcementEl = document.getElementById('chat-announcements')
+      if (announcementEl) {
+        if (newMessage.role === 'assistant') {
+          announcementEl.textContent = `Chroma responded: ${newMessage.content.substring(0, 100)}${newMessage.content.length > 100 ? '...' : ''}`
+        } else {
+          announcementEl.textContent = 'Your message sent'
+        }
+        // Clear after announcement
+        setTimeout(() => {
+          announcementEl.textContent = ''
+        }, 1000)
       }
     }
     previousMessageCountRef.current = messages.length
   }, [messages])
 
-  // Focus input when chat opens
+  // Store trigger button and focus input when chat opens
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen) {
+      // Store the currently focused element (should be the trigger button)
+      triggerButtonRef.current = document.activeElement as HTMLElement
+      // Focus input after a short delay
       setTimeout(() => inputRef.current?.focus(), 100)
+    } else {
+      // Return focus to trigger button when chat closes
+      if (triggerButtonRef.current) {
+        triggerButtonRef.current.focus()
+        triggerButtonRef.current = null
+      }
     }
   }, [isOpen])
 
@@ -119,6 +138,17 @@ export function AIChat() {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
+        // Close popovers first if open
+        if (emojiPickerOpen) {
+          setEmojiPickerOpen(false)
+          inputRef.current?.focus()
+          return
+        }
+        if (accessibilityOpen) {
+          setAccessibilityOpen(false)
+          return
+        }
+        // Close chat
         setIsOpen(false)
       }
     }
@@ -266,7 +296,7 @@ export function AIChat() {
           <div className="flex items-center justify-between p-4 border-b bg-background">
             <div className="flex items-center gap-3 flex-1">
               <div className="flex-1 min-w-0">
-                <h2 id="ai-chat-title" className="sr-only">AI Chat Assistant</h2>
+                <h2 id="ai-chat-title" className="text-lg font-semibold mb-1">Chat with Chroma</h2>
                 <p id="ai-chat-description" className="text-xs text-muted-foreground">
                   • We're online
                 </p>
@@ -301,27 +331,48 @@ export function AIChat() {
                       <div className="space-y-1.5">
                         <Button
                           onClick={() => setChatFontSize("normal")}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              setChatFontSize("normal")
+                            }
+                          }}
                           variant={chatFontSize === "normal" ? "default" : "outline"}
                           size="sm"
-                          className="w-full justify-start"
+                          className="w-full justify-start focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                          aria-pressed={chatFontSize === "normal"}
                         >
                           <Type className="w-4 h-4 mr-2" />
                           Normal
                         </Button>
                         <Button
                           onClick={() => setChatFontSize("large")}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              setChatFontSize("large")
+                            }
+                          }}
                           variant={chatFontSize === "large" ? "default" : "outline"}
                           size="sm"
-                          className="w-full justify-start"
+                          className="w-full justify-start focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                          aria-pressed={chatFontSize === "large"}
                         >
                           <Type className="w-5 h-5 mr-2" />
                           Large
                         </Button>
                         <Button
                           onClick={() => setChatFontSize("extra-large")}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault()
+                              setChatFontSize("extra-large")
+                            }
+                          }}
                           variant={chatFontSize === "extra-large" ? "default" : "outline"}
                           size="sm"
-                          className="w-full justify-start"
+                          className="w-full justify-start focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                          aria-pressed={chatFontSize === "extra-large"}
                         >
                           <Type className="w-6 h-6 mr-2" />
                           Extra Large
@@ -334,9 +385,16 @@ export function AIChat() {
                       <p className="text-xs font-medium mb-2">High Contrast</p>
                       <Button 
                         onClick={() => setChatHighContrast(!chatHighContrast)} 
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            setChatHighContrast(!chatHighContrast)
+                          }
+                        }}
                         variant={chatHighContrast ? "default" : "outline"} 
                         size="sm"
-                        className="w-full justify-start bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 dark:hover:text-foreground"
+                        className="w-full justify-start bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 dark:hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        aria-pressed={chatHighContrast}
                       >
                         <Contrast className="w-4 h-4 mr-2" />
                         {chatHighContrast ? "Enabled" : "Disabled"}
@@ -351,6 +409,15 @@ export function AIChat() {
                 onClick={() => {
                   setMessages([])
                   setInput("")
+                  inputRef.current?.focus()
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setMessages([])
+                    setInput("")
+                    inputRef.current?.focus()
+                  }
                 }}
                 aria-label="Refresh chat"
                 className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -361,6 +428,12 @@ export function AIChat() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsOpen(false)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setIsOpen(false)
+                  }
+                }}
                 aria-label="Close chat"
                 className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
               >
@@ -381,9 +454,8 @@ export function AIChat() {
               <div className="text-center text-muted-foreground py-8 px-4">
                 <img 
                   src="/chroma_avatar.png" 
-                  alt="Chroma" 
+                  alt="Chroma avatar" 
                   className="w-32 h-24 rounded-full mx-auto mb-4 object-cover"
-                  aria-hidden="true"
                 />
                 <p className="font-semibold mb-2">Hi! I'm Chroma.</p>
                 <p className="text-sm">
@@ -415,21 +487,18 @@ export function AIChat() {
                 {message.role === 'assistant' && (
                   <img 
                     src="/chroma_avatar.png" 
-                    alt="Chroma" 
+                    alt="Chroma avatar" 
                     className="w-8 h-8 rounded-full flex-shrink-0"
                     aria-hidden="true"
                   />
                 )}
                 <div
                   className={cn(
-                    "rounded-lg px-4 py-2.5 shadow-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+                    "rounded-lg px-4 py-2.5 shadow-md",
                     message.role === 'user'
                       ? "bg-[#7c3aed] text-white max-w-[90%] ml-auto -mr-3"
                       : "bg-muted text-foreground max-w-[85%] -ml-3"
                   )}
-                  tabIndex={0}
-                  role="textbox"
-                  aria-readonly="true"
                 >
                   {message.role === 'assistant' ? (
                     <div className="text-sm prose prose-sm max-w-none dark:prose-invert">
@@ -466,7 +535,7 @@ export function AIChat() {
               >
                 <img 
                   src="/chroma_avatar.png" 
-                  alt="Chroma" 
+                  alt="Chroma avatar" 
                   className="w-8 h-8 rounded-full flex-shrink-0"
                   aria-hidden="true"
                 />
@@ -509,7 +578,13 @@ export function AIChat() {
                         key={index}
                         type="button"
                         onClick={() => insertEmoji(emoji)}
-                        className="text-2xl hover:bg-muted rounded p-1.5 transition-colors cursor-pointer flex items-center justify-center aspect-square min-w-[2.5rem] min-h-[2.5rem]"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            insertEmoji(emoji)
+                          }
+                        }}
+                        className="text-2xl hover:bg-muted rounded p-1.5 transition-colors cursor-pointer flex items-center justify-center aspect-square min-w-[2.5rem] min-h-[2.5rem] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                         aria-label={`Insert ${emoji} emoji`}
                         title={emoji}
                       >
@@ -536,6 +611,12 @@ export function AIChat() {
               </span>
               <Button
                 onClick={handleSend}
+                onKeyDown={(e) => {
+                  if ((e.key === 'Enter' || e.key === ' ') && input.trim() && !isLoading) {
+                    e.preventDefault()
+                    handleSend()
+                  }
+                }}
                 disabled={!input.trim() || isLoading}
                 size="icon"
                 variant="ghost"

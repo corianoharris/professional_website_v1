@@ -45,7 +45,7 @@ export function PortfolioSection() {
   }
 
   return (
-    <section id="portfolio" className="px-8 md:px-16 py-12 md:py-16 border-b relative">
+    <section id="portfolio" className="px-8 md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -67,7 +67,8 @@ export function PortfolioSection() {
 
       <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>CASE STUDIES</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>CASE STUDIES</span>
+          <h2 id="portfolio-heading" className="sr-only">Portfolio and Case Studies</h2>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>

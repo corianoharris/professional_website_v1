@@ -35,6 +35,7 @@ export function BlogSection() {
         <div className="relative max-w-6xl mx-auto mb-12">
           <div className="mb-12 mt-0 md:-mt-8">
             <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">EDITORIAL</span>
+            <h2 id="blog-heading" className="sr-only">Blog and Editorial Content</h2>
           </div>
         </div>
         

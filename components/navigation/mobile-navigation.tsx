@@ -29,7 +29,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
         paddingRight: 'max(1.5rem, calc(1.5rem + env(safe-area-inset-right)))',
       }}
     >
-      {/* Close Button */}
+      {/* Close Button - Inside menu for better UX */}
       <div className="flex justify-end mb-2">
         <button
           onClick={onNavigate}

@@ -223,7 +223,7 @@ export function ContactSection() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <section id="contact" className="px-4 md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible">
+      <section id="contact" className="px-4 md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="contact-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -244,7 +244,8 @@ export function ContactSection() {
 
       <div className="max-w-5xl mx-auto relative z-10 pt-4 overflow-hidden md:overflow-visible">
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">CONNECT</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2">CONNECT</span>
+          <h2 id="contact-heading" className="sr-only">Contact and Connect</h2>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>

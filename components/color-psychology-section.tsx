@@ -47,7 +47,7 @@ export function ColorPsychologySection() {
   ]
 
   return (
-    <section id="color-psychology" className="px-8 md:px-16 py-12 md:py-16 relative">
+    <section id="color-psychology" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="color-psychology-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -70,7 +70,8 @@ export function ColorPsychologySection() {
       <div className="relative max-w-7xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
         {/* Label - Consistent with other sections */}
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>COLOR PSYCHOLOGY</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>COLOR PSYCHOLOGY</span>
+          <h2 id="color-psychology-heading" className="sr-only">Color Psychology and Strategy</h2>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
