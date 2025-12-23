@@ -153,7 +153,7 @@ export function Header() {
               <img 
                 src="/favicon.svg" 
                 alt="" 
-                className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 shrink-0"
                 aria-hidden="true"
               />
               <span className="whitespace-nowrap">Coriano Harris</span>
@@ -202,7 +202,7 @@ export function Header() {
             </Button>
           </div>
 
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex md:hidden items-center gap-2">
             <Button
               onClick={toggleChat}
               variant="ghost"
