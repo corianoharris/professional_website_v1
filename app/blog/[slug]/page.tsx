@@ -37,21 +37,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const lines = content.split("\n").filter(line => line.trim())
     const sections: Array<{ type: string; content: string; level?: number }> = []
     
+    // Helper function to process markdown bold syntax
+    const processBold = (text: string): string => {
+      return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    }
+    
     for (const line of lines) {
-      if (line.trim().startsWith("# ")) {
-        sections.push({ type: "h1", content: line.replace("# ", "").trim() })
-      } else if (line.trim().startsWith("## ")) {
-        sections.push({ type: "h2", content: line.replace("## ", "").trim() })
-      } else if (line.trim().startsWith("### ")) {
-        sections.push({ type: "h3", content: line.replace("### ", "").trim() })
-      } else if (line.trim().startsWith("> ")) {
-        sections.push({ type: "quote", content: line.replace("> ", "").trim() })
-      } else if (line.trim().startsWith("**") && line.trim().endsWith("**") && line.trim().split("**").length === 3) {
-        sections.push({ type: "emphasis", content: line.replace(/\*\*/g, "").trim() })
-      } else if (line.trim()) {
+      const trimmedLine = line.trim()
+      if (trimmedLine.startsWith("# ")) {
+        sections.push({ type: "h1", content: processBold(trimmedLine.replace("# ", "")) })
+      } else if (trimmedLine.startsWith("## ")) {
+        sections.push({ type: "h2", content: processBold(trimmedLine.replace("## ", "")) })
+      } else if (trimmedLine.startsWith("### ")) {
+        sections.push({ type: "h3", content: processBold(trimmedLine.replace("### ", "")) })
+      } else if (trimmedLine.startsWith("> ")) {
+        sections.push({ type: "quote", content: processBold(trimmedLine.replace("> ", "")) })
+      } else if (trimmedLine.startsWith("- ")) {
+        // Handle list items
+        sections.push({ type: "list-item", content: processBold(trimmedLine.replace("- ", "")) })
+      } else if (trimmedLine.startsWith("**") && trimmedLine.endsWith("**") && trimmedLine.split("**").length === 3) {
+        sections.push({ type: "emphasis", content: trimmedLine.replace(/\*\*/g, "") })
+      } else if (trimmedLine) {
         // Handle inline bold text in paragraphs
-        const processedContent = line.trim().replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        sections.push({ type: "paragraph", content: processedContent })
+        sections.push({ type: "paragraph", content: processBold(trimmedLine) })
       }
     }
     
@@ -66,6 +74,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
     return true
   })
+
+  // Group consecutive list items
+  const groupedSections: Array<{ type: string; content: string; items?: string[] }> = []
+  let currentListItems: string[] = []
+  
+  for (const section of remainingSections) {
+    if (section.type === "list-item") {
+      currentListItems.push(section.content)
+    } else {
+      if (currentListItems.length > 0) {
+        groupedSections.push({ type: "list", items: [...currentListItems] })
+        currentListItems = []
+      }
+      groupedSections.push(section)
+    }
+  }
+  if (currentListItems.length > 0) {
+    groupedSections.push({ type: "list", items: currentListItems })
+  }
 
   return (
     <BlogPageWrapper>
@@ -143,45 +170,56 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Main content column */}
             <div className="md:col-span-8">
               {/* First paragraph with drop cap */}
-              {firstParagraph && (
-                <div className="mb-12">
-                  <p className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                    <span className="float-left text-8xl md:text-9xl font-black leading-none mr-3 mt-2 text-black">
-                      {firstParagraph.content.charAt(0)}
-                    </span>
-                    <span className="text-lg md:text-xl leading-relaxed">
-                      {firstParagraph.content.slice(1)}
-                    </span>
-                  </p>
-                </div>
-              )}
+              {firstParagraph && (() => {
+                // Extract first character from text content (strip HTML tags for display)
+                const textContent = firstParagraph.content.replace(/<[^>]*>/g, '')
+                const firstChar = textContent.trim().charAt(0) || ''
+                // Find where the first character appears in the original HTML
+                let charIndex = 0
+                let inTag = false
+                for (let i = 0; i < firstParagraph.content.length; i++) {
+                  if (firstParagraph.content[i] === '<') inTag = true
+                  if (firstParagraph.content[i] === '>') inTag = false
+                  if (!inTag && firstParagraph.content[i] === firstChar) {
+                    charIndex = i
+                    break
+                  }
+                }
+                const beforeChar = firstParagraph.content.substring(0, charIndex)
+                const afterChar = firstParagraph.content.substring(charIndex + 1)
+                return (
+                  <div className="mb-12">
+                    <p className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                      <span dangerouslySetInnerHTML={{ __html: beforeChar }} />
+                      <span className="float-left text-8xl md:text-9xl font-black leading-none mr-3 mt-2 text-black">
+                        {firstChar}
+                      </span>
+                      <span className="text-lg md:text-xl leading-relaxed" dangerouslySetInnerHTML={{ __html: afterChar }} />
+                    </p>
+                  </div>
+                )
+              })()}
 
               {/* Remaining content */}
               <div className="space-y-8">
-                {remainingSections.map((section, index) => {
+                {groupedSections.map((section, index) => {
                   if (section.type === "h1") {
                     return (
-                      <h1 key={index} className="text-4xl md:text-5xl font-black tracking-tight mt-16 mb-8 text-black leading-tight">
-                        {section.content}
-                      </h1>
+                      <h1 key={index} className="text-4xl md:text-5xl font-black tracking-tight mt-16 mb-8 text-black leading-tight" dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "h2") {
                     return (
-                      <h2 key={index} className="text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-6 text-black leading-tight">
-                        {section.content}
-                      </h2>
+                      <h2 key={index} className="text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-6 text-black leading-tight" dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "h3") {
                     return (
-                      <h3 key={index} className="text-2xl md:text-3xl font-semibold tracking-tight mt-10 mb-4 text-black leading-tight">
-                        {section.content}
-                      </h3>
+                      <h3 key={index} className="text-2xl md:text-3xl font-semibold tracking-tight mt-10 mb-4 text-black leading-tight" dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "quote") {
                     return (
                       <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-12 italic text-xl md:text-2xl text-black font-light leading-relaxed bg-muted/30 rounded-r-lg">
                         <Quote className="w-8 h-8 mb-4 text-primary/50" />
-                        {section.content}
+                        <span dangerouslySetInnerHTML={{ __html: section.content }} />
                       </blockquote>
                     )
                   } else if (section.type === "emphasis") {
@@ -189,6 +227,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <p key={index} className="text-2xl md:text-3xl font-bold text-black leading-relaxed my-8 text-center italic">
                         {section.content}
                       </p>
+                    )
+                  } else if (section.type === "list") {
+                    return (
+                      <ul key={index} className="space-y-2 my-6 ml-6 list-disc">
+                        {section.items?.map((item, itemIndex) => (
+                          <li key={itemIndex} className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: item }} />
+                        ))}
+                      </ul>
                     )
                   } else if (section.type === "paragraph") {
                     return (

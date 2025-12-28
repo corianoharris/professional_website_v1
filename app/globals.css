@@ -759,15 +759,15 @@ svg[viewBox*="1200"] stop {
   .dark .human-title-theme {
     color: #a78bfa; /* Lighter purple for dark mode - more visible on light diagonal */
   }
+}
 
-  /* Highlighter effect for impactful words */
-  .highlighter {
-    background: linear-gradient(180deg, transparent 60%, #e9d5ff 60%);
-    padding: 0 2px;
-    display: inline;
-  }
+/* Highlighter effect for impactful words - available on all screen sizes */
+.highlighter {
+  background: linear-gradient(180deg, transparent 60%, #e9d5ff 60%);
+  padding: 0 2px;
+  display: inline;
+}
 
-  .dark .highlighter {
-    background: linear-gradient(180deg, transparent 60%, #7c3aed 60%);
-  }
+.dark .highlighter {
+  background: linear-gradient(180deg, transparent 60%, #7c3aed 60%);
 }

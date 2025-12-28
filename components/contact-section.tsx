@@ -121,7 +121,7 @@ export function ContactSection() {
     if (!isValid) {
       setTimeout(() => {
         const firstErrorField = document.querySelector('[id="name"], [id="email"], [id="message"]')
-        if (firstErrorField) {
+        if (firstErrorField && firstErrorField instanceof HTMLElement) {
           firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' })
           firstErrorField.focus()
         }
@@ -506,7 +506,7 @@ export function ContactSection() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <Mail className="w-6 h-6 text-foreground" />
-                  <a href="mailto:me@corianoharris.com" className="text-xl font-semibold text-foreground hover:text-primary transition-colors">
+                  <a href="mailto:me@corianoharris.com" className="text-base md:text-lg lg:text-xl font-semibold text-foreground hover:text-primary transition-colors">
                     me@corianoharris.com
                   </a>
                 </div>
