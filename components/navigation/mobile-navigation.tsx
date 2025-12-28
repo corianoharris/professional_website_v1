@@ -22,11 +22,12 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
 
   return (
     <div 
-      className="container mx-auto px-6 pb-6 flex flex-col gap-4"
+      className="container mx-auto px-6 flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-73px-env(safe-area-inset-top))]"
       style={{
         paddingTop: 'calc(73px + max(0px, env(safe-area-inset-top)))',
         paddingLeft: 'max(1.5rem, calc(1.5rem + env(safe-area-inset-left)))',
         paddingRight: 'max(1.5rem, calc(1.5rem + env(safe-area-inset-right)))',
+        paddingBottom: 'max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom)))',
       }}
     >
       {/* Close Button - Inside menu for better UX */}
@@ -40,7 +41,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
             }
           }}
           aria-label="Close navigation menu"
-          className="p-2 text-foreground/80 hover:text-foreground hover:bg-foreground/5 rounded-md transition-colors"
+          className="p-2 text-foreground/90 dark:text-foreground/90 hover:text-foreground hover:bg-foreground/5 rounded-md transition-colors"
         >
           <X className="w-6 h-6" aria-hidden="true" />
         </button>
@@ -59,10 +60,10 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           }}
           role="menuitem"
           aria-label={item.ariaLabel}
-          className={`text-base font-semibold transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
+          className={`text-base font-semibold transition-all duration-300 text-left py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
             activeSection === item.sectionId
-              ? "text-[#7c3aed] font-bold"
-              : "text-foreground dark:text-foreground hover:text-[#7c3aed]"
+              ? "text-[#7c3aed] dark:text-[#a78bfa] font-bold"
+              : "text-foreground/95 dark:text-foreground/95 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
           }`}
         >
           {item.label}
@@ -82,10 +83,10 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           role="menuitem"
           aria-label="More navigation options"
           aria-expanded={moreOpen}
-          className={`w-full text-base font-semibold transition-all duration-300 text-left py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 flex items-center justify-between ${
+          className={`w-full text-base font-semibold transition-all duration-300 text-left py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 flex items-center justify-between ${
             moreNavigation.items.some(item => activeSection === item.sectionId)
-              ? "text-[#7c3aed] font-bold"
-              : "text-foreground dark:text-foreground hover:text-[#7c3aed]"
+              ? "text-[#7c3aed] dark:text-[#a78bfa] font-bold"
+              : "text-foreground/95 dark:text-foreground/95 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
           }`}
         >
           <span>{moreNavigation.label}</span>
@@ -98,7 +99,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
 
         {/* Folder Items */}
         {moreOpen && (
-          <div className="pl-6 mt-2 space-y-2">
+          <div className="pl-6 mt-2 space-y-1">
             {moreNavigation.items.map((item) => (
               <button
                 key={item.id}
@@ -111,10 +112,10 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
                 }}
                 role="menuitem"
                 aria-label={item.ariaLabel}
-                className={`w-full text-left text-sm font-medium transition-all duration-300 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 ${
+                className={`w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
                   activeSection === item.sectionId
-                    ? "text-[#7c3aed] font-semibold"
-                    : "text-foreground dark:text-foreground font-semibold hover:text-[#7c3aed]"
+                    ? "text-[#7c3aed] dark:text-[#a78bfa] font-bold"
+                    : "text-foreground/95 dark:text-foreground/95 font-semibold hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
                 }`}
               >
                 {item.label}
@@ -133,7 +134,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
             handleNavClick("contact")
           }
         }}
-        className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[#7c3aed] hover:bg-[#7c3aed] hover:text-background dark:hover:text-background transition-all w-full mt-2"
+        className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[#7c3aed] hover:bg-[#7c3aed] hover:text-background dark:hover:text-background transition-all w-full mt-4 mb-2"
         aria-label="Navigate to contact form"
       >
         Get in touch
