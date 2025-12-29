@@ -26,22 +26,6 @@ export function PressSection() {
       excerpt: <>A deep dive into the journey of a Full-Stack Creative Technologist who thrives at the intersection of <span className="highlighter">design</span>, <span className="highlighter">development</span>, and <span className="highlighter">strategy</span>—from tech support to game testing, <span className="highlighter">UX/UI design</span>, and full-stack development.</>,
       category: "Design",
     },
-    {
-      title: "The Future of Color in Digital Interfaces",
-      publication: "Design Week",
-      date: "2024-12-15",
-      url: "https://example.com/article2",
-      excerpt: <>Exploring the <span className="highlighter">psychological</span> impact of <span className="highlighter">color</span> choices in modern web <span className="highlighter">design</span>...</>,
-      category: "Research",
-    },
-    {
-      title: "Building Accessible Products That Everyone Can Use",
-      publication: "UX Magazine",
-      date: "2024-11-20",
-      url: "https://example.com/article3",
-      excerpt: <>A comprehensive guide to creating <span className="highlighter">inclusive</span> <span className="highlighter">digital experiences</span>...</>,
-      category: "Accessibility",
-    },
   ]
 
   // Fixed filter list - only category filters
@@ -54,12 +38,26 @@ export function PressSection() {
     { id: "accessibility", label: "Accessibility" },
   ]
 
+  // Helper function to normalize category names
+  const normalizeCategory = (cat: string) => 
+    cat.toLowerCase().replace(/\s+/g, "-").replace(/-+/g, "-")
+
+  // Get all available categories from articles
+  const availableCategories = new Set(
+    articles.map(article => 
+      article.category ? normalizeCategory(article.category) : ""
+    ).filter(cat => cat !== "")
+  )
+
+  // Check if a filter has associated articles
+  const hasArticlesForFilter = (filterId: string): boolean => {
+    if (filterId === "all") return articles.length > 0
+    return availableCategories.has(filterId)
+  }
+
   const filteredArticles = selectedFilter === "all" 
     ? articles.slice(0, 1) // Only show first article
     : articles.filter((article) => {
-        // Normalize category names for comparison (handle spaces, hyphens, case)
-        const normalizeCategory = (cat: string) => 
-          cat.toLowerCase().replace(/\s+/g, "-").replace(/-+/g, "-")
         const articleCategory = article.category ? normalizeCategory(article.category) : ""
         return articleCategory === selectedFilter
       }).slice(0, 1) // Only show first article
@@ -98,28 +96,35 @@ export function PressSection() {
 
         <div className="flex flex-wrap justify-center gap-2 mb-8" role="group" aria-label="Filter articles by category or publication">
           <Filter className="w-5 h-5 text-muted-foreground self-center mr-2" aria-hidden="true" />
-          {filters.map((filter) => (
-            <Button
-              key={filter.id}
-              onClick={() => setSelectedFilter(filter.id)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  setSelectedFilter(filter.id)
+          {filters.map((filter) => {
+            const isDisabled = !hasArticlesForFilter(filter.id)
+            return (
+              <Button
+                key={filter.id}
+                onClick={() => !isDisabled && setSelectedFilter(filter.id)}
+                onKeyDown={(e) => {
+                  if (!isDisabled && (e.key === "Enter" || e.key === " ")) {
+                    e.preventDefault()
+                    setSelectedFilter(filter.id)
+                  }
+                }}
+                disabled={isDisabled}
+                variant={selectedFilter === filter.id ? "default" : "outline"}
+                aria-pressed={selectedFilter === filter.id}
+                aria-label={`Filter by ${filter.label}${isDisabled ? " (no articles available)" : ""}`}
+                aria-disabled={isDisabled}
+                className={
+                  isDisabled
+                    ? "opacity-50 cursor-not-allowed"
+                    : selectedFilter === filter.id
+                    ? "bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    : "bg-transparent hover:bg-muted/80 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 }
-              }}
-              variant={selectedFilter === filter.id ? "default" : "outline"}
-              aria-pressed={selectedFilter === filter.id}
-              aria-label={`Filter by ${filter.label}`}
-              className={
-                selectedFilter === filter.id
-                  ? "bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  : "bg-transparent hover:bg-muted/80 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              }
-            >
-              {filter.label}
-            </Button>
-          ))}
+              >
+                {filter.label}
+              </Button>
+            )
+          })}
         </div>
 
         {/* Show only first card, centered */}
