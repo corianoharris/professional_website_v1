@@ -6,7 +6,7 @@ export function ColorPsychologySection() {
   const colorSwatches = [
     {
       name: "Trust & Calm",
-      color: "#06b6d4", // cyan
+      color: "var(--color-brand-cyan)", // cyan - using semantic token
       description: "Evokes calm authority and trust. Perfect for healthcare, finance, and professional services.",
       emotion: "Security",
       icon: Heart,
@@ -14,7 +14,7 @@ export function ColorPsychologySection() {
     },
     {
       name: "Courage & Innovation",
-      color: "#7c3aed", // purple
+      color: "var(--color-brand-purple)", // purple - using semantic token
       description: "Bold, creative, and distinctive. Signals innovation and forward-thinking.",
       emotion: "Confidence",
       icon: Sparkles,
@@ -22,7 +22,7 @@ export function ColorPsychologySection() {
     },
     {
       name: "Energy & Action",
-      color: "#f97316", // orange
+      color: "var(--color-brand-orange)", // orange - using semantic token
       description: "Drives action and engagement. Creates urgency and excitement.",
       emotion: "Motivation",
       icon: Zap,
@@ -30,7 +30,7 @@ export function ColorPsychologySection() {
     },
     {
       name: "Growth & Balance",
-      color: "#14b8a6", // teal
+      color: "var(--color-brand-teal)", // teal - using semantic token
       description: "Represents growth, harmony, and renewal. Connects with nature and sustainability.",
       emotion: "Harmony",
       icon: Brain,
@@ -38,7 +38,7 @@ export function ColorPsychologySection() {
     },
     {
       name: "Focus & Precision",
-      color: "#1e40af", // blue
+      color: "var(--color-brand-blue)", // blue - using semantic token
       description: "Communicates professionalism and reliability. Builds trust through clarity.",
       emotion: "Clarity",
       icon: Target,
@@ -59,9 +59,9 @@ export function ColorPsychologySection() {
       >
         <defs>
           <linearGradient id="colorPsychGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#colorPsychGradientTop)" stroke="none" />
@@ -207,9 +207,9 @@ export function ColorPsychologySection() {
       >
         <defs>
           <linearGradient id="colorPsychGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#colorPsychGradientBottom)" stroke="none" />

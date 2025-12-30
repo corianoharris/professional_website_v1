@@ -50,9 +50,9 @@ export function HeroWithContent() {
           <svg className="w-full relative z-30" viewBox="0 0 1200 80" preserveAspectRatio="none" style={{ height: "80px", animation: "none", transition: "none", transform: "none" }} stroke="none" aria-hidden="true">
             <defs>
               <linearGradient id="heroGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#1e40af" />
-                <stop offset="50%" stopColor="#7c3aed" />
-                <stop offset="100%" stopColor="#14b8a6" />
+                <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+                <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+                <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
               </linearGradient>
             </defs>
             <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#heroGradientTop)" stroke="none" />
@@ -67,15 +67,15 @@ export function HeroWithContent() {
             {/* Magazine-style two-column layout */}
             <div className="relative grid md:grid-cols-2 gap-0 min-h-[600px] md:min-h-[700px] overflow-x-hidden md:overflow-visible">
               {/* Large Title - "HUMAN DRIVEN" positioned right side - Partially extends outside parent on desktop */}
-              <div className="absolute top-8 left-4 md:left-auto md:-right-56 z-30 flex items-center gap-2 md:gap-6 flex-wrap md:justify-end" style={{ overflow: 'visible' }}>
+              <div className="absolute top-8 left-4 md:left-auto md:-right-56 z-30 flex items-center gap-2 md:gap-6 flex-wrap md:justify-end hero-driven-text" style={{ overflow: 'visible' }}>
                 <h2 
-                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight break-words"
-                  style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 800, color: '#7c3aed' }}
+                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight break-words hero-decorative-heading"
+                  style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 800, color: 'var(--color-brand-purple)' }}
                 >
                   HUMAN
                 </h2>
                 <h2 
-                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight hidden md:block"
+                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight hidden md:block hero-decorative-heading"
                   style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
                 >
                   DRIVEN
@@ -167,9 +167,9 @@ export function HeroWithContent() {
             >
               <defs>
                 <linearGradient id="heroGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#1e40af" />
-                  <stop offset="50%" stopColor="#7c3aed" />
-                  <stop offset="100%" stopColor="#14b8a6" />
+                  <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+                  <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+                  <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
                 </linearGradient>
               </defs>
               <path d="M0,30 Q300,0 600,30 T1200,30 L1200,60 L0,60 Z" fill="url(#heroGradientBottom)" stroke="none" />

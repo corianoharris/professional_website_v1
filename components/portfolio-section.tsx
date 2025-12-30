@@ -36,11 +36,11 @@ export function PortfolioSection() {
   const getCategoryColorHex = (category: string) => {
     switch (category) {
       case "design":
-        return "#a855f7" // purple-500
+        return "var(--color-brand-purple)" // Using semantic token
       case "development":
-        return "#06b6d4" // cyan-500
+        return "var(--color-brand-cyan)" // Using semantic token
       default:
-        return "#f97316" // orange-500
+        return "var(--color-brand-orange)" // Using semantic token
     }
   }
 
@@ -57,9 +57,9 @@ export function PortfolioSection() {
       >
         <defs>
           <linearGradient id="portfolioGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#portfolioGradientTop)" stroke="none" />
@@ -205,9 +205,9 @@ export function PortfolioSection() {
       >
         <defs>
           <linearGradient id="portfolioGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#portfolioGradientBottom)" stroke="none" />

@@ -38,6 +38,43 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Semantic Color Tokens - Purpose-driven, not appearance-driven */
+  /* Action colors - For interactive elements */
+  --color-action-primary: #7c3aed;        /* Primary brand purple - main action color */
+  --color-action-secondary: #14b8a6;      /* Teal - secondary action */
+  --color-action-hover: #a78bfa;         /* Lighter purple for hover states */
+
+  /* Text colors - Organized by hierarchy */
+  --color-text-heading: oklch(0.15 0.02 270);  /* Headings - high contrast */
+  --color-text-body: oklch(0.5 0.02 270);      /* Body text - medium contrast */
+  --color-text-muted: oklch(0.5 0.02 270);     /* Muted text - low contrast */
+
+  /* Status colors - For feedback */
+  --color-status-success: #14b8a6;       /* Teal for success */
+  --color-status-warning: #f97316;       /* Orange for warnings */
+  --color-status-error: oklch(0.577 0.245 27.325);  /* Destructive red */
+
+  /* Border colors */
+  --color-border-accent: #7c3aed;        /* Purple accent borders */
+
+  /* Brand colors - Base palette for gradients and accents */
+  --color-brand-purple: #7c3aed;         /* Primary brand purple */
+  --color-brand-purple-hover: #a78bfa;  /* Lighter purple for dark mode */
+  --color-brand-purple-light: #a855f7;  /* Lighter purple variant */
+  --color-brand-cyan: #06b6d4;           /* Trust & Calm */
+  --color-brand-teal: #14b8a6;           /* Growth & Balance */
+  --color-brand-blue: #1e40af;           /* Focus & Precision */
+  --color-brand-blue-light: #3b82f6;     /* Lighter blue variant */
+  --color-brand-orange: #f97316;         /* Energy & Action */
+  --color-brand-pink: #ec4899;           /* Pink accent */
+  --color-brand-green: #22c55e;          /* Green accent */
+  --color-brand-gray: #6b7280;           /* Gray neutral */
+
+  /* Gradient colors - Used in wave patterns and decorative elements */
+  --color-brand-gradient-start: #1e40af;   /* Blue - start of gradient */
+  --color-brand-gradient-middle: #7c3aed;  /* Purple - middle of gradient */
+  --color-brand-gradient-end: #14b8a6;     /* Teal - end of gradient */
 }
 
 .dark {
@@ -74,6 +111,14 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* Dark mode semantic color overrides */
+  --color-action-primary: #a78bfa;      /* Lighter purple for dark mode */
+  --color-action-hover: #c4b5fd;        /* Even lighter for hover */
+  --color-text-heading: oklch(0.98 0.01 120);  /* Light text for dark backgrounds */
+  --color-text-body: oklch(0.85 0.01 120);
+  --color-text-muted: oklch(0.65 0.02 270);
+  --color-brand-purple-hover: #c4b5fd;   /* Lighter purple hover for dark mode */
 }
 
 /* Enhanced dark mode hover states */
@@ -439,6 +484,13 @@
     border-bottom: 2px solid var(--foreground) !important;
     padding-bottom: 0.25em !important;
     margin-bottom: 0.5em !important;
+  }
+
+  /* Remove border-bottom from decorative hero headings - they're decorative, not semantic */
+  html.high-contrast .hero-decorative-heading {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   /* Ensure CTAs and important buttons stand out */

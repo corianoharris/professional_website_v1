@@ -108,9 +108,9 @@ export function AudioPlayer({ src, title, description, date, location, url }: Au
         >
           <defs>
             <linearGradient id="audioPlayerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1e40af" />
-              <stop offset="50%" stopColor="#7c3aed" />
-              <stop offset="100%" stopColor="#14b8a6" />
+              <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+              <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+              <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
             </linearGradient>
           </defs>
           <path 

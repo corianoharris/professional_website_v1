@@ -86,14 +86,14 @@ export function AccessibilityControls() {
         onClick={scrollToTop}
         size="lg"
         variant="outline"
-        className={`w-12 h-12 rounded-full shadow-lg border-2 !bg-white hover:!bg-white/90 !border-[#7c3aed]/20 hover:!border-[#7c3aed] dark:!bg-white dark:hover:!bg-white/90 dark:!border-[#7c3aed]/20 dark:hover:!border-[#7c3aed] group relative transition-all duration-300 ${
+        className={`w-12 h-12 rounded-full shadow-lg border-2 !bg-white hover:!bg-white/90 !border-[var(--color-brand-purple)]/20 hover:!border-[var(--color-brand-purple)] dark:!bg-white dark:hover:!bg-white/90 dark:!border-[var(--color-brand-purple)]/20 dark:hover:!border-[var(--color-brand-purple)] group relative transition-all duration-300 ${
           showScrollToTop
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-2 pointer-events-none"
         }`}
         aria-label="Back to top"
       >
-        <ArrowUp className="w-5 h-5 !text-[#7c3aed] dark:!text-[#7c3aed]" />
+        <ArrowUp className="w-5 h-5 !text-[var(--color-brand-purple)] dark:!text-[var(--color-brand-purple)]" />
         <span className="absolute right-full mr-3 !bg-black !text-white dark:!bg-black dark:!text-white px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           Back to Top
         </span>
@@ -131,7 +131,7 @@ export function AccessibilityControls() {
                   className="w-full justify-start"
                   size="sm"
                 >
-                  <Type className="w-4 h-4 mr-2" />
+                  <span className="text-base mr-2 font-bold">T</span>
                   Normal
                 </Button>
                 <Button
@@ -140,7 +140,7 @@ export function AccessibilityControls() {
                   className="w-full justify-start"
                   size="sm"
                 >
-                  <Type className="w-5 h-5 mr-2" />
+                  <span className="text-lg mr-2 font-bold">T</span>
                   Large
                 </Button>
                 <Button
@@ -149,7 +149,7 @@ export function AccessibilityControls() {
                   className="w-full justify-start"
                   size="sm"
                 >
-                  <Type className="w-6 h-6 mr-2" />
+                  <span className="text-xl mr-2 font-bold">T</span>
                   Extra Large
                 </Button>
               </div>

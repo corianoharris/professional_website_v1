@@ -81,9 +81,9 @@ export function LeadershipSection() {
       >
         <defs>
           <linearGradient id="leadershipGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#leadershipGradientTop)" stroke="none" />
@@ -108,13 +108,13 @@ export function LeadershipSection() {
             const getCategoryColorHex = (color: string) => {
               switch (color) {
                 case "bg-purple-500":
-                  return "#a855f7" // purple-500
+                  return "var(--color-brand-purple-light)" // Using semantic token
                 case "bg-blue-500":
-                  return "#3b82f6" // blue-500
+                  return "var(--color-brand-blue-light)" // Using semantic token
                 case "bg-green-500":
-                  return "#22c55e" // green-500
+                  return "var(--color-brand-green)" // Using semantic token
                 default:
-                  return "#6b7280" // gray-500
+                  return "var(--color-brand-gray)" // Using semantic token
               }
             }
             
@@ -250,9 +250,9 @@ export function LeadershipSection() {
       >
         <defs>
           <linearGradient id="leadershipGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#leadershipGradientBottom)" stroke="none" />

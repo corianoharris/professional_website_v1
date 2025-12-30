@@ -510,7 +510,7 @@ export function AIChat() {
                   className={cn(
                     "rounded-lg px-4 py-2.5 shadow-md",
                     message.role === 'user'
-                      ? "bg-[#7c3aed] text-white max-w-[90%] ml-auto -mr-3"
+                      ? "bg-[var(--color-brand-purple)] text-white max-w-[90%] ml-auto -mr-3"
                       : "bg-muted text-foreground max-w-[85%] -ml-3"
                   )}
                 >
@@ -636,7 +636,7 @@ export function AIChat() {
                 disabled={!input.trim() || isLoading}
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8 flex-shrink-0 text-[#7c3aed] hover:text-[#7c3aed] hover:bg-[#7c3aed]/10 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                className="h-8 w-8 flex-shrink-0 text-[var(--color-brand-purple)] hover:text-[var(--color-brand-purple)] hover:bg-[var(--color-brand-purple)]/10 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 aria-label={isLoading ? "Sending message" : "Send message"}
                 aria-disabled={!input.trim() || isLoading}
               >

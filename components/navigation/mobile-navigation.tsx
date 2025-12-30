@@ -62,8 +62,8 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           aria-label={item.ariaLabel}
           className={`text-base font-semibold transition-all duration-300 text-left py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
             activeSection === item.sectionId
-              ? "text-[#7c3aed] dark:text-[#a78bfa] font-bold"
-              : "text-foreground/95 dark:text-foreground/95 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
+              ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
+              : "text-foreground/95 dark:text-foreground/95 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
           }`}
         >
           {item.label}
@@ -85,8 +85,8 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           aria-expanded={moreOpen}
           className={`w-full text-base font-semibold transition-all duration-300 text-left py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 flex items-center justify-between ${
             moreNavigation.items.some(item => activeSection === item.sectionId)
-              ? "text-[#7c3aed] dark:text-[#a78bfa] font-bold"
-              : "text-foreground/95 dark:text-foreground/95 hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
+              ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
+              : "text-foreground/95 dark:text-foreground/95 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
           }`}
         >
           <span>{moreNavigation.label}</span>
@@ -114,8 +114,8 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
                 aria-label={item.ariaLabel}
                 className={`w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
                   activeSection === item.sectionId
-                    ? "text-[#7c3aed] dark:text-[#a78bfa] font-bold"
-                    : "text-foreground/95 dark:text-foreground/95 font-semibold hover:text-[#7c3aed] dark:hover:text-[#a78bfa]"
+                    ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
+                    : "text-foreground/95 dark:text-foreground/95 font-semibold hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
                 }`}
               >
                 {item.label}
@@ -134,7 +134,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
             handleNavClick("contact")
           }
         }}
-        className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[#7c3aed] hover:bg-[#7c3aed] hover:text-background dark:hover:text-background transition-all w-full mt-4 mb-2"
+        className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[var(--color-brand-purple)] hover:bg-[var(--color-brand-purple)] hover:text-background dark:hover:text-background transition-all w-full mt-4 mb-2"
         aria-label="Navigate to contact form"
       >
         Get in touch

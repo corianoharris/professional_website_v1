@@ -209,7 +209,7 @@ export function Header() {
                 }
               }}
               aria-label="Go to homepage"
-              className="flex items-center gap-2 sm:gap-3 text-base sm:text-xl font-bold tracking-tight text-foreground/90 dark:text-white/90 hover:text-[#7c3aed] dark:hover:text-[#a78bfa] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
+              className="flex items-center gap-2 sm:gap-3 text-base sm:text-xl font-bold tracking-tight text-foreground/90 dark:text-white/90 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
             >
               <img 
                 src="/favicon.svg" 
@@ -223,7 +223,7 @@ export function Header() {
               <Button
                 onClick={toggleChat}
                 size="default"
-                className="bg-[#7c3aed] text-white hover:bg-[#a78bfa] dark:hover:bg-[#a78bfa] transition-all px-4 py-2 h-auto"
+                className="bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)] dark:hover:bg-[var(--color-action-hover)] transition-all px-4 py-2 h-auto"
                 aria-label={chatOpen ? "Close Chroma chat" : "Talk with Chroma"}
                 aria-expanded={chatOpen}
               >
@@ -256,7 +256,7 @@ export function Header() {
                 }
               }}
               size="sm"
-              className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[#7c3aed] hover:bg-[#7c3aed] hover:text-white dark:hover:bg-[#7c3aed] dark:hover:text-white transition-all"
+              className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[var(--color-brand-purple)] hover:bg-[var(--color-brand-purple)] hover:text-white dark:hover:bg-[var(--color-brand-purple)] dark:hover:text-white transition-all"
               aria-label="Navigate to contact form"
             >
               Get in touch
@@ -268,7 +268,7 @@ export function Header() {
               onClick={toggleChat}
               variant="ghost"
               size="icon"
-              className={`text-foreground/80 hover:text-[#7c3aed] transition-colors ${chatOpen ? "text-[#7c3aed] bg-[#7c3aed]/10" : ""}`}
+              className={`text-foreground/80 hover:text-[var(--color-brand-purple)] transition-colors ${chatOpen ? "text-[var(--color-brand-purple)] bg-[var(--color-brand-purple)]/10" : ""}`}
               aria-label={chatOpen ? "Close AI chat" : "Open AI chat"}
               aria-expanded={chatOpen}
             >
@@ -279,7 +279,7 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 variant="ghost"
                 size="icon"
-                className="text-foreground/80 hover:text-[#ffffff] 
+                className="text-foreground/80 hover:text-foreground 
                 transition-colors"
                 aria-label="Open menu"
                 aria-expanded={mobileMenuOpen}

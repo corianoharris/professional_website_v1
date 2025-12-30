@@ -234,9 +234,9 @@ export function ContactSection() {
       >
         <defs>
           <linearGradient id="contactGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#contactGradientTop)" stroke="none" />
@@ -551,9 +551,9 @@ export function ContactSection() {
       >
         <defs>
           <linearGradient id="contactGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#contactGradientBottom)" stroke="none" />

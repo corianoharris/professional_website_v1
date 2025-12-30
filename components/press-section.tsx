@@ -75,9 +75,9 @@ export function PressSection() {
       >
         <defs>
           <linearGradient id="pressGradientTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#pressGradientTop)" stroke="none" />
@@ -155,9 +155,9 @@ export function PressSection() {
                       >
                         <defs>
                           <linearGradient id="pressFeaturedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#1e40af" />
-                            <stop offset="50%" stopColor="#7c3aed" />
-                            <stop offset="100%" stopColor="#14b8a6" />
+                            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+                            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+                            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
                           </linearGradient>
                         </defs>
                         <path 
@@ -185,7 +185,7 @@ export function PressSection() {
                       </span>
                       
                       {/* Headline - larger for featured */}
-                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-[#7c3aed] group-hover:underline transition-colors flex-grow">
+                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-[var(--color-brand-purple)] group-hover:underline transition-colors flex-grow">
                         {firstArticle.title}
                       </h3>
                       
@@ -209,7 +209,7 @@ export function PressSection() {
                               })}
                             </span>
                           </div>
-                          <div className="flex items-center gap-2 text-sm text-[#7c3aed] group-hover:text-[#6d28d9] transition-colors">
+                          <div className="flex items-center gap-2 text-sm text-[var(--color-brand-purple)] group-hover:text-[var(--color-action-hover)] transition-colors">
                             <span className="font-medium">Read article</span>
                             <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" aria-hidden="true" />
                           </div>
@@ -239,9 +239,9 @@ export function PressSection() {
       >
         <defs>
           <linearGradient id="pressGradientBottom" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#14b8a6" />
+            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
           </linearGradient>
         </defs>
         <path d="M0,40 Q300,20 600,40 T1200,40 L1200,60 L0,60 Z" fill="url(#pressGradientBottom)" stroke="none" />
