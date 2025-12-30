@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Baloo_2, Space_Grotesk, Playfair_Display, Raleway } from "next/font/google"
+import { Inter, Baloo_2, Space_Grotesk, Playfair_Display, Raleway, Cinzel_Decorative, Bungee, Monoton, Fascinate } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
@@ -25,6 +25,26 @@ const raleway = Raleway({
   weight: ["400", "500", "600", "700", "800", "900"], 
   subsets: ["latin"], 
   variable: "--font-raleway" 
+})
+const cinzelDecorative = Cinzel_Decorative({ 
+  weight: ["400"], 
+  subsets: ["latin"], 
+  variable: "--font-cinzel-decorative" 
+})
+const bungee = Bungee({ 
+  weight: ["400"], 
+  subsets: ["latin"], 
+  variable: "--font-bungee" 
+})
+const monoton = Monoton({ 
+  weight: ["400"], 
+  subsets: ["latin"], 
+  variable: "--font-monoton" 
+})
+const fascinate = Fascinate({ 
+  weight: ["400"], 
+  subsets: ["latin"], 
+  variable: "--font-fascinate" 
 })
 
 export const metadata: Metadata = {
@@ -71,9 +91,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} font-sans antialiased`}
+        className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} ${cinzelDecorative.variable} ${bungee.variable} ${monoton.variable} ${fascinate.variable} font-sans antialiased`}
         style={{
-          background: "linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEEAD, #D4A5A5, #9B59B6)",
+          backgroundImage: "linear-gradient(45deg, #FFB3BA, #FFDFBA, #FFFFBA, #BAFFC9, #BAE1FF, #E1BAFF, #FFBAE1)",
           backgroundSize: "400% 400%",
           animation: "funGradient 15s ease infinite",
         }}

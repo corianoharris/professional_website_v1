@@ -76,6 +76,23 @@
   --sidebar-ring: oklch(0.439 0 0);
 }
 
+/* Enhanced dark mode hover states */
+.dark a:not(button):not([role="button"]):hover {
+  color: var(--primary);
+  opacity: 0.9;
+}
+
+.dark button:hover,
+.dark [role="button"]:hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.dark .group:hover h3,
+.dark .group:hover h2,
+.dark .group:hover h1 {
+  color: var(--primary);
+}
+
 /* High Contrast Mode - WCAG AAA compliant */
 .high-contrast {
   /* Light high contrast mode - black text on white background */
@@ -368,6 +385,25 @@
     outline-offset: 2px !important;
   }
 
+  /* High contrast button text visibility */
+  html.high-contrast button.bg-primary,
+  html.high-contrast button[class*="!bg-primary"] {
+    color: var(--primary-foreground) !important;
+  }
+
+  html.high-contrast button.bg-primary:hover,
+  html.high-contrast button[class*="!bg-primary"]:hover {
+    color: var(--primary-foreground) !important;
+    background-color: color-mix(in srgb, var(--primary) 90%, transparent) !important;
+  }
+
+  html.high-contrast button.bg-primary svg,
+  html.high-contrast button[class*="!bg-primary"] svg,
+  html.high-contrast button.bg-primary [class*="text-primary-foreground"],
+  html.high-contrast button[class*="!bg-primary"] [class*="text-primary-foreground"] {
+    color: var(--primary-foreground) !important;
+  }
+
   html.high-contrast img {
     /* Ensure images have borders in high contrast mode */
     border: 2px solid var(--border) !important;
@@ -377,6 +413,112 @@
   html.high-contrast .separator {
     /* Make separators more visible */
     border-color: var(--foreground) !important;
+    border-width: 2px !important;
+  }
+
+  /* Enhanced Navigation - Make links and headings stand out clearly */
+  html.high-contrast a:not(button):not([role="button"]) {
+    border-bottom: 2px solid currentColor !important;
+    text-decoration: none !important;
+  }
+
+  html.high-contrast a:not(button):not([role="button"]):hover,
+  html.high-contrast a:not(button):not([role="button"]):focus {
+    border-bottom-width: 3px !important;
+    outline: 2px solid var(--ring) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Enhanced Focus and Attention - Make headings and important elements stand out */
+  html.high-contrast h1,
+  html.high-contrast h2,
+  html.high-contrast h3,
+  html.high-contrast h4,
+  html.high-contrast h5,
+  html.high-contrast h6 {
+    border-bottom: 2px solid var(--foreground) !important;
+    padding-bottom: 0.25em !important;
+    margin-bottom: 0.5em !important;
+  }
+
+  /* Ensure CTAs and important buttons stand out */
+  html.high-contrast [class*="cta"],
+  html.high-contrast [class*="call-to-action"],
+  html.high-contrast button[class*="primary"]:not([class*="outline"]) {
+    border-width: 3px !important;
+    font-weight: 700 !important;
+  }
+
+  /* Better form element visibility */
+  html.high-contrast input:not([type="checkbox"]):not([type="radio"]),
+  html.high-contrast textarea,
+  html.high-contrast select {
+    border: 2px solid var(--foreground) !important;
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  html.high-contrast input:not([type="checkbox"]):not([type="radio"]):focus,
+  html.high-contrast textarea:focus,
+  html.high-contrast select:focus {
+    border-color: var(--ring) !important;
+    border-width: 3px !important;
+  }
+
+  /* Ensure labels are clearly visible */
+  html.high-contrast label {
+    font-weight: 600 !important;
+    color: var(--foreground) !important;
+  }
+
+  /* Improve list item visibility */
+  html.high-contrast li::marker {
+    color: var(--foreground) !important;
+    font-weight: 700 !important;
+  }
+
+  /* Ensure code blocks have proper contrast */
+  html.high-contrast code,
+  html.high-contrast pre {
+    border: 2px solid var(--foreground) !important;
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  /* Improve table visibility */
+  html.high-contrast table {
+    border: 2px solid var(--foreground) !important;
+  }
+
+  html.high-contrast th,
+  html.high-contrast td {
+    border: 1px solid var(--foreground) !important;
+  }
+
+  html.high-contrast th {
+    background-color: var(--muted) !important;
+    font-weight: 700 !important;
+  }
+
+  /* Article card hover border effects */
+  .group:hover .border-transparent {
+    transition: border-color 0.3s ease, border-style 0.3s ease;
+  }
+
+  /* Enhanced border styles for article cards */
+  .hover\:border-double:hover {
+    border-width: 4px !important;
+  }
+
+  .hover\:border-dashed:hover {
+    border-width: 3px !important;
+  }
+
+  .hover\:border-dotted:hover {
+    border-width: 3px !important;
+  }
+
+  .hover\:border-solid:hover {
     border-width: 2px !important;
   }
 
@@ -770,4 +912,63 @@ svg[viewBox*="1200"] stop {
 
 .dark .highlighter {
   background: linear-gradient(180deg, transparent 60%, #7c3aed 60%);
+}
+
+/* Article highlighter - yellow marker pen effect */
+.article-highlighter {
+  background: linear-gradient(180deg, transparent 25%, rgba(255, 235, 59, 0.7) 25%, rgba(255, 235, 59, 0.7) 92%, transparent 92%);
+  padding: 0 4px 4px 4px;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  line-height: 1.8;
+  position: relative;
+  text-shadow: none;
+}
+
+.article-highlighter::after {
+  content: '';
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: 1px;
+  height: 70%;
+  background: rgba(255, 235, 59, 0.4);
+  z-index: -1;
+  transform: skewX(-0.5deg);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+/* Alternative highlighter styles */
+.highlighter-yellow {
+  background: linear-gradient(180deg, transparent 40%, #FFEB3B 40%, #FFEB3B 85%, transparent 85%);
+  padding: 0 3px;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlighter-pink {
+  background: linear-gradient(180deg, transparent 40%, #FFB3BA 40%, #FFB3BA 85%, transparent 85%);
+  padding: 0 3px;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlighter-green {
+  background: linear-gradient(180deg, transparent 40%, #BAFFC9 40%, #BAFFC9 85%, transparent 85%);
+  padding: 0 3px;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlighter-blue {
+  background: linear-gradient(180deg, transparent 40%, #BAE1FF 40%, #BAE1FF 85%, transparent 85%);
+  padding: 0 3px;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }

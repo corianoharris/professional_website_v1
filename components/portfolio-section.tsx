@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { TrendingUp, Building2, Sparkles } from "lucide-react"
-import { Button } from "./ui/button"
+import { ShowMoreButton } from "./show-more-button"
 
 export function PortfolioSection() {
   const [visibleCount, setVisibleCount] = useState(2)
@@ -152,9 +152,9 @@ export function PortfolioSection() {
 
         {/* Show More/Less Buttons */}
         {outcomes.length > 2 && (
-          <div className="flex justify-center gap-4 mt-8 relative z-10">
+          <>
             {visibleCount < outcomes.length && (
-              <Button
+              <ShowMoreButton
                 onClick={() => {
                   setIsLoading(true)
                   setTimeout(() => {
@@ -162,24 +162,17 @@ export function PortfolioSection() {
                     setIsLoading(false)
                   }, 300)
                 }}
-                disabled={isLoading}
-                size="lg"
-                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 text-base md:text-lg"
-              >
-                {isLoading ? "Loading..." : "Show More"}
-              </Button>
+                count={outcomes.length - visibleCount}
+                isLoading={isLoading}
+              />
             )}
             {visibleCount > 2 && (
-              <Button 
-                onClick={() => setVisibleCount(2)} 
-                size="lg" 
-                variant="outline" 
-                className="px-8 py-6 text-base md:text-lg bg-transparent"
-              >
-                Show Less
-              </Button>
+              <ShowMoreButton
+                onClick={() => setVisibleCount(2)}
+                showLess={true}
+              />
             )}
-          </div>
+          </>
         )}
       </div>
 

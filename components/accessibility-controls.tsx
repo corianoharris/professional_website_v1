@@ -167,8 +167,17 @@ export function AccessibilityControls() {
             {/* High Contrast */}
             <div>
               <p className="text-sm font-medium mb-2">High Contrast</p>
-              <Button onClick={toggleHighContrast} variant={highContrast ? "default" : "outline"} className="w-full justify-start bg-transparent">
-                <Contrast className="w-4 h-4 mr-2" />
+              <Button 
+                onClick={toggleHighContrast} 
+                variant={highContrast ? "default" : "outline"} 
+                className={`w-full justify-start ${
+                  highContrast 
+                    ? "!bg-primary !text-primary-foreground hover:!bg-primary/90 hover:!text-primary-foreground dark:hover:!bg-primary/80 dark:hover:!text-primary-foreground border-2 !border-primary" 
+                    : "bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent dark:hover:text-accent-foreground border-2"
+                }`}
+                aria-pressed={highContrast}
+              >
+                <Contrast className={`w-4 h-4 mr-2 ${highContrast ? "!text-primary-foreground" : ""}`} />
                 {highContrast ? "Enabled" : "Disabled"}
               </Button>
             </div>

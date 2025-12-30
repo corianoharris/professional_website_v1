@@ -2,7 +2,7 @@
 import { useState } from "react"
 import type React from "react"
 import { Users, Calendar, MapPin, Award, GraduationCap } from "lucide-react"
-import { Button } from "./ui/button"
+import { ShowMoreButton } from "./show-more-button"
 
 interface LeadershipRole {
   title: string
@@ -215,9 +215,9 @@ export function LeadershipSection() {
 
         {/* Show More/Less Buttons */}
         {roles.length > 2 && (
-          <div className="flex justify-center gap-4 mt-8 relative z-10">
+          <>
             {visibleCount < roles.length && (
-              <Button
+              <ShowMoreButton
                 onClick={() => {
                   setIsLoading(true)
                   setTimeout(() => {
@@ -225,24 +225,17 @@ export function LeadershipSection() {
                     setIsLoading(false)
                   }, 300)
                 }}
-                disabled={isLoading}
-                size="lg"
-                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 text-base md:text-lg"
-              >
-                {isLoading ? "Loading..." : "Show More"}
-              </Button>
+                count={roles.length - visibleCount}
+                isLoading={isLoading}
+              />
             )}
             {visibleCount > 2 && (
-              <Button 
-                onClick={() => setVisibleCount(2)} 
-                size="lg" 
-                variant="outline" 
-                className="px-8 py-6 text-base md:text-lg bg-transparent"
-              >
-                Show Less
-              </Button>
+              <ShowMoreButton
+                onClick={() => setVisibleCount(2)}
+                showLess={true}
+              />
             )}
-          </div>
+          </>
         )}
       </div>
 

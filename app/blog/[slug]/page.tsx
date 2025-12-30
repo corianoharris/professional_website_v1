@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { AccessibilityControls } from "@/components/accessibility-controls"
 import { BlogShare } from "@/components/blog-share"
 import { BlogPageWrapper } from "@/components/blog-page-wrapper"
+import { CollapsibleCodeBlock } from "@/components/collapsible-code-block"
+import { ArticleTLDR } from "@/components/article-tldr"
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -32,35 +34,93 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
   const postUrl = `${baseUrl}/blog/${post.slug}`
 
+  // Helper function to process markdown bold syntax
+  const processBold = (text: string): string => {
+    return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  }
+  
+  // Helper function to process highlighter syntax (==text==)
+  const processHighlighter = (text: string): string => {
+    return text.replace(/==([^=]+)==/g, '<span class="article-highlighter">$1</span>')
+  }
+  
   // Parse content into structured sections
   const parseContent = (content: string) => {
-    const lines = content.split("\n").filter(line => line.trim())
-    const sections: Array<{ type: string; content: string; level?: number }> = []
+    const lines = content.split("\n")
+    const sections: Array<{ type: string; content: string; language?: string; level?: number }> = []
     
-    // Helper function to process markdown bold syntax
-    const processBold = (text: string): string => {
-      return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    }
+    let i = 0
+    let inCodeBlock = false
+    let currentCodeBlock: string[] = []
+    let codeLanguage = ""
     
-    for (const line of lines) {
+    while (i < lines.length) {
+      const line = lines[i]
       const trimmedLine = line.trim()
+      
+      // Handle code blocks
+      if (trimmedLine.startsWith("```")) {
+        if (inCodeBlock) {
+          // End of code block
+          const codeContent = currentCodeBlock.join("\n")
+          sections.push({ 
+            type: "code", 
+            content: codeContent,
+            language: codeLanguage || undefined
+          })
+          currentCodeBlock = []
+          codeLanguage = ""
+          inCodeBlock = false
+        } else {
+          // Start of code block
+          inCodeBlock = true
+          codeLanguage = trimmedLine.replace("```", "").trim()
+        }
+        i++
+        continue
+      }
+      
+      if (inCodeBlock) {
+        // Collect code lines
+        currentCodeBlock.push(line)
+        i++
+        continue
+      }
+      
+      // Helper to process both bold and highlighter
+      const processText = (text: string): string => {
+        return processHighlighter(processBold(text))
+      }
+      
+      // Handle other markdown elements
       if (trimmedLine.startsWith("# ")) {
-        sections.push({ type: "h1", content: processBold(trimmedLine.replace("# ", "")) })
+        sections.push({ type: "h1", content: processText(trimmedLine.replace("# ", "")) })
       } else if (trimmedLine.startsWith("## ")) {
-        sections.push({ type: "h2", content: processBold(trimmedLine.replace("## ", "")) })
+        sections.push({ type: "h2", content: processText(trimmedLine.replace("## ", "")) })
       } else if (trimmedLine.startsWith("### ")) {
-        sections.push({ type: "h3", content: processBold(trimmedLine.replace("### ", "")) })
+        sections.push({ type: "h3", content: processText(trimmedLine.replace("### ", "")) })
       } else if (trimmedLine.startsWith("> ")) {
-        sections.push({ type: "quote", content: processBold(trimmedLine.replace("> ", "")) })
+        sections.push({ type: "quote", content: processText(trimmedLine.replace("> ", "")) })
       } else if (trimmedLine.startsWith("- ")) {
         // Handle list items
-        sections.push({ type: "list-item", content: processBold(trimmedLine.replace("- ", "")) })
+        sections.push({ type: "list-item", content: processText(trimmedLine.replace("- ", "")) })
       } else if (trimmedLine.startsWith("**") && trimmedLine.endsWith("**") && trimmedLine.split("**").length === 3) {
         sections.push({ type: "emphasis", content: trimmedLine.replace(/\*\*/g, "") })
       } else if (trimmedLine) {
         // Handle inline bold text in paragraphs
-        sections.push({ type: "paragraph", content: processBold(trimmedLine) })
+        sections.push({ type: "paragraph", content: processText(trimmedLine) })
       }
+      
+      i++
+    }
+    
+    // Handle unclosed code block
+    if (inCodeBlock && currentCodeBlock.length > 0) {
+      sections.push({ 
+        type: "code", 
+        content: currentCodeBlock.join("\n"),
+        language: codeLanguage || undefined
+      })
     }
     
     return sections
@@ -75,13 +135,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     return true
   })
 
-  // Group consecutive list items
-  const groupedSections: Array<{ type: string; content: string; items?: string[] }> = []
+  // Group consecutive list items (but preserve code blocks)
+  const groupedSections: Array<{ type: string; content: string; items?: string[]; language?: string }> = []
   let currentListItems: string[] = []
   
   for (const section of remainingSections) {
     if (section.type === "list-item") {
-      currentListItems.push(section.content)
+      // Process highlighter in list items too
+      currentListItems.push(processHighlighter(section.content))
     } else {
       if (currentListItems.length > 0) {
         groupedSections.push({ type: "list", items: [...currentListItems] })
@@ -138,6 +199,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.excerpt}
             </p>
 
+            {/* Share section - Above TLDR */}
+            <div className="mb-8 pb-8 border-b border-black/10">
+              <div className="bg-white rounded-lg p-6 max-w-md mx-auto md:max-w-sm">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-black/60 mb-4 text-center">
+                  Share This Article
+                </h3>
+                <BlogShare 
+                  title={post.title}
+                  url={postUrl}
+                  excerpt={post.excerpt}
+                />
+              </div>
+            </div>
+
+            {/* TLDR Section */}
+            {post.tldr && post.tldr.length > 0 && (
+              <div className="mb-8">
+                <ArticleTLDR points={post.tldr} />
+              </div>
+            )}
+
             {/* Byline - Magazine Style */}
             <div className="flex items-center gap-6 text-sm text-black/60 border-t border-b border-black/10 py-4">
               <div className="flex items-center gap-2">
@@ -166,9 +248,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Article Content - Magazine Layout */}
       <article className="relative px-4 md:px-6 pb-24">
         <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-12 gap-8 md:gap-12">
-            {/* Main content column */}
-            <div className="md:col-span-8">
+          {/* Main content column - Full width */}
+          <div className="max-w-3xl mx-auto">
               {/* First paragraph with drop cap */}
               {firstParagraph && (() => {
                 // Extract first character from text content (strip HTML tags for display)
@@ -188,81 +269,81 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 const beforeChar = firstParagraph.content.substring(0, charIndex)
                 const afterChar = firstParagraph.content.substring(charIndex + 1)
                 return (
-                  <div className="mb-12">
-                    <p className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                      <span dangerouslySetInnerHTML={{ __html: beforeChar }} />
-                      <span className="float-left text-8xl md:text-9xl font-black leading-none mr-3 mt-2 text-black">
+                  <div className="mb-16">
+                    <p className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
+                      <span 
+                        className="inline-block text-7xl md:text-8xl lg:text-9xl font-black leading-none mr-3 md:mr-4 text-black align-middle" 
+                        style={{ 
+                          fontFamily: 'var(--font-bungee), sans-serif',
+                          verticalAlign: 'middle',
+                          lineHeight: '1',
+                          letterSpacing: '0.02em'
+                        }}
+                      >
                         {firstChar}
                       </span>
-                      <span className="text-lg md:text-xl leading-relaxed" dangerouslySetInnerHTML={{ __html: afterChar }} />
+                      <span className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed inline" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }} dangerouslySetInnerHTML={{ __html: afterChar }} />
                     </p>
                   </div>
                 )
               })()}
 
               {/* Remaining content */}
-              <div className="space-y-8">
+              <div className="space-y-12 md:space-y-16">
                 {groupedSections.map((section, index) => {
                   if (section.type === "h1") {
                     return (
-                      <h1 key={index} className="text-4xl md:text-5xl font-black tracking-tight mt-16 mb-8 text-black leading-tight" dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <h1 key={index} className="text-4xl md:text-5xl font-black tracking-tight mt-20 mb-10 text-black leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "h2") {
                     return (
-                      <h2 key={index} className="text-3xl md:text-4xl font-bold tracking-tight mt-12 mb-6 text-black leading-tight" dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <h2 key={index} className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-20 mb-10 text-black leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "h3") {
                     return (
-                      <h3 key={index} className="text-2xl md:text-3xl font-semibold tracking-tight mt-10 mb-4 text-black leading-tight" dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <h3 key={index} className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mt-16 mb-8 text-black leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "quote") {
                     return (
-                      <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-12 italic text-xl md:text-2xl text-black font-light leading-relaxed bg-muted/30 rounded-r-lg">
+                      <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-16 md:my-20 italic text-xl md:text-2xl lg:text-3xl text-black font-light leading-relaxed bg-muted/30 rounded-r-lg" style={{ fontFamily: 'var(--font-cinzel-decorative), serif', letterSpacing: '0.03em' }}>
                         <Quote className="w-8 h-8 mb-4 text-primary/50" />
                         <span dangerouslySetInnerHTML={{ __html: section.content }} />
                       </blockquote>
                     )
                   } else if (section.type === "emphasis") {
                     return (
-                      <p key={index} className="text-2xl md:text-3xl font-bold text-black leading-relaxed my-8 text-center italic">
+                      <p key={index} className="text-2xl md:text-3xl lg:text-4xl font-bold text-black leading-relaxed my-12 md:my-16 text-center italic" style={{ fontFamily: 'var(--font-cinzel-decorative), serif', letterSpacing: '0.05em' }}>
                         {section.content}
                       </p>
                     )
+                  } else if (section.type === "code") {
+                    return (
+                      <CollapsibleCodeBlock
+                        key={index}
+                        code={section.content}
+                        language={section.language}
+                      />
+                    )
                   } else if (section.type === "list") {
                     return (
-                      <ul key={index} className="space-y-2 my-6 ml-6 list-disc">
+                      <ul key={index} className="space-y-3 md:space-y-4 my-8 ml-0 list-none">
                         {section.items?.map((item, itemIndex) => (
-                          <li key={itemIndex} className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: item }} />
+                          <li key={itemIndex} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black pl-8 md:pl-10 relative" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
+                            <span className="absolute left-0 top-0 text-black font-black" style={{ fontSize: '1.5em', lineHeight: '1.2', fontFamily: 'var(--font-bungee), sans-serif' }}>▶</span>
+                            <span dangerouslySetInnerHTML={{ __html: item }} />
+                          </li>
                         ))}
                       </ul>
                     )
                   } else if (section.type === "paragraph") {
                     return (
-                      <p key={index} className="text-lg md:text-xl leading-relaxed text-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <p key={index} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black mb-8 md:mb-10" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   }
                   return null
                 })}
               </div>
             </div>
-
-            {/* Sidebar - Magazine Style */}
-            <aside className="md:col-span-4 md:sticky md:top-24 h-fit">
-              <div className="space-y-8 pt-8">
-                {/* Share section with buttons and count */}
-                <div className="bg-white rounded-lg p-6">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-black/60 mb-4">
-                    Share This Article
-                  </h3>
-                  <BlogShare 
-                    title={post.title}
-                    url={postUrl}
-                    excerpt={post.excerpt}
-                  />
-                </div>
-              </div>
-            </aside>
-          </div>
 
           {/* Article footer */}
           <div className="mt-24 pt-12 border-t border-black/10">
