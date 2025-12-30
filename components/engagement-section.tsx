@@ -114,7 +114,7 @@ export function EngagementSection() {
   }
 
   return (
-    <section id="engagement" className="px-8 md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="engagement-heading">
+    <section id="engagement" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="engagement-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

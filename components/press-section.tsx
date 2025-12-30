@@ -63,7 +63,7 @@ export function PressSection() {
       }).slice(0, 1) // Only show first article
 
   return (
-    <section id="press" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="press-heading">
+    <section id="press" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative" aria-labelledby="press-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

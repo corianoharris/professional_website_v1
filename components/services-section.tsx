@@ -36,7 +36,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section id="services" className="px-8 md:px-16 py-12 md:py-16 relative" aria-labelledby="services-heading">
+    <section id="services" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative" aria-labelledby="services-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

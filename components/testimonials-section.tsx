@@ -35,7 +35,7 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <section id="testimonials" className="px-8 md:px-16 py-12 md:py-16 relative">
+    <section id="testimonials" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

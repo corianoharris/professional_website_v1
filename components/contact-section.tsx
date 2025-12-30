@@ -223,7 +223,7 @@ export function ContactSection() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <section id="contact" className="px-4 md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="contact-heading">
+      <section id="contact" className="w-[95%] mx-auto md:w-full md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="contact-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

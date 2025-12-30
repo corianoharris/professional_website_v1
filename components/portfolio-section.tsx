@@ -45,7 +45,7 @@ export function PortfolioSection() {
   }
 
   return (
-    <section id="portfolio" className="px-8 md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

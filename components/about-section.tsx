@@ -2,7 +2,7 @@ import { Quote } from "lucide-react"
 
 export function AboutSection() {
   return (
-    <section id="about" className="px-8 md:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="about-heading">
+    <section id="about" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="about-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

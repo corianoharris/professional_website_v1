@@ -3,7 +3,7 @@
 export function ExpertiseSection() {
 
   return (
-    <section id="expertise" className="px-8 md:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="expertise-heading">
+    <section id="expertise" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="expertise-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
