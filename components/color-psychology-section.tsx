@@ -67,7 +67,7 @@ export function ColorPsychologySection() {
         <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#colorPsychGradientTop)" stroke="none" />
       </svg>
 
-      <div className="relative max-w-7xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
+      <div className="relative max-w-7xl mx-auto mb-12 z-10 pt-4 overflow-x-hidden md:overflow-visible">
         {/* Label - Consistent with other sections */}
         <div className="mb-8 mt-0 md:-mt-8">
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>COLOR PSYCHOLOGY</span>
@@ -112,20 +112,19 @@ export function ColorPsychologySection() {
         </div>
 
         {/* Color Swatches - Circles Representing Colors: Odd on Left, Even on Right */}
-        <div className="space-y-12 md:space-y-16 relative md:-ml-16 md:pl-16 md:-mr-16 md:pr-16" style={{ overflow: 'visible' }}>
+        <div className="space-y-12 md:space-y-16 relative md:-ml-16 md:pl-16 md:-mr-16 md:pr-16 overflow-x-hidden md:overflow-visible">
           {colorSwatches.map((swatch, index) => {
             const IconComponent = swatch.icon
             const isOdd = index % 2 === 1 // Odd items (1, 3, 5) on left, Even items (0, 2, 4) on right
             return (
               <div
                 key={index}
-                className="relative grid grid-cols-12 gap-0 overflow-visible"
-                style={{ overflow: 'visible' }}
+                className="relative grid grid-cols-12 gap-0 overflow-x-hidden md:overflow-visible"
               >
                 {/* Left Section - Small Circle - Odd items on left, Even items on right */}
+                {/* On mobile, don't extend outside container to prevent cutoff */}
                 <div 
-                  className={`col-span-3 relative flex items-center justify-center ${isOdd ? 'order-1 -ml-16' : 'order-2 -mr-16 col-start-10'}`} 
-                  style={{ overflow: 'visible' }}
+                  className={`col-span-3 relative flex items-center justify-center ${isOdd ? 'order-1 md:-ml-16' : 'order-2 md:-mr-16 md:col-start-10'}`}
                 >
                   {/* Small Circle Representing Color */}
                   <div 

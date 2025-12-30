@@ -68,6 +68,19 @@ export function LeadershipSection() {
     },
   ]
 
+  // Sort roles: "Present" roles first (by start date), then others by start date (most recent first)
+  const sortedRoles = [...roles].sort((a, b) => {
+    // If both are "Present", sort by start date (most recent first)
+    if (a.endDate === "Present" && b.endDate === "Present") {
+      return parseInt(b.startDate) - parseInt(a.startDate)
+    }
+    // "Present" roles come first
+    if (a.endDate === "Present") return -1
+    if (b.endDate === "Present") return 1
+    // Otherwise sort by start date (most recent first)
+    return parseInt(b.startDate) - parseInt(a.startDate)
+  })
+
   return (
     <section id="leadership" className="px-8 md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="leadership-heading">
       {/* Top wave pattern */}
@@ -100,7 +113,7 @@ export function LeadershipSection() {
 
         {/* Table of Contents Style Layout - No Borders */}
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
-          {roles.slice(0, visibleCount).map((role, index) => {
+          {sortedRoles.slice(0, visibleCount).map((role, index) => {
             const roleNumber = String(index + 1).padStart(2, '0')
             const isLeftColumn = index % 2 === 0
             const isThirdItem = index === 2
