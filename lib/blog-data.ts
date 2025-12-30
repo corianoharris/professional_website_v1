@@ -30,32 +30,34 @@ export const blogPosts: BlogPost[] = [
     content: `
 # The Hidden Cost of Generic Blue
 
+You know that blue? The one that looks like every SaaS product ever made? Yeah, that one. The one that screams "I'm a button!" but whispers "I'm also forgettable." Let's talk about why your product looks like it's in witness protection.
+
 ## What this blue communicates (whether you want it to or not)
 
-**Low risk, low memory** – Users trust it… and forget it ==instantly==
+**Low risk, low memory** – Users trust it… and forget it ==instantly==. It's like meeting someone at a party who's perfectly nice but has the personality of a beige wall. You'll never remember their name, but you'll remember they existed. Maybe.
 
-**Compliance over character** – "We're legit" but not =="We're different"==
+**Compliance over character** – "We're legit" but not =="We're different"==. It's the design equivalent of wearing khakis to a rock concert. Safe? Yes. Memorable? Absolutely not.
 
-**Borrowed credibility** – It leans on patterns users already know instead of ==earning its own voice==
+**Borrowed credibility** – It leans on patterns users already know instead of ==earning its own voice==. It's like copying someone's homework but changing the font. Still obvious, still unoriginal.
 
 ## Why teams keep choosing it
 
-- It passes accessibility checks easily
-- Stakeholders rarely object to it
-- It feels professional by default
-- It minimizes debate (and therefore thinking)
+- It passes accessibility checks easily (because it's been tested a million times)
+- Stakeholders rarely object to it (because they've seen it before and their brains shut off)
+- It feels professional by default (like wearing a suit to a casual brunch)
+- It minimizes debate (and therefore thinking) – The meeting ends faster, but your product suffers
 
 ## The real cost
 
-- Your product ==blends into the SaaS crowd==
-- Your brand becomes ==interchangeable==
-- Your UI does not tell a story—only instructions
+- Your product ==blends into the SaaS crowd== like a chameleon in a box of crayons
+- Your brand becomes ==interchangeable== – Users can't tell you apart from your competitors (and honestly, neither can you)
+- Your UI does not tell a story—only instructions. It's like reading a manual instead of a novel.
 
 Generic blue isn't bad design.
 
 It's ==unopinionated design==.
 
-And unopinionated design is ==expensive over time==.
+And unopinionated design is ==expensive over time==. It's the design equivalent of buying cheap shoes—they work, but your feet (and your brand) will pay for it later.
     `,
   },
   {
@@ -76,27 +78,27 @@ And unopinionated design is ==expensive over time==.
     content: `
 # Color as Courageous Remarkability
 
-Dare to stand out boldly—own belonging and memory through remarkable distinction.
+Dare to stand out boldly—own belonging and memory through remarkable distinction. Or, you know, keep blending in with everyone else. Your choice. But if you're reading this, you probably want to be remembered, not forgotten like that one app you downloaded last week and can't remember the name of.
 
-In a world of ordinary products, be remarkable. Be boldly distinctive: impossible to ignore.
+In a world of ordinary products, be remarkable. Be boldly distinctive: impossible to ignore. Like a peacock at a penguin convention. Sure, the penguins are fine, but everyone's looking at the peacock.
 
 ## The Remarkable Standout Principle
 
-Seth Godin taught us that remarkable products ==stand out so boldly==—you can't help but notice them, talk about them, remember them. ==Color is your bold distinction==.
+Seth Godin taught us that remarkable products ==stand out so boldly==—you can't help but notice them, talk about them, remember them. ==Color is your bold distinction==. It's your product's personality. Without it, you're just another gray blob in a sea of gray blobs. Exciting stuff.
 
 ## Courage Over Comfort
 
-Most teams choose colors that feel safe. They aim to fit in. But fitting in is the opposite of remarkable. Remarkable means standing out, being unforgettable, creating belonging through difference.
+Most teams choose colors that feel safe. They aim to fit in. But fitting in is the opposite of remarkable. Remarkable means standing out, being unforgettable, creating belonging through difference. It's like choosing to wear a bright yellow suit to a funeral. Risky? Yes. Memorable? Absolutely. Appropriate? Well, that depends on the funeral, but you get the point.
 
 ## Owning Your Space
 
-When you choose colors with courage, you're not just picking a palette. You're making a statement. You're saying: "This is who we are. This is what we stand for. This is why we matter."
+When you choose colors with courage, you're not just picking a palette. You're making a statement. You're saying: "This is who we are. This is what we stand for. This is why we matter." And if you're lucky, users will say: "Oh wow, I remember this app! It's the one with that wild purple gradient!"
 
 ## The Remarkable Edge
 
-Remarkable products don't just get noticed—they get remembered. They get shared. They build tribes. And tribes pay premium and spread virally.
+Remarkable products don't just get noticed—they get remembered. They get shared. They build tribes. And tribes pay premium and spread virally. It's like having a cult following, but for your color choices. And unlike actual cults, this one is legal and profitable.
 
-Dare to be boldly distinctive. Your market is waiting.
+Dare to be boldly distinctive. Your market is waiting. And honestly, they're probably tired of seeing the same blue button everywhere.
     `,
   },
   {
@@ -118,27 +120,27 @@ Dare to be boldly distinctive. Your market is waiting.
     content: `
 # Accessibility as Vulnerable Inclusion
 
-The remarkable edge of true connection.
+The remarkable edge of true connection. Or as I like to call it: "How to build products that don't exclude people and make you feel good about yourself."
 
-Accessibility isn't compliance—it's ==courage==. It's the vulnerable act of saying: "==Everyone belongs here==."
+Accessibility isn't compliance—it's ==courage==. It's the vulnerable act of saying: "==Everyone belongs here==." Even that one user who uses Internet Explorer. Yes, they exist. No, I don't know why.
 
 ## Beyond Compliance
 
-Most teams treat accessibility as a checkbox. A requirement. A constraint. But the brands that win—==Stripe, Airbnb, Apple==—treat it as their ==competitive advantage==.
+Most teams treat accessibility as a checkbox. A requirement. A constraint. Like doing your taxes—necessary but annoying. But the brands that win—==Stripe, Airbnb, Apple==—treat it as their ==competitive advantage==. They're like the kid who did extra credit and got an A+ while everyone else got a C.
 
 ## The Vulnerability of Inclusion
 
-True inclusion requires ==vulnerability==. It means admitting you don't know everything. It means listening to voices you've ignored. It means building for people who've been excluded.
+True inclusion requires ==vulnerability==. It means admitting you don't know everything. It means listening to voices you've ignored. It means building for people who've been excluded. It's like admitting you've been wrong this whole time, but instead of feeling bad, you feel awesome because now you're doing the right thing.
 
 ## The Remarkable Edge
 
-When you build accessible products, you're not just checking boxes. You're ==building connection==. You're ==creating belonging==. You're showing that ==everyone matters==.
+When you build accessible products, you're not just checking boxes. You're ==building connection==. You're ==creating belonging==. You're showing that ==everyone matters==. Even that user who reads your entire terms of service. Yes, they exist too. They're probably lawyers.
 
 ## Connection Over Compliance
 
-Accessible design isn't about following rules—it's about ==creating connection==. It's about building products that work for everyone, that make everyone feel seen, that create ==true belonging==.
+Accessible design isn't about following rules—it's about ==creating connection==. It's about building products that work for everyone, that make everyone feel seen, that create ==true belonging==. It's like throwing a party and actually inviting everyone, not just the cool kids.
 
-The remarkable edge isn't in following the crowd. It's in ==including everyone==.
+The remarkable edge isn't in following the crowd. It's in ==including everyone==. Even the person who still uses a flip phone. They're out there. And they deserve accessible design too.
     `,
   },
   {
@@ -163,13 +165,13 @@ The remarkable edge isn't in following the crowd. It's in ==including everyone==
 
 Exploring the **psychological** impact of **color** choices in modern web **design** and how they shape user behavior.
 
-Color isn't just decoration—it's ==communication==. Every hue, saturation, and contrast ratio tells a story. In the digital age, where attention spans are measured in seconds, color becomes your ==first and most powerful tool for connection==.
+Color isn't just decoration—it's ==communication==. Every hue, saturation, and contrast ratio tells a story. In the digital age, where attention spans are measured in seconds (seriously, we have the attention span of a goldfish now), color becomes your ==first and most powerful tool for connection==. It's like speed dating, but for pixels.
 
 ## The Psychology Behind the Palette
 
-Color psychology isn't pseudoscience—it's ==neuroscience==. When users see a color, their brains process it before they even read a word. ==Red triggers urgency==. ==Blue builds trust==. ==Green signals growth==. But here's what most designers miss: ==context changes everything==.
+Color psychology isn't pseudoscience—it's ==neuroscience==. When users see a color, their brains process it before they even read a word. ==Red triggers urgency==. ==Blue builds trust==. ==Green signals growth==. But here's what most designers miss: ==context changes everything==. It's like wearing a red shirt to a bullfight versus a wedding. Same color, very different outcomes.
 
-A red button on a checkout page means "complete purchase." The same red on a medical app means "emergency." The color is identical, but the meaning shifts with context.
+A red button on a checkout page means "complete purchase." The same red on a medical app means "emergency." The color is identical, but the meaning shifts with context. One says "Buy now!" The other says "You might be dying!" Context matters, people.
 
 ## Beyond Brand Guidelines
 
@@ -179,9 +181,9 @@ Every color choice should answer: ==What emotion do we want to evoke?== ==What a
 
 ## The Data-Driven Color Revolution
 
-The future belongs to teams that ==measure color's impact==. A/B testing button colors isn't enough. We need to understand how color combinations affect ==cognitive load==, how contrast ratios influence ==readability==, and how ==cultural associations shape perception==.
+The future belongs to teams that ==measure color's impact==. A/B testing button colors isn't enough. We need to understand how color combinations affect ==cognitive load==, how contrast ratios influence ==readability==, and how ==cultural associations shape perception==. It's like being a color scientist, but cooler because you get to make things people actually use.
 
-Tools like FullStory and Hotjar give us behavioral data. But the real breakthrough comes when we combine that data with color psychology research to make ==informed decisions==.
+Tools like FullStory and Hotjar give us behavioral data. But the real breakthrough comes when we combine that data with color psychology research to make ==informed decisions==. Instead of guessing "maybe blue works better?" you'll know "blue works 23% better, but only on Tuesdays." (That's not real data, but wouldn't that be hilarious?)
 
 ## Accessibility as a Competitive Advantage
 
@@ -191,9 +193,9 @@ But accessibility goes beyond contrast. It's about ==colorblind-friendly palette
 
 ## The Emotional Architecture of Color
 
-Great digital interfaces don't just look good—they ==feel right==. Color is ==emotional architecture==. It sets the mood, guides attention, and creates atmosphere. A fintech app might use muted blues and grays to convey stability. A creative platform might use vibrant gradients to inspire.
+Great digital interfaces don't just look good—they ==feel right==. Color is ==emotional architecture==. It sets the mood, guides attention, and creates atmosphere. A fintech app might use muted blues and grays to convey stability. A creative platform might use vibrant gradients to inspire. It's like interior design, but for pixels. And you can't blame your roommate for the color choices.
 
-The future belongs to designers who understand that ==color is atmosphere, not just aesthetics==.
+The future belongs to designers who understand that ==color is atmosphere, not just aesthetics==. It's the difference between a room that feels cozy and a room that feels like a hospital waiting area. Both are functional, but only one makes you want to stay.
 
 ## Color as Storytelling
 
@@ -232,13 +234,13 @@ Choose your colors with intention. Measure their impact. Build with purpose. The
 
 A comprehensive guide to creating **inclusive** **digital experiences** that work for everyone, regardless of ability.
 
-Accessibility isn't a feature—it's a ==foundation==. When you build accessible products, you're not just checking compliance boxes. You're creating experiences that ==work for everyone==, that make everyone feel seen, that create ==true belonging==.
+Accessibility isn't a feature—it's a ==foundation==. When you build accessible products, you're not just checking compliance boxes. You're creating experiences that ==work for everyone==, that make everyone feel seen, that create ==true belonging==. It's like building a ramp instead of stairs. Sure, stairs work for most people, but ramps work for everyone. Plus, you can skateboard down ramps. Try that with stairs. I dare you.
 
 ## Why Accessibility Matters
 
-==One billion people worldwide have a disability==. That's 15% of the global population. But here's what most product teams miss: ==accessibility benefits everyone==. Closed captions help people in noisy environments. High contrast modes help people in bright sunlight. Keyboard navigation helps power users work faster.
+==One billion people worldwide have a disability==. That's 15% of the global population. That's like excluding everyone in New York, Los Angeles, and Chicago combined. But here's what most product teams miss: ==accessibility benefits everyone==. Closed captions help people in noisy environments (like that one coffee shop with the blender that never stops). High contrast modes help people in bright sunlight (or when you're trying to check your phone at the beach). Keyboard navigation helps power users work faster (and look cooler doing it).
 
-When you build for accessibility, you ==build for everyone==.
+When you build for accessibility, you ==build for everyone==. It's like making a universal remote that actually works. Revolutionary.
 
 ## Beyond Compliance: The Business Case
 
@@ -282,13 +284,13 @@ Accessibility isn't something you add at the end—it's something you build from
 
 ## The Tools You Need
 
-**Automated testing** – Tools like axe DevTools, WAVE, and Lighthouse catch many accessibility issues automatically.
+**Automated testing** – Tools like axe DevTools, WAVE, and Lighthouse catch many accessibility issues automatically. They're like spell check, but for accessibility. And just like spell check, they'll catch things you didn't even know were problems.
 
-**Screen readers** – Test with NVDA (Windows), VoiceOver (Mac/iOS), or JAWS. Experience your product the way your users do.
+**Screen readers** – Test with NVDA (Windows), VoiceOver (Mac/iOS), or JAWS. Experience your product the way your users do. It's like closing your eyes and navigating your app. Except you can't cheat and peek. And it's actually useful.
 
-**Keyboard navigation** – Unplug your mouse. Navigate your entire interface with just a keyboard. You'll discover issues you never knew existed.
+**Keyboard navigation** – Unplug your mouse. Navigate your entire interface with just a keyboard. You'll discover issues you never knew existed. Like that button that's impossible to reach. Or that form that traps you forever. Good times.
 
-**Color contrast checkers** – Use WebAIM Contrast Checker or Contrast Ratio to ensure your colors meet WCAG standards.
+**Color contrast checkers** – Use WebAIM Contrast Checker or Contrast Ratio to ensure your colors meet WCAG standards. Because guessing if your text is readable is like guessing if your coffee is hot. You'll find out eventually, but it might hurt.
 
 ## Building an Accessible Culture
 
@@ -332,11 +334,11 @@ Building a color system in React isn't just about picking colors—it's about cr
 
 ## The Foundation: Color Tokens
 
-Here's a story I've seen play out too many times: A designer picks a beautiful blue for primary actions. A developer hardcodes \`#3b82f6\` into a button component. Six months later, the brand refreshes, and that blue becomes purple. Now the developer searches through hundreds of files, replacing \`#3b82f6\` with \`#7c3aed\`, hoping they don't miss any. ==They always miss some==.
+Here's a story I've seen play out too many times: A designer picks a beautiful blue for primary actions. A developer hardcodes \`#3b82f6\` into a button component. Six months later, the brand refreshes, and that blue becomes purple. Now the developer searches through hundreds of files, replacing \`#3b82f6\` with \`#7c3aed\`, hoping they don't miss any. ==They always miss some==. And that one button stays blue forever, haunting them like a digital ghost.
 
-==Color tokens solve this problem==. They're not just hex codes—they're ==semantic names that describe purpose, not appearance==. Instead of \`primaryBlue\`, use \`color.action.primary\`. Instead of \`darkGray\`, use \`color.text.secondary\`.
+==Color tokens solve this problem==. They're not just hex codes—they're ==semantic names that describe purpose, not appearance==. Instead of \`primaryBlue\`, use \`color.action.primary\`. Instead of \`darkGray\`, use \`color.text.secondary\`. It's like naming your pets by their personality instead of their color. "This is Fluffy" tells you nothing. "This is DestroysShoes" tells you everything.
 
-**Why this matters:** When your brand changes, you ==update one file==. Your entire application adapts. It's the difference between ==rebuilding a house and flipping a switch==.
+**Why this matters:** When your brand changes, you ==update one file==. Your entire application adapts. It's the difference between ==rebuilding a house and flipping a switch==. One takes months and costs thousands. The other takes seconds and costs nothing. Your choice.
 
 This semantic approach means your colors adapt to themes, contexts, and user preferences without breaking your components. Your dark mode isn't a separate codebase—it's ==the same tokens, different values==.
 
@@ -376,7 +378,7 @@ Your color system should work at three levels:
 
 ## Accessibility by Default
 
-I once watched a user struggle with a form. The error message appeared in red text on a red background. The user couldn't see it. They thought the form was broken. It wasn't broken—it was inaccessible.
+I once watched a user struggle with a form. The error message appeared in red text on a red background. The user couldn't see it. They thought the form was broken. It wasn't broken—it was inaccessible. It was like trying to find a red car in a parking lot full of red cars. Technically possible, but why would you do that to yourself?
 
 A scalable color system is ==accessible by default==. This isn't optional. It's foundational. Here's what that means:
 
@@ -561,15 +563,15 @@ Accessibility isn't binary. It's ==a spectrum==. Some users have complete color 
 
 ==8% of men and 0.5% of women== have some form of color vision deficiency. The most common types are:
 
-**Protanopia** – Red-green color blindness where red appears darker. Reds look brown or black.
+**Protanopia** – Red-green color blindness where red appears darker. Reds look brown or black. It's like seeing the world through sepia filter, but permanent.
 
-**Deuteranopia** – Red-green color blindness where green appears darker. Greens look brown or gray.
+**Deuteranopia** – Red-green color blindness where green appears darker. Greens look brown or gray. Traffic lights become a guessing game. "Is that red or... brown? I'll just wait for the other cars to move."
 
-**Tritanopia** – Blue-yellow color blindness. Blues appear green, yellows appear pink.
+**Tritanopia** – Blue-yellow color blindness. Blues appear green, yellows appear pink. The sky is green, bananas are pink. It's like living in an alternate universe where color physics work differently.
 
-**Achromatopsia** – Complete color blindness. Everything appears in shades of gray.
+**Achromatopsia** – Complete color blindness. Everything appears in shades of gray. It's like watching old movies, but for life. Dramatic? Yes. Practical? Not always.
 
-Your color system must work for all of these users. This doesn't mean avoiding color—it means ==not relying on color alone==.
+Your color system must work for all of these users. This doesn't mean avoiding color—it means ==not relying on color alone==. Add icons. Add labels. Add patterns. Make it work for everyone, not just people who see colors the way you do.
 
 ## The Contrast Imperative
 
@@ -587,13 +589,13 @@ But contrast isn't just about meeting standards—it's about ==readability==. Hi
 
 Colorblind-friendly doesn't mean colorless. It means:
 
-**Use multiple cues** – ==Combine color with icons, patterns, labels, or shapes==. Don't rely on color alone to convey meaning.
+**Use multiple cues** – ==Combine color with icons, patterns, labels, or shapes==. Don't rely on color alone to convey meaning. It's like having subtitles AND audio. Both work, but together they're unstoppable.
 
-**Choose accessible color combinations** – Some color combinations work better for colorblind users. ==Blue and orange work well==. So do ==blue and yellow==. Red and green? ==Not so much==.
+**Choose accessible color combinations** – Some color combinations work better for colorblind users. ==Blue and orange work well==. So do ==blue and yellow==. Red and green? ==Not so much==. It's like trying to tell apart two identical twins. Technically possible, but unnecessarily difficult.
 
-**Test with simulators** – Use tools like Color Oracle or Chrome DevTools to ==simulate color vision deficiencies==. See your design through ==colorblind eyes==.
+**Test with simulators** – Use tools like Color Oracle or Chrome DevTools to ==simulate color vision deficiencies==. See your design through ==colorblind eyes==. It's like trying on someone else's glasses. Everything looks different, and you realize your design might need work.
 
-**Provide alternatives** – If color is essential, provide alternative ways to access the information. Use labels, icons, or patterns.
+**Provide alternatives** – If color is essential, provide alternative ways to access the information. Use labels, icons, or patterns. It's like having a backup plan. Because sometimes your main plan (color) doesn't work for everyone.
 
 ## The High Contrast Challenge
 
@@ -631,17 +633,17 @@ When building global products:
 
 ## The Dark Mode Opportunity
 
-Dark mode isn't just trendy—it's accessible. It reduces eye strain, saves battery on OLED screens, and works better in low-light environments.
+Dark mode isn't just trendy—it's accessible. It reduces eye strain, saves battery on OLED screens, and works better in low-light environments. Plus, it makes you look like a hacker from a 90s movie. Win-win.
 
 But dark mode requires careful color choices:
 
-**Maintain contrast** – Dark backgrounds don't automatically mean better contrast. Test contrast ratios in dark mode.
+**Maintain contrast** – Dark backgrounds don't automatically mean better contrast. Test contrast ratios in dark mode. Just because it's dark doesn't mean it's readable. Ask anyone who's tried to read white text on a slightly-less-white background. It's a nightmare.
 
-**Avoid pure black** – Pure black (\`#000000\`) on pure white creates harsh contrast. Use dark grays (\`#121212\`) instead.
+**Avoid pure black** – Pure black (\`#000000\`) on pure white creates harsh contrast. Use dark grays (\`#121212\`) instead. It's like the difference between staring at the sun and looking at a cloudy sky. One hurts, one doesn't.
 
-**Adjust saturation** – Colors appear more saturated on dark backgrounds. Reduce saturation slightly for dark mode.
+**Adjust saturation** – Colors appear more saturated on dark backgrounds. Reduce saturation slightly for dark mode. Otherwise your app looks like it's having a rave, and not everyone signed up for that.
 
-**Test both modes** – Ensure your color system works in both light and dark modes. Some colors that work in light mode don't work in dark mode.
+**Test both modes** – Ensure your color system works in both light and dark modes. Some colors that work in light mode don't work in dark mode. It's like wearing sunglasses indoors. Technically possible, but why?
 
 ## Building Inclusive Color Systems
 
@@ -709,13 +711,13 @@ Color and accessibility aren't opposites. They're partners. Build them together,
     content: `
 # High Contrast on a Website
 
-High contrast on a website is ==really important== for making the site more accessible. But what does that actually mean? And why should you care?
+High contrast on a website is ==really important== for making the site more accessible. But what does that actually mean? And why should you care? Well, if you've ever tried to read light gray text on a white background while squinting and questioning your life choices, you already know why.
 
 ## The Foundation: What is High Contrast?
 
-High contrast means there's a ==significant difference== between text and background colors. Think black text on white paper—that's high contrast. Light gray text on a white background? That's low contrast, and it's ==harder to read== for everyone.
+High contrast means there's a ==significant difference== between text and background colors. Think black text on white paper—that's high contrast. Light gray text on a white background? That's low contrast, and it's ==harder to read== for everyone. It's like trying to read a book through fog. Technically possible, but why torture yourself?
 
-But high contrast isn't just about readability. It's about ==inclusion==. It's about building websites that work for ==everyone==, regardless of their visual abilities.
+But high contrast isn't just about readability. It's about ==inclusion==. It's about building websites that work for ==everyone==, regardless of their visual abilities. It's like making sure your party has both stairs and a ramp. Everyone gets in, everyone has fun.
 
 ## Why High Contrast Matters
 
@@ -810,15 +812,15 @@ Give users the option to ==enable high contrast mode==. Some users need maximum 
 
 High contrast isn't just the right thing to do—it's ==smart business==.
 
-**Reach More Users** – By ensuring proper contrast, you make your site accessible to ==millions more users==.
+**Reach More Users** – By ensuring proper contrast, you make your site accessible to ==millions more users==. That's like having a party and actually inviting everyone, not just the people who can see well.
 
-**Reduce Bounce Rate** – Users who can't read your content will ==leave immediately==. High contrast keeps them engaged.
+**Reduce Bounce Rate** – Users who can't read your content will ==leave immediately==. High contrast keeps them engaged. It's like having readable signs at your party. Otherwise people just leave confused and hungry.
 
-**Legal Protection** – Meeting WCAG standards ==protects you from legal issues== while ensuring compliance.
+**Legal Protection** – Meeting WCAG standards ==protects you from legal issues== while ensuring compliance. It's like wearing a seatbelt. You hope you never need it, but you're glad it's there.
 
-**Better SEO** – Accessible sites often ==rank higher in search results== because they provide better user experiences.
+**Better SEO** – Accessible sites often ==rank higher in search results== because they provide better user experiences. Google rewards sites that don't make users cry. Who knew?
 
-**Competitive Advantage** – Most websites don't prioritize accessibility. By doing so, you ==stand out from competitors==.
+**Competitive Advantage** – Most websites don't prioritize accessibility. By doing so, you ==stand out from competitors==. It's like being the only restaurant with a ramp. You get all the customers who use wheelchairs, strollers, or just prefer ramps. That's a lot of customers.
 
 ## Common High Contrast Mistakes
 
@@ -860,5 +862,10 @@ export function getBlogPost(slug: string): BlogPost | undefined {
 }
 
 export function getAllBlogPosts(): BlogPost[] {
-  return blogPosts
+  // Sort by date, most recent first
+  return [...blogPosts].sort((a, b) => {
+    const dateA = new Date(a.date).getTime()
+    const dateB = new Date(b.date).getTime()
+    return dateB - dateA // Most recent first
+  })
 }
