@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { X, Send, Loader2, RefreshCw, Smile, Settings, Type, Contrast } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -35,7 +35,7 @@ export function AIChat() {
   const [chatFontSize, setChatFontSize] = useState<ChatFontSize>("normal")
   const [chatHighContrast, setChatHighContrast] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const previousMessageCountRef = useRef(0)
   const triggerButtonRef = useRef<HTMLElement | null>(null)
@@ -253,6 +253,18 @@ export function AIChat() {
       handleSend()
     }
   }
+
+  // Auto-resize textarea based on content
+  useEffect(() => {
+    if (inputRef.current) {
+      // Reset height to auto to get the correct scrollHeight
+      inputRef.current.style.height = 'auto'
+      // Set height based on scrollHeight, but cap at max-h-[200px]
+      const scrollHeight = inputRef.current.scrollHeight
+      const maxHeight = 200 // matches max-h-[200px]
+      inputRef.current.style.height = `${Math.min(scrollHeight, maxHeight)}px`
+    }
+  }, [input])
 
   // Don't render if not open
   if (!isOpen) return null
@@ -597,17 +609,18 @@ export function AIChat() {
                   </div>
                 </PopoverContent>
               </Popover>
-              <Input
+              <Textarea
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Enter message"
                 disabled={isLoading}
-                className="flex-1"
+                className="flex-1 min-h-[60px] max-h-[200px] resize-none"
                 aria-label="Chat input"
                 aria-describedby="input-instructions"
                 aria-invalid="false"
+                rows={1}
               />
               <span id="input-instructions" className="sr-only">
                 Type your message and press Enter to send, or Shift+Enter for a new line
