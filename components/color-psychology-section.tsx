@@ -13,7 +13,7 @@ export function ColorPsychologySection() {
       fontFamily: 'var(--font-playfair), serif', // Serif
     },
     {
-      name: "Courage & Innovation",
+      name: "Courage & Create",
       color: "var(--color-brand-purple)", // purple - using semantic token
       description: "Bold, creative, and distinctive. Signals innovation and forward-thinking.",
       emotion: "Confidence",
