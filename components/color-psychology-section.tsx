@@ -147,6 +147,9 @@ export function ColorPsychologySection() {
                             letterSpacing: '0.1em',
                             fontWeight: 700,
                             textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                            WebkitTextStroke: `2px ${swatch.color}`,
+                            textStroke: `2px ${swatch.color}`,
+                            paintOrder: 'stroke fill',
                           }}
                         >
                           {word}
@@ -167,8 +170,11 @@ export function ColorPsychologySection() {
                     <div className={`flex justify-end ${isOdd ? '' : 'md:justify-start'}`}>
                       <div className="space-y-2">
                         <span 
-                          className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block"
-                          style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
+                          className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-semibold block px-2 py-1 border-2 rounded"
+                          style={{ 
+                            fontFamily: 'var(--font-space-grotesk), sans-serif',
+                            borderColor: swatch.color
+                          }}
                         >
                           {swatch.emotion}
                         </span>
