@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
-import { X, Send, Loader2, RefreshCw, Smile, Settings, Type, Contrast } from "lucide-react"
+import { X, Send, Loader2, RefreshCw, Smile, Settings, Type, Contrast, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAIChat } from "@/components/ai-chat-context"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -39,6 +39,9 @@ export function AIChat() {
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const previousMessageCountRef = useRef(0)
   const triggerButtonRef = useRef<HTMLElement | null>(null)
+  const [smallModalOpen, setSmallModalOpen] = useState(false)
+  const smallModalRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   // Load chat-specific settings from localStorage
   useEffect(() => {
@@ -48,6 +51,46 @@ export function AIChat() {
     if (savedChatFontSize) setChatFontSize(savedChatFontSize)
     if (savedChatHighContrast !== null) setChatHighContrast(savedChatHighContrast === "true")
   }, [])
+
+  // Handle Escape key to close small modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && smallModalOpen) {
+        setSmallModalOpen(false)
+        buttonRef.current?.focus()
+      }
+    }
+
+    if (smallModalOpen) {
+      document.addEventListener("keydown", handleEscape)
+      return () => document.removeEventListener("keydown", handleEscape)
+    }
+  }, [smallModalOpen])
+
+  // Close small modal when clicking outside
+  useEffect(() => {
+    if (!smallModalOpen) return
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        smallModalRef.current &&
+        !smallModalRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setSmallModalOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [smallModalOpen])
+
+  // Handle opening full chat from small modal
+  const handleOpenFullChat = () => {
+    setSmallModalOpen(false)
+    setIsOpen(true)
+  }
 
   // Apply chat-specific font size
   useEffect(() => {
@@ -266,11 +309,62 @@ export function AIChat() {
     }
   }, [input])
 
-  // Don't render if not open
-  if (!isOpen) return null
-
   return (
     <>
+      {/* Chroma Button with Small Modal - Bottom Left */}
+      {!isOpen && (
+        <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-50">
+          <div className="relative">
+            {/* Small Modal - positioned above the button */}
+            <div
+              ref={smallModalRef}
+              className={`absolute bottom-full left-0 mb-3 bg-card border-2 border-[var(--color-brand-purple)]/20 rounded-xl shadow-xl p-4 transition-all duration-300 ${
+                smallModalOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+              }`}
+              role="dialog"
+              aria-label="Chroma greeting"
+              aria-hidden={!smallModalOpen}
+            >
+              <div className="space-y-4 min-w-[280px] max-w-xs">
+                <div className="flex items-start gap-3">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold mb-2">
+                      Chroma is Here to Help!
+                    </p>
+                    <p className="text-xs text-muted-foreground mb-3">
+                      Chroma is your assistant for all things related to Coriano. Whether you have questions about services, design, or anything else, I'm here to guide you! Ask away anytime.
+                    </p>
+                    <Button
+                      onClick={handleOpenFullChat}
+                      className="w-full bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)]"
+                      aria-label="Open full chat with Chroma"
+                    >
+                      Chat with Chroma
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Action Button */}
+            <button
+              ref={buttonRef}
+              onClick={() => setSmallModalOpen(!smallModalOpen)}
+              className="bg-[var(--color-brand-purple)] text-white rounded-full p-4 shadow-lg hover:bg-[var(--color-action-hover)] transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:ring-offset-2 animate-in fade-in-0 slide-in-from-bottom-4 duration-300 ring-2 ring-[var(--color-brand-purple)]/20"
+              aria-label="Open Chroma menu"
+              aria-expanded={smallModalOpen}
+              aria-haspopup="dialog"
+            >
+              <MessageCircle className={`w-6 h-6 transition-transform duration-300 ${smallModalOpen ? "scale-110" : ""}`} aria-hidden="true" />
+              <span className="sr-only">Chat with Chroma</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Chat Modal - Only render when open */}
+      {isOpen && (
+        <>
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] animate-in fade-in-0"
@@ -470,18 +564,30 @@ export function AIChat() {
                   className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
-                <p className="font-semibold mb-2">Hey! I'm Chroma, Coriano twin</p>
-                <p className="text-sm">
-                  Ask me about services, case studies, methodology, philosophy, or general questions about colors, design, UX, UI, and software development.
+                <p className="font-semibold mb-3 text-lg">
+                  Let's Dive Deeper with Chroma!
                 </p>
-                <div className="mt-4 space-y-2 text-left">
-                  <p className="text-xs font-medium">Try asking:</p>
-                  <ul className="text-xs space-y-1 text-muted-foreground">
-                    <li>• "Tell me about your color strategy approach"</li>
-                    <li>• "What case studies do you have?"</li>
-                    <li>• "How do you help teams?"</li>
-                    <li>• "What is color psychology?"</li>
-                    <li>• "How do I improve UX?"</li>
+                <p className="text-sm mb-4 max-w-md mx-auto">
+                  Chroma can guide you through Coriano's services, case studies, methodology, philosophy, and more. Ready to explore? Here's how I can assist you further:
+                </p>
+                <div className="mt-4 space-y-2 text-left max-w-md mx-auto">
+                  <ul className="text-sm space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-foreground">Services:</span>
+                      <span>Discover how he can deliver top-tier UX/UI design and software development.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-foreground">Case Studies:</span>
+                      <span>See how he has helped brands like yours succeed with our design solutions.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-foreground">Color Strategy:</span>
+                      <span>Learn how he align color strategies with your brand's vision and user needs.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-foreground">Methodology:</span>
+                      <span>Get an inside look at his structured approach to design and development.</span>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -650,6 +756,8 @@ export function AIChat() {
           </div>
         </Card>
       </div>
+        </>
+      )}
     </>
   )
 }
