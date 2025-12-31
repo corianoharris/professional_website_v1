@@ -530,7 +530,7 @@ export function AIChat() {
 
       {/* Centered Modal */}
       <div
-        className="fixed inset-0 z-[101] flex items-center justify-center p-0 sm:p-4 pointer-events-none"
+        className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-title"
@@ -547,7 +547,7 @@ export function AIChat() {
       >
         <Card 
           ref={chatContainerRef}
-          className="w-[calc(100vw-2rem)] sm:w-full sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl sm:mx-auto flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg"
+          className="w-full h-full sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl sm:mx-auto flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-lg"
           tabIndex={-1}
           style={{
             display: 'flex',
