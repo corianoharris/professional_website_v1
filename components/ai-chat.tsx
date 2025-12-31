@@ -547,7 +547,7 @@ export function AIChat() {
       >
         <Card 
           ref={chatContainerRef}
-          className="w-full h-[100dvh] sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl sm:mx-auto flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg"
+          className="w-[calc(100vw-2rem)] sm:w-full sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl sm:mx-auto flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg"
           tabIndex={-1}
           style={{
             display: 'flex',
