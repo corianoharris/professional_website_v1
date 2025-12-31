@@ -29,6 +29,11 @@ export function AIChat() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [typingMessage, setTypingMessage] = useState<string | null>(null)
+  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const [smallModalOpen, setSmallModalOpen] = useState(false)
+  const smallModalRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
   const [accessibilityOpen, setAccessibilityOpen] = useState(false)
   // Chat-specific accessibility settings (all settings are chat-only)
@@ -39,9 +44,7 @@ export function AIChat() {
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const previousMessageCountRef = useRef(0)
   const triggerButtonRef = useRef<HTMLElement | null>(null)
-  const [smallModalOpen, setSmallModalOpen] = useState(false)
-  const smallModalRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const [hasShownWelcome, setHasShownWelcome] = useState(false)
 
   // Load chat-specific settings from localStorage
   useEffect(() => {
@@ -64,6 +67,41 @@ export function AIChat() {
     if (smallModalOpen) {
       document.addEventListener("keydown", handleEscape)
       return () => document.removeEventListener("keydown", handleEscape)
+    }
+  }, [smallModalOpen])
+
+  // Focus trap for small modal
+  useEffect(() => {
+    if (!smallModalOpen || !smallModalRef.current) return
+
+    const modal = smallModalRef.current
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    const firstElement = focusableElements[0] as HTMLElement
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement?.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement?.focus()
+        }
+      }
+    }
+
+    modal.addEventListener("keydown", handleTabKey)
+    firstElement?.focus()
+
+    return () => {
+      modal.removeEventListener("keydown", handleTabKey)
     }
   }, [smallModalOpen])
 
@@ -90,6 +128,15 @@ export function AIChat() {
   const handleOpenFullChat = () => {
     setSmallModalOpen(false)
     setIsOpen(true)
+    
+    // Add welcome message after chat opens
+    setTimeout(() => {
+      const welcomeMessage: Message = {
+        role: 'assistant',
+        content: "Hi! I'm Chroma, Coriano's supportive AI assistant. I'm here to help answer questions about Coriano's work, services, and expertise—or just chat about colors, design, UX, and development.\n\nEnjoy your experience exploring the site, and Coriano would love to hear from you!"
+      }
+      setMessages([welcomeMessage])
+    }, 300)
   }
 
   // Apply chat-specific font size
@@ -166,9 +213,17 @@ export function AIChat() {
     if (isOpen) {
       // Store the currently focused element (should be the trigger button)
       triggerButtonRef.current = document.activeElement as HTMLElement
+      // Prevent body scroll when modal is open (helps with mobile keyboard)
+      document.body.style.overflow = 'hidden'
       // Focus input after a short delay
       setTimeout(() => inputRef.current?.focus(), 100)
     } else {
+      // Blur input to dismiss keyboard on mobile when closing
+      if (inputRef.current) {
+        inputRef.current.blur()
+      }
+      // Restore body scroll
+      document.body.style.overflow = ''
       // Return focus to trigger button when chat closes
       if (triggerButtonRef.current) {
         triggerButtonRef.current.focus()
@@ -191,14 +246,17 @@ export function AIChat() {
           setAccessibilityOpen(false)
           return
         }
+        // Blur input to dismiss keyboard on mobile
+        if (inputRef.current) {
+          inputRef.current.blur()
+        }
         // Close chat
         setIsOpen(false)
       }
     }
     
     if (isOpen) {
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden'
+      // Prevent body scroll when modal is open (already handled in other useEffect, but keep for consistency)
       window.addEventListener('keydown', handleEscape)
       
       // Focus trap
@@ -231,13 +289,10 @@ export function AIChat() {
       
       return () => {
         window.removeEventListener('keydown', handleEscape)
-        document.body.style.overflow = ''
         chatContainerRef.current?.removeEventListener('keydown', handleTab)
       }
-    } else {
-      document.body.style.overflow = ''
     }
-  }, [isOpen, setIsOpen])
+  }, [isOpen, setIsOpen, emojiPickerOpen, accessibilityOpen])
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return
@@ -271,15 +326,58 @@ export function AIChat() {
 
       const data = await response.json()
 
+      // Add typing animation for better perceived performance
+      // This helps users feel like the response is coming faster, especially on slower connections
+      const fullResponse = data.response
       const assistantMessage: Message = {
         role: 'assistant',
-        content: data.response,
+        content: '',
         sources: data.sources
       }
-
+      
       setMessages(prev => [...prev, assistantMessage])
+      setTypingMessage(fullResponse)
+      
+      // Animate typing effect - reveal text character by character
+      // This improves perceived performance on slower connections
+      // Note: For very slow connections, consider implementing true streaming from the API
+      let currentIndex = 0
+      const typingSpeed = 15 // milliseconds per character (adjust for faster/slower - lower = faster)
+      
+      // Clear any existing typing animation
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current)
+      }
+      
+      const typingInterval = setInterval(() => {
+        if (currentIndex < fullResponse.length) {
+          const partialText = fullResponse.substring(0, currentIndex + 1)
+          setMessages(prev => {
+            const newMessages = [...prev]
+            const lastMessage = newMessages[newMessages.length - 1]
+            if (lastMessage.role === 'assistant') {
+              lastMessage.content = partialText
+            }
+            return newMessages
+          })
+          currentIndex++
+        } else {
+          clearInterval(typingInterval)
+          typingIntervalRef.current = null
+          setTypingMessage(null)
+        }
+      }, typingSpeed)
+      
+      typingIntervalRef.current = typingInterval
     } catch (error) {
       console.error('Chat error:', error)
+      // Clear typing animation if error occurs
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current)
+        typingIntervalRef.current = null
+      }
+      setTypingMessage(null)
+      
       const errorMessage: Message = {
         role: 'assistant',
         content: "I'm sorry, I encountered an error. Please try again or contact Coriano directly at me@corianoharris.com"
@@ -309,6 +407,15 @@ export function AIChat() {
     }
   }, [input])
 
+  // Cleanup typing animation on unmount
+  useEffect(() => {
+    return () => {
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current)
+      }
+    }
+  }, [])
+
   return (
     <>
       {/* Chroma Button with Small Modal - Bottom Left */}
@@ -327,12 +434,17 @@ export function AIChat() {
             >
               <div className="space-y-4 min-w-[280px] max-w-xs">
                 <div className="flex items-start gap-3">
+                  <img 
+                    src="/images/chroma-icon.png" 
+                    alt="Chroma avatar" 
+                    className="w-12 h-12 rounded-full flex-shrink-0 object-cover"
+                    style={{ objectPosition: "50% 30%" }}
+                    aria-hidden="true"
+                  />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold mb-2">
-                      Chroma is Here to Help!
-                    </p>
+                    <p className="text-sm font-semibold mb-1">Hi! I'm Chroma 👋</p>
                     <p className="text-xs text-muted-foreground mb-3">
-                      Chroma is your assistant for all things related to Coriano. Whether you have questions about services, design, or anything else, I'm here to guide you! Ask away anytime.
+                      I'm Coriano's supportive AI assistant. I can help answer questions about Coriano's work, services, and expertise.
                     </p>
                     <Button
                       onClick={handleOpenFullChat}
@@ -371,6 +483,10 @@ export function AIChat() {
         onClick={(e) => {
           // Only close if clicking directly on backdrop, not modal content
           if (e.target === e.currentTarget) {
+            // Blur input to dismiss keyboard on mobile
+            if (inputRef.current) {
+              inputRef.current.blur()
+            }
             setIsOpen(false)
           }
         }}
@@ -387,16 +503,32 @@ export function AIChat() {
 
       {/* Centered Modal */}
       <div
-        className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
+        className="fixed inset-0 z-[101] flex items-center justify-center p-0 sm:p-4 pointer-events-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-title"
         aria-describedby="ai-chat-description"
+        style={{
+          // Prevent keyboard from pushing modal up on mobile
+          height: '100dvh', // Dynamic viewport height for mobile
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
       >
         <Card 
           ref={chatContainerRef}
-          className="w-full max-w-md md:max-w-2xl h-[600px] flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-visible focus:outline-none"
+          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg min-h-[400px] max-h-[100dvh]"
           tabIndex={-1}
+          style={{
+            // Content-based height: starts compact, grows with messages
+            // On mobile: full height
+            // On desktop: auto height based on content, constrained by min/max
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b bg-background">
@@ -533,15 +665,30 @@ export function AIChat() {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  // Blur input to dismiss keyboard on mobile
+                  if (inputRef.current) {
+                    inputRef.current.blur()
+                  }
+                  // Close modal
+                  setIsOpen(false)
+                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
+                    e.stopPropagation()
+                    // Blur input to dismiss keyboard on mobile
+                    if (inputRef.current) {
+                      inputRef.current.blur()
+                    }
                     setIsOpen(false)
                   }
                 }}
                 aria-label="Close chat"
                 className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                type="button"
               >
                 <X className="w-4 h-4" />
               </Button>
@@ -550,44 +697,35 @@ export function AIChat() {
 
           {/* Messages */}
           <div 
-            className="flex-1 overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background"
+            className={`overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background ${
+              messages.length === 0 ? '' : 'flex-1 min-h-0'
+            }`}
             role="log"
             aria-live="polite"
             aria-label="Chat messages"
             aria-atomic="false"
           >
             {messages.length === 0 && (
-              <div className="text-center text-muted-foreground py-8 px-4">
+              <div className="text-center text-muted-foreground py-4 sm:py-6 px-4">
                 <img 
                   src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-3 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
-                <p className="font-semibold mb-3 text-lg">
-                  Let's Dive Deeper with Chroma!
+                <p className="font-semibold mb-1.5 text-sm sm:text-base">Hi! I'm Chroma</p>
+                <p className="text-xs sm:text-sm mb-2 max-w-md mx-auto">
+                  I'm Coriano's supportive AI assistant. I can help answer questions about Coriano's work, services, and expertise.
                 </p>
-                <p className="text-sm mb-4 max-w-md mx-auto">
-                  Chroma can guide you through Coriano's services, case studies, methodology, philosophy, and more. Ready to explore? Here's how I can assist you further:
+                <p className="text-xs sm:text-sm font-medium mb-3">
+                  Enjoy your experience exploring the site, and Coriano would love to hear from you!
                 </p>
-                <div className="mt-4 space-y-2 text-left max-w-md mx-auto">
-                  <ul className="text-sm space-y-2 text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <span className="font-medium text-foreground">Services:</span>
-                      <span>Discover how he can deliver top-tier UX/UI design and software development.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="font-medium text-foreground">Case Studies:</span>
-                      <span>See how he has helped brands like yours succeed with our design solutions.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="font-medium text-foreground">Color Strategy:</span>
-                      <span>Learn how he align color strategies with your brand's vision and user needs.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="font-medium text-foreground">Methodology:</span>
-                      <span>Get an inside look at his structured approach to design and development.</span>
-                    </li>
+                <div className="mt-3 space-y-1.5 text-left max-w-sm mx-auto">
+                  <p className="text-xs font-medium">Try asking:</p>
+                  <ul className="text-xs space-y-0.5 text-muted-foreground">
+                    <li>• "Tell me about your color strategy approach"</li>
+                    <li>• "What case studies do you have?"</li>
+                    <li>• "How do you help teams?"</li>
                   </ul>
                 </div>
               </div>
