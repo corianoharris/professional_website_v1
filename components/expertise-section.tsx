@@ -44,7 +44,7 @@ export function ExpertiseSection() {
               className="text-xl md:text-2xl lg:text-3xl leading-tight text-foreground"
               style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 600 }}
             >
-              With <span className="highlighter">courage</span> and <span className="highlighter">remarkability</span>: <span className="highlighter">psychology</span> before pixels.
+              I use <span className="highlighter">courage</span> and stand out boldly. I think about how people <span className="highlighter">feel</span> before I design.
             </p>
           </div>
           <div className="md:col-span-1">
@@ -58,7 +58,7 @@ export function ExpertiseSection() {
               className="text-xl md:text-2xl lg:text-3xl leading-tight text-foreground"
               style={{ fontFamily: 'var(--font-playfair), serif', fontWeight: 500 }}
             >
-              Engineering <span className="highlighter">calm authority</span>, <span className="highlighter">ethical influence</span>, <span className="highlighter">unforgettable</span> presence.
+              I build products that feel <span className="highlighter">calm and trustworthy</span>. I do the <span className="highlighter">right thing</span> and create <span className="highlighter">unforgettable</span> experiences.
             </p>
           </div>
           <div className="md:col-span-1">
@@ -73,7 +73,7 @@ export function ExpertiseSection() {
                 className="text-xl md:text-2xl lg:text-3xl leading-tight text-foreground"
                 style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontWeight: 600 }}
               >
-                Building <span className="highlighter">tribes</span> around products that feel <span className="highlighter">profoundly right</span>—and profoundly <span className="highlighter">different</span>.
+                I build <span className="highlighter">communities</span> around products that feel <span className="highlighter">deeply right</span>—and completely <span className="highlighter">different</span>.
               </p>
             </div>
           </div>
