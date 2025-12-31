@@ -122,7 +122,7 @@ Dare to be boldly distinctive. Your market is waiting. And honestly, they're pro
 
 The remarkable edge of true connection. Or as I like to call it: "How to build products that don't exclude people and make you feel good about yourself."
 
-Accessibility isn't compliance—it's ==courage==. It's the vulnerable act of saying: "==Everyone belongs here==." Even that one user who uses Internet Explorer. Yes, they exist. No, I don't know why.
+Accessibility isn't compliance—it's ==courage==. It's the brave act of saying: "==Everyone belongs here==." Even that one user who uses Internet Explorer. Yes, they exist. No, I don't know why.
 
 ## Beyond Compliance
 
@@ -130,7 +130,7 @@ Most teams treat accessibility as a checkbox. A requirement. A constraint. Like 
 
 ## The Vulnerability of Inclusion
 
-True inclusion requires ==vulnerability==. It means admitting you don't know everything. It means listening to voices you've ignored. It means building for people who've been excluded. It's like admitting you've been wrong this whole time, but instead of feeling bad, you feel awesome because now you're doing the right thing.
+True inclusion requires ==vulnerability==. It means admitting you don't know everything. It means listening to voices you've ignored. It means building for people who've been left out. It's like admitting you've been wrong this whole time. But instead of feeling bad, you feel awesome because now you're doing the right thing.
 
 ## The Remarkable Edge
 
@@ -138,7 +138,7 @@ When you build accessible products, you're not just checking boxes. You're ==bui
 
 ## Connection Over Compliance
 
-Accessible design isn't about following rules—it's about ==creating connection==. It's about building products that work for everyone, that make everyone feel seen, that create ==true belonging==. It's like throwing a party and actually inviting everyone, not just the cool kids.
+Accessible design isn't about following rules—it's about ==creating connection==. It's about building products that work for everyone. Products that make everyone feel seen. Products that create ==true belonging==. It's like throwing a party and actually inviting everyone, not just the cool kids.
 
 The remarkable edge isn't in following the crowd. It's in ==including everyone==. Even the person who still uses a flip phone. They're out there. And they deserve accessible design too.
     `,

@@ -4,19 +4,19 @@ export function ServicesSection() {
   const deliverables = [
     {
       title: "Building Communities",
-      description: <>Creating spaces for <span className="highlighter">connection</span>, growth, and collaboration that bring people together around shared values and goals.</>,
+      description: <>I create spaces where people can <span className="highlighter">connect</span>, grow, and work together. These spaces bring people together around shared values and goals.</>,
       color: "bg-blue-500",
       category: "community",
     },
     {
       title: "Products that connect heart-first and stand out forever",
-      description: <>Designing and developing products that resonate <span className="highlighter">emotionally</span> with users, creating lasting <span className="highlighter">connections</span> and memorable experiences.</>,
+      description: <>I design and build products that people <span className="highlighter">love</span>. These products create strong <span className="highlighter">connections</span> with users. People remember these experiences for a long time.</>,
       color: "bg-purple-500",
       category: "product",
     },
     {
       title: "Millions in added revenue from trust and differentiation",
-      description: <>Delivering solutions that build <span className="highlighter">trust</span>, differentiate brands, and drive measurable business results through strategic design and development.</>,
+      description: <>I build solutions that create <span className="highlighter">trust</span> and make your brand stand out. This drives real business results through smart design and development.</>,
       color: "bg-cyan-500",
       category: "results",
     },
