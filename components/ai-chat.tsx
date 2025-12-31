@@ -529,7 +529,7 @@ export function AIChat() {
 
       {/* Centered Modal */}
       <div
-        className="fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-4 pointer-events-none"
+        className="fixed inset-0 z-[101] flex items-center justify-center p-0 sm:p-4 pointer-events-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-title"
@@ -546,13 +546,9 @@ export function AIChat() {
       >
         <Card 
           ref={chatContainerRef}
-          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-t-2xl sm:rounded-lg mx-auto"
+          className="w-full h-[100dvh] sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-t-2xl sm:rounded-lg mx-auto"
           tabIndex={-1}
           style={{
-            // Smaller height with min/max constraints
-            minHeight: 'min(500px, 70vh)',
-            maxHeight: 'min(700px, 80vh)',
-            height: 'auto',
             display: 'flex',
             flexDirection: 'column',
           }}
@@ -652,9 +648,7 @@ export function AIChat() {
 
           {/* Messages */}
           <div 
-            className={`overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background ${
-              messages.length === 0 ? '' : 'flex-1 min-h-0'
-            }`}
+            className={`overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background flex-1 min-h-0`}
             role="log"
             aria-live="polite"
             aria-label="Chat messages"
