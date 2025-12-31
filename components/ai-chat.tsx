@@ -520,12 +520,12 @@ export function AIChat() {
       >
         <Card 
           ref={chatContainerRef}
-          className="w-full h-full sm:h-[600px] sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg"
+          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg min-h-[400px] max-h-[100dvh]"
           tabIndex={-1}
           style={{
-            // Ensure modal stays in place on mobile and doesn't resize with keyboard
-            maxHeight: '100dvh',
-            height: '100%',
+            // Content-based height: starts compact, grows with messages
+            // On mobile: full height
+            // On desktop: auto height based on content, constrained by min/max
             display: 'flex',
             flexDirection: 'column',
           }}
@@ -697,35 +697,35 @@ export function AIChat() {
 
           {/* Messages */}
           <div 
-            className="flex-1 overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background"
+            className={`overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background ${
+              messages.length === 0 ? '' : 'flex-1 min-h-0'
+            }`}
             role="log"
             aria-live="polite"
             aria-label="Chat messages"
             aria-atomic="false"
           >
             {messages.length === 0 && (
-              <div className="text-center text-muted-foreground py-8 px-4">
+              <div className="text-center text-muted-foreground py-4 sm:py-6 px-4">
                 <img 
                   src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-3 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
-                <p className="font-semibold mb-2">Hi! I'm Chroma</p>
-                <p className="text-sm mb-3">
-                  I'm Coriano's supportive AI assistant. I'm here to help answer questions about Coriano's work, services, and expertise—or just chat about colors, design, UX, and development.
+                <p className="font-semibold mb-1.5 text-sm sm:text-base">Hi! I'm Chroma</p>
+                <p className="text-xs sm:text-sm mb-2 max-w-md mx-auto">
+                  I'm Coriano's supportive AI assistant. I can help answer questions about Coriano's work, services, and expertise.
                 </p>
-                <p className="text-sm font-medium mb-4">
+                <p className="text-xs sm:text-sm font-medium mb-3">
                   Enjoy your experience exploring the site, and Coriano would love to hear from you!
                 </p>
-                <div className="mt-4 space-y-2 text-left">
+                <div className="mt-3 space-y-1.5 text-left max-w-sm mx-auto">
                   <p className="text-xs font-medium">Try asking:</p>
-                  <ul className="text-xs space-y-1 text-muted-foreground">
+                  <ul className="text-xs space-y-0.5 text-muted-foreground">
                     <li>• "Tell me about your color strategy approach"</li>
                     <li>• "What case studies do you have?"</li>
                     <li>• "How do you help teams?"</li>
-                    <li>• "What is color psychology?"</li>
-                    <li>• "How do I improve UX?"</li>
                   </ul>
                 </div>
               </div>
