@@ -434,16 +434,17 @@ export function AIChat() {
                   </div>
                   <p className="text-xl md:text-2xl font-bold mb-3 flex items-center justify-center gap-2 flex-wrap">
                     <span 
-                      className="font-bold"
+                      className="font-bold inline-block"
                       style={{ 
                         fontFamily: 'var(--font-baloo2), sans-serif',
                         color: 'var(--color-brand-purple)',
-                        letterSpacing: '0.08em'
+                        letterSpacing: '0.08em',
+                        lineHeight: '1.2'
                       }}
                     >
                       Chroma
                     </span>
-                    <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>is Here to Help!</span>
+                    <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.2' }}>is Here to Help!</span>
                   </p>
                 </div>
 
@@ -529,7 +530,7 @@ export function AIChat() {
 
       {/* Centered Modal */}
       <div
-        className="fixed inset-0 z-[101] flex items-center justify-center px-1 sm:p-4 pointer-events-none"
+        className="fixed inset-0 z-[101] flex items-center justify-center p-0 sm:p-4 pointer-events-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-title"
@@ -546,7 +547,7 @@ export function AIChat() {
       >
         <Card 
           ref={chatContainerRef}
-          className="w-full h-[100dvh] sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-t-2xl sm:rounded-lg mx-auto"
+          className="w-full h-[100dvh] sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg mx-auto"
           tabIndex={-1}
           style={{
             display: 'flex',
