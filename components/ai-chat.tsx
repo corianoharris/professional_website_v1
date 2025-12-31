@@ -128,15 +128,7 @@ export function AIChat() {
   const handleOpenFullChat = () => {
     setSmallModalOpen(false)
     setIsOpen(true)
-    
-    // Add welcome message after chat opens
-    setTimeout(() => {
-      const welcomeMessage: Message = {
-        role: 'assistant',
-        content: "Hi! I'm Chroma, Coriano's supportive AI assistant. I'm here to help answer questions about Coriano's work, services, and expertise—or just chat about colors, design, UX, and development.\n\nEnjoy your experience exploring the site, and Coriano would love to hear from you!"
-      }
-      setMessages([welcomeMessage])
-    }, 300)
+    // Don't add welcome message - let the empty state show instead
   }
 
   // Apply chat-specific font size
@@ -432,30 +424,52 @@ export function AIChat() {
               aria-label="Chroma greeting"
               aria-hidden={!smallModalOpen}
             >
-              <div className="space-y-4 min-w-[280px] max-w-xs">
-                <div className="flex items-start gap-3">
-                  <img 
-                    src="/images/chroma-icon.png" 
-                    alt="Chroma avatar" 
-                    className="w-12 h-12 rounded-full flex-shrink-0 object-cover"
-                    style={{ objectPosition: "50% 30%" }}
-                    aria-hidden="true"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold mb-1">Hi! I'm Chroma 👋</p>
-                    <p className="text-xs text-muted-foreground mb-3">
-                      I'm Coriano's supportive AI assistant. I can help answer questions about Coriano's work, services, and expertise.
-                    </p>
-                    <Button
-                      onClick={handleOpenFullChat}
-                      className="w-full bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)]"
-                      aria-label="Open full chat with Chroma"
-                    >
-                      Chat with Chroma
-                    </Button>
+                <div className="space-y-4 min-w-[280px] max-w-xs">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold mb-2 flex items-center gap-2">
+                        <span 
+                          className="font-bold"
+                          style={{ 
+                            fontFamily: 'var(--font-baloo2), sans-serif',
+                            color: 'var(--color-brand-purple)',
+                            letterSpacing: '0.08em'
+                          }}
+                        >
+                          Chroma
+                        </span>
+                        <span>is Here to Help!</span>
+                        <img 
+                          src="/images/chroma-icon.png" 
+                          alt="Chroma icon" 
+                          className="w-5 h-5 rounded-full flex-shrink-0 object-cover inline-block"
+                          style={{ objectPosition: "50% 30%" }}
+                          aria-hidden="true"
+                        />
+                      </p>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        <span 
+                          className="font-bold"
+                          style={{ 
+                            fontFamily: 'var(--font-baloo2), sans-serif',
+                            color: 'var(--color-brand-purple)',
+                            letterSpacing: '0.08em'
+                          }}
+                        >
+                          Chroma
+                        </span>
+                        {' '}is your assistant for all things related to Coriano. Whether you have questions about services, design, or anything else, I'm here to guide you! Ask away anytime.
+                      </p>
+                      <Button
+                        onClick={handleOpenFullChat}
+                        className="w-full bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)]"
+                        aria-label="Open full chat with Chroma"
+                      >
+                        Chat with Chroma
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
             </div>
 
             {/* Floating Action Button */}
@@ -518,14 +532,15 @@ export function AIChat() {
           bottom: 0,
         }}
       >
-        <Card 
+          <Card 
           ref={chatContainerRef}
-          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg min-h-[400px] max-h-[100dvh]"
+          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg"
           tabIndex={-1}
           style={{
-            // Content-based height: starts compact, grows with messages
-            // On mobile: full height
-            // On desktop: auto height based on content, constrained by min/max
+            // Smaller height with min/max constraints
+            minHeight: 'min(500px, 70vh)',
+            maxHeight: 'min(700px, 80vh)',
+            height: 'auto',
             display: 'flex',
             flexDirection: 'column',
           }}
@@ -706,27 +721,95 @@ export function AIChat() {
             aria-atomic="false"
           >
             {messages.length === 0 && (
-              <div className="text-center text-muted-foreground py-4 sm:py-6 px-4">
+              <div className="text-center text-muted-foreground py-8 px-4">
                 <img 
                   src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-3 object-cover"
+                  className="w-32 h-32 rounded-full mx-auto mb-8 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
-                <p className="font-semibold mb-1.5 text-sm sm:text-base">Hi! I'm Chroma</p>
-                <p className="text-xs sm:text-sm mb-2 max-w-md mx-auto">
-                  I'm Coriano's supportive AI assistant. I can help answer questions about Coriano's work, services, and expertise.
+                <h2 
+                  className="mb-6 text-3xl font-bold text-foreground"
+                  style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
+                >
+                  Let's Dive Deeper with <span 
+                    className="font-bold"
+                    style={{ 
+                      fontFamily: 'var(--font-baloo2), sans-serif',
+                      color: 'var(--color-brand-purple)',
+                      letterSpacing: '0.08em'
+                    }}
+                  >Chroma</span>!
+                </h2>
+                <p 
+                  className="text-base mb-8 max-w-lg mx-auto leading-relaxed"
+                  style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
+                >
+                  Chroma can guide you through Coriano's services, case studies, methodology, philosophy, and more. Ready to explore?
                 </p>
-                <p className="text-xs sm:text-sm font-medium mb-3">
-                  Enjoy your experience exploring the site, and Coriano would love to hear from you!
+                <p 
+                  className="text-base font-semibold mb-8 max-w-lg mx-auto text-foreground"
+                  style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
+                >
+                  Here's how I can assist you further:
                 </p>
-                <div className="mt-3 space-y-1.5 text-left max-w-sm mx-auto">
-                  <p className="text-xs font-medium">Try asking:</p>
-                  <ul className="text-xs space-y-0.5 text-muted-foreground">
-                    <li>• "Tell me about your color strategy approach"</li>
-                    <li>• "What case studies do you have?"</li>
-                    <li>• "How do you help teams?"</li>
-                  </ul>
+                <div className="mt-8 space-y-6 text-left max-w-lg mx-auto">
+                  <div className="py-3">
+                    <h3 
+                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
+                    >
+                      Services
+                    </h3>
+                    <p 
+                      className="text-sm text-muted-foreground leading-relaxed"
+                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
+                    >
+                      Discover how he can deliver top-tier UX/UI design and software development.
+                    </p>
+                  </div>
+                  <div className="py-3">
+                    <h3 
+                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
+                    >
+                      Case Studies
+                    </h3>
+                    <p 
+                      className="text-sm text-muted-foreground leading-relaxed"
+                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
+                    >
+                      See how he has helped brands like yours succeed with our design solutions.
+                    </p>
+                  </div>
+                  <div className="py-3">
+                    <h3 
+                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
+                    >
+                      Color Strategy
+                    </h3>
+                    <p 
+                      className="text-sm text-muted-foreground leading-relaxed"
+                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
+                    >
+                      Learn how he align color strategies with your brand's vision and user needs.
+                    </p>
+                  </div>
+                  <div className="py-3">
+                    <h3 
+                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
+                    >
+                      Methodology
+                    </h3>
+                    <p 
+                      className="text-sm text-muted-foreground leading-relaxed"
+                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
+                    >
+                      Get an inside look at his structured approach to design and development.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
