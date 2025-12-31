@@ -529,7 +529,7 @@ export function AIChat() {
 
       {/* Centered Modal */}
       <div
-        className="fixed inset-0 z-[101] flex items-center justify-center p-0 sm:p-4 pointer-events-none"
+        className="fixed inset-0 z-[101] flex items-center justify-center px-1 sm:p-4 pointer-events-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-title"
@@ -554,7 +554,7 @@ export function AIChat() {
           }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b bg-background">
+          <div className="flex items-center justify-between p-3 sm:p-4 border-b bg-background">
             <div className="flex items-center gap-3 flex-1">
               <div className="flex-1 min-w-0">
                 <h2 id="ai-chat-title" className="text-lg font-semibold mb-1">
@@ -648,22 +648,22 @@ export function AIChat() {
 
           {/* Messages */}
           <div 
-            className={`overflow-y-auto overflow-x-visible px-0 py-4 space-y-4 bg-background flex-1 min-h-0`}
+            className={`overflow-y-auto overflow-x-visible px-2 sm:px-0 py-2 sm:py-4 space-y-3 sm:space-y-4 bg-background flex-1 min-h-0`}
             role="log"
             aria-live="polite"
             aria-label="Chat messages"
             aria-atomic="false"
           >
             {messages.length === 0 && (
-              <div className="text-center text-muted-foreground py-8 px-4">
+              <div className="text-center text-muted-foreground py-4 px-3 sm:py-8 sm:px-4">
                 <img 
                   src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-40 h-40 rounded-full mx-auto mb-8 object-cover"
+                  className="w-32 h-32 sm:w-40 sm:h-40 rounded-full mx-auto mb-4 sm:mb-8 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
                 <h2 
-                  className="mb-6 text-3xl font-bold text-foreground"
+                  className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-foreground"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
                 >
                   Let's Dive Deeper with <span 
@@ -676,69 +676,69 @@ export function AIChat() {
                   >Chroma</span>!
                 </h2>
                 <p 
-                  className="text-base mb-8 max-w-lg mx-auto leading-relaxed"
+                  className="text-sm sm:text-base mb-4 sm:mb-8 max-w-lg mx-auto leading-relaxed"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
                 >
                   Chroma can guide you through Coriano's services, case studies, methodology, philosophy, and more. Ready to explore?
                 </p>
                 <p 
-                  className="text-base font-semibold mb-8 max-w-lg mx-auto text-foreground"
+                  className="text-sm sm:text-base font-semibold mb-4 sm:mb-8 max-w-lg mx-auto text-foreground"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
                 >
                   Here's how I can assist you further:
                 </p>
-                <div className="mt-8 space-y-6 text-left max-w-lg mx-auto">
-                  <div className="py-3">
+                <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-6 text-left max-w-lg mx-auto">
+                  <div className="py-2 sm:py-3">
                     <h3 
-                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Services
                     </h3>
                     <p 
-                      className="text-sm text-muted-foreground leading-relaxed"
+                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
                       Discover how he can deliver top-tier UX/UI design and software development.
                     </p>
                   </div>
-                  <div className="py-3">
+                  <div className="py-2 sm:py-3">
                     <h3 
-                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Case Studies
                     </h3>
                     <p 
-                      className="text-sm text-muted-foreground leading-relaxed"
+                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
                       See how he has helped brands like yours succeed with our design solutions.
                     </p>
                   </div>
-                  <div className="py-3">
+                  <div className="py-2 sm:py-3">
                     <h3 
-                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Color Strategy
                     </h3>
                     <p 
-                      className="text-sm text-muted-foreground leading-relaxed"
+                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
                       Learn how he align color strategies with your brand's vision and user needs.
                     </p>
                   </div>
-                  <div className="py-3">
+                  <div className="py-2 sm:py-3">
                     <h3 
-                      className="text-lg font-bold mb-2 text-foreground uppercase tracking-[0.15em]"
+                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Methodology
                     </h3>
                     <p 
-                      className="text-sm text-muted-foreground leading-relaxed"
+                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
                       Get an inside look at his structured approach to design and development.
@@ -769,7 +769,7 @@ export function AIChat() {
                 )}
                 <div
                   className={cn(
-                    "rounded-lg px-4 py-2.5 shadow-md",
+                    "rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 shadow-md",
                     message.role === 'user'
                       ? "bg-[var(--color-brand-purple)] text-white max-w-[90%] ml-auto -mr-3"
                       : "bg-muted text-foreground max-w-[85%] -ml-3"
@@ -815,7 +815,7 @@ export function AIChat() {
                   style={{ objectPosition: "50% 30%" }}
                   aria-hidden="true"
                 />
-                <div className="bg-muted rounded-lg px-4 py-2">
+                <div className="bg-muted rounded-lg px-3 py-1.5 sm:px-4 sm:py-2">
                   <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
                   <span className="sr-only">Chroma is thinking...</span>
                 </div>
@@ -826,7 +826,7 @@ export function AIChat() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t bg-background">
+          <div className="p-3 sm:p-4 border-t bg-background">
             <div className="flex items-center gap-2">
               <Popover open={emojiPickerOpen} onOpenChange={setEmojiPickerOpen}>
                 <Tooltip delayDuration={200}>
