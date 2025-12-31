@@ -1,6 +1,10 @@
 /**
  * API Route for AI Chat
  * Handles chat requests using RAG pipeline
+ * 
+ * Performance Note: Currently returns full response at once.
+ * For slower connections, consider implementing streaming responses
+ * using Hugging Face's streaming API to improve perceived performance.
  */
 
 import { NextRequest, NextResponse } from 'next/server'

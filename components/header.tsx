@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Moon, Sun, Menu, X, MessageCircle } from "lucide-react"
+import { Moon, Sun, Menu, X } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { useAIChat } from "@/components/ai-chat-context"
 import { DesktopNavigation } from "@/components/navigation/desktop-navigation"
@@ -219,17 +219,6 @@ export function Header() {
               />
               <span className="whitespace-nowrap">Coriano Harris</span>
             </button>
-            <div className="relative hidden sm:flex items-center">
-              <Button
-                onClick={toggleChat}
-                size="default"
-                className="bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)] dark:hover:bg-[var(--color-action-hover)] transition-all px-4 py-2 h-auto"
-                aria-label={chatOpen ? "Close Chroma chat" : "Talk with Chroma"}
-                aria-expanded={chatOpen}
-              >
-                <span className="hidden sm:inline">Talk with Chroma</span>
-              </Button>
-            </div>
           </div>
 
           {/* Right: Navigation Items */}
@@ -264,16 +253,6 @@ export function Header() {
           </div>
 
           <div className="flex md:hidden items-center gap-2">
-            <Button
-              onClick={toggleChat}
-              variant="ghost"
-              size="icon"
-              className={`text-foreground/80 hover:text-[var(--color-brand-purple)] transition-colors ${chatOpen ? "text-[var(--color-brand-purple)] bg-[var(--color-brand-purple)]/10" : ""}`}
-              aria-label={chatOpen ? "Close AI chat" : "Open AI chat"}
-              aria-expanded={chatOpen}
-            >
-              <MessageCircle className="w-5 h-5" aria-hidden="true" />
-            </Button>
             {!mobileMenuOpen && (
               <Button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
