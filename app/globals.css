@@ -343,17 +343,31 @@
     transition-duration: 0.01ms !important;
   }
 
-  /* Chat-specific font sizes */
+  /* Chat-specific font sizes - smaller on mobile, larger on desktop */
   .chat-font-normal {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .chat-font-large {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .chat-font-extra-large {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  @media (min-width: 640px) {
+    .chat-font-normal {
+      font-size: 16px;
+    }
+
+    .chat-font-large {
+      font-size: 18px;
+    }
+
+    .chat-font-extra-large {
+      font-size: 20px;
+    }
   }
 
   /* Chat-specific animation controls */

@@ -4,10 +4,11 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
-import { X, Send, Loader2, RefreshCw, Smile, Settings, Type, Contrast, MessageCircle } from "lucide-react"
+import { X, Send, Loader2, RefreshCw, Smile, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAIChat } from "@/components/ai-chat-context"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { useTheme } from "@/components/theme-provider"
 import ReactMarkdown from "react-markdown"
 
@@ -35,7 +36,6 @@ export function AIChat() {
   const smallModalRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
-  const [accessibilityOpen, setAccessibilityOpen] = useState(false)
   // Chat-specific accessibility settings (all settings are chat-only)
   const [chatFontSize, setChatFontSize] = useState<ChatFontSize>("normal")
   const [chatHighContrast, setChatHighContrast] = useState(false)
@@ -49,10 +49,8 @@ export function AIChat() {
   // Load chat-specific settings from localStorage
   useEffect(() => {
     const savedChatFontSize = localStorage.getItem("chatFontSize") as ChatFontSize | null
-    const savedChatHighContrast = localStorage.getItem("chatHighContrast")
     
     if (savedChatFontSize) setChatFontSize(savedChatFontSize)
-    if (savedChatHighContrast !== null) setChatHighContrast(savedChatHighContrast === "true")
   }, [])
 
   // Handle Escape key to close small modal
@@ -207,8 +205,10 @@ export function AIChat() {
       triggerButtonRef.current = document.activeElement as HTMLElement
       // Prevent body scroll when modal is open (helps with mobile keyboard)
       document.body.style.overflow = 'hidden'
-      // Focus input after a short delay
+      // Only auto-focus input on desktop, not mobile (to prevent keyboard from pushing modal up)
+      if (window.innerWidth >= 640) {
       setTimeout(() => inputRef.current?.focus(), 100)
+      }
     } else {
       // Blur input to dismiss keyboard on mobile when closing
       if (inputRef.current) {
@@ -232,10 +232,6 @@ export function AIChat() {
         if (emojiPickerOpen) {
           setEmojiPickerOpen(false)
           inputRef.current?.focus()
-          return
-        }
-        if (accessibilityOpen) {
-          setAccessibilityOpen(false)
           return
         }
         // Blur input to dismiss keyboard on mobile
@@ -284,7 +280,7 @@ export function AIChat() {
         chatContainerRef.current?.removeEventListener('keydown', handleTab)
       }
     }
-  }, [isOpen, setIsOpen, emojiPickerOpen, accessibilityOpen])
+  }, [isOpen, setIsOpen, emojiPickerOpen])
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return
@@ -326,7 +322,7 @@ export function AIChat() {
         content: '',
         sources: data.sources
       }
-      
+
       setMessages(prev => [...prev, assistantMessage])
       setTypingMessage(fullResponse)
       
@@ -417,59 +413,75 @@ export function AIChat() {
             {/* Small Modal - positioned above the button */}
             <div
               ref={smallModalRef}
-              className={`absolute bottom-full left-0 mb-3 bg-card border-2 border-[var(--color-brand-purple)]/20 rounded-xl shadow-xl p-4 transition-all duration-300 ${
+              className={`absolute bottom-full left-0 mb-3 bg-card border-2 border-[var(--color-brand-purple)]/20 rounded-xl shadow-xl transition-all duration-300 w-[calc(100vw-2rem)] max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl sm:w-auto ${
                 smallModalOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
               }`}
               role="dialog"
               aria-label="Chroma greeting"
               aria-hidden={!smallModalOpen}
             >
-                <div className="space-y-4 min-w-[280px] max-w-xs">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold mb-2 flex items-center gap-2">
-                        <span 
-                          className="font-bold"
-                          style={{ 
-                            fontFamily: 'var(--font-baloo2), sans-serif',
-                            color: 'var(--color-brand-purple)',
-                            letterSpacing: '0.08em'
-                          }}
-                        >
-                          Chroma
-                        </span>
-                        <span>is Here to Help!</span>
-                        <img 
-                          src="/images/chroma-icon.png" 
-                          alt="Chroma icon" 
-                          className="w-5 h-5 rounded-full flex-shrink-0 object-cover inline-block"
-                          style={{ objectPosition: "50% 30%" }}
-                          aria-hidden="true"
-                        />
-                      </p>
-                      <p className="text-xs text-muted-foreground mb-3">
-                        <span 
-                          className="font-bold"
-                          style={{ 
-                            fontFamily: 'var(--font-baloo2), sans-serif',
-                            color: 'var(--color-brand-purple)',
-                            letterSpacing: '0.08em'
-                          }}
-                        >
-                          Chroma
-                        </span>
-                        {' '}is your assistant for all things related to Coriano. Whether you have questions about services, design, or anything else, I'm here to guide you! Ask away anytime.
-                      </p>
-                      <Button
-                        onClick={handleOpenFullChat}
-                        className="w-full bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)]"
-                        aria-label="Open full chat with Chroma"
-                      >
-                        Chat with Chroma
-                      </Button>
-                    </div>
+              <div className="p-6 md:p-8 min-w-0">
+                {/* Magazine Header */}
+                <div className="mb-6 text-center">
+                  <div className="mb-4">
+                    <img 
+                      src="/images/chroma-icon.png" 
+                      alt="Chroma icon" 
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover"
+                      style={{ objectPosition: "50% 30%" }}
+                      aria-hidden="true"
+                    />
                   </div>
+                  <p className="text-xl md:text-2xl font-bold mb-3 flex items-center justify-center gap-2 flex-wrap">
+                    <span 
+                      className="font-bold"
+                      style={{ 
+                        fontFamily: 'var(--font-baloo2), sans-serif',
+                        color: 'var(--color-brand-purple)',
+                        letterSpacing: '0.08em'
+                      }}
+                    >
+                      Chroma
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>is Here to Help!</span>
+                  </p>
                 </div>
+
+                {/* Magazine Divider */}
+                <div className="my-6 border-t border-border/50"></div>
+
+                {/* Magazine Content */}
+                <div className="mb-6">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed text-center" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.7' }}>
+                    <span 
+                      className="font-bold"
+                      style={{ 
+                        fontFamily: 'var(--font-baloo2), sans-serif',
+                        color: 'var(--color-brand-purple)',
+                        letterSpacing: '0.08em'
+                      }}
+                    >
+                      Chroma
+                    </span>
+                    {' '}is your assistant for all things related to Coriano. Whether you have questions about services, design, or anything else, I'm here to guide you! Ask away anytime.
+                  </p>
+                </div>
+
+                {/* Magazine CTA */}
+                <Button
+                  onClick={handleOpenFullChat}
+                  className="w-full bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)] text-base md:text-lg py-6 font-semibold"
+                  aria-label="Open full chat with Chroma"
+                  style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.05em' }}
+                >
+                  Chat with Chroma
+                </Button>
+              </div>
+              {/* Tooltip arrow pointing down to button */}
+              <div 
+                className="absolute -bottom-1.5 left-6 w-3 h-3 bg-card border-r border-b border-[var(--color-brand-purple)]/20"
+                style={{ transform: 'translateX(-50%) rotate(45deg)' }}
+              />
             </div>
 
             {/* Floating Action Button */}
@@ -490,7 +502,7 @@ export function AIChat() {
 
       {/* Chat Modal - Only render when open */}
       {isOpen && (
-        <>
+    <>
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] animate-in fade-in-0"
@@ -517,7 +529,7 @@ export function AIChat() {
 
       {/* Centered Modal */}
       <div
-        className="fixed inset-0 z-[101] flex items-center justify-center p-0 sm:p-4 pointer-events-none"
+        className="fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-4 pointer-events-none"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-title"
@@ -532,9 +544,9 @@ export function AIChat() {
           bottom: 0,
         }}
       >
-          <Card 
+        <Card 
           ref={chatContainerRef}
-          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-none sm:rounded-lg"
+          className="w-full h-full sm:h-auto sm:max-w-md md:max-w-2xl flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-t-2xl sm:rounded-lg mx-auto"
           tabIndex={-1}
           style={{
             // Smaller height with min/max constraints
@@ -549,113 +561,24 @@ export function AIChat() {
           <div className="flex items-center justify-between p-4 border-b bg-background">
             <div className="flex items-center gap-3 flex-1">
               <div className="flex-1 min-w-0">
-                <h2 id="ai-chat-title" className="text-lg font-semibold mb-1">Chat with Chroma</h2>
+                <h2 id="ai-chat-title" className="text-lg font-semibold mb-1">
+                  Chat with <span 
+                    className="font-bold"
+                    style={{ 
+                      fontFamily: 'var(--font-baloo2), sans-serif',
+                      color: 'var(--color-brand-purple)',
+                      letterSpacing: '0.08em'
+                    }}
+                  >Chroma</span>
+                </h2>
                 <p id="ai-chat-description" className="text-xs text-muted-foreground">
                   • We're online
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <Popover open={accessibilityOpen} onOpenChange={setAccessibilityOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Accessibility settings"
-                    aria-expanded={accessibilityOpen}
-                    className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                  >
-                    <Settings className="w-4 h-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent 
-                  className="w-64 p-4 z-[200] bg-background border shadow-lg" 
-                  align="end" 
-                  side="bottom"
-                  sideOffset={8}
-                  onOpenAutoFocus={(e) => e.preventDefault()}
-                >
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-semibold mb-3">Chat Accessibility Settings</h3>
-                    
-                    {/* Font Size - Chat Only */}
-                    <div>
-                      <p className="text-xs font-medium mb-2">Font Size</p>
-                      <div className="space-y-1.5">
-                        <Button
-                          onClick={() => setChatFontSize("normal")}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault()
-                              setChatFontSize("normal")
-                            }
-                          }}
-                          variant={chatFontSize === "normal" ? "default" : "outline"}
-                          size="sm"
-                          className="w-full justify-start focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                          aria-pressed={chatFontSize === "normal"}
-                        >
-                          <Type className="w-4 h-4 mr-2" />
-                          Normal
-                        </Button>
-                        <Button
-                          onClick={() => setChatFontSize("large")}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault()
-                              setChatFontSize("large")
-                            }
-                          }}
-                          variant={chatFontSize === "large" ? "default" : "outline"}
-                          size="sm"
-                          className="w-full justify-start focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                          aria-pressed={chatFontSize === "large"}
-                        >
-                          <Type className="w-5 h-5 mr-2" />
-                          Large
-                        </Button>
-                        <Button
-                          onClick={() => setChatFontSize("extra-large")}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault()
-                              setChatFontSize("extra-large")
-                            }
-                          }}
-                          variant={chatFontSize === "extra-large" ? "default" : "outline"}
-                          size="sm"
-                          className="w-full justify-start focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                          aria-pressed={chatFontSize === "extra-large"}
-                        >
-                          <Type className="w-6 h-6 mr-2" />
-                          Extra Large
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* High Contrast - Chat Only */}
-                    <div>
-                      <p className="text-xs font-medium mb-2">High Contrast</p>
-                      <Button 
-                        onClick={() => setChatHighContrast(!chatHighContrast)} 
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            setChatHighContrast(!chatHighContrast)
-                          }
-                        }}
-                        variant={chatHighContrast ? "default" : "outline"} 
-                        size="sm"
-                        className="w-full justify-start bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 dark:hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                        aria-pressed={chatHighContrast}
-                      >
-                        <Contrast className="w-4 h-4 mr-2" />
-                        {chatHighContrast ? "Enabled" : "Disabled"}
-                      </Button>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
@@ -677,36 +600,53 @@ export function AIChat() {
               >
                 <RefreshCw className="w-4 h-4" />
               </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={8} className="!z-[300] !bg-gray-900 border-gray-700">
+                  <span className="!text-white">Clear chat</span>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  // Blur input to dismiss keyboard on mobile
-                  if (inputRef.current) {
-                    inputRef.current.blur()
-                  }
-                  // Close modal
-                  setIsOpen(false)
-                }}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      // Blur input first to dismiss keyboard on mobile
+                      if (inputRef.current) {
+                        inputRef.current.blur()
+                      }
+                      // Close modal - use requestAnimationFrame to ensure blur happens first
+                      requestAnimationFrame(() => {
+                        setIsOpen(false)
+                      })
+                    }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    e.stopPropagation()
-                    // Blur input to dismiss keyboard on mobile
-                    if (inputRef.current) {
-                      inputRef.current.blur()
-                    }
+                        e.stopPropagation()
+                        // Blur input first to dismiss keyboard on mobile
+                        if (inputRef.current) {
+                          inputRef.current.blur()
+                        }
+                        // Close modal
+                        requestAnimationFrame(() => {
                     setIsOpen(false)
+                        })
                   }
                 }}
                 aria-label="Close chat"
                 className="h-8 w-8 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                type="button"
+                    type="button"
               >
                 <X className="w-4 h-4" />
               </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={8} className="!z-[300] !bg-gray-900 border-gray-700">
+                  <span className="!text-white">Close chat</span>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
 
@@ -725,7 +665,7 @@ export function AIChat() {
                 <img 
                   src="/images/chroma-icon.png" 
                   alt="Chroma avatar" 
-                  className="w-32 h-32 rounded-full mx-auto mb-8 object-cover"
+                  className="w-40 h-40 rounded-full mx-auto mb-8 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
                 <h2 
@@ -895,18 +835,25 @@ export function AIChat() {
           <div className="p-4 border-t bg-background">
             <div className="flex items-center gap-2">
               <Popover open={emojiPickerOpen} onOpenChange={setEmojiPickerOpen}>
+                <Tooltip delayDuration={200}>
+                  <TooltipTrigger asChild>
                 <PopoverTrigger asChild>
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 flex-shrink-0"
+                     className="h-8 w-8 flex-shrink-0 group"
                     aria-label="Emoji"
                     onClick={() => setEmojiPickerOpen(!emojiPickerOpen)}
                   >
-                    <Smile className="w-4 h-4 text-muted-foreground" />
+                         <Smile className="w-4 h-4 text-foreground group-hover:text-white transition-colors" />
                   </Button>
                 </PopoverTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" sideOffset={8} className="!z-[300] !bg-gray-900 !text-white border-gray-700 [&>*]:!text-white">
+                    Add emoji
+                  </TooltipContent>
+                </Tooltip>
                 <PopoverContent 
                   className="w-80 p-3 z-[200] bg-background border shadow-lg" 
                   align="start" 
@@ -952,6 +899,8 @@ export function AIChat() {
               <span id="input-instructions" className="sr-only">
                 Type your message and press Enter to send, or Shift+Enter for a new line
               </span>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
               <Button
                 onClick={handleSend}
                 onKeyDown={(e) => {
@@ -973,6 +922,11 @@ export function AIChat() {
                   <Send className="w-4 h-4" />
                 )}
               </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" sideOffset={8} className="!z-[300] !bg-gray-900 !text-white border-gray-700 [&>*]:!text-white">
+                  {isLoading ? "Sending..." : "Send message"}
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
         </Card>
