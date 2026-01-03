@@ -543,6 +543,32 @@
     font-weight: 700 !important;
   }
 
+  /* Reading Focus - Highlight paragraphs on hover */
+  .reading-focus-highlight {
+    background-color: rgba(124, 58, 237, 0.15) !important;
+    outline: 2px solid rgba(124, 58, 237, 0.4) !important;
+    outline-offset: 4px !important;
+    border-radius: 4px !important;
+    transition: background-color 0.2s ease, outline 0.2s ease !important;
+    padding: 0.5rem !important;
+    margin: 0.25rem 0 !important;
+  }
+
+  .dark .reading-focus-highlight {
+    background-color: rgba(167, 139, 250, 0.2) !important;
+    outline: 2px solid rgba(167, 139, 250, 0.5) !important;
+  }
+
+  html.high-contrast .reading-focus-highlight {
+    background-color: rgba(0, 0, 255, 0.2) !important;
+    outline: 3px solid rgba(0, 0, 255, 0.8) !important;
+  }
+
+  html.high-contrast.dark .reading-focus-highlight {
+    background-color: rgba(0, 255, 255, 0.2) !important;
+    outline: 3px solid rgba(0, 255, 255, 0.8) !important;
+  }
+
   /* Ensure code blocks have proper contrast */
   html.high-contrast code,
   html.high-contrast pre {
