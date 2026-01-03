@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Settings, Moon, Sun, Type, Zap, ZapOff, ArrowUp, Contrast, Eye } from "lucide-react"
+import { Accessibility, Moon, Sun, Type, Zap, ZapOff, ArrowUp, Contrast, Eye } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 
 export function AccessibilityControls() {
@@ -163,6 +163,7 @@ export function AccessibilityControls() {
             : "opacity-0 translate-y-2 pointer-events-none"
         }`}
         aria-label="Back to top"
+        title="Scroll to the top of the page"
       >
         <ArrowUp className="w-5 h-5 !text-[var(--color-brand-purple)] dark:!text-[var(--color-brand-purple)]" />
         <span className="absolute right-full mr-3 !bg-black !text-white dark:!bg-black dark:!text-white px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
@@ -186,7 +187,12 @@ export function AccessibilityControls() {
             {/* Theme Toggle */}
             <div>
               <p className="text-sm font-medium mb-2">Theme</p>
-              <Button onClick={toggleTheme} variant="outline" className="w-full justify-start bg-transparent">
+              <Button 
+                onClick={toggleTheme} 
+                variant="outline" 
+                className="w-full justify-start bg-transparent"
+                title={theme === "light" ? "Switch to dark theme (Midnight)" : "Switch to light theme (Sunshine)"}
+              >
                 {theme === "light" ? <Sun className="w-4 h-4 mr-2" /> : <Moon className="w-4 h-4 mr-2" />}
                 {theme === "light" ? "Sunshine" : "Midnight"}
               </Button>
@@ -201,6 +207,7 @@ export function AccessibilityControls() {
                   variant={fontSize === "normal" ? "default" : "outline"}
                   className="w-full justify-start"
                   size="sm"
+                  title="Set font size to normal (16px)"
                 >
                   <span className="text-base mr-2 font-bold">T</span>
                   Normal
@@ -210,6 +217,7 @@ export function AccessibilityControls() {
                   variant={fontSize === "large" ? "default" : "outline"}
                   className="w-full justify-start"
                   size="sm"
+                  title="Set font size to large (18px)"
                 >
                   <span className="text-lg mr-2 font-bold">T</span>
                   Large
@@ -219,6 +227,7 @@ export function AccessibilityControls() {
                   variant={fontSize === "extra-large" ? "default" : "outline"}
                   className="w-full justify-start"
                   size="sm"
+                  title="Set font size to extra large (20px)"
                 >
                   <span className="text-xl mr-2 font-bold">T</span>
                   Extra Large
@@ -229,7 +238,12 @@ export function AccessibilityControls() {
             {/* Animations */}
             <div>
               <p className="text-sm font-medium mb-2">Animations</p>
-              <Button onClick={toggleAnimations} variant="outline" className="w-full justify-start bg-transparent">
+              <Button 
+                onClick={toggleAnimations} 
+                variant="outline" 
+                className="w-full justify-start bg-transparent"
+                title={animationsEnabled ? "Disable animations and transitions for reduced motion" : "Enable animations and transitions"}
+              >
                 {animationsEnabled ? <Zap className="w-4 h-4 mr-2" /> : <ZapOff className="w-4 h-4 mr-2" />}
                 {animationsEnabled ? "Enabled" : "Disabled"}
               </Button>
@@ -247,6 +261,7 @@ export function AccessibilityControls() {
                     : "bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent dark:hover:text-accent-foreground border-2"
                 }`}
                 aria-pressed={highContrast}
+                title={highContrast ? "Disable high contrast mode" : "Enable high contrast mode for better visibility (WCAG AAA compliant)"}
               >
                 <Contrast className={`w-4 h-4 mr-2 ${highContrast ? "!text-primary-foreground" : ""}`} />
                 {highContrast ? "Enabled" : "Disabled"}
@@ -278,12 +293,13 @@ export function AccessibilityControls() {
           ref={buttonRef}
           onClick={() => setIsOpen(!isOpen)}
           size="lg"
-          className="w-14 h-14 rounded-full shadow-2xl bg-primary hover:bg-primary/90 group relative ring-2 ring-primary/20"
+          className="w-12 h-12 md:w-16 md:h-16 rounded-full shadow-2xl bg-primary hover:bg-primary/90 group relative ring-2 ring-primary/20"
           aria-label="Accessibility settings"
           aria-expanded={isOpen}
           aria-haspopup="menu"
+          title={isOpen ? "Close accessibility settings menu" : "Open accessibility settings menu"}
         >
-          <Settings className={`w-6 h-6 ${isOpen ? "rotate-90" : ""} transition-transform duration-300`} />
+          <Accessibility className="!w-6 !h-6 md:!w-9 md:!h-9" />
           <span className="absolute right-full mr-3 bg-foreground text-background px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             Accessibility
           </span>
