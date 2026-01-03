@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Settings, Moon, Sun, Type, Zap, ZapOff, ArrowUp, Contrast } from "lucide-react"
+import { Settings, Moon, Sun, Type, Zap, ZapOff, ArrowUp, Contrast, Eye } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 
 export function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
-  const { theme, toggleTheme, fontSize, setFontSize, animationsEnabled, toggleAnimations, highContrast, toggleHighContrast } = useTheme()
+  const { theme, toggleTheme, fontSize, setFontSize, animationsEnabled, toggleAnimations, highContrast, toggleHighContrast, readingFocus, toggleReadingFocus } = useTheme()
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -78,6 +78,77 @@ export function AccessibilityControls() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
+
+  // Reading focus: highlight paragraphs on hover
+  useEffect(() => {
+    if (!readingFocus) {
+      // Remove any existing highlights when disabled
+      document.querySelectorAll(".reading-focus-highlight").forEach((el) => {
+        el.classList.remove("reading-focus-highlight")
+      })
+      return
+    }
+
+    // Select text content elements, excluding interactive elements
+    const textElements = document.querySelectorAll("p, li, blockquote, h1, h2, h3, h4, h5, h6, article, section, dd, dt")
+    let highlightedElement: HTMLElement | null = null
+
+    const handleMouseEnter = (e: Event) => {
+      const target = e.target as HTMLElement
+      
+      // Don't highlight if inside accessibility controls or other interactive areas
+      if (
+        target.closest('[role="menu"]') || 
+        target.closest('.fixed.bottom-6.right-4') ||
+        target.closest('button') ||
+        target.closest('a') ||
+        target.closest('input') ||
+        target.closest('textarea') ||
+        target.closest('select') ||
+        target.closest('[role="button"]') ||
+        target.tagName === 'BUTTON' ||
+        target.tagName === 'A' ||
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT'
+      ) {
+        return
+      }
+      
+      // Remove previous highlight
+      if (highlightedElement) {
+        highlightedElement.classList.remove("reading-focus-highlight")
+      }
+      
+      // Add highlight to current element
+      target.classList.add("reading-focus-highlight")
+      highlightedElement = target
+    }
+
+    const handleMouseLeave = (e: Event) => {
+      const target = e.target as HTMLElement
+      target.classList.remove("reading-focus-highlight")
+      if (highlightedElement === target) {
+        highlightedElement = null
+      }
+    }
+
+    textElements.forEach((element) => {
+      element.addEventListener("mouseenter", handleMouseEnter)
+      element.addEventListener("mouseleave", handleMouseLeave)
+    })
+
+    return () => {
+      textElements.forEach((element) => {
+        element.removeEventListener("mouseenter", handleMouseEnter)
+        element.removeEventListener("mouseleave", handleMouseLeave)
+        element.classList.remove("reading-focus-highlight")
+      })
+      if (highlightedElement) {
+        highlightedElement.classList.remove("reading-focus-highlight")
+      }
+    }
+  }, [readingFocus])
 
   return (
     <div className="fixed bottom-6 right-4 z-50 flex flex-col items-end gap-6">
@@ -179,6 +250,25 @@ export function AccessibilityControls() {
               >
                 <Contrast className={`w-4 h-4 mr-2 ${highContrast ? "!text-primary-foreground" : ""}`} />
                 {highContrast ? "Enabled" : "Disabled"}
+              </Button>
+            </div>
+
+            {/* Reading Focus */}
+            <div>
+              <p className="text-sm font-medium mb-2">Reading Focus</p>
+              <Button 
+                onClick={toggleReadingFocus} 
+                variant={readingFocus ? "default" : "outline"} 
+                className={`w-full justify-start ${
+                  readingFocus 
+                    ? "!bg-primary !text-primary-foreground hover:!bg-primary/90 hover:!text-primary-foreground dark:hover:!bg-primary/80 dark:hover:!text-primary-foreground border-2 !border-primary" 
+                    : "bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent dark:hover:text-accent-foreground border-2"
+                }`}
+                aria-pressed={readingFocus}
+                title="Light up a selected paragraph on the page by hovering with the mouse across the page"
+              >
+                <Eye className={`w-4 h-4 mr-2 ${readingFocus ? "!text-primary-foreground" : ""}`} />
+                {readingFocus ? "Enabled" : "Disabled"}
               </Button>
             </div>
           </div>

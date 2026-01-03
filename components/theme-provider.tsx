@@ -14,6 +14,8 @@ interface ThemeContextType {
   toggleAnimations: () => void
   highContrast: boolean
   toggleHighContrast: () => void
+  readingFocus: boolean
+  toggleReadingFocus: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -23,17 +25,20 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [fontSize, setFontSize] = useState<FontSize>("normal")
   const [animationsEnabled, setAnimationsEnabled] = useState(true)
   const [highContrast, setHighContrast] = useState(false)
+  const [readingFocus, setReadingFocus] = useState(false)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
     const savedAnimations = localStorage.getItem("animationsEnabled")
     const savedHighContrast = localStorage.getItem("highContrast")
+    const savedReadingFocus = localStorage.getItem("readingFocus")
 
     if (savedTheme) setTheme(savedTheme)
     if (savedFontSize) setFontSize(savedFontSize)
     if (savedAnimations !== null) setAnimationsEnabled(savedAnimations === "true")
     if (savedHighContrast !== null) setHighContrast(savedHighContrast === "true")
+    if (savedReadingFocus !== null) setReadingFocus(savedReadingFocus === "true")
   }, [])
 
   useEffect(() => {
@@ -67,7 +72,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       root.classList.remove("high-contrast")
     }
     localStorage.setItem("highContrast", String(highContrast))
-  }, [theme, fontSize, animationsEnabled, highContrast])
+
+    // Reading focus
+    localStorage.setItem("readingFocus", String(readingFocus))
+  }, [theme, fontSize, animationsEnabled, highContrast, readingFocus])
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"))
@@ -81,6 +89,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setHighContrast((prev) => !prev)
   }
 
+  const toggleReadingFocus = () => {
+    setReadingFocus((prev) => !prev)
+  }
+
   return (
     <ThemeContext.Provider
       value={{
@@ -92,6 +104,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         toggleAnimations,
         highContrast,
         toggleHighContrast,
+        readingFocus,
+        toggleReadingFocus,
       }}
     >
       {children}
