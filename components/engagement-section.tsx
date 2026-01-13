@@ -23,8 +23,8 @@ export function EngagementSection() {
       title: "Web Working the System",
       type: "Workshop",
       category: "development",
-      date: "2026-02-01",
-      dateFormatted: "Feb 2026",
+      date: "2026-03-01",
+      dateFormatted: "Mar 2026",
       location: "Memphis, TN",
       attendees: "Upcoming",
       description: <>A deep dive into web workers—exploring how to leverage web workers for better <span className="highlighter">performance</span> and <span className="highlighter">user experience</span> in modern web applications.</>,
@@ -189,7 +189,7 @@ export function EngagementSection() {
           {visibleEvents.map((event, index) => {
             const eventNumber = String(index + 1).padStart(2, '0')
             const isLeftColumn = index % 2 === 0
-            
+
             return (
               <div
                 key={index}
@@ -197,9 +197,9 @@ export function EngagementSection() {
               >
                 {/* Large Vertical Number - Rotated Sideways with Color */}
                 <div className={`hidden md:flex flex-shrink-0 items-center justify-center ${isLeftColumn ? 'order-1 md:-ml-32' : 'order-3 md:-mr-32'}`} style={{ overflow: 'visible' }}>
-                  <div 
+                  <div
                     className="text-9xl lg:text-[10rem] font-black leading-none"
-                    style={{ 
+                    style={{
                       fontFamily: 'var(--font-baloo2), sans-serif',
                       fontWeight: 800,
                       transform: 'rotate(-90deg)',
@@ -216,9 +216,9 @@ export function EngagementSection() {
                 <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
                   <div className="mb-2 flex items-center gap-3">
                     {/* Mobile number - visible on mobile only */}
-                    <span 
+                    <span
                       className="md:hidden text-4xl font-black leading-none"
-                      style={{ 
+                      style={{
                         fontFamily: 'var(--font-baloo2), sans-serif',
                         fontWeight: 800,
                         color: getCategoryColorHex(event.category),
@@ -227,17 +227,17 @@ export function EngagementSection() {
                     >
                       {eventNumber}
                     </span>
-                    <span 
+                    <span
                       className={`${getCategoryColor(event.category)} px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider inline-block mb-2`}
                     >
                       {event.category}
                     </span>
                   </div>
-                  
+
                   <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 leading-tight">
                     {event.title}
                   </h3>
-                  
+
                   <p className="text-base md:text-lg leading-relaxed text-foreground mb-4" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                     {event.description}
                   </p>
