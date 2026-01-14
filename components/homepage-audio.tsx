@@ -10,14 +10,14 @@ import { cn } from "@/lib/utils"
 
 /**
  * Homepage Audio Component
- * 
+ *
  * Features:
  * - Audio OFF by default, no auto-play
  * - User must click to play
  * - Audio plays only while user remains on page
  * - Page refresh/revisit defaults back to OFF
  * - No cookies, localStorage, or tracking
- * - Song fades out after 30 seconds
+ * - Song plays in full and fades out at the end
  * - Accessible (keyboard + screen readers)
  * - Includes visible transcript toggle
  * - Never blocks scrolling or primary CTAs
@@ -29,6 +29,7 @@ export function HomepageAudio() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const fadeStartTimeRef = useRef<number | null>(null)
+  const fadeCheckIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   // Cleanup on unmount - ensures audio stops when leaving page
   useEffect(() => {
@@ -41,10 +42,13 @@ export function HomepageAudio() {
       if (fadeIntervalRef.current) {
         clearInterval(fadeIntervalRef.current)
       }
+      if (fadeCheckIntervalRef.current) {
+        clearInterval(fadeCheckIntervalRef.current)
+      }
     }
   }, [])
 
-  // Handle fade out after 30 seconds
+  // Handle fade out near the end of the song
   useEffect(() => {
     if (!isPlaying) {
       // Reset fade state when paused
@@ -53,6 +57,10 @@ export function HomepageAudio() {
         clearInterval(fadeIntervalRef.current)
         fadeIntervalRef.current = null
       }
+      if (fadeCheckIntervalRef.current) {
+        clearInterval(fadeCheckIntervalRef.current)
+        fadeCheckIntervalRef.current = null
+      }
       fadeStartTimeRef.current = null
       return
     }
@@ -60,42 +68,53 @@ export function HomepageAudio() {
     const audio = audioRef.current
     if (!audio) return
 
-    // Start fade out timer after 30 seconds
-    const fadeTimer = setTimeout(() => {
-      setIsFading(true)
-      fadeStartTimeRef.current = Date.now()
-      const fadeDuration = 2000 // 2 second fade
-      const startVolume = audio.volume
+    // Check audio time to start fade out 3 seconds before the end
+    fadeCheckIntervalRef.current = setInterval(() => {
+      if (audio.duration && audio.currentTime >= audio.duration - 3) {
+        setIsFading(true)
+        fadeStartTimeRef.current = Date.now()
+        const fadeDuration = 3000 // 3 second fade
+        const startVolume = audio.volume
 
-      fadeIntervalRef.current = setInterval(() => {
-        const elapsed = Date.now() - (fadeStartTimeRef.current || 0)
-        const progress = Math.min(elapsed / fadeDuration, 1)
-        const newVolume = startVolume * (1 - progress)
-
-        if (audio) {
-          audio.volume = Math.max(0, newVolume)
+        // Clear the check interval since we're now fading
+        if (fadeCheckIntervalRef.current) {
+          clearInterval(fadeCheckIntervalRef.current)
+          fadeCheckIntervalRef.current = null
         }
 
-        if (progress >= 1) {
-          // Fade complete - pause and reset
+        fadeIntervalRef.current = setInterval(() => {
+          const elapsed = Date.now() - (fadeStartTimeRef.current || 0)
+          const progress = Math.min(elapsed / fadeDuration, 1)
+          const newVolume = startVolume * (1 - progress)
+
           if (audio) {
-            audio.pause()
-            audio.currentTime = 0
-            audio.volume = 1 // Reset volume for next play
+            audio.volume = Math.max(0, newVolume)
           }
-          setIsPlaying(false)
-          setIsFading(false)
-          if (fadeIntervalRef.current) {
-            clearInterval(fadeIntervalRef.current)
-            fadeIntervalRef.current = null
+
+          if (progress >= 1) {
+            // Fade complete - pause and reset
+            if (audio) {
+              audio.pause()
+              audio.currentTime = 0
+              audio.volume = 1 // Reset volume for next play
+            }
+            setIsPlaying(false)
+            setIsFading(false)
+            if (fadeIntervalRef.current) {
+              clearInterval(fadeIntervalRef.current)
+              fadeIntervalRef.current = null
+            }
+            fadeStartTimeRef.current = null
           }
-          fadeStartTimeRef.current = null
-        }
-      }, 16) // ~60fps for smooth fade
-    }, 30000) // 30 seconds
+        }, 16) // ~60fps for smooth fade
+      }
+    }, 100) // Check every 100ms
 
     return () => {
-      clearTimeout(fadeTimer)
+      if (fadeCheckIntervalRef.current) {
+        clearInterval(fadeCheckIntervalRef.current)
+        fadeCheckIntervalRef.current = null
+      }
       if (fadeIntervalRef.current) {
         clearInterval(fadeIntervalRef.current)
         fadeIntervalRef.current = null
@@ -117,12 +136,16 @@ export function HomepageAudio() {
         fadeIntervalRef.current = null
         audio.volume = 1
       }
+      if (fadeCheckIntervalRef.current) {
+        clearInterval(fadeCheckIntervalRef.current)
+        fadeCheckIntervalRef.current = null
+      }
     } else {
       // Reset audio to start
       audio.currentTime = 0
       audio.volume = 1
       setIsFading(false)
-      
+
       audio.play().catch((error) => {
         // Handle play error gracefully (e.g., browser autoplay restrictions)
         console.error("Audio play failed:", error)
@@ -144,7 +167,7 @@ export function HomepageAudio() {
 
   return (
     <TooltipProvider>
-      <div 
+      <div
         className="fixed bottom-24 sm:bottom-28 left-4 sm:left-6 z-40 flex flex-col gap-3"
         role="complementary"
         aria-label="Audio invitation"
@@ -223,8 +246,8 @@ export function HomepageAudio() {
                 </p>
               </TooltipContent>
             </Tooltip>
-            <PopoverContent 
-              side="right" 
+            <PopoverContent
+              side="right"
               sideOffset={8}
               align="end"
               className="w-64 sm:w-80 !z-[300] -mt-2"
@@ -250,4 +273,3 @@ export function HomepageAudio() {
     </TooltipProvider>
   )
 }
-
