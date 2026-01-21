@@ -10,7 +10,7 @@ interface PressArticle {
   publication: string
   date: string
   url: string
-  excerpt?: string
+  excerpt?: React.ReactNode
   category?: string
 }
 

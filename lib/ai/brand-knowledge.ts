@@ -194,7 +194,7 @@ Services include:
 /**
  * Add your LinkedIn content here
  * You can export your LinkedIn profile or manually add key content
- * 
+ *
  * To add your LinkedIn profile:
  * 1. Go to your LinkedIn profile
  * 2. Copy your "About" section text
@@ -206,7 +206,7 @@ export const linkedinContent: BrandKnowledge[] = [
     id: 'linkedin-profile',
     source: 'linkedin',
     content: `Contact
-corianoharrispro@gmail.com
+me@corianoharris.com
 www.linkedin.com/in/corianoharris
 (LinkedIn)
 Top Skills
@@ -520,12 +520,12 @@ export const talkContent: BrandKnowledge[] = [
   //   id: 'talk-1',
   //   source: 'talk',
   //   content: `Talk transcript or detailed summary...
-  //   
+  //
   //   Key points covered:
   //   - Point 1
   //   - Point 2
   //   - Point 3
-  //   
+  //
   //   Main takeaways:
   //   - Takeaway 1
   //   - Takeaway 2`,
@@ -546,4 +546,3 @@ export const allBrandKnowledge = [
   ...uxResearchContent,
   ...talkContent
 ]
-

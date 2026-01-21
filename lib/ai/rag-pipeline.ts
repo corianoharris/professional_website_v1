@@ -57,21 +57,21 @@ async function generateEmbedding(text: string): Promise<number[]> {
       model: 'sentence-transformers/all-MiniLM-L6-v2',
       inputs: text,
     })
-    
+
     // featureExtraction returns number[] for single input
     const embeddingArray = Array.isArray(result) && typeof result[0] === 'number'
       ? result as number[]
       : Array.isArray(result) && Array.isArray(result[0])
       ? (result as number[][])[0] // Handle batch response
       : []
-    
+
     if (embeddingArray.length === 0) {
       throw new Error('Invalid embedding response format')
     }
-    
+
     // Cache the embedding
     embeddingCache[text] = embeddingArray
-    
+
     return embeddingArray
   } catch (error) {
     console.error('Error generating embedding:', error)
@@ -103,7 +103,7 @@ export async function retrieveRelevantKnowledge(
   try {
     // Generate embedding for the query
     const queryEmbedding = await generateEmbedding(query)
-    
+
     // Generate embeddings for all knowledge chunks (with caching)
     const knowledgeWithScores = await Promise.all(
       allBrandKnowledge.map(async (knowledge) => {
@@ -112,7 +112,7 @@ export async function retrieveRelevantKnowledge(
         return { knowledge, similarity }
       })
     )
-    
+
     // Sort by similarity and return top K
     return knowledgeWithScores
       .sort((a, b) => b.similarity - a.similarity)
@@ -138,10 +138,10 @@ export async function generateResponse(
     .join('\n\n---\n\n')
 
   // Get current date for context
-  const currentDate = new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   })
 
   const systemPrompt = `You are Chroma, Coriano's AI assistant—embodying vulnerability, authenticity, and human connection. You help brave teams understand how color, UX, product strategy, web strategy, design technology, and full-stack development can drive measurable business results.
@@ -172,7 +172,7 @@ Your personality:
 - Be conversational, insightful, and always point to real outcomes
 - Be empathic and a good listener—acknowledge what users are feeling and seeking
 - Start with WHY, not features
-- Use Coriano's voice: "vulnerability creates trust," "color is the brave first whisper"
+- Use Coriano's voice: "being real creates trust," "color is the brave first whisper"
 - Be helpful but authentic—don't oversell
 - Share general knowledge confidently while staying true to Coriano's values
 - If you don't know something specific about Coriano, admit it and suggest contacting Coriano directly
@@ -191,7 +191,7 @@ Use the following context to answer questions about Coriano's work, services, ex
   try {
     // Use Inference Endpoint URL if provided, otherwise use model name
     const modelOrEndpoint = HF_INFERENCE_ENDPOINT || HF_CHAT_MODEL
-    
+
     const result = await hf.chatCompletion({
       model: modelOrEndpoint,
       messages: [
@@ -207,7 +207,7 @@ Use the following context to answer questions about Coriano's work, services, ex
       max_tokens: 500,
       temperature: 0.7
     })
-    
+
     // Extract generated text from response
     const generatedText = result.choices?.[0]?.message?.content || ''
     return generatedText.trim()
@@ -216,7 +216,7 @@ Use the following context to answer questions about Coriano's work, services, ex
     if (error instanceof Error) {
       console.error('Error message:', error.message)
       console.error('Error stack:', error.stack)
-      
+
       // Log more details if available
       if ('httpRequest' in error && error.httpRequest) {
         console.error('HTTP Request details:', JSON.stringify((error as any).httpRequest, null, 2))
@@ -226,7 +226,7 @@ Use the following context to answer questions about Coriano's work, services, ex
         console.error('HTTP Response status:', httpResponse?.status)
         console.error('HTTP Response body:', httpResponse?.body)
       }
-      
+
       // Provide helpful error messages for common issues
       if (error.message.includes('Invalid username or password') || error.message.includes('401')) {
         const errorMsg = 'Hugging Face API authentication failed. Please check that:\n' +
@@ -236,7 +236,7 @@ Use the following context to answer questions about Coriano's work, services, ex
           '4. You have restarted your dev server after adding the key'
         throw new Error(errorMsg)
       }
-      
+
       // Handle model not supported errors
       const errorBody = ('httpResponse' in error) ? (error as any).httpResponse?.body : undefined
       if (errorBody && typeof errorBody === 'object' && errorBody.error?.code === 'model_not_supported') {
@@ -248,7 +248,7 @@ Use the following context to answer questions about Coriano's work, services, ex
           '4. Check available models: https://huggingface.co/models?pipeline_tag=text-generation'
         throw new Error(errorMsg)
       }
-      
+
       // Handle HTTP provider errors
       if (error.message.includes('HTTP error occurred') || error.message.includes('ProviderApiError')) {
         const statusCode = ('httpResponse' in error) ? (error as any).httpResponse?.status || 'unknown' : 'unknown'
@@ -273,13 +273,12 @@ export async function ragQuery(query: string): Promise<{
 }> {
   // Step 1: Retrieve relevant knowledge
   const relevantKnowledge = await retrieveRelevantKnowledge(query, 3)
-  
+
   // Step 2: Generate response with context
   const response = await generateResponse(query, relevantKnowledge)
-  
+
   return {
     response,
     sources: relevantKnowledge
   }
 }
-
