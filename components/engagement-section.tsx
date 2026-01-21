@@ -140,7 +140,7 @@ export function EngagementSection() {
           <h2 id="engagement-heading" className="sr-only">Speaking and Engagement Events</h2>
         </div>
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          Sharing vulnerability and ideas on stages:
+          Sharing authenticity and ideas on stages:
         </p>
 
         {/* Featured Audio Talk */}

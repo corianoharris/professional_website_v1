@@ -249,7 +249,7 @@ export function ContactSection() {
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          Let's see solutions together:
+          Let's find solutions together:
         </p>
         
         <div className="mb-12 overflow-hidden md:overflow-visible">
@@ -268,7 +268,7 @@ export function ContactSection() {
                 className="text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-relaxed text-foreground relative z-10 pl-8 md:pl-32"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
               >
-                Starting with <span className="highlighter">WHY</span>. Building <span className="highlighter">remarkable</span> through <span className="highlighter">vulnerability</span> and <span className="highlighter">heart</span>. Let's connect.
+                Starting with why—because people buy why you do it, not what you do. Building <span className="highlighter">remarkable</span> through <span className="highlighter">authenticity</span> and <span className="highlighter">heart</span>. Let's connect.
               </p>
               {/* Closing Quote Icon - Very Large - Hidden on mobile */}
               <div className="hidden md:block absolute -bottom-16 -right-32 z-0">
@@ -417,7 +417,7 @@ export function ContactSection() {
                   <div className="relative">
                     <Textarea
                       id="message"
-                      placeholder="Tell me about your project, your vision, and what transformation you're seeking..."
+                      placeholder="Tell me about the story you want to tell, your vision, and what results you're looking for..."
                       rows={10}
                       value={formData.message}
                       onChange={(e) => handleFieldChange("message", e.target.value)}
@@ -487,7 +487,7 @@ export function ContactSection() {
                 className="text-xl md:text-3xl lg:text-4xl leading-relaxed text-foreground relative z-10 pl-4 md:pl-12"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
               >
-                I price the <span className="highlighter">transformation</span>. Selective for <span className="highlighter">high-impact</span>.
+                I price the <span className="highlighter">results</span> you get. Selective for <span className="highlighter">high-impact</span>.
               </p>
               {/* Closing Quote Icon - Hidden on mobile */}
               <div className="hidden md:block absolute bottom-2 right-0 z-0">

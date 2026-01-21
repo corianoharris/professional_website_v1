@@ -30,7 +30,7 @@ export function HeroWithContent() {
               <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2 w-full px-2 sm:px-0">
                 <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80 font-semibold block mb-3 md:mb-4">FEATURED STORY</span>
                 <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black tracking-tight text-balance leading-[1] max-w-5xl break-words">
-                  <span className="highlighter">Vulnerability</span> is the birthplace of trust.
+                  Being <span className="highlighter">real</span> is the birthplace of <span className="highlighter">trust</span>.
                 </h1>
               </div>
               
@@ -134,7 +134,7 @@ export function HeroWithContent() {
                     className="text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground mb-6"
                     style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 600 }}
                   >
-                    Color Product Technologist
+                    I turn color into products people care about
                   </p>
                   <div className="w-24 h-0.5 border-t border-dashed border-foreground/30 mx-auto md:mx-0" />
                 </div>
@@ -151,7 +151,7 @@ export function HeroWithContent() {
                     >
                       T
                     </span>
-                    o help <span className="highlighter">brave</span> teams create <span className="highlighter">remarkable</span> products worth millions more—building instant <span className="highlighter">trust</span>, deep <span className="highlighter">belonging</span>, and viral word-of-mouth through <span className="highlighter">courageous</span> <span className="highlighter">color</span> as the spark of human <span className="highlighter">connection</span>.
+                    o help teams create <span className="highlighter">remarkable</span> products worth millions more. I build instant <span className="highlighter">trust</span>, deep <span className="highlighter">belonging</span>, and word-of-mouth that spreads. I do this through <span className="highlighter">color</span>—the spark of human <span className="highlighter">connection</span>.
                   </p>
                 </div>
               </div>

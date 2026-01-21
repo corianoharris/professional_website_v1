@@ -76,14 +76,14 @@ export function AboutSection() {
               >
                 I
               </span>
-              believe <span className="highlighter">vulnerability</span> creates real <span className="highlighter">trust</span>: showing up authentically, daring to feel human.
+              believe being <span className="highlighter">real</span> creates real <span className="highlighter">trust</span>: showing up as your real self, not hiding behind a mask.
             </p>
             
             <p 
               className="text-xl md:text-2xl lg:text-3xl leading-relaxed text-foreground"
               style={{ fontFamily: 'var(--font-playfair), serif' }}
             >
-              <span className="highlighter">Color</span> is that <span className="highlighter">brave</span> first whisper—evoking <span className="highlighter">calm</span>, understanding, and <span className="highlighter">belonging</span> in 0.05 seconds.
+              <span className="highlighter">Color</span> is the first thing people notice—creating <span className="highlighter">calm</span>, understanding, and <span className="highlighter">belonging</span> in less than a second.
             </p>
 
             {/* Emphasis Box with Quotes */}
@@ -101,7 +101,7 @@ export function AboutSection() {
                 className="text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground relative z-10 pl-8 md:pl-12"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
               >
-                That's why I build experiences where people feel <span className="highlighter">seen</span>, choose you <span className="highlighter">wholeheartedly</span>, spread the idea, and drive measurable <span className="highlighter">revenue</span>.
+                That's why I build experiences where people feel <span className="highlighter">seen</span>. They choose you <span className="highlighter">with confidence</span>. They tell others about you. And you drive measurable <span className="highlighter">revenue</span>.
               </p>
               {/* Closing Quote Icon */}
               <div className="absolute bottom-0 right-0 md:bottom-2 md:right-0 z-0">

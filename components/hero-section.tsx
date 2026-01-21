@@ -68,7 +68,7 @@ export function HeroSection() {
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>Introduction</p>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-balance">
-              Human-Driven Color Product Technologist
+              I help teams stand out with products people care about, through color
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-balance" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
               Founder of SpeciNate

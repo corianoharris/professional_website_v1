@@ -181,7 +181,7 @@ export function PortfolioSection() {
         <h3 className="font-portfolio-title text-4xl md:text-5xl mb-8 leading-tight">Why Most Fail</h3>
         <div className="space-y-6 text-muted-foreground">
           <p className="font-portfolio-content text-xl md:text-2xl leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-            They armor up with safe generics—skipping <span className="highlighter">vulnerability</span>, aiming to fit in.
+            They protect themselves with safe, generic choices—skipping <span className="highlighter">authenticity</span>, aiming to fit in.
           </p>
           <p className="font-portfolio-content text-2xl md:text-3xl leading-relaxed font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
             They start with features, not feeling.
