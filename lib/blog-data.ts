@@ -591,6 +591,408 @@ Start with semantic tokens. Build accessibility in from the start. Use TypeScrip
 The best color systems aren't just beautiful—they're scalable, accessible, and maintainable. Build yours with intention. Your future self will thank you.
     `,
   },
+  {
+    id: "7",
+    slug: "color-intent-based-design-tokens",
+    title: "Color Intent-Based Design Tokens: Beyond Semantic Naming",
+    excerpt: "Organize your color system by psychological intent, not just semantic purpose—build tokens that communicate emotion, action, and meaning.",
+    image: "/images/global-token.png",
+    date: "January 25, 2026",
+    author: "Coriano Harris",
+    tags: ["Design System", "Color Strategy", "Design Tokens"],
+    tldr: [
+      "Intent-based tokens organize colors by psychological purpose—what emotion or action they evoke—not just what they're used for",
+      "Move beyond semantic tokens (like 'action.primary') to intent tokens (like 'trust.calm' or 'energy.action') that communicate meaning",
+      "Intent-based systems answer 'What feeling?' not just 'What component?'—making color choices more intentional and meaningful",
+      "Structure your tokens in layers: base colors → intent colors → semantic colors → component colors—each layer adds purpose",
+      "Intent tokens make your design system more flexible: change the color but keep the intent, or change the intent but keep the structure",
+      "When colors are organized by intent, designers and developers make better choices because they understand the 'why' behind each color"
+    ],
+    content: `
+# Color Intent-Based Design Tokens: Beyond Semantic Naming
+
+Organize your **color system** by **psychological intent**, not just semantic purpose—build tokens that communicate emotion, action, and meaning.
+
+Most design systems stop at semantic tokens. They create \`action.primary\` and \`text.heading\` and call it a day. But here's what they're missing: ==semantic tokens tell you WHERE to use a color, not WHY==. They answer "What component?" but not "What feeling?" It's like having a map that shows you where to go but not why you're going there. Useful? Yes. Complete? Not even close.
+
+Intent-based design tokens go deeper. They organize colors by ==psychological purpose==—what emotion they evoke, what action they encourage, what story they tell. Instead of \`action.primary\`, you might have \`courage.create\` or \`trust.calm\`. Instead of \`status.success\`, you might have \`growth.positive\`. It's the difference between naming a color "blue" and naming it "trust."
+
+## The Problem with Semantic-Only Tokens
+
+Semantic tokens are great. They're better than hardcoded hex values. But they have a blind spot: ==they don't communicate intent==. When a designer sees \`action.primary\`, they know it's for buttons. But they don't know why it's purple instead of blue. They don't know what emotion it's supposed to evoke. They don't know the story it's telling.
+
+Here's what happens: A designer needs a color for a new feature. They see \`action.primary\` and think "Okay, I'll use this for the main button." But they don't understand that purple was chosen because it communicates ==courage and creativity==. So when they need a color for a trust-building feature, they might still use purple—even though \`trust.calm\` (cyan) would be more appropriate.
+
+==Semantic tokens answer "what." Intent tokens answer "why."== And when you understand the "why," you make better choices.
+
+## What Are Intent-Based Tokens?
+
+Intent-based tokens organize colors by ==psychological purpose==. They answer questions like:
+
+- What ==emotion== does this color evoke?
+- What ==action== does it encourage?
+- What ==story== does it tell?
+- What ==feeling== does it create?
+
+Instead of organizing colors by component (\`button.primary\`) or by semantic purpose (\`action.primary\`), you organize them by ==intent== (\`courage.create\`, \`trust.calm\`, \`energy.action\`).
+
+Here's how it works:
+
+\`\`\`typescript
+// ❌ Semantic-only approach
+const semanticColors = {
+  action: {
+    primary: '#7c3aed',    // Purple - but why purple?
+    secondary: '#14b8a6',  // Teal - but why teal?
+  },
+  status: {
+    success: '#10b981',    // Green - but why green?
+  },
+}
+
+// ✅ Intent-based approach
+const intentColors = {
+  courage: {
+    create: '#7c3aed',     // Purple - bold, creative, distinctive
+    innovate: '#a78bfa',   // Lighter purple - playful innovation
+  },
+  trust: {
+    calm: '#06b6d4',       // Cyan - evokes security and calm authority
+    reliable: '#1e40af',   // Blue - communicates professionalism
+  },
+  growth: {
+    positive: '#10b981',   // Green - success, growth, harmony
+    balance: '#14b8a6',    // Teal - renewal and sustainability
+  },
+  energy: {
+    action: '#f97316',     // Orange - drives action and engagement
+    urgency: '#ef4444',    // Red - creates urgency (use sparingly)
+  },
+}
+
+// Then map intent to semantic purpose
+const semanticColors = {
+  action: {
+    primary: intentColors.courage.create,      // Primary actions need courage
+    secondary: intentColors.trust.calm,        // Secondary actions build trust
+  },
+  status: {
+    success: intentColors.growth.positive,     // Success is growth
+    error: intentColors.energy.urgency,        // Errors need attention
+  },
+}
+\`\`\`
+
+Now when a designer sees \`courage.create\`, they understand: ==this color is for bold, creative actions==. When they see \`trust.calm\`, they understand: ==this color builds trust and security==. The intent is clear, and the choices become intentional.
+
+## The Four-Layer Architecture
+
+Intent-based tokens work best in a ==four-layer architecture==. Each layer adds purpose:
+
+**Layer 1: Base Colors** – Raw palette (purple, cyan, teal, blue, orange). These are your pigments. They have no meaning yet—just color.
+
+**Layer 2: Intent Colors** – Psychological purpose (\`courage.create\`, \`trust.calm\`). These answer "What feeling?" This is where intent lives.
+
+**Layer 3: Semantic Colors** – Component purpose (\`action.primary\`, \`text.heading\`). These answer "What component?" They map intent to usage.
+
+**Layer 4: Component Colors** – Specific implementations (\`button.primary.background\`). These answer "How?" They apply intent and semantics to components.
+
+Here's the structure:
+
+\`\`\`typescript
+// Layer 1: Base Colors (raw palette)
+const baseColors = {
+  purple: { 500: '#7c3aed', 600: '#6d28d9', 400: '#a78bfa' },
+  cyan: { 500: '#06b6d4' },
+  teal: { 500: '#14b8a6' },
+  blue: { 700: '#1e40af', 500: '#3b82f6' },
+  orange: { 500: '#f97316' },
+} as const
+
+// Layer 2: Intent Colors (psychological purpose)
+const intentColors = {
+  courage: {
+    create: baseColors.purple[500],      // Bold, creative, distinctive
+    innovate: baseColors.purple[400],    // Playful innovation
+  },
+  trust: {
+    calm: baseColors.cyan[500],          // Security and calm authority
+    reliable: baseColors.blue[700],      // Professionalism and clarity
+  },
+  growth: {
+    positive: '#10b981',                 // Success and growth
+    balance: baseColors.teal[500],       // Renewal and sustainability
+  },
+  energy: {
+    action: baseColors.orange[500],     // Action and engagement
+    urgency: '#ef4444',                  // Urgency (use sparingly)
+  },
+} as const
+
+// Layer 3: Semantic Colors (component purpose)
+const semanticColors = {
+  action: {
+    primary: intentColors.courage.create,    // Primary actions need courage
+    secondary: intentColors.trust.calm,     // Secondary actions build trust
+    hover: intentColors.courage.innovate,    // Hover states are playful
+  },
+  text: {
+    heading: '#1e293b',                     // Headings need high contrast
+    body: '#64748b',                        // Body text is readable but not heavy
+  },
+  status: {
+    success: intentColors.growth.positive,  // Success is growth
+    error: intentColors.energy.urgency,     // Errors need attention
+  },
+} as const
+
+// Layer 4: Component Colors (specific implementations)
+const componentColors = {
+  button: {
+    primary: {
+      background: semanticColors.action.primary,
+      foreground: '#ffffff',
+      hover: semanticColors.action.hover,
+    },
+  },
+} as const
+\`\`\`
+
+Each layer builds on the previous one. Base colors become intent colors. Intent colors become semantic colors. Semantic colors become component colors. ==Change a base color, and intent adapts. Change an intent, and semantics adapt.== It's like a cascade of meaning, where each layer adds purpose.
+
+## The Power of Intent Mapping
+
+When you organize colors by intent, you create a ==mapping system== that makes color choices more intentional. Here's how it works:
+
+**Scenario 1: Building Trust**
+
+You're designing a healthcare app. You need colors that build trust. Instead of guessing which semantic token to use, you look at your intent tokens:
+
+- \`trust.calm\` (cyan) – Perfect for security and calm authority
+- \`trust.reliable\` (blue) – Great for professionalism
+
+You choose \`trust.calm\` for the main actions because healthcare needs ==calm authority==, not just professionalism. The intent guides your choice.
+
+**Scenario 2: Encouraging Action**
+
+You're designing an e-commerce checkout. You need colors that drive action. You look at your intent tokens:
+
+- \`energy.action\` (orange) – Drives action and engagement
+- \`courage.create\` (purple) – Bold and creative
+
+You choose \`energy.action\` for the checkout button because e-commerce needs ==action==, not creativity. The intent makes the choice clear.
+
+**Scenario 3: Communicating Growth**
+
+You're designing a dashboard showing positive metrics. You need colors that communicate growth. You look at your intent tokens:
+
+- \`growth.positive\` (green) – Success and growth
+- \`growth.balance\` (teal) – Renewal and sustainability
+
+You choose \`growth.positive\` for success metrics and \`growth.balance\` for sustainability metrics. ==The intent differentiates similar concepts.==
+
+Intent mapping turns color selection from guessing into ==strategic decision-making==. You're not just picking colors—you're choosing emotions, actions, and stories.
+
+## Intent Tokens in Practice
+
+Here's how intent tokens work in real components:
+
+\`\`\`typescript
+// Define your intent tokens
+const intentColors = {
+  courage: {
+    create: '#7c3aed',
+    innovate: '#a78bfa',
+  },
+  trust: {
+    calm: '#06b6d4',
+    reliable: '#1e40af',
+  },
+  growth: {
+    positive: '#10b981',
+    balance: '#14b8a6',
+  },
+} as const
+
+// Create semantic mappings
+const semanticColors = {
+  action: {
+    primary: intentColors.courage.create,
+    secondary: intentColors.trust.calm,
+  },
+  status: {
+    success: intentColors.growth.positive,
+  },
+} as const
+
+// Use in components
+const Button = ({ intent = 'courage', variant = 'create' }) => {
+  // Direct intent access - designer chooses intent
+  const backgroundColor = intentColors[intent][variant]
+  
+  return (
+    <button 
+      style={{ backgroundColor }}
+      className="px-4 py-2 rounded-lg text-white"
+    >
+      Click me
+    </button>
+  )
+}
+
+// Or use semantic mapping
+const PrimaryButton = () => {
+  // Semantic access - developer uses semantic token
+  const backgroundColor = semanticColors.action.primary
+  
+  return (
+    <button 
+      style={{ backgroundColor }}
+      className="px-4 py-2 rounded-lg text-white"
+    >
+      Click me
+    </button>
+  )
+}
+\`\`\`
+
+Designers can work with intent directly: "I need a color that communicates courage." Developers can work with semantics: "I need the primary action color." ==Both get the right color, but they're working at different levels of abstraction.==
+
+## The Flexibility Advantage
+
+Intent-based tokens create ==flexibility==. Here's why:
+
+**Change the Color, Keep the Intent**
+
+Your brand refreshes, and purple becomes blue. With intent tokens, you update one mapping:
+
+\`\`\`typescript
+// Before: Purple communicates courage
+courage: {
+  create: '#7c3aed',  // Purple
+}
+
+// After: Blue communicates courage (brand refresh)
+courage: {
+  create: '#1e40af',  // Blue - same intent, different color
+}
+\`\`\`
+
+Your components don't break. Your semantics don't change. ==Only the color changes, but the intent remains.== It's like changing the actor in a play but keeping the character.
+
+**Change the Intent, Keep the Structure**
+
+You realize that primary actions should communicate trust, not courage. With intent tokens, you update one mapping:
+
+\`\`\`typescript
+// Before: Primary actions need courage
+action: {
+  primary: intentColors.courage.create,
+}
+
+// After: Primary actions build trust
+action: {
+  primary: intentColors.trust.calm,  // Same structure, different intent
+}
+\`\`\`
+
+Your components don't break. Your colors don't change. ==Only the intent changes, but the structure remains.== It's like changing the motivation but keeping the action.
+
+This flexibility is why intent-based tokens scale. They separate ==what you're communicating== from ==how you're communicating it==. Change one, and the other adapts.
+
+## Building Your Intent System
+
+Here's how to build an intent-based color system:
+
+**Step 1: Define Your Intents**
+
+Start with the ==psychological purposes== you need. What emotions? What actions? What stories?
+
+Common intents:
+- **Courage** – Bold, creative, distinctive
+- **Trust** – Security, calm, reliability
+- **Growth** – Success, positive change, renewal
+- **Energy** – Action, engagement, urgency
+- **Focus** – Clarity, precision, professionalism
+
+**Step 2: Map Colors to Intents**
+
+Choose colors that ==evoke your intents==. Purple for courage. Cyan for trust. Green for growth. Orange for energy. Blue for focus.
+
+**Step 3: Create Semantic Mappings**
+
+Map intents to semantic purposes. Primary actions might need courage. Secondary actions might build trust. Success states might communicate growth.
+
+**Step 4: Build Component Tokens**
+
+Create component-specific tokens that inherit from semantic tokens. Buttons use semantic action colors. Cards use semantic background colors.
+
+**Step 5: Document the Intent**
+
+Document why each intent exists. Why does purple communicate courage? Why does cyan build trust? ==The documentation becomes your design system's philosophy.==
+
+## The Intent-Driven Workflow
+
+When designers and developers work with intent tokens, the workflow changes:
+
+**Before (Semantic-Only):**
+
+Designer: "I need a color for this button."
+Developer: "Use \`action.primary\`."
+Designer: "Why purple?"
+Developer: "Because that's what \`action.primary\` is."
+Designer: "But I want it to build trust."
+Developer: "Then use \`action.secondary\`?"
+Designer: "But that's teal, and I want blue."
+Developer: "..."
+
+**After (Intent-Based):**
+
+Designer: "I need a color that builds trust."
+Developer: "Use \`trust.calm\` or \`trust.reliable\`."
+Designer: "I'll use \`trust.calm\`—it's perfect for healthcare."
+Developer: "Great. I'll map it to \`action.primary\` for the button."
+Designer: "Perfect. The intent is clear."
+
+==Intent tokens create shared language==. Designers and developers both understand what each color communicates. The conversation shifts from "what color?" to "what feeling?"
+
+## Intent Tokens and Accessibility
+
+Intent-based tokens don't replace accessibility—they ==enhance it==. You still need:
+
+- **Contrast ratios** – WCAG AA standards (4.5:1 for text)
+- **Colorblind-friendly** – Don't rely on color alone
+- **High contrast mode** – Support system preferences
+
+But intent tokens help you make ==accessible choices==. When you understand that \`trust.calm\` needs to be readable, you choose colors that meet contrast requirements. When you understand that \`energy.action\` needs to stand out, you ensure it works for colorblind users.
+
+Intent doesn't replace accessibility—it makes accessibility more intentional.
+
+## The Future of Intent-Based Design
+
+Intent-based tokens are the future because they answer the question that matters most: ==Why?==
+
+Why this color? Because it communicates courage.
+Why this intent? Because primary actions need boldness.
+Why this system? Because it makes color choices intentional.
+
+As design systems mature, they'll move beyond semantic tokens to intent tokens. They'll organize colors by ==psychological purpose==, not just component purpose. They'll answer "what feeling?" not just "what component?"
+
+The teams that build intent-based systems today will have ==more flexible, more meaningful, more intentional== design systems tomorrow. They'll make better color choices because they understand the "why" behind each color.
+
+## Start Building Today
+
+Intent-based design tokens aren't just a naming convention—they're a ==philosophy==. They're about organizing colors by meaning, not just by usage. They're about answering "why" not just "what."
+
+Start with your intents. Define what emotions you need. Map colors to those emotions. Create semantic mappings. Build component tokens. Document everything.
+
+Your design system will become more flexible, more meaningful, and more intentional. And your team will make better color choices because they understand the ==psychological purpose== behind each color.
+
+Build with intent. Design with meaning. Color with purpose.
+
+The future of design systems is intent-based. Start building yours today.
+    `,
+  },
 ]
 
 export function getBlogPost(slug: string): BlogPost | undefined {

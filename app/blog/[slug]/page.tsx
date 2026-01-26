@@ -145,14 +145,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       currentListItems.push(processHighlighter(section.content))
     } else {
       if (currentListItems.length > 0) {
-        groupedSections.push({ type: "list", items: [...currentListItems] })
+        groupedSections.push({ type: "list", content: "", items: [...currentListItems] })
         currentListItems = []
       }
       groupedSections.push(section)
     }
   }
   if (currentListItems.length > 0) {
-    groupedSections.push({ type: "list", items: currentListItems })
+    groupedSections.push({ type: "list", content: "", items: currentListItems })
   }
 
   return (

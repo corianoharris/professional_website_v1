@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ChevronDown, ChevronRight, X } from "lucide-react"
-import { mainNavigation, moreNavigation, type NavigationItem } from "./navigation-data"
+import { ChevronDown, ChevronRight, X, Linkedin, Mail, Github } from "lucide-react"
+import { mainNavigation, moreNavigation, socialLinks, type NavigationItem } from "./navigation-data"
 
 interface MobileNavigationProps {
   activeSection: string
@@ -18,6 +18,12 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
     scrollToSection(sectionId)
     onNavigate()
     setMoreOpen(false)
+  }
+
+  const iconMap: Record<string, typeof Linkedin> = {
+    Linkedin,
+    Mail,
+    Github,
   }
 
   return (
@@ -121,6 +127,30 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
                 {item.label}
               </button>
             ))}
+            {/* Social Links Separator */}
+            {socialLinks.length > 0 && (
+              <>
+                <div className="border-t border-foreground/10 dark:border-foreground/20 my-2 mx-3" />
+                {socialLinks.map((social) => {
+                  const IconComponent = iconMap[social.icon]
+                  return (
+                    <a
+                      key={social.id}
+                      href={social.href}
+                      target={social.external ? "_blank" : undefined}
+                      rel={social.external ? "noopener noreferrer" : undefined}
+                      role="menuitem"
+                      aria-label={social.ariaLabel}
+                      className="w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 flex items-center gap-2 text-foreground/95 dark:text-foreground/95 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                      onClick={() => onNavigate()}
+                    >
+                      {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}
+                      {social.label}
+                    </a>
+                  )
+                })}
+              </>
+            )}
           </div>
         )}
       </div>

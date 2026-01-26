@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { ChevronDown } from "lucide-react"
-import { mainNavigation, moreNavigation, type NavigationItem } from "./navigation-data"
+import { ChevronDown, Linkedin, Mail, Github } from "lucide-react"
+import { mainNavigation, moreNavigation, socialLinks, type NavigationItem } from "./navigation-data"
 
 interface DesktopNavigationProps {
   activeSection: string
@@ -28,6 +28,12 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
   const handleNavClick = (sectionId: string) => {
     scrollToSection(sectionId)
     setMoreOpen(false)
+  }
+
+  const iconMap: Record<string, typeof Linkedin> = {
+    Linkedin,
+    Mail,
+    Github,
   }
 
   return (
@@ -109,6 +115,28 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
                 {item.label}
               </button>
             ))}
+            {/* Social Links Separator */}
+            {socialLinks.length > 0 && (
+              <>
+                <div className="border-t border-foreground/10 dark:border-foreground/20 my-2" />
+                {socialLinks.map((social) => {
+                  const IconComponent = iconMap[social.icon]
+                  return (
+                    <a
+                      key={social.id}
+                      href={social.href}
+                      target={social.external ? "_blank" : undefined}
+                      rel={social.external ? "noopener noreferrer" : undefined}
+                      aria-label={social.ariaLabel}
+                      className="w-full text-left px-4 py-2 text-sm transition-colors flex items-center gap-2 text-foreground/90 dark:text-white/90 hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                    >
+                      {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}
+                      {social.label}
+                    </a>
+                  )
+                })}
+              </>
+            )}
           </div>
         )}
       </div>

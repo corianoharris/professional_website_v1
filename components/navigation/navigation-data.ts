@@ -11,6 +11,15 @@ export interface NavigationFolder {
   items: NavigationItem[]
 }
 
+export interface SocialLink {
+  id: string
+  label: string
+  href: string
+  ariaLabel: string
+  icon: string // Icon name from lucide-react
+  external?: boolean
+}
+
 export const mainNavigation: NavigationItem[] = [
   {
     id: "about",
@@ -80,4 +89,31 @@ export const moreNavigation: NavigationFolder = {
     },
   ],
 }
+
+export const socialLinks: SocialLink[] = [
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/corianoharris/",
+    ariaLabel: "Visit LinkedIn profile",
+    icon: "Linkedin",
+    external: true,
+  },
+  {
+    id: "email",
+    label: "Email",
+    href: "mailto:me@corianoharris.com",
+    ariaLabel: "Send email",
+    icon: "Mail",
+    external: false,
+  },
+  {
+    id: "github",
+    label: "GitHub",
+    href: "https://github.com/corianoharris",
+    ariaLabel: "Visit GitHub profile",
+    icon: "Github",
+    external: true,
+  },
+]
 
