@@ -21,13 +21,13 @@ function highlightText(text: string) {
 export function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "Coriano transformed our brand through courageous color choices. The 95% stakeholder approval speaks for itself—but more importantly, our users feel the difference.",
+      quote: "Coriano transformed our brand through courageous color choices. The 95% stakeholder approval speaks for itself, but more importantly, our users feel the difference.",
       author: "A+ Automotive Team",
       role: "Client",
       result: "95% approval rate",
     },
     {
-      quote: "The Blight Zero portal redesign didn't just look better—it transformed how our city operates. 60% faster processing and 100% vendor adoption within a month.",
+      quote: "The Blight Zero portal redesign didn't just look better, it transformed how our city operates. 60% faster processing and 100% vendor adoption within a month.",
       author: "City of Memphis",
       role: "Government Client",
       result: "60% efficiency gain",

@@ -38,7 +38,7 @@ FEATURED STORY: Vulnerability is the birthplace of trust.
 
 Color Product Technologist / I turn color into products people care about
 
-To help teams create remarkable products worth millions more—building instant trust, 
+To help teams create remarkable products worth millions more-building instant trust, 
 deep belonging, and viral word-of-mouth through color as the spark of human connection.
 ```
 
@@ -60,12 +60,12 @@ deep belonging, and viral word-of-mouth through color as the spark of human conn
 ```
 To help teams create remarkable products worth millions more. 
 I build instant trust, deep belonging, and word-of-mouth that spreads. 
-I do this through color—the spark of human connection.
+I do this through color-the spark of human connection.
 ```
 
 **Option B: More direct** (Seth Godin approach)
 ```
-I help teams create products people care about—products worth millions more. 
+I help teams create products people care about-products worth millions more. 
 Through color, I build trust. Create belonging. Generate word-of-mouth that spreads.
 ```
 
@@ -79,10 +79,10 @@ Through color, I build trust. Create belonging. Generate word-of-mouth that spre
 #### Current Copy:
 
 ```
-People don't buy what you do—they buy why you do it.
+People don't buy what you do-they buy why you do it.
 
 I believe vulnerability creates real trust: showing up authentically, 
-daring to feel human. Color is that brave first whisper—evoking calm, 
+daring to feel human. Color is that brave first whisper-evoking calm, 
 understanding, and belonging in 0.05 seconds.
 
 That's why I build experiences where people feel seen, choose you 
@@ -117,14 +117,14 @@ daring to feel human.
 **Option A (Add explanation):**
 ```
 I believe vulnerability creates real trust. What does that mean? 
-Showing up as your real self—not hiding behind a mask. 
+Showing up as your real self-not hiding behind a mask. 
 When you're honest about who you are, people trust you more.
 ```
 
 **Option B (Simplify within sentence):**
 ```
 I believe vulnerability creates real trust: showing up as your real self, 
-not hiding behind a mask. Color is the first thing people notice—creating 
+not hiding behind a mask. Color is the first thing people notice-creating 
 calm, understanding, and belonging in less than a second.
 ```
 
@@ -203,7 +203,7 @@ Products that connect heart-first and stand out forever
 
 **Could become:**
 ```
-Products people love—that stand out and connect deeply
+Products people love-that stand out and connect deeply
 ```
 
 ---
@@ -222,7 +222,7 @@ Creating with purpose:
 2. I build products that feel calm and trustworthy. I do the right thing 
    and create unforgettable experiences.
 
-3. I build communities around products that feel deeply right—and 
+3. I build communities around products that feel deeply right-and 
    completely different.
 ```
 
@@ -288,7 +288,7 @@ Let's connect.
 
 **Option A (Maintain brand, add clarity):**
 ```
-Starting with why—because people buy why you do it, not what you do. 
+Starting with why-because people buy why you do it, not what you do. 
 Building remarkable products through authenticity and heart. Let's connect.
 ```
 
@@ -308,7 +308,7 @@ together. Let's connect.
 #### Current Copy:
 
 ```
-They armor up with safe generics—skipping vulnerability, aiming to fit in.
+They armor up with safe generics-skipping vulnerability, aiming to fit in.
 They start with features, not feeling.
 Perfection hides. Courage connects. Average vanishes. Remarkable spreads.
 ```
@@ -330,7 +330,7 @@ Perfection hides. Courage connects. Average vanishes. Remarkable spreads.
 
 **Current:**
 ```
-They armor up with safe generics—skipping vulnerability, aiming to fit in.
+They armor up with safe generics-skipping vulnerability, aiming to fit in.
 ```
 
 **Option A (More concrete):**
@@ -341,7 +341,7 @@ They aim to fit in instead of standing out.
 
 **Option B (Keep metaphor, add clarity):**
 ```
-They protect themselves with safe, generic choices—skipping authenticity, 
+They protect themselves with safe, generic choices-skipping authenticity, 
 aiming to fit in.
 ```
 
@@ -374,7 +374,7 @@ aiming to fit in.
 
 1. **Hero body copy:** 29 words
    ```
-   To help teams create remarkable products worth millions more—building 
+   To help teams create remarkable products worth millions more-building 
    instant trust, deep belonging, and viral word-of-mouth through color 
    as the spark of human connection.
    ```
@@ -458,4 +458,4 @@ aiming to fit in.
 
 ---
 
-**Remember:** Readability isn't about lowering your standards—it's about being clear enough that your brilliance shines through. As Seth Godin says: "The best communication is clear enough to understand, deep enough to matter."
+**Remember:** Readability isn't about lowering your standards-it's about being clear enough that your brilliance shines through. As Seth Godin says: "The best communication is clear enough to understand, deep enough to matter."

@@ -21,7 +21,7 @@ export const brandKnowledgeBase: BrandKnowledge[] = [
   {
     id: 'resume-1',
     source: 'resume',
-    content: `Coriano Harris - Human-Driven Color Product Technologist
+    content: `Coriano Harris - Color Intent-Driven Color Product Technologist
 
 Expertise:
 - Product Strategy & Web Strategy
@@ -42,19 +42,18 @@ Key Achievements:
 Services:
 - Product Strategy: End-to-end product strategy and planning
 - Web Strategy: Comprehensive web strategy and digital presence
-- Color Strategy: Psychology-based color systems that drive measurable results
-- Product Design: Human-centered design that builds trust and belonging
+- Color Intent Strategy: Psychology-based color systems that drive measurable results
+- System validation: Human-centered design that builds trust and belonging
 - UX Research: Evidence-based user experience research and insights
 - UI Design: Intuitive, accessible interface design using Figma and modern design tools
 - Front-End Development: Full-stack development capabilities
-- Design Systems: Scalable, accessible design systems and component libraries
+- Intent-Based: Scalable, accessible design systems and component libraries
 - Design Technology: Expertise in Figma, design tools, and design tech stack
-- Technology Integration: Implementing color systems and design in modern tech stacks
-- UX Consultation: Evidence-based UX improvements
-- Brand Identity: Remarkable brand differentiation through color and design
-- Speaking & Workshops: Sharing vulnerability and ideas on stages
+- Implementation support: Implementing color systems and design in modern tech stacks
+- Intent alignment: Evidence-based UX improvements
+- Brand → Intent translation: Remarkable brand differentiation through color and design
 
-Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first whisper—evoking calm, understanding, and belonging in 0.05 seconds."`,
+Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first whisper - evoking calm, understanding, and belonging in 0.05 seconds."`,
     metadata: {
       title: 'Professional Resume',
       tags: ['expertise', 'achievements', 'services']
@@ -63,9 +62,9 @@ Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first
   {
     id: 'philosophy-1',
     source: 'website',
-    content: `My WHY: People don't buy what you do—they buy why you do it.
+    content: `My WHY: People don't buy what you do - they buy why you do it.
 
-I believe vulnerability creates real trust: showing up authentically, daring to feel human. Color is that brave first whisper—evoking calm, understanding, and belonging in 0.05 seconds.
+I believe vulnerability creates real trust: showing up authentically, daring to feel human. Color is that brave first whisper - evoking calm, understanding, and belonging in 0.05 seconds.
 
 That's why I build experiences where people feel seen, choose you wholeheartedly, spread the idea, and drive measurable revenue.`,
     metadata: {
@@ -78,9 +77,9 @@ That's why I build experiences where people feel seen, choose you wholeheartedly
     source: 'website',
     content: `How I Do It:
 
-With courage and remarkability: psychology before pixels. Engineering calm authority, ethical influence, unforgettable presence. Building tribes around products that feel profoundly right—and profoundly different.
+With courage and remarkability: psychology before pixels. Engineering calm authority, ethical influence, unforgettable presence. Building tribes around products that feel profoundly right - and profoundly different.
 
-Most fail because they armor up with safe generics—skipping vulnerability, aiming to fit in. They start with features, not feeling. Perfection hides. Courage connects. Average vanishes. Remarkable spreads.`,
+Most fail because they armor up with safe generics - skipping vulnerability, aiming to fit in. They start with features, not feeling. Perfection hides. Courage connects. Average vanishes. Remarkable spreads.`,
     metadata: {
       title: 'Methodology',
       tags: ['methodology', 'approach', 'process']
@@ -91,7 +90,7 @@ Most fail because they armor up with safe generics—skipping vulnerability, aim
     source: 'case-study',
     content: `Case Study: Healthcare SaaS - $2.3M Recovered Revenue
 
-Their blue-heavy dashboard confused users. We rebuilt the color hierarchy. Onboarding completion went from 34% to 81%. That's not design—that's money.
+Their blue-heavy dashboard confused users. We rebuilt the color hierarchy. Onboarding completion went from 34% to 81%. That's not design - that's money.
 
 The problem: Users couldn't distinguish between critical actions and secondary information due to poor color differentiation.
 
@@ -144,24 +143,23 @@ The result: Conversion rate increased from 2% to 11%, a 340% improvement in stan
 
 1. Products that connect heart-first and stand out forever.
 2. Millions in added revenue from trust and differentiation.
-3. Loyalty that compounds—tribes that pay premium and spread virally.
+3. Loyalty that compounds - tribes that pay premium and spread virally.
 
 I price the transformation. Selective for high-impact.
 
 Services include:
 - Product Strategy: End-to-end product strategy, roadmapping, and planning
 - Web Strategy: Comprehensive web strategy, digital presence, and online experience optimization
-- Color Strategy: Psychology-based color systems that drive measurable results
-- Product Design: Human-centered design that builds trust and belonging
+- Color Intent Strategy: Psychology-based color systems that drive measurable results
+- System validation: Human-centered design that builds trust and belonging
 - UX Research: User research, usability testing, and evidence-based insights
 - UI Design: Intuitive, accessible interface design using Figma and modern design tools
 - Front-End Development: Full-stack development with expertise in modern web technologies
-- Design Systems: Scalable, accessible design systems and component libraries
+- Intent-Based: Scalable, accessible design systems and component libraries
 - Design Technology: Expertise in Figma, design tools, design tokens, and design tech stack
-- Technology Integration: Implementing color systems and design in modern tech stacks
-- UX Consultation: Evidence-based UX improvements and optimization
-- Brand Identity: Remarkable brand differentiation through color and design
-- Speaking & Workshops: Sharing vulnerability and ideas on stages`,
+- Implementation support: Implementing color systems and design in modern tech stacks
+- Intent alignment: Evidence-based UX improvements and optimization
+- Brand → Intent translation: Remarkable brand differentiation through color and design`,
     metadata: {
       title: 'Services & Deliverables',
       tags: ['services', 'deliverables', 'pricing']
@@ -170,7 +168,7 @@ Services include:
   {
     id: 'conversations-with-coriano-harris',
     source: 'blog',
-    content: `Local Stories March 25, 2025 Conversations with Coriano Harris Local Stories Share Tweet Pin Today we'd like to introduce you to Coriano Harris Alright, so thank you so much for sharing your story and insight with our readers. To kick things off, can you tell us a bit about how you got started? My journey into tech wasn't a straight line—it was a series of curiosity-fueled leaps. It all started when I was a tech support rep, troubleshooting issues and helping users navigate their digital roadblocks. One day, I got the opportunity to be a game tester, and that's when everything changed. As I worked alongside developers and designers, I couldn't help but ask question after question. Why are you doing it this way? How does that work? The logic, creativity, and problem-solving behind their work fascinated me—it was like a tattoo on my heart. I couldn't ignore it. I had to dive in. That drive led me to a seven-month intensive UX/UI technical program. Learning design thinking, user research, and interface design was eye-opening. But then, I saw developers typing what looked like magical symbols in a text editor, turning ideas into reality. And I thought, I want to do that too. I wasn't satisfied with just handing off designs—I wanted to bring them to life myself. That hunger pushed me into another seven-month full-stack development technical program, where I was hit with a flood of WTF moments—data structures, algorithms, and the MERN (MongoDB, Express, React, Node) stack. It was intense, but I thrived on the challenge. Right after that, I landed my first tech job at a small startup as a front-end developer. But my insatiable curiosity didn't stop there. I started blending UX/UI into my workflow, using FullStory to analyze user behavior and improve experiences. That's when I realized my true superpower: combining strategy, research, design, and code to solve problems. I got to where I am by asking questions, standing up for myself, showing up, and constantly trying to understand why—why users behave the way they do, why technologies work the way they do. And here's the most interesting part: "I'm a better designer because of my strategy, research, and development experience." "I'm a better developer because of my strategy, research, and design background." Balancing both worlds takes energy and effort, but as long as I have the grit, I'll keep pushing forward—because this journey is far from over. Would you say it's been a smooth road, and if not what are some of the biggest challenges you've faced along the way? The biggest challenge on my journey wasn't learning UX, UI, or development—it was convincing others that I could excel in all of them. Many companies wanted to box me in: You're either a designer or a developer—pick one. I understood their hesitation, so I didn't push back outright. Instead, I strategically played the long game. I agreed to be an onlooker, observing and absorbing as much as I could. But with my sales chops, I made a compelling case: if I stayed exposed to both design and development, I'd be even more valuable in my role. Over time, I proved that specialization doesn't have to mean limitation. My ability to bridge strategy, research, design, and code made me an asset, not an outlier. By constantly seeking knowledge, asking the right questions, and demonstrating how these disciplines complement each other, I carved out a unique space for myself—one where I didn't have to choose between my passions. The truth is, I thrive at the intersection of design and development. And while it takes energy to stay sharp in both worlds, I wouldn't have it any other way. Appreciate you sharing that. What else should we know about what you do? I'm a Full-Stack Creative Technologist who thrives at the intersection of design, development, and strategy. I specialize in: Design Systems & Front-End Architecture – Bridging the gap between UX/UI and engineering to create scalable, cohesive component libraries. UI Design – Crafting intuitive, accessible, and visually engaging user interfaces that enhance digital experiences. UX Research & Data-Driven Design – Leveraging user behavior insights (e.g., FullStory) to inform design and development decisions. Full-Stack Development (MERN & Angular) – Writing clean, efficient code to bring designs to life while optimizing performance and accessibility. Storybook & Developer Experience – Implementing best practices to improve documentation, collaboration, and UI consistency across teams. What I'm Known For I'm known for my insatiable curiosity and ability to connect the dots across disciplines. I ask why—constantly. Whether it's understanding user behavior, refining a component's usability, or optimizing front-end performance, I dig deep to find the best solution. What I'm Most Proud Of I'm most proud of carving my own path in tech, despite the pressure to fit into a single role. From tech support to game testing, UX`,
+    content: `Local Stories March 25, 2025 Conversations with Coriano Harris Local Stories Share Tweet Pin Today we'd like to introduce you to Coriano Harris Alright, so thank you so much for sharing your story and insight with our readers. To kick things off, can you tell us a bit about how you got started? My journey into tech wasn't a straight line-it was a series of curiosity-fueled leaps. It all started when I was a tech support rep, troubleshooting issues and helping users navigate their digital roadblocks. One day, I got the opportunity to be a game tester, and that's when everything changed. As I worked alongside developers and designers, I couldn't help but ask question after question. Why are you doing it this way? How does that work? The logic, creativity, and problem-solving behind their work fascinated me-it was like a tattoo on my heart. I couldn't ignore it. I had to dive in. That drive led me to a seven-month intensive UX/UI technical program. Learning design thinking, user research, and interface design was eye-opening. But then, I saw developers typing what looked like magical symbols in a text editor, turning ideas into reality. And I thought, I want to do that too. I wasn't satisfied with just handing off designs-I wanted to bring them to life myself. That hunger pushed me into another seven-month full-stack development technical program, where I was hit with a flood of WTF moments-data structures, algorithms, and the MERN (MongoDB, Express, React, Node) stack. It was intense, but I thrived on the challenge. Right after that, I landed my first tech job at a small startup as a front-end developer. But my insatiable curiosity didn't stop there. I started blending UX/UI into my workflow, using FullStory to analyze user behavior and improve experiences. That's when I realized my true superpower: combining strategy, research, design, and code to solve problems. I got to where I am by asking questions, standing up for myself, showing up, and constantly trying to understand why-why users behave the way they do, why technologies work the way they do. And here's the most interesting part: "I'm a better designer because of my strategy, research, and development experience." "I'm a better developer because of my strategy, research, and design background." Balancing both worlds takes energy and effort, but as long as I have the grit, I'll keep pushing forward-because this journey is far from over. Would you say it's been a smooth road, and if not what are some of the biggest challenges you've faced along the way? The biggest challenge on my journey wasn't learning UX, UI, or development-it was convincing others that I could excel in all of them. Many companies wanted to box me in: You're either a designer or a developer-pick one. I understood their hesitation, so I didn't push back outright. Instead, I strategically played the long game. I agreed to be an onlooker, observing and absorbing as much as I could. But with my sales chops, I made a compelling case: if I stayed exposed to both design and development, I'd be even more valuable in my role. Over time, I proved that specialization doesn't have to mean limitation. My ability to bridge strategy, research, design, and code made me an asset, not an outlier. By constantly seeking knowledge, asking the right questions, and demonstrating how these disciplines complement each other, I carved out a unique space for myself-one where I didn't have to choose between my passions. The truth is, I thrive at the intersection of design and development. And while it takes energy to stay sharp in both worlds, I wouldn't have it any other way. Appreciate you sharing that. What else should we know about what you do? I'm a Full-Stack Creative Technologist who thrives at the intersection of design, development, and strategy. I specialize in: Design Systems & Front-End Architecture – Bridging the gap between UX/UI and engineering to create scalable, cohesive component libraries. UI Design – Crafting intuitive, accessible, and visually engaging user interfaces that enhance digital experiences. UX Research & Data-Driven Design – Leveraging user behavior insights (e.g., FullStory) to inform design and development decisions. Full-Stack Development (MERN & Angular) – Writing clean, efficient code to bring designs to life while optimizing performance and accessibility. Storybook & Developer Experience – Implementing best practices to improve documentation, collaboration, and UI consistency across teams. What I'm Known For I'm known for my insatiable curiosity and ability to connect the dots across disciplines. I ask why-constantly. Whether it's understanding user behavior, refining a component's usability, or optimizing front-end performance, I dig deep to find the best solution. What I'm Most Proud Of I'm most proud of carving my own path in tech, despite the pressure to fit into a single role. From tech support to game testing, UX`,
     metadata: {
       title: 'Conversations with Coriano Harris - Voyage Memphis Magazine',
       date: '2025-03-25',
@@ -181,7 +179,7 @@ Services include:
   {
     id: 'colorcode-events-speaker',
     source: 'blog',
-    content: `Hue Got This! Using Coloristic to Drive Action in UI Designs and Interfaces ColorCode: Buffalo 2025 Color isn't just about aesthetics—it's a powerful tool for guiding user behavior and driving action. In this engaging and interactive session, we'll explore how color psychology influences decision-making, how to drive action through strategic color choices in UI designs and interfaces.`,
+    content: `Hue Got This! Using Coloristic to Drive Action in UI Designs and Interfaces ColorCode: Buffalo 2025 Color isn't just about aesthetics-it's a powerful tool for guiding user behavior and driving action. In this engaging and interactive session, we'll explore how color psychology influences decision-making, how to drive action through strategic color choices in UI designs and interfaces.`,
     metadata: {
       title: 'Coriano Harris | ColorCode Events',
       date: '2025-12-23',
@@ -240,14 +238,14 @@ Help the resolve blight cases 30% faster, bringing millions back to
 neighborhoods
 Boost engagement 40% by replacing a painful 15–year–old financial
 portal
-Currently leading — the hub we hope will become the home for
+Currently leading - the hub we hope will become the home for
 endangered–species conservation (launching 2026)
 Whether it's a broken platform losing trust, a legacy system that's
 holding you back, or a vision that keeps getting stuck in meetings
-— I get in the trenches, simplify the complexity, and ship something
+- I get in the trenches, simplify the complexity, and ship something
 clean, fast, and impactful.
 Fixed-price, outcome-focused projects (6–12 months) where we
-agree on the result upfront and I deliver it — no hourly billing, no
+agree on the result upfront and I deliver it - no hourly billing, no
 surprises.
 The right full-time role (Product Technologist, Design Technologist,
 UX Researcher, UI Designer, Frontend Developer, etc.) at a mission-
@@ -258,7 +256,7 @@ progress or "it's good enough" solutions, I'd love to hear what you're
 trying to make happen.
 Drop me a message and tell me the one outcome you care about
 most in the next year. Happy to hop on a quick call and see if there's
-a way I can help — even if it's just some free advice.
+a way I can help - even if it's just some free advice.
 @. | DMs open
 Experience
 SpeciNate
@@ -293,7 +291,7 @@ Lead Product Engineer
 November 2024 - February 2025 (4 months)
 Memphis, Tennessee, United States
 Local auto repair shop was invisible online. No website, no booking system, no
-reviews — customers had to drive by or hear about them from a friend.
+reviews - customers had to drive by or hear about them from a friend.
 Led a tiny team (2 UX/UI designers + 1 full-stack developer)
 Designed the entire experience in Figma (mobile-first, trust-heavy, dead-
 simple booking flow)
@@ -405,7 +403,7 @@ Bachelor of Science - BS, Coloristic`,
   {
     id: 'auto-layout-figma-without-headache-coriano-harris-cfshc-2',
     source: 'linkedin',
-    content: `Auto-Layout in Figma (Without the Headache) Report this article Coriano H. Coriano H. Published Apr 8, 2025 + Follow Auto layout in Figma can feel a bit intimidating —especially when you're trying to explain your design decisions to stakeholders or developers. If bridging the gap between design and code feels challenging, you're definitely not alone. This guide is here to support you by breaking down how the auto layout panel tools works and how its tools translate to CSS3. We'll walk through it together. Sizing & Positioning (How Big & Where Things Go) This is where you control width, height, and placement of elements inside a frame. Figma Auto-Layout Controls Fill → Expands to take up all available space Hug → Shrinks to fit the content Fixed → Stays the same size no matter what Absolute Positioning → Moves freely without affecting other elements Clip Content → Hides anything that goes outside the frame CSS Equivalent Rules width: auto | 100px | 100%; height: auto | 50px | 100%; position: absolute | relative; overflow: hidden | visible; If an element isn't resizing correctly, check if it's set to Hug, Fill, or Fixed —this controls how flexible it is. Layout & Spacing (How Elements Are Arranged & Spaced Out) This controls how elements inside a frame are positioned and spaced. Figma Auto-Layout Controls Direction: Horizontal (side by side) or Vertical (stacked) Padding: Space inside the frame Spacing Between Items: The gap between elements Alignment: Controls how items are positioned within the frame Packed vs. Space Between: I tems stay close together vs Items spread out evenly CSS Equivalent Rules display: flex; flex-direction: row | column; justify-content: space-between | flex-start; align-items: center; padding: 16px; gap: 8px; If spacing looks off, check whether the alignment is Packed or Space Between —this can make a huge difference. Advanced Settings (Fine-Tuning Your Layout) For more precise control over stacking order, border behavior, and text alignment. Figma Auto-Layout Controls Strokes & Borders: Choose whether borders take up space Canvas Stacking Order: Controls which item appears on top Align Text Baseline: Ensures text aligns properly with other elements CSS Equivalent Rules box-shadow: inset 0 0 0 1px; z-index: 1; vertical-align: baseline; If text alignment looks strange, try using Align Text Baseline to keep everything visually balanced. Additional Tips for Working with Auto-Layout Use Frames, Not Groups. Auto-Layout only works inside frames. If something breaks, check if it's a group. If an option is missing, check your selection. Some settings only appear based on what element you're editing. Experiment with Fill vs. Hug. This is the key to making sure your layouts adapt properly. Once you get the hang of it, Auto-Layout makes your designs behave similar to real code , saving you time and effort. Let me know if you have any questions! #Figma #AutoLayout #UXDesign #WebDesign`,
+    content: `Auto-Layout in Figma (Without the Headache) Report this article Coriano H. Coriano H. Published Apr 8, 2025 + Follow Auto layout in Figma can feel a bit intimidating -especially when you're trying to explain your design decisions to stakeholders or developers. If bridging the gap between design and code feels challenging, you're definitely not alone. This guide is here to support you by breaking down how the auto layout panel tools works and how its tools translate to CSS3. We'll walk through it together. Sizing & Positioning (How Big & Where Things Go) This is where you control width, height, and placement of elements inside a frame. Figma Auto-Layout Controls Fill → Expands to take up all available space Hug → Shrinks to fit the content Fixed → Stays the same size no matter what Absolute Positioning → Moves freely without affecting other elements Clip Content → Hides anything that goes outside the frame CSS Equivalent Rules width: auto | 100px | 100%; height: auto | 50px | 100%; position: absolute | relative; overflow: hidden | visible; If an element isn't resizing correctly, check if it's set to Hug, Fill, or Fixed -this controls how flexible it is. Layout & Spacing (How Elements Are Arranged & Spaced Out) This controls how elements inside a frame are positioned and spaced. Figma Auto-Layout Controls Direction: Horizontal (side by side) or Vertical (stacked) Padding: Space inside the frame Spacing Between Items: The gap between elements Alignment: Controls how items are positioned within the frame Packed vs. Space Between: I tems stay close together vs Items spread out evenly CSS Equivalent Rules display: flex; flex-direction: row | column; justify-content: space-between | flex-start; align-items: center; padding: 16px; gap: 8px; If spacing looks off, check whether the alignment is Packed or Space Between -this can make a huge difference. Advanced Settings (Fine-Tuning Your Layout) For more precise control over stacking order, border behavior, and text alignment. Figma Auto-Layout Controls Strokes & Borders: Choose whether borders take up space Canvas Stacking Order: Controls which item appears on top Align Text Baseline: Ensures text aligns properly with other elements CSS Equivalent Rules box-shadow: inset 0 0 0 1px; z-index: 1; vertical-align: baseline; If text alignment looks strange, try using Align Text Baseline to keep everything visually balanced. Additional Tips for Working with Auto-Layout Use Frames, Not Groups. Auto-Layout only works inside frames. If something breaks, check if it's a group. If an option is missing, check your selection. Some settings only appear based on what element you're editing. Experiment with Fill vs. Hug. This is the key to making sure your layouts adapt properly. Once you get the hang of it, Auto-Layout makes your designs behave similar to real code , saving you time and effort. Let me know if you have any questions! #Figma #AutoLayout #UXDesign #WebDesign`,
     metadata: {
       title: 'Auto-Layout in Figma (Without the Headache)',
       date: '2025-04-08',
@@ -424,7 +422,7 @@ export const uxResearchContent: BrandKnowledge[] = [
     id: 'ux-research-overview',
     source: 'case-study',
     content: `Coriano Harris – UX Research Overview
-I've done UX research in every role—Founder/CEO, Lead UX/UI Engineer, and
+I've done UX research in every role-Founder/CEO, Lead UX/UI Engineer, and
 Full-Stack Product Technologist. My focus is understanding users, testing solutions in
 real situations, and turning what I learn into clear actions for teams. I'm certified in
 UX Research and UI Design from General Assembly.
@@ -472,7 +470,7 @@ Partcycle – Frontend / UX/UI Designer
 interviews.
 ● Products Used: FullStory, UserTesting.com, Figma, Miro, Zoom.
 How I Build Trust & Get Honest Feedback
-● Start interviews casually—no wrong answers.
+● Start interviews casually-no wrong answers.
 ● Ask open-ended questions and let users show their natural workflow.
 ● Work with designers and developers onsite to immediately apply insights.
 ● Example: At PartCycle, savage yard staff pointed out confusing inventory
@@ -498,7 +496,7 @@ actionable insights.
 Tools & Products Used: FullStory, UserTesting.com, Figma, Miro, Mural, Google Forms,
 Excel, Word, Zoom, Google Meets, Teams.
 Summary
-I weave UX research into every part of product development—from prototypes to live
+I weave UX research into every part of product development-from prototypes to live
 workflows. I focus on building trust, getting deep feedback, and working with teams
 to turn insights into action. While most of my work is under NDA, I can talk in detail
 about methods, approaches, and results. My goal is to improve usability, efficiency,

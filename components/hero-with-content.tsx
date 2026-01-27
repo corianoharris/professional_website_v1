@@ -37,7 +37,7 @@ export function HeroWithContent() {
               {/* Right side - Subtitle */}
               <div className="flex flex-col items-center md:items-end justify-center text-center md:text-right">
                 <p className="text-lg md:text-xl lg:text-2xl opacity-95 max-w-2xl text-balance leading-snug" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                  <span className="text-4xl md:text-5xl lg:text-6xl font-black leading-none text-white">I</span>n a world of ordinary products, be <span className="highlighter">remarkable</span>—boldly <span className="highlighter">distinctive</span> and impossible to ignore.
+                  <span className="text-4xl md:text-5xl lg:text-6xl font-black leading-none text-white">I</span>n a world of ordinary products, be <span className="highlighter">remarkable</span>, boldly <span className="highlighter">distinctive</span> and impossible to ignore.
                 </p>
               </div>
             </div>
@@ -66,22 +66,6 @@ export function HeroWithContent() {
 
             {/* Magazine-style two-column layout */}
             <div className="relative grid md:grid-cols-2 gap-0 min-h-[600px] md:min-h-[700px] overflow-x-hidden md:overflow-visible">
-              {/* Large Title - "HUMAN DRIVEN" positioned right side - Partially extends outside parent on desktop */}
-              <div className="absolute top-8 left-4 md:left-auto md:-right-56 z-30 flex items-center gap-2 md:gap-6 flex-wrap md:justify-end hero-driven-text" style={{ overflow: 'visible' }}>
-                <h2 
-                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight break-words hero-decorative-heading"
-                  style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 800, color: 'var(--color-brand-purple)' }}
-                >
-                  HUMAN
-                </h2>
-                <h2 
-                  className="text-5xl sm:text-6xl md:text-9xl lg:text-[12rem] leading-none tracking-tight hidden md:block hero-decorative-heading"
-                  style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
-                >
-                  DRIVEN
-                </h2>
-              </div>
-
               {/* Left Column - Image with Diagonal Overlay */}
               <div className="relative md:col-span-1 overflow-hidden md:overflow-visible">
                 {/* Diagonal Background Element */}
@@ -107,24 +91,36 @@ export function HeroWithContent() {
                   </div>
                 </div>
 
-                {/* Subtitle below image */}
-                {/* <div className="relative z-20 ml-8 md:ml-12 mt-4">
-                  <h3 className="text-2xl md:text-3xl mb-2" style={{ fontFamily: 'var(--font-playfair), serif', fontWeight: 600 }}>
-                    Coriano Harris
-                  </h3>
-                  <div className="w-16 h-1 bg-foreground" />
-                </div> */}
+                {/* Large Title - "INTENT DRIVEN" positioned over image on desktop */}
+                <div className="absolute bottom-8 left-4 md:left-12 z-30 hidden md:block">
+                  <h2 
+                    className="text-6xl md:text-7xl lg:text-8xl leading-none tracking-tight break-words"
+                    style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700, color: 'rgba(255, 255, 255, 0.9)', textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)' }}
+                  >
+                    INTENT DRIVEN
+                  </h2>
+                </div>
               </div>
 
               {/* Right Column - Content */}
-              <div className="relative md:col-span-1 pt-16 md:pt-[23rem] pl-4 md:pl-12 pr-4 md:pr-0 md:overflow-visible z-20">
-                {/* Large Title - "DRIVEN" - Mobile only, desktop positioned in grid container */}
+              <div className="relative md:col-span-1 pt-16 md:pt-32 pl-4 md:pl-12 pr-4 md:pr-0 md:overflow-visible z-20">
+                {/* Large Title - "COLOR" - Desktop positioned in right column */}
+                <div className="mb-8 md:mb-12">
+                  <h2 
+                    className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] leading-none tracking-tight text-foreground"
+                    style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 800, color: 'var(--color-brand-purple)', whiteSpace: 'nowrap' }}
+                  >
+                    COLOR
+                  </h2>
+                </div>
+
+                {/* Large Title - "INTENT DRIVEN" - Mobile only */}
                 <div className="mb-8 md:mb-12 md:hidden">
                   <h2 
                     className="text-5xl sm:text-6xl leading-none tracking-tight text-foreground break-words"
                     style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontWeight: 700 }}
                   >
-                    DRIVEN
+                    INTENT DRIVEN
                   </h2>
                 </div>
 
@@ -151,7 +147,7 @@ export function HeroWithContent() {
                     >
                       T
                     </span>
-                    o help teams create <span className="highlighter">remarkable</span> products worth millions more. I build instant <span className="highlighter">trust</span>, deep <span className="highlighter">belonging</span>, and word-of-mouth that spreads. I do this through <span className="highlighter">color</span>—the spark of human <span className="highlighter">connection</span>.
+                    o help teams create <span className="highlighter">remarkable</span> products worth millions more. I build instant <span className="highlighter">trust</span>, deep <span className="highlighter">belonging</span>, and word-of-mouth that spreads. I do this through <span className="highlighter">color</span>, the spark of human <span className="highlighter">connection</span>.
                   </p>
                 </div>
               </div>

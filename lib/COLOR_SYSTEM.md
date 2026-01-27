@@ -2,7 +2,7 @@
 
 ## Philosophy
 
-> "Vulnerability is the birthplace of trust. Color is that brave first whisper—evoking calm, understanding, and belonging in 0.05 seconds."
+> "Vulnerability is the birthplace of trust. Color is that brave first whisper-evoking calm, understanding, and belonging in 0.05 seconds."
 
 This color system follows **psychology before pixels**. Colors are organized by emotional intent, not appearance. Each token represents a psychological purpose that drives user behavior and creates measurable results.
 
@@ -38,7 +38,7 @@ Each intent token expresses **WHY** we use a color, not **WHAT** color it is:
 - **Psychology**: Purple invites users to feel seen and part of something meaningful
 
 ### Vulnerability (`intent.vulnerability`)
-- **Purpose**: The birthplace of trust—shows courage and invites openness
+- **Purpose**: The birthplace of trust-shows courage and invites openness
 - **Color**: Purple (#7c3aed)
 - **Use Cases**: Authentic messaging, personal stories, brave moments
 - **Psychology**: Purple shows courage and invites openness

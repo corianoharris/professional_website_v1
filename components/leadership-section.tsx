@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import type React from "react"
-import { Users, Calendar, MapPin, Award, GraduationCap } from "lucide-react"
+import { Users, Calendar, MapPin, Award, GraduationCap, ChevronDown, ChevronUp } from "lucide-react"
 import { ShowMoreButton } from "./show-more-button"
 
 interface LeadershipRole {
@@ -19,6 +19,17 @@ interface LeadershipRole {
 export function LeadershipSection() {
   const [visibleCount, setVisibleCount] = useState(2)
   const [isLoading, setIsLoading] = useState(false)
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set())
+
+  const toggleCard = (index: number) => {
+    const newExpanded = new Set(expandedCards)
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index)
+    } else {
+      newExpanded.add(index)
+    }
+    setExpandedCards(newExpanded)
+  }
   
   const roles: LeadershipRole[] = [
     {
@@ -82,7 +93,7 @@ export function LeadershipSection() {
   })
 
   return (
-    <section id="leadership" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="leadership-heading">
+    <section id="leadership" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="leadership-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -112,11 +123,12 @@ export function LeadershipSection() {
         </p>
 
         {/* Table of Contents Style Layout - No Borders */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
           {sortedRoles.slice(0, visibleCount).map((role, index) => {
             const roleNumber = String(index + 1).padStart(2, '0')
             const isLeftColumn = index % 2 === 0
             const isThirdItem = index === 2
+            const isExpanded = expandedCards.has(index)
             
             const getCategoryColorHex = (color: string) => {
               switch (color) {
@@ -134,7 +146,7 @@ export function LeadershipSection() {
             return (
               <div
                 key={index}
-                className={`relative flex items-start gap-2 md:gap-3 min-h-[200px] ${isThirdItem ? 'md:col-span-2' : ''} md:overflow-visible`}
+                className={`relative flex items-start gap-2 md:gap-3 min-h-[120px] md:min-h-[200px] ${isThirdItem ? 'md:col-span-2' : ''} md:overflow-visible pb-2`}
                 style={{ overflow: 'visible' }}
               >
                 {/* Large Vertical Number - Rotated Sideways with Color */}
@@ -155,7 +167,7 @@ export function LeadershipSection() {
                 </div>
 
                 {/* Content */}
-                <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
+                <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'} flex flex-col pr-2 md:pr-0`}>
                   <div className="mb-2 flex items-center gap-3">
                     {/* Mobile number - visible on mobile only */}
                     <span 
@@ -185,41 +197,107 @@ export function LeadershipSection() {
                     <span className="text-lg font-semibold text-foreground">{role.organization}</span>
                   </div>
                   
-                  <div className="mb-4">
-                    <p className="text-foreground font-serif text-base md:text-lg leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                      {role.description}
-                    </p>
+                  {/* Expandable Content - Mobile Only */}
+                  <div className="md:hidden">
+                    <div
+                      id={`leadership-content-${index}`}
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isExpanded ? 'max-h-[2000px] opacity-100 mb-4' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      <div className="mb-4">
+                        <p className="text-foreground font-serif text-base leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                          {role.description}
+                        </p>
+                      </div>
+
+                      {/* Metadata */}
+                      <div className="space-y-1 text-sm text-muted-foreground font-serif mb-4">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" aria-hidden="true" />
+                          <span>
+                            {role.startDate} - {role.endDate}
+                          </span>
+                        </div>
+                        {role.location && (
+                          <div className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4" aria-hidden="true" />
+                            <span>{role.location}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Highlights */}
+                      {role.highlights && role.highlights.length > 0 && (
+                        <div className="pt-4 mt-4 border-t border-foreground/10 mb-4">
+                          <ul className="space-y-2">
+                            {role.highlights.map((highlight, idx) => (
+                              <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                                <span className="text-primary mt-1">•</span>
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Expand/Collapse Button - Mobile Only */}
+                    <div className="flex justify-end pr-2">
+                      <button
+                        onClick={() => toggleCard(index)}
+                        className="w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center hover:bg-foreground/90 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 mb-4 pb-1"
+                        aria-expanded={isExpanded}
+                        aria-controls={`leadership-content-${index}`}
+                        aria-label={isExpanded ? "Collapse leadership details" : "Expand leadership details"}
+                      >
+                        {isExpanded ? (
+                          <ChevronUp className="w-5 h-5 transition-transform duration-300" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 transition-transform duration-300" />
+                        )}
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Metadata */}
-                  <div className="space-y-1 text-sm text-muted-foreground font-serif">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" aria-hidden="true" />
-                      <span>
-                        {role.startDate} - {role.endDate}
-                      </span>
+                  {/* Desktop Content - Always Visible */}
+                  <div className="hidden md:block">
+                    <div className="mb-4">
+                      <p className="text-foreground font-serif text-base md:text-lg leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                        {role.description}
+                      </p>
                     </div>
-                    {role.location && (
+
+                    {/* Metadata */}
+                    <div className="space-y-1 text-sm text-muted-foreground font-serif">
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" aria-hidden="true" />
-                        <span>{role.location}</span>
+                        <Calendar className="w-4 h-4" aria-hidden="true" />
+                        <span>
+                          {role.startDate} - {role.endDate}
+                        </span>
+                      </div>
+                      {role.location && (
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" aria-hidden="true" />
+                          <span>{role.location}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Highlights */}
+                    {role.highlights && role.highlights.length > 0 && (
+                      <div className="pt-4 mt-4 border-t border-foreground/10">
+                        <ul className="space-y-2">
+                          {role.highlights.map((highlight, idx) => (
+                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="text-primary mt-1">•</span>
+                              <span>{highlight}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
-                  
-                  {/* Highlights */}
-                  {role.highlights && role.highlights.length > 0 && (
-                    <div className="pt-4 mt-4 border-t border-foreground/10">
-                      <ul className="space-y-2">
-                        {role.highlights.map((highlight, idx) => (
-                          <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <span className="text-primary mt-1">•</span>
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
               </div>
             )

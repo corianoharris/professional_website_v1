@@ -22,10 +22,10 @@ export const blogPosts: BlogPost[] = [
     author: "Coriano Harris",
     tags: ["Color Strategy", "Trust", "Differentiation"],
     tldr: [
-      "Generic blue communicates low risk but also low memorability—users trust it but forget it instantly",
+      "Generic blue communicates low risk but also low memorability-users trust it but forget it instantly",
       "Teams choose it because it passes accessibility checks easily and minimizes debate, but this comes at a cost",
       "The real cost: your product blends into the SaaS crowd, your brand becomes interchangeable, and your UI doesn't tell a story",
-      "Generic blue isn't bad design—it's unopinionated design, and unopinionated design is expensive over time"
+      "Generic blue isn't bad design-it's unopinionated design, and unopinionated design is expensive over time"
     ],
     content: `
 # The Hidden Cost of Generic Blue
@@ -51,40 +51,40 @@ You know that blue? The one that looks like every SaaS product ever made? Yeah, 
 
 - Your product ==blends into the SaaS crowd== like a chameleon in a box of crayons
 - Your brand becomes ==interchangeable== – Users can't tell you apart from your competitors (and honestly, neither can you)
-- Your UI does not tell a story—only instructions. It's like reading a manual instead of a novel.
+- Your UI does not tell a story-only instructions. It's like reading a manual instead of a novel.
 
 Generic blue isn't bad design.
 
 It's ==unopinionated design==.
 
-And unopinionated design is ==expensive over time==. It's the design equivalent of buying cheap shoes—they work, but your feet (and your brand) will pay for it later.
+And unopinionated design is ==expensive over time==. It's the design equivalent of buying cheap shoes-they work, but your feet (and your brand) will pay for it later.
     `,
   },
   {
     id: "2",
     slug: "color-as-courageous-remarkability",
     title: "Color as Courageous Remarkability",
-    excerpt: "Dare to stand out boldly—own belonging and memory through remarkable distinction.",
+    excerpt: "Dare to stand out boldly-own belonging and memory through remarkable distinction.",
     image: "/colored_rocket.png",
     date: "June 22, 2025",
     author: "Coriano Harris",
     tags: ["Remarkability", "Differentiation", "Standout"],
     tldr: [
-      "Remarkable products stand out so boldly you can't help but notice, talk about, and remember them—color is your bold distinction",
-      "Most teams choose safe colors to fit in, but fitting in is the opposite of remarkable—remarkable means standing out and being unforgettable",
+      "Remarkable products stand out so boldly you can't help but notice, talk about, and remember them-color is your bold distinction",
+      "Most teams choose safe colors to fit in, but fitting in is the opposite of remarkable-remarkable means standing out and being unforgettable",
       "When you choose colors with courage, you're making a statement about who you are, what you stand for, and why you matter",
-      "Remarkable products don't just get noticed—they get remembered, shared, and build tribes that pay premium and spread virally"
+      "Remarkable products don't just get noticed-they get remembered, shared, and build tribes that pay premium and spread virally"
     ],
     content: `
 # Color as Courageous Remarkability
 
-Dare to stand out boldly—own belonging and memory through remarkable distinction. Or, you know, keep blending in with everyone else. Your choice. But if you're reading this, you probably want to be remembered, not forgotten like that one app you downloaded last week and can't remember the name of.
+Dare to stand out boldly-own belonging and memory through remarkable distinction. Or, you know, keep blending in with everyone else. Your choice. But if you're reading this, you probably want to be remembered, not forgotten like that one app you downloaded last week and can't remember the name of.
 
 In a world of ordinary products, be remarkable. Be boldly distinctive: impossible to ignore. Like a peacock at a penguin convention. Sure, the penguins are fine, but everyone's looking at the peacock.
 
 ## The Remarkable Standout Principle
 
-Seth Godin taught us that remarkable products ==stand out so boldly==—you can't help but notice them, talk about them, remember them. ==Color is your bold distinction==. It's your product's personality. Without it, you're just another gray blob in a sea of gray blobs. Exciting stuff.
+Seth Godin taught us that remarkable products ==stand out so boldly==-you can't help but notice them, talk about them, remember them. ==Color is your bold distinction==. It's your product's personality. Without it, you're just another gray blob in a sea of gray blobs. Exciting stuff.
 
 ## Courage Over Comfort
 
@@ -96,7 +96,7 @@ When you choose colors with courage, you're not just picking a palette. You're m
 
 ## The Remarkable Edge
 
-Remarkable products don't just get noticed—they get remembered. They get shared. They build tribes. And tribes pay premium and spread virally. It's like having a cult following, but for your color choices. And unlike actual cults, this one is legal and profitable.
+Remarkable products don't just get noticed-they get remembered. They get shared. They build tribes. And tribes pay premium and spread virally. It's like having a cult following, but for your color choices. And unlike actual cults, this one is legal and profitable.
 
 Dare to be boldly distinctive. Your market is waiting. And honestly, they're probably tired of seeing the same blue button everywhere.
     `,
@@ -111,22 +111,22 @@ Dare to be boldly distinctive. Your market is waiting. And honestly, they're pro
     author: "Coriano Harris",
     tags: ["Accessibility", "Inclusion", "Connection"],
     tldr: [
-      "Accessibility isn't compliance—it's courage. It's the vulnerable act of saying: 'Everyone belongs here'",
+      "Accessibility isn't compliance-it's courage. It's the vulnerable act of saying: 'Everyone belongs here'",
       "Most teams treat accessibility as a checkbox, but winning brands like Stripe, Airbnb, and Apple treat it as their competitive advantage",
       "True inclusion requires vulnerability: admitting you don't know everything, listening to voices you've ignored, building for people who've been excluded",
-      "When you build accessible products, you're not just checking boxes—you're building connection, creating belonging, and showing everyone matters",
-      "The remarkable edge isn't in following the crowd—it's in including everyone"
+      "When you build accessible products, you're not just checking boxes-you're building connection, creating belonging, and showing everyone matters",
+      "The remarkable edge isn't in following the crowd-it's in including everyone"
     ],
     content: `
 # Accessibility as Vulnerable Inclusion
 
 The remarkable edge of true connection. Or as I like to call it: "How to build products that don't exclude people and make you feel good about yourself."
 
-Accessibility isn't compliance—it's ==courage==. It's the brave act of saying: "==Everyone belongs here==." Even that one user who uses Internet Explorer. Yes, they exist. No, I don't know why.
+Accessibility isn't compliance-it's ==courage==. It's the brave act of saying: "==Everyone belongs here==." Even that one user who uses Internet Explorer. Yes, they exist. No, I don't know why.
 
 ## Beyond Compliance
 
-Most teams treat accessibility as a checkbox. A requirement. A constraint. Like doing your taxes—necessary but annoying. But the brands that win—==Stripe, Airbnb, Apple==—treat it as their ==competitive advantage==. They're like the kid who did extra credit and got an A+ while everyone else got a C.
+Most teams treat accessibility as a checkbox. A requirement. A constraint. Like doing your taxes-necessary but annoying. But the brands that win-==Stripe, Airbnb, Apple==-treat it as their ==competitive advantage==. They're like the kid who did extra credit and got an A+ while everyone else got a C.
 
 ## The Vulnerability of Inclusion
 
@@ -138,7 +138,7 @@ When you build accessible products, you're not just checking boxes. You're ==bui
 
 ## Connection Over Compliance
 
-Accessible design isn't about following rules—it's about ==creating connection==. It's about building products that work for everyone. Products that make everyone feel seen. Products that create ==true belonging==. It's like throwing a party and actually inviting everyone, not just the cool kids.
+Accessible design isn't about following rules-it's about ==creating connection==. It's about building products that work for everyone. Products that make everyone feel seen. Products that create ==true belonging==. It's like throwing a party and actually inviting everyone, not just the cool kids.
 
 The remarkable edge isn't in following the crowd. It's in ==including everyone==. Even the person who still uses a flip phone. They're out there. And they deserve accessible design too.
     `,
@@ -153,11 +153,11 @@ The remarkable edge isn't in following the crowd. It's in ==including everyone==
     author: "Coriano Harris",
     tags: ["Color Psychology", "UX Design", "Research"],
     tldr: [
-      "Color psychology is neuroscience—users' brains process color before they read a word, but context changes everything",
-      "The future of color isn't about consistency—it's about intentionality. Every color choice should answer: What emotion? What action? What story?",
+      "Color psychology is neuroscience-users' brains process color before they read a word, but context changes everything",
+      "The future of color isn't about consistency-it's about intentionality. Every color choice should answer: What emotion? What action? What story?",
       "Measure color's impact: understand how combinations affect cognitive load, contrast ratios influence readability, and cultural associations shape perception",
-      "Accessibility is a competitive advantage—WCAG guidelines aren't constraints, they're opportunities to create experiences that work for everyone",
-      "Color is emotional architecture: it sets mood, guides attention, and creates atmosphere—the future belongs to designers who understand color is atmosphere, not just aesthetics",
+      "Accessibility is a competitive advantage-WCAG guidelines aren't constraints, they're opportunities to create experiences that work for everyone",
+      "Color is emotional architecture: it sets mood, guides attention, and creates atmosphere-the future belongs to designers who understand color is atmosphere, not just aesthetics",
       "Choose colors with purpose: not because they match brand guidelines or are trendy, but because they serve a specific function in the user's journey"
     ],
     content: `
@@ -165,17 +165,17 @@ The remarkable edge isn't in following the crowd. It's in ==including everyone==
 
 Exploring the **psychological** impact of **color** choices in modern web **design** and how they shape user behavior.
 
-Color isn't just decoration—it's ==communication==. Every hue, saturation, and contrast ratio tells a story. In the digital age, where attention spans are measured in seconds (seriously, we have the attention span of a goldfish now), color becomes your ==first and most powerful tool for connection==. It's like speed dating, but for pixels.
+Color isn't just decoration-it's ==communication==. Every hue, saturation, and contrast ratio tells a story. In the digital age, where attention spans are measured in seconds (seriously, we have the attention span of a goldfish now), color becomes your ==first and most powerful tool for connection==. It's like speed dating, but for pixels.
 
 ## The Psychology Behind the Palette
 
-Color psychology isn't pseudoscience—it's ==neuroscience==. When users see a color, their brains process it before they even read a word. ==Red triggers urgency==. ==Blue builds trust==. ==Green signals growth==. But here's what most designers miss: ==context changes everything==. It's like wearing a red shirt to a bullfight versus a wedding. Same color, very different outcomes.
+Color psychology isn't pseudoscience-it's ==neuroscience==. When users see a color, their brains process it before they even read a word. ==Red triggers urgency==. ==Blue builds trust==. ==Green signals growth==. But here's what most designers miss: ==context changes everything==. It's like wearing a red shirt to a bullfight versus a wedding. Same color, very different outcomes.
 
 A red button on a checkout page means "complete purchase." The same red on a medical app means "emergency." The color is identical, but the meaning shifts with context. One says "Buy now!" The other says "You might be dying!" Context matters, people.
 
 ## Beyond Brand Guidelines
 
-Most design systems treat color as a brand asset. They create palettes, document hex codes, and enforce consistency. But the future of color in digital interfaces isn't about consistency—it's about ==**intentionality**==.
+Most design systems treat color as a brand asset. They create palettes, document hex codes, and enforce consistency. But the future of color in digital interfaces isn't about consistency-it's about ==**intentionality**==.
 
 Every color choice should answer: ==What emotion do we want to evoke?== ==What action do we want to encourage?== ==What story do we want to tell?==
 
@@ -209,7 +209,7 @@ When building global products:
 
 ## Accessibility as a Competitive Advantage
 
-The future of color in digital interfaces is ==accessible by default==. WCAG guidelines aren't constraints—they're ==opportunities==. When you design with contrast ratios in mind, you're not just checking compliance boxes. You're creating experiences that work for everyone, including users with visual impairments.
+The future of color in digital interfaces is ==accessible by default==. WCAG guidelines aren't constraints-they're ==opportunities==. When you design with contrast ratios in mind, you're not just checking compliance boxes. You're creating experiences that work for everyone, including users with visual impairments.
 
 But accessibility goes beyond contrast. It's about ==colorblind-friendly palettes==. It's about ==not relying on color alone== to convey meaning. It's about building interfaces that ==communicate through multiple channels==.
 
@@ -219,7 +219,7 @@ But accessibility goes beyond contrast. It's about ==colorblind-friendly palette
 
 ### The Dark Mode Opportunity
 
-Dark mode isn't just trendy—it's accessible. It reduces eye strain, saves battery on OLED screens, and works better in low-light environments. But dark mode requires careful color choices:
+Dark mode isn't just trendy-it's accessible. It reduces eye strain, saves battery on OLED screens, and works better in low-light environments. But dark mode requires careful color choices:
 
 **Maintain contrast** – Dark backgrounds don't automatically mean better contrast. Test contrast ratios in dark mode. Just because it's dark doesn't mean it's readable.
 
@@ -231,7 +231,7 @@ Dark mode isn't just trendy—it's accessible. It reduces eye strain, saves batt
 
 ## The Emotional Architecture of Color
 
-Great digital interfaces don't just look good—they ==feel right==. Color is ==emotional architecture==. It sets the mood, guides attention, and creates atmosphere. A fintech app might use muted blues and grays to convey stability. A creative platform might use vibrant gradients to inspire. It's like interior design, but for pixels. And you can't blame your roommate for the color choices.
+Great digital interfaces don't just look good-they ==feel right==. Color is ==emotional architecture==. It sets the mood, guides attention, and creates atmosphere. A fintech app might use muted blues and grays to convey stability. A creative platform might use vibrant gradients to inspire. It's like interior design, but for pixels. And you can't blame your roommate for the color choices.
 
 The future belongs to designers who understand that ==color is atmosphere, not just aesthetics==. It's the difference between a room that feels cozy and a room that feels like a hospital waiting area. Both are functional, but only one makes you want to stay.
 
@@ -260,19 +260,19 @@ Choose your colors with intention. Measure their impact. Build with purpose. The
     author: "Coriano Harris",
     tags: ["Accessibility", "Inclusive Design", "UX Research"],
     tldr: [
-      "One billion people worldwide have a disability—but accessibility benefits everyone: closed captions help in noisy environments, high contrast helps in bright sunlight",
-      "Accessibility isn't just the right thing to do—it's smart business: accessible products reach more users, rank higher in search, reduce legal risk, and improve SEO",
+      "One billion people worldwide have a disability-but accessibility benefits everyone: closed captions help in noisy environments, high contrast helps in bright sunlight",
+      "Accessibility isn't just the right thing to do-it's smart business: accessible products reach more users, rank higher in search, reduce legal risk, and improve SEO",
       "The four pillars: Perceivable (text alternatives, captions, contrast), Operable (keyboard navigation, no time limits), Understandable (clear language, consistent navigation), Robust (valid HTML, ARIA labels)",
       "Build accessibility from the start: start with research, design with accessibility in mind, develop with standards, and test with real users",
       "Common mistakes: relying on color alone, poor contrast ratios, missing alt text, keyboard traps, and inaccessible forms",
-      "Automated tools catch about 30% of accessibility issues—real users catch the rest. Test with people who use assistive technologies"
+      "Automated tools catch about 30% of accessibility issues-real users catch the rest. Test with people who use assistive technologies"
     ],
     content: `
 # Building Accessible Products That Everyone Can Use
 
 A comprehensive guide to creating **inclusive** **digital experiences** that work for everyone, regardless of ability.
 
-Accessibility isn't a feature—it's a ==foundation==. When you build accessible products, you're not just checking compliance boxes. You're creating experiences that ==work for everyone==, that make everyone feel seen, that create ==true belonging==. It's like building a ramp instead of stairs. Sure, stairs work for most people, but ramps work for everyone. Plus, you can skateboard down ramps. Try that with stairs. I dare you.
+Accessibility isn't a feature-it's a ==foundation==. When you build accessible products, you're not just checking compliance boxes. You're creating experiences that ==work for everyone==, that make everyone feel seen, that create ==true belonging==. It's like building a ramp instead of stairs. Sure, stairs work for most people, but ramps work for everyone. Plus, you can skateboard down ramps. Try that with stairs. I dare you.
 
 ## Why Accessibility Matters
 
@@ -282,9 +282,9 @@ When you build for accessibility, you ==build for everyone==. It's like making a
 
 ## Beyond Compliance: The Business Case
 
-Accessibility isn't just the right thing to do—it's ==smart business==. Accessible products reach more users. They rank higher in search results. They reduce legal risk. They improve SEO. They create better user experiences for everyone.
+Accessibility isn't just the right thing to do-it's ==smart business==. Accessible products reach more users. They rank higher in search results. They reduce legal risk. They improve SEO. They create better user experiences for everyone.
 
-But the real competitive advantage comes from understanding that accessibility isn't a constraint—it's ==innovation==. When you design for people with disabilities, you discover solutions that ==benefit everyone==.
+But the real competitive advantage comes from understanding that accessibility isn't a constraint-it's ==innovation==. When you design for people with disabilities, you discover solutions that ==benefit everyone==.
 
 ## The Four Pillars of Accessibility
 
@@ -298,7 +298,7 @@ But the real competitive advantage comes from understanding that accessibility i
 
 ## Building Accessibility Into Your Process
 
-Accessibility isn't something you add at the end—it's something you build from the start. Here's how:
+Accessibility isn't something you add at the end-it's something you build from the start. Here's how:
 
 **Start with research** – Understand your users' needs. Talk to people with disabilities. Use assistive technologies yourself. Experience your product the way your users do.
 
@@ -320,7 +320,7 @@ Accessibility isn't something you add at the end—it's something you build from
 
 **Achromatopsia** – Complete color blindness. Everything appears in shades of gray. It's like watching old movies, but for life. Dramatic? Yes. Practical? Not always.
 
-Your color system must work for all of these users. This doesn't mean avoiding color—it means ==not relying on color alone==. Add icons. Add labels. Add patterns. Make it work for everyone, not just people who see colors the way you do.
+Your color system must work for all of these users. This doesn't mean avoiding color-it means ==not relying on color alone==. Add icons. Add labels. Add patterns. Make it work for everyone, not just people who see colors the way you do.
 
 ## The Accessibility Spectrum
 
@@ -354,7 +354,7 @@ Accessibility isn't binary. It's ==a spectrum==. Some users have complete color 
 
 ## Building an Accessible Culture
 
-Accessibility isn't just a technical requirement—it's a cultural shift. It requires empathy, curiosity, and commitment. It means asking "Can everyone use this?" at every step of the process.
+Accessibility isn't just a technical requirement-it's a cultural shift. It requires empathy, curiosity, and commitment. It means asking "Can everyone use this?" at every step of the process.
 
 Start small. Fix one issue at a time. Celebrate progress. Learn from mistakes. Build accessibility into your team's DNA.
 
@@ -381,7 +381,7 @@ Start today. Build with intention. Create experiences that everyone can use. The
     tldr: [
       "Use semantic color tokens (like 'color.action.primary') instead of appearance-based names (like 'primaryBlue')",
       "Structure your color system in layers: base colors → semantic colors → component colors → theme colors",
-      "TypeScript makes your color system type-safe—catch typos at compile time and get autocomplete for all color paths",
+      "TypeScript makes your color system type-safe-catch typos at compile time and get autocomplete for all color paths",
       "Build accessibility in from the start: every color combination should meet WCAG AA standards (4.5:1 for text)",
       "Test your color system at multiple levels: unit tests for contrast, visual regression, component tests, and user testing"
     ],
@@ -390,29 +390,29 @@ Start today. Build with intention. Create experiences that everyone can use. The
 
 How to architect **color systems** in **React** that scale across components, themes, and applications.
 
-Building a color system in React isn't just about picking colors—it's about creating a ==scalable architecture== that grows with your product. When done right, your color system becomes the foundation for ==consistency==, ==accessibility==, and ==maintainability==.
+Building a color system in React isn't just about picking colors-it's about creating a ==scalable architecture== that grows with your product. When done right, your color system becomes the foundation for ==consistency==, ==accessibility==, and ==maintainability==.
 
 ## The Foundation: Color Tokens
 
 Here's a story I've seen play out too many times: A designer picks a beautiful blue for primary actions. A developer hardcodes \`#3b82f6\` into a button component. Six months later, the brand refreshes, and that blue becomes purple. Now the developer searches through hundreds of files, replacing \`#3b82f6\` with \`#7c3aed\`, hoping they don't miss any. ==They always miss some==. And that one button stays blue forever, haunting them like a digital ghost.
 
-==Color tokens solve this problem==. They're not just hex codes—they're ==semantic names that describe purpose, not appearance==. Instead of \`primaryBlue\`, use \`color.action.primary\`. Instead of \`darkGray\`, use \`color.text.secondary\`. It's like naming your pets by their personality instead of their color. "This is Fluffy" tells you nothing. "This is DestroysShoes" tells you everything.
+==Color tokens solve this problem==. They're not just hex codes-they're ==semantic names that describe purpose, not appearance==. Instead of \`primaryBlue\`, use \`color.action.primary\`. Instead of \`darkGray\`, use \`color.text.secondary\`. It's like naming your pets by their personality instead of their color. "This is Fluffy" tells you nothing. "This is DestroysShoes" tells you everything.
 
 **Why this matters:** When your brand changes, you ==update one file==. Your entire application adapts. It's the difference between ==rebuilding a house and flipping a switch==. One takes months and costs thousands. The other takes seconds and costs nothing. Your choice.
 
-This semantic approach means your colors adapt to themes, contexts, and user preferences without breaking your components. Your dark mode isn't a separate codebase—it's ==the same tokens, different values==.
+This semantic approach means your colors adapt to themes, contexts, and user preferences without breaking your components. Your dark mode isn't a separate codebase-it's ==the same tokens, different values==.
 
 ## Structuring Your Color Palette
 
-Think of your color system like a Russian nesting doll—each layer contains the next, but serves a different purpose. A well-structured color system has four layers:
+Think of your color system like a Russian nesting doll-each layer contains the next, but serves a different purpose. A well-structured color system has four layers:
 
 **Base colors** – Your raw palette: reds, blues, greens, grays. These are your source of truth. They're the pigments on your palette before you start painting. **Why start here?** Because every other layer builds on these. Change a base color, and you change everything downstream.
 
-**Semantic colors** – Purpose-driven tokens: \`action.primary\`, \`status.success\`, \`text.heading\`. These map to your base colors but describe function, not appearance. **Why semantic?** Because "primary" means "main action" whether it's blue, purple, or green. Your components don't care about the color—they care about the purpose.
+**Semantic colors** – Purpose-driven tokens: \`action.primary\`, \`status.success\`, \`text.heading\`. These map to your base colors but describe function, not appearance. **Why semantic?** Because "primary" means "main action" whether it's blue, purple, or green. Your components don't care about the color-they care about the purpose.
 
 **Component colors** – Component-specific tokens: \`button.primary.background\`, \`card.border\`. These inherit from semantic colors but add component context. **Why this layer?** Because a button's primary color might need a slight variation from a link's primary color. Same purpose, different implementation.
 
-**Theme colors** – Theme variations: \`light\`, \`dark\`, \`high-contrast\`. These override semantic colors to create different visual experiences. **Why themes?** Because your users work in different environments. Dark mode isn't a nice-to-have—it's a necessity for many users working late nights or in low-light environments.
+**Theme colors** – Theme variations: \`light\`, \`dark\`, \`high-contrast\`. These override semantic colors to create different visual experiences. **Why themes?** Because your users work in different environments. Dark mode isn't a nice-to-have-it's a necessity for many users working late nights or in low-light environments.
 
 Each layer serves a purpose. Skip a layer, and you'll pay for it later when you need to scale.
 
@@ -438,17 +438,17 @@ Your color system should work at three levels:
 
 ## Accessibility by Default
 
-I once watched a user struggle with a form. The error message appeared in red text on a red background. The user couldn't see it. They thought the form was broken. It wasn't broken—it was inaccessible. It was like trying to find a red car in a parking lot full of red cars. Technically possible, but why would you do that to yourself?
+I once watched a user struggle with a form. The error message appeared in red text on a red background. The user couldn't see it. They thought the form was broken. It wasn't broken-it was inaccessible. It was like trying to find a red car in a parking lot full of red cars. Technically possible, but why would you do that to yourself?
 
 A scalable color system is ==accessible by default==. This isn't optional. It's foundational. Here's what that means:
 
-**Contrast ratios** – Every color combination meets ==WCAG AA standards== (4.5:1 for text, 3:1 for UI components). **Why this matters:** Because 8% of men and 0.5% of women have color vision deficiencies. Low contrast isn't just hard to read—it's ==impossible to read for some users==.
+**Contrast ratios** – Every color combination meets ==WCAG AA standards== (4.5:1 for text, 3:1 for UI components). **Why this matters:** Because 8% of men and 0.5% of women have color vision deficiencies. Low contrast isn't just hard to read-it's ==impossible to read for some users==.
 
 **Colorblind-friendly** – ==Don't rely on color alone==. Use icons, patterns, or labels to convey meaning. **The story:** A red error icon and a green success icon look identical to someone with protanopia. Add a checkmark or X, and suddenly ==everyone understands==.
 
 **High contrast mode** – Support system preferences for high contrast. Your color system should ==adapt automatically==. **Why this helps:** Users with low vision need higher contrast. Respect their system preferences, and your app becomes ==usable instead of frustrating==.
 
-**Focus indicators** – Ensure focus states are visible regardless of color scheme. Use outline styles that work with any background. **The reality:** Keyboard users navigate your entire interface with Tab. If they can't see where they are, they're lost. A visible focus indicator isn't decoration—it's ==navigation==.
+**Focus indicators** – Ensure focus states are visible regardless of color scheme. Use outline styles that work with any background. **The reality:** Keyboard users navigate your entire interface with Tab. If they can't see where they are, they're lost. A visible focus indicator isn't decoration-it's ==navigation==.
 
 Accessibility isn't a feature you add. It's ==a foundation you build==.
 
@@ -456,7 +456,7 @@ Accessibility isn't a feature you add. It's ==a foundation you build==.
 
 TypeScript transforms your color system from a collection of strings into a type-safe architecture. Here's the story: imagine you're building a component library, and a designer asks you to change the primary button color. Without TypeScript, you might typo \`#7c3aed\` as \`#7c3ae\` and break your entire design system. With TypeScript, your editor catches the error before you even save.
 
-But TypeScript does more than prevent typos—it teaches your IDE to understand your color system. When you type \`colors.action.\`, your editor suggests \`primary\` and \`secondary\`. It's like having a design system expert sitting next to you, whispering suggestions as you code.
+But TypeScript does more than prevent typos-it teaches your IDE to understand your color system. When you type \`colors.action.\`, your editor suggests \`primary\` and \`secondary\`. It's like having a design system expert sitting next to you, whispering suggestions as you code.
 
 Here's how to build a type-safe color system that scales:
 
@@ -464,34 +464,34 @@ Here's how to build a type-safe color system that scales:
 // Step 1: Define your color tokens as a const object
 // The 'as const' assertion tells TypeScript: "These values are literal types, not just strings"
 // Why this matters: Without 'as const', TypeScript sees '#7c3aed' as a string.
-// With 'as const', TypeScript sees it as the literal type '#7c3aed'—making it impossible to assign wrong values
+// With 'as const', TypeScript sees it as the literal type '#7c3aed'-making it impossible to assign wrong values
 const colors = {
-  // Semantic color tokens—these describe purpose, not appearance
+  // Semantic color tokens-these describe purpose, not appearance
   // Why semantic? Because 'primary' means "main action" regardless of whether it's purple, blue, or green
   action: {
-    primary: '#7c3aed',    // Main action color—used for primary buttons, links, and CTAs
-    secondary: '#14b8a6',   // Secondary action—used for secondary buttons and alternative actions
+    primary: '#7c3aed',    // Main action color-used for primary buttons, links, and CTAs
+    secondary: '#14b8a6',   // Secondary action-used for secondary buttons and alternative actions
   },
   // Text colors organized by hierarchy
   // Why organize by hierarchy? Because text colors change based on context, not just appearance
   text: {
-    heading: '#1e293b',    // Headings need high contrast—this ensures readability
-    body: '#64748b',       // Body text uses lower contrast—reduces visual weight
+    heading: '#1e293b',    // Headings need high contrast-this ensures readability
+    body: '#64748b',       // Body text uses lower contrast-reduces visual weight
   },
   // Background colors for different surfaces
   background: {
-    primary: '#ffffff',     // Main background—usually white or light gray
-    secondary: '#f8fafc',   // Secondary background—for cards, panels, and elevated surfaces
+    primary: '#ffffff',     // Main background-usually white or light gray
+    secondary: '#f8fafc',   // Secondary background-for cards, panels, and elevated surfaces
   },
 } as const  // This is the magic: 'as const' makes TypeScript treat these as literal types
 
 // Step 2: Extract the type from the const object
 // Why extract the type? Because now you can use it throughout your codebase
-// This creates a single source of truth—change colors here, and TypeScript updates types everywhere
+// This creates a single source of truth-change colors here, and TypeScript updates types everywhere
 type ColorTokens = typeof colors
 
 // Step 3: Create a helper type to get nested color paths
-// This is advanced TypeScript—it creates a union type of all possible color paths
+// This is advanced TypeScript-it creates a union type of all possible color paths
 // Why this helps: You can now type-check color paths like 'action.primary' at compile time
 type ColorPath = 
   | 'action.primary'
@@ -510,7 +510,7 @@ function getColor(path: ColorPath): string {
 }
 
 // Step 5: Use it in your components
-// Now your components are type-safe—TypeScript will error if you use a color that doesn't exist
+// Now your components are type-safe-TypeScript will error if you use a color that doesn't exist
 const Button = ({ variant = 'primary' }: { variant?: 'primary' | 'secondary' }) => {
   // TypeScript knows 'action.primary' is valid, but 'action.invalid' will error
   // We construct the path dynamically, but TypeScript ensures variant can only be 'primary' or 'secondary'
@@ -532,7 +532,7 @@ const Button = ({ variant = 'primary' }: { variant?: 'primary' | 'secondary' }) 
 
 **Single source of truth** – Your colors live in one place, but TypeScript ensures consistency everywhere they're used.
 
-This isn't just code—it's a safety net. It's the difference between a color system that breaks silently and one that fails loudly, at development time, when you can still fix it.
+This isn't just code-it's a safety net. It's the difference between a color system that breaks silently and one that fails loudly, at development time, when you can still fix it.
 
 ## Testing Your Color System
 
@@ -588,40 +588,40 @@ Your color system is the foundation of your design system. Build it right, and e
 
 Start with semantic tokens. Build accessibility in from the start. Use TypeScript for type safety. Test everything. Document thoroughly.
 
-The best color systems aren't just beautiful—they're scalable, accessible, and maintainable. Build yours with intention. Your future self will thank you.
+The best color systems aren't just beautiful-they're scalable, accessible, and maintainable. Build yours with intention. Your future self will thank you.
     `,
   },
   {
     id: "7",
     slug: "color-intent-based-design-tokens",
     title: "Color Intent-Based Design Tokens: Beyond Semantic Naming",
-    excerpt: "Organize your color system by psychological intent, not just semantic purpose—build tokens that communicate emotion, action, and meaning.",
+    excerpt: "Organize your color system by psychological intent, not just semantic purpose-build tokens that communicate emotion, action, and meaning.",
     image: "/images/global-token.png",
     date: "January 25, 2026",
     author: "Coriano Harris",
     tags: ["Design System", "Color Strategy", "Design Tokens"],
     tldr: [
-      "Intent-based tokens organize colors by psychological purpose—what emotion or action they evoke—not just what they're used for",
+      "Intent-based tokens organize colors by psychological purpose-what emotion or action they evoke-not just what they're used for",
       "Move beyond semantic tokens (like 'action.primary') to intent tokens (like 'trust.calm' or 'energy.action') that communicate meaning",
-      "Intent-based systems answer 'What feeling?' not just 'What component?'—making color choices more intentional and meaningful",
-      "Structure your tokens in layers: base colors → intent colors → semantic colors → component colors—each layer adds purpose",
+      "Intent-based systems answer 'What feeling?' not just 'What component?'-making color choices more intentional and meaningful",
+      "Structure your tokens in layers: base colors → intent colors → semantic colors → component colors-each layer adds purpose",
       "Intent tokens make your design system more flexible: change the color but keep the intent, or change the intent but keep the structure",
       "When colors are organized by intent, designers and developers make better choices because they understand the 'why' behind each color"
     ],
     content: `
 # Color Intent-Based Design Tokens: Beyond Semantic Naming
 
-Organize your **color system** by **psychological intent**, not just semantic purpose—build tokens that communicate emotion, action, and meaning.
+Organize your **color system** by **psychological intent**, not just semantic purpose-build tokens that communicate emotion, action, and meaning.
 
 Most design systems stop at semantic tokens. They create \`action.primary\` and \`text.heading\` and call it a day. But here's what they're missing: ==semantic tokens tell you WHERE to use a color, not WHY==. They answer "What component?" but not "What feeling?" It's like having a map that shows you where to go but not why you're going there. Useful? Yes. Complete? Not even close.
 
-Intent-based design tokens go deeper. They organize colors by ==psychological purpose==—what emotion they evoke, what action they encourage, what story they tell. Instead of \`action.primary\`, you might have \`courage.create\` or \`trust.calm\`. Instead of \`status.success\`, you might have \`growth.positive\`. It's the difference between naming a color "blue" and naming it "trust."
+Intent-based design tokens go deeper. They organize colors by ==psychological purpose==-what emotion they evoke, what action they encourage, what story they tell. Instead of \`action.primary\`, you might have \`courage.create\` or \`trust.calm\`. Instead of \`status.success\`, you might have \`growth.positive\`. It's the difference between naming a color "blue" and naming it "trust."
 
 ## The Problem with Semantic-Only Tokens
 
 Semantic tokens are great. They're better than hardcoded hex values. But they have a blind spot: ==they don't communicate intent==. When a designer sees \`action.primary\`, they know it's for buttons. But they don't know why it's purple instead of blue. They don't know what emotion it's supposed to evoke. They don't know the story it's telling.
 
-Here's what happens: A designer needs a color for a new feature. They see \`action.primary\` and think "Okay, I'll use this for the main button." But they don't understand that purple was chosen because it communicates ==courage and creativity==. So when they need a color for a trust-building feature, they might still use purple—even though \`trust.calm\` (cyan) would be more appropriate.
+Here's what happens: A designer needs a color for a new feature. They see \`action.primary\` and think "Okay, I'll use this for the main button." But they don't understand that purple was chosen because it communicates ==courage and creativity==. So when they need a color for a trust-building feature, they might still use purple-even though \`trust.calm\` (cyan) would be more appropriate.
 
 ==Semantic tokens answer "what." Intent tokens answer "why."== And when you understand the "why," you make better choices.
 
@@ -689,7 +689,7 @@ Now when a designer sees \`courage.create\`, they understand: ==this color is fo
 
 Intent-based tokens work best in a ==four-layer architecture==. Each layer adds purpose:
 
-**Layer 1: Base Colors** – Raw palette (purple, cyan, teal, blue, orange). These are your pigments. They have no meaning yet—just color.
+**Layer 1: Base Colors** – Raw palette (purple, cyan, teal, blue, orange). These are your pigments. They have no meaning yet-just color.
 
 **Layer 2: Intent Colors** – Psychological purpose (\`courage.create\`, \`trust.calm\`). These answer "What feeling?" This is where intent lives.
 
@@ -791,7 +791,7 @@ You're designing a dashboard showing positive metrics. You need colors that comm
 
 You choose \`growth.positive\` for success metrics and \`growth.balance\` for sustainability metrics. ==The intent differentiates similar concepts.==
 
-Intent mapping turns color selection from guessing into ==strategic decision-making==. You're not just picking colors—you're choosing emotions, actions, and stories.
+Intent mapping turns color selection from guessing into ==strategic decision-making==. You're not just picking colors-you're choosing emotions, actions, and stories.
 
 ## Intent Tokens in Practice
 
@@ -950,7 +950,7 @@ Developer: "..."
 
 Designer: "I need a color that builds trust."
 Developer: "Use \`trust.calm\` or \`trust.reliable\`."
-Designer: "I'll use \`trust.calm\`—it's perfect for healthcare."
+Designer: "I'll use \`trust.calm\`-it's perfect for healthcare."
 Developer: "Great. I'll map it to \`action.primary\` for the button."
 Designer: "Perfect. The intent is clear."
 
@@ -958,7 +958,7 @@ Designer: "Perfect. The intent is clear."
 
 ## Intent Tokens and Accessibility
 
-Intent-based tokens don't replace accessibility—they ==enhance it==. You still need:
+Intent-based tokens don't replace accessibility-they ==enhance it==. You still need:
 
 - **Contrast ratios** – WCAG AA standards (4.5:1 for text)
 - **Colorblind-friendly** – Don't rely on color alone
@@ -966,7 +966,7 @@ Intent-based tokens don't replace accessibility—they ==enhance it==. You still
 
 But intent tokens help you make ==accessible choices==. When you understand that \`trust.calm\` needs to be readable, you choose colors that meet contrast requirements. When you understand that \`energy.action\` needs to stand out, you ensure it works for colorblind users.
 
-Intent doesn't replace accessibility—it makes accessibility more intentional.
+Intent doesn't replace accessibility-it makes accessibility more intentional.
 
 ## The Future of Intent-Based Design
 
@@ -982,7 +982,7 @@ The teams that build intent-based systems today will have ==more flexible, more 
 
 ## Start Building Today
 
-Intent-based design tokens aren't just a naming convention—they're a ==philosophy==. They're about organizing colors by meaning, not just by usage. They're about answering "why" not just "what."
+Intent-based design tokens aren't just a naming convention-they're a ==philosophy==. They're about organizing colors by meaning, not just by usage. They're about answering "why" not just "what."
 
 Start with your intents. Define what emotions you need. Map colors to those emotions. Create semantic mappings. Build component tokens. Document everything.
 

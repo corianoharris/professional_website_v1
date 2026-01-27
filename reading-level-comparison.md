@@ -21,10 +21,10 @@
 ### Example 1: About Section
 
 **Current (College Level - Flesch: 54.4):**
-> "I believe vulnerability creates real trust: showing up authentically, daring to feel human. Color is that brave first whisper—evoking calm, understanding, and belonging in 0.05 seconds."
+> "I believe vulnerability creates real trust: showing up authentically, daring to feel human. Color is that brave first whisper-evoking calm, understanding, and belonging in 0.05 seconds."
 
 **8th Grade Version (Target: Flesch: 60-69):**
-> "I believe being open and honest builds real trust. When you show your true self, people connect with you. Color is the first thing people notice. It makes them feel calm, understood, and like they belong—all in less than a second."
+> "I believe being open and honest builds real trust. When you show your true self, people connect with you. Color is the first thing people notice. It makes them feel calm, understood, and like they belong-all in less than a second."
 
 **Changes:**
 - "vulnerability" → "being open and honest" (more concrete)
@@ -70,7 +70,7 @@
 ### Example 4: Hero Section
 
 **Current (College Level - Flesch: 49.0):**
-> "To help brave teams create remarkable products worth millions more—building instant trust, deep belonging, and viral word-of-mouth through courageous color as the spark of human connection."
+> "To help brave teams create remarkable products worth millions more-building instant trust, deep belonging, and viral word-of-mouth through courageous color as the spark of human connection."
 
 **8th Grade Version:**
 > "I help bold teams build amazing products that make more money. I use color to build trust fast. People feel like they belong. They tell their friends about your product. Color is what connects people."
@@ -169,7 +169,7 @@
 **Strategy:** Keep sophisticated concepts but explain them simply
 
 **Example:**
-> "Vulnerability creates trust. What does that mean? It means showing up as your real self—not hiding behind a mask. When you're honest about who you are, people trust you more."
+> "Vulnerability creates trust. What does that mean? It means showing up as your real self-not hiding behind a mask. When you're honest about who you are, people trust you more."
 
 **Benefits:**
 - Keeps sophisticated vocabulary

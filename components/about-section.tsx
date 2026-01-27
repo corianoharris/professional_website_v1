@@ -50,7 +50,7 @@ export function AboutSection() {
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight text-foreground mb-8 relative z-10 pl-20 md:pl-32"
               style={{ fontFamily: 'var(--font-playfair), serif', fontStyle: 'italic', fontWeight: 500 }}
             >
-              People don't buy what you do—they buy why you do it.
+              People don't buy what you do, they buy why you do it.
             </p>
             {/* Closing Quote Icon - Very Large */}
             <div className="absolute -bottom-8 -right-8 md:-bottom-16 md:-right-32 z-0">
@@ -83,7 +83,7 @@ export function AboutSection() {
               className="text-xl md:text-2xl lg:text-3xl leading-relaxed text-foreground"
               style={{ fontFamily: 'var(--font-playfair), serif' }}
             >
-              <span className="highlighter">Color</span> is the first thing people notice—creating <span className="highlighter">calm</span>, understanding, and <span className="highlighter">belonging</span> in less than a second.
+              <span className="highlighter">Color</span> is the first thing people notice, creating <span className="highlighter">calm</span>, understanding, and <span className="highlighter">belonging</span> in less than a second.
             </p>
 
             {/* Emphasis Box with Quotes */}

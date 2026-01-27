@@ -104,7 +104,7 @@ export function BlogSection() {
   }
 
   return (
-    <section id="blog" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative">
+    <section id="blog" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -172,21 +172,21 @@ export function BlogSection() {
 
         {/* Desktop: Two-column layout for first 3, grid layout for more */}
         {!showAll && (
-          <div className={`grid gap-6 max-w-6xl mx-auto ${remainingPosts.length === 0 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>
+          <div className={`grid gap-4 md:gap-6 max-w-6xl mx-auto ${remainingPosts.length === 0 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>
             {/* Left Column: Large Featured Card */}
             {firstPost && (
               <Link href={`/blog/${firstPost.slug}`} className={`${remainingPosts.length === 0 ? '' : 'md:row-span-2'} focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl`}>
                 <div className="group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent hover:border-primary hover:border-double">
-                  <div className="relative w-full h-64 md:h-[400px] overflow-hidden">
+                  <div className="relative w-full h-48 md:h-[400px] overflow-hidden">
                     <img
                       src={firstPost.image || "/placeholder.svg"}
                       alt={firstPost.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-8 md:p-10">
-                    <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-3">{firstPost.date}</span>
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight group-hover:text-primary transition-colors">
+                  <div className="p-6 md:p-10">
+                    <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2 md:mb-3">{firstPost.date}</span>
+                    <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 leading-tight group-hover:text-primary transition-colors">
                       {firstPost.title}
                     </h3>
                   </div>
@@ -195,7 +195,7 @@ export function BlogSection() {
             )}
 
             {/* Right Column: Smaller Cards */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4 md:gap-6">
               {remainingPosts.map((post, index) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl">
                   <div className={`group cursor-pointer bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent ${
@@ -203,16 +203,16 @@ export function BlogSection() {
                       ? 'hover:border-accent hover:border-dashed' 
                       : 'hover:border-secondary hover:border-solid'
                   }`}>
-                    <div className="relative w-full h-48 overflow-hidden">
+                    <div className="relative w-full h-40 md:h-48 overflow-hidden">
                       <img
                         src={post.image || "/placeholder.svg"}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     </div>
-                    <div className="p-6 md:p-8">
+                    <div className="p-4 md:p-8">
                       <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2">{post.date}</span>
-                      <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors">
+                      <h3 className="text-lg md:text-2xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors">
                         {post.title}
                       </h3>
                     </div>
@@ -225,7 +225,7 @@ export function BlogSection() {
 
         {/* Grid layout when showing all posts */}
         {showAll && (
-          <div className="grid gap-6 max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:gap-6 max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3">
             {displayedPosts.map((post, index) => {
               // Various border styles based on index
               const borderStyles = [
@@ -241,16 +241,16 @@ export function BlogSection() {
               return (
               <Link key={post.id} href={`/blog/${post.slug}`} className={`focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-1 md:row-span-2' : ''}`}>
                 <div className={`group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent ${borderStyle}`}>
-                  <div className={`relative w-full overflow-hidden ${index === 0 ? 'h-64 md:h-[400px]' : 'h-48'}`}>
+                  <div className={`relative w-full overflow-hidden ${index === 0 ? 'h-48 md:h-[400px]' : 'h-40 md:h-48'}`}>
                     <img
                       src={post.image || "/placeholder.svg"}
                       alt={post.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <div className={`${index === 0 ? 'p-8 md:p-10' : 'p-6 md:p-8'}`}>
+                  <div className={`${index === 0 ? 'p-6 md:p-10' : 'p-4 md:p-8'}`}>
                     <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2">{post.date}</span>
-                    <h3 className={`${index === 0 ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} font-bold mb-2 leading-tight group-hover:text-primary transition-colors`}>
+                    <h3 className={`${index === 0 ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'} font-bold mb-2 leading-tight group-hover:text-primary transition-colors`}>
                       {post.title}
                     </h3>
                   </div>

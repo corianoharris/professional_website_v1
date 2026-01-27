@@ -45,23 +45,27 @@ export function ContactSection() {
   }, [])
 
   const services = [
-    "Color Strategy",
-    "Product Design",
-    "Technology Integration",
-    "UX Consultation",
-    "Brand Identity",
-    "Design Systems",
-    "Speaking",
-    "Workshop",
+    { name: "Color Intent Strategy", type: "Primary" },
+    { name: "Intent-Based Design Systems", type: "Primary" },
+    { name: "Product Design Validation", type: "Secondary" },
+    { name: "Implementation Support", type: "Secondary" },
+    { name: "Intent Alignment", type: "Secondary" },
+    { name: "Brand → Intent Translation", type: "Secondary" },
   ]
 
-  const handleServiceToggle = (service: string) => {
+  const handleServiceToggle = (serviceName: string) => {
     setFormData((prev) => ({
       ...prev,
-      services: prev.services.includes(service)
-        ? prev.services.filter((s) => s !== service)
-        : [...prev.services, service],
+      services: prev.services.includes(serviceName)
+        ? prev.services.filter((s) => s !== serviceName)
+        : [...prev.services, serviceName],
     }))
+  }
+
+  const getServiceColor = (type: string) => {
+    return type === "Primary" 
+      ? 'text-purple-600 dark:text-purple-400' 
+      : 'text-cyan-600 dark:text-cyan-400'
   }
 
   // Character limits
@@ -268,7 +272,7 @@ export function ContactSection() {
                 className="text-xl md:text-4xl lg:text-5xl xl:text-6xl leading-relaxed text-foreground relative z-10 pl-8 md:pl-32"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif', fontStyle: 'italic', fontWeight: 600 }}
               >
-                Starting with why—because people buy why you do it, not what you do. Building <span className="highlighter">remarkable</span> through <span className="highlighter">authenticity</span> and <span className="highlighter">heart</span>. Let's connect.
+                Starting with why, because people buy why you do it, not what you do. Building <span className="highlighter">remarkable</span> through <span className="highlighter">authenticity</span> and <span className="highlighter">heart</span>. Let's connect.
               </p>
               {/* Closing Quote Icon - Very Large - Hidden on mobile */}
               <div className="hidden md:block absolute -bottom-16 -right-32 z-0">
@@ -383,20 +387,36 @@ export function ContactSection() {
                   <label className="text-sm font-bold uppercase tracking-[0.2em] text-foreground block">
                     Services You're Interested In
                   </label>
-                  <div className="grid md:grid-cols-2 gap-4 p-4 md:p-8 border-2 border-foreground/20 rounded-lg bg-background">
-                    {services.map((service) => (
-                      <div key={service} className="flex items-center space-x-3 md:space-x-4">
-                        <Checkbox
-                          id={service}
-                          checked={formData.services.includes(service)}
-                          onCheckedChange={() => handleServiceToggle(service)}
-                          className="w-5 h-5 md:w-6 md:h-6 border-2 border-foreground/40 dark:border-foreground/60 dark:bg-background flex-shrink-0"
-                        />
-                        <label htmlFor={service} className="text-base md:text-lg lg:text-xl cursor-pointer font-medium text-foreground break-words">
-                          {service}
-                        </label>
-                      </div>
-                    ))}
+                  <div 
+                    className="grid md:grid-cols-2 gap-4 p-4 md:p-8 border-2 rounded-lg"
+                    style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                      borderColor: 'rgba(0, 0, 0, 0.1)',
+                    }}
+                  >
+                    {services.map((service) => {
+                      const isPrimary = service.type === "Primary"
+                      return (
+                        <div key={service.name} className="flex items-center space-x-3 md:space-x-4">
+                          <Checkbox
+                            id={service.name}
+                            checked={formData.services.includes(service.name)}
+                            onCheckedChange={() => handleServiceToggle(service.name)}
+                            className="w-5 h-5 md:w-6 md:h-6 border-2 border-foreground/40 dark:border-foreground/60 dark:bg-background flex-shrink-0"
+                            style={{
+                              borderColor: isPrimary ? 'rgba(124, 58, 237, 0.5)' : 'rgba(6, 182, 212, 0.5)',
+                            }}
+                          />
+                          <label 
+                            htmlFor={service.name} 
+                            className={`text-base md:text-lg lg:text-xl cursor-pointer font-medium break-words transition-colors ${getServiceColor(service.type)}`}
+                            style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}
+                          >
+                            {service.name}
+                          </label>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
 
@@ -465,7 +485,7 @@ export function ContactSection() {
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-7 h-7 text-primary mt-1 flex-shrink-0" />
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                  For your convenience: This form will automatically populate your email information, so you don't have to retype it in your email provider. It will open your default email client, and your information is never stored on this website — it's securely sent directly through your email provider.
+                  For your convenience: This form will automatically populate your email information, so you don't have to retype it in your email provider. It will open your default email client, and your information is never stored on this website. It's securely sent directly through your email provider.
                   <br /><br />
                   If you'd prefer, you can also contact me directly via email: <a href="mailto:me@corianoharris.com" className="text-primary hover:underline font-semibold">me@corianoharris.com</a>.
                 </p>

@@ -1,11 +1,22 @@
 "use client"
 import { useState } from "react"
-import { TrendingUp, Building2, Sparkles } from "lucide-react"
+import { TrendingUp, Building2, Sparkles, ChevronDown, ChevronUp } from "lucide-react"
 import { ShowMoreButton } from "./show-more-button"
 
 export function PortfolioSection() {
   const [visibleCount, setVisibleCount] = useState(2)
   const [isLoading, setIsLoading] = useState(false)
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set())
+
+  const toggleCard = (index: number) => {
+    const newExpanded = new Set(expandedCards)
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index)
+    } else {
+      newExpanded.add(index)
+    }
+    setExpandedCards(newExpanded)
+  }
   const outcomes = [
     {
       icon: Sparkles,
@@ -45,7 +56,7 @@ export function PortfolioSection() {
   }
 
   return (
-    <section id="portfolio" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -76,16 +87,17 @@ export function PortfolioSection() {
         </p>
 
         {/* Table of Contents Style Layout - No Borders */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-12 max-w-6xl mx-auto overflow-hidden md:overflow-visible">
           {outcomes.slice(0, visibleCount).map((outcome, index) => {
             const caseNumber = String(index + 1).padStart(2, '0')
             const isLeftColumn = index % 2 === 0
             const isThirdItem = index === 2
+            const isExpanded = expandedCards.has(index)
             
             return (
               <div
                 key={index}
-                className={`relative flex items-start gap-2 md:gap-3 min-h-[200px] ${isThirdItem ? 'md:col-span-2' : ''} md:overflow-visible`}
+                className={`relative flex items-start gap-2 md:gap-3 min-h-[120px] md:min-h-[200px] ${isThirdItem ? 'md:col-span-2' : ''} md:overflow-visible pb-2`}
                 style={{ overflow: 'visible' }}
               >
                 {/* Large Vertical Number - Rotated Sideways with Color */}
@@ -106,7 +118,7 @@ export function PortfolioSection() {
                 </div>
 
                 {/* Content */}
-                <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'}`}>
+                <div className={`flex-1 ${isLeftColumn ? 'order-2' : 'order-2'} flex flex-col pr-2 md:pr-0`}>
                   <div className="mb-2 flex items-center gap-3">
                     {/* Mobile number - visible on mobile only */}
                     <span 
@@ -131,17 +143,61 @@ export function PortfolioSection() {
                     {outcome.title}
                   </h3>
                   
-                  <div className="mb-4">
-                    <p className="text-foreground font-portfolio-content text-base md:text-lg leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                      {outcome.description}
-                    </p>
+                  {/* Expandable Content - Mobile Only */}
+                  <div className="md:hidden">
+                    <div
+                      id={`case-study-content-${index}`}
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isExpanded ? 'max-h-[2000px] opacity-100 mb-4' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      <div className="mb-4">
+                        <p className="text-foreground font-portfolio-content text-base leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                          {outcome.description}
+                        </p>
+                      </div>
+
+                      {/* Metadata */}
+                      <div className="space-y-1 text-sm text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
+                        <div className="flex items-center gap-2">
+                          <TrendingUp className="w-4 h-4" aria-hidden="true" />
+                          <span className="font-semibold">{outcome.result}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Expand/Collapse Button - Mobile Only */}
+                    <div className="flex justify-end pr-2">
+                      <button
+                        onClick={() => toggleCard(index)}
+                        className="w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center hover:bg-foreground/90 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 mb-4 pb-1"
+                        aria-expanded={isExpanded}
+                        aria-controls={`case-study-content-${index}`}
+                        aria-label={isExpanded ? "Collapse case study details" : "Expand case study details"}
+                      >
+                        {isExpanded ? (
+                          <ChevronUp className="w-5 h-5 transition-transform duration-300" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 transition-transform duration-300" />
+                        )}
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Metadata */}
-                  <div className="space-y-1 text-sm text-muted-foreground" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4" aria-hidden="true" />
-                      <span className="font-semibold">{outcome.result}</span>
+                  {/* Desktop Content - Always Visible */}
+                  <div className="hidden md:block">
+                    <div className="mb-4">
+                      <p className="text-foreground font-portfolio-content text-base md:text-lg leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                        {outcome.description}
+                      </p>
+                    </div>
+
+                    {/* Metadata */}
+                    <div className="space-y-1 text-sm text-muted-foreground" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4" aria-hidden="true" />
+                        <span className="font-semibold">{outcome.result}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -181,7 +237,7 @@ export function PortfolioSection() {
         <h3 className="font-portfolio-title text-4xl md:text-5xl mb-8 leading-tight">Why Most Fail</h3>
         <div className="space-y-6 text-muted-foreground">
           <p className="font-portfolio-content text-xl md:text-2xl leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-            They protect themselves with safe, generic choices—skipping <span className="highlighter">authenticity</span>, aiming to fit in.
+            They protect themselves with safe, generic choices, skipping <span className="highlighter">authenticity</span>, aiming to fit in.
           </p>
           <p className="font-portfolio-content text-2xl md:text-3xl leading-relaxed font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
             They start with features, not feeling.

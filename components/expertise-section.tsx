@@ -73,7 +73,7 @@ export function ExpertiseSection() {
                 className="text-xl md:text-2xl lg:text-3xl leading-tight text-foreground"
                 style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', fontWeight: 600 }}
               >
-                I build <span className="highlighter">communities</span> around products that feel <span className="highlighter">deeply right</span>—and completely <span className="highlighter">different</span>.
+                I build <span className="highlighter">communities</span> around products that feel <span className="highlighter">deeply right</span>, and completely <span className="highlighter">different</span>.
               </p>
             </div>
           </div>

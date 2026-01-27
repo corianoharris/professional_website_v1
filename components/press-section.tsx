@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, Calendar, Filter } from "lucide-react"
+import { ExternalLink, Calendar, Filter, ChevronDown, ChevronUp } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./ui/button"
 
@@ -16,6 +16,17 @@ interface PressArticle {
 
 export function PressSection() {
   const [selectedFilter, setSelectedFilter] = useState<string>("all")
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set())
+
+  const toggleCard = (index: number) => {
+    const newExpanded = new Set(expandedCards)
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index)
+    } else {
+      newExpanded.add(index)
+    }
+    setExpandedCards(newExpanded)
+  }
 
   const articles: PressArticle[] = [
     {
@@ -23,7 +34,7 @@ export function PressSection() {
       publication: "MemphisVoyager",
       date: "2025-03-25",
       url: "https://memphisvoyager.com/interview/conversations-with-coriano-harris",
-      excerpt: <>A deep dive into the journey of a Full-Stack Creative Technologist who thrives at the intersection of <span className="highlighter">design</span>, <span className="highlighter">development</span>, and <span className="highlighter">strategy</span>—from tech support to game testing, <span className="highlighter">UX/UI design</span>, and full-stack development.</>,
+      excerpt: <>A deep dive into the journey of a Full-Stack Creative Technologist who thrives at the intersection of <span className="highlighter">design</span>, <span className="highlighter">development</span>, and <span className="highlighter">strategy</span>, from tech support to game testing, <span className="highlighter">UX/UI design</span>, and full-stack development.</>,
       category: "Design",
     },
   ]
@@ -130,94 +141,132 @@ export function PressSection() {
         {/* Show only first card, centered */}
         {(() => {
           const [firstArticle] = filteredArticles
+          const isExpanded = expandedCards.has(0)
           return (
-            <div className="grid gap-6 max-w-6xl mx-auto md:grid-cols-1 max-w-2xl">
+            <div className="grid gap-4 md:gap-6 max-w-6xl mx-auto md:grid-cols-1 max-w-2xl">
               {/* Featured Card - Centered */}
               {firstArticle && (
-                <Link
-                  href={firstArticle.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Read ${firstArticle.title} on ${firstArticle.publication}`}
-                  aria-label={`Read ${firstArticle.title} on ${firstArticle.publication} (opens in new tab)`}
-                  className="group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
-                >
-                  <div className="relative rounded-xl bg-card overflow-hidden hover:shadow-xl hover:border-primary/50 transition-all duration-300 h-full flex flex-col border-2 border-foreground/10">
-                    {/* Top wave pattern with gradient */}
-                    <div className="relative h-12 overflow-hidden">
-                      <svg 
-                        className="absolute top-0 left-0 w-full" 
-                        viewBox="0 0 1200 50" 
-                        preserveAspectRatio="none"
-                        style={{ height: "50px" }}
-                        stroke="none"
-                        aria-hidden="true"
-                      >
-                        <defs>
-                          <linearGradient id="pressFeaturedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
-                            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
-                            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
-                          </linearGradient>
-                        </defs>
-                        <path 
-                          d="M0,25 Q300,5 600,25 T1200,25 L1200,0 L0,0 Z" 
-                          fill="url(#pressFeaturedGradient)"
+                <div className="flex flex-col">
+                  <Link
+                    href={firstArticle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`Read ${firstArticle.title} on ${firstArticle.publication}`}
+                    aria-label={`Read ${firstArticle.title} on ${firstArticle.publication} (opens in new tab)`}
+                    className="group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                  >
+                    <div className="relative rounded-xl bg-card overflow-hidden hover:shadow-xl hover:border-primary/50 transition-all duration-300 h-full flex flex-col border-2 border-foreground/10">
+                      {/* Top wave pattern with gradient */}
+                      <div className="relative h-12 overflow-hidden">
+                        <svg 
+                          className="absolute top-0 left-0 w-full" 
+                          viewBox="0 0 1200 50" 
+                          preserveAspectRatio="none"
+                          style={{ height: "50px" }}
                           stroke="none"
-                        />
-                      </svg>
-                      
-                      {/* Category badge */}
-                      {firstArticle.category && (
-                        <div className="absolute top-2 left-4 z-10">
-                          <span className="px-2 py-1 rounded-full text-xs bg-background/90 text-foreground font-bold uppercase tracking-wider backdrop-blur-sm">
-                            {firstArticle.category}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Content area */}
-                    <div className="p-8 md:p-10 flex-grow flex flex-col">
-                      {/* Publication name */}
-                      <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">
-                        {firstArticle.publication}
-                      </span>
-                      
-                      {/* Headline - larger for featured */}
-                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-[var(--color-brand-purple)] group-hover:underline transition-colors flex-grow">
-                        {firstArticle.title}
-                      </h3>
-                      
-                      {/* Excerpt - more visible for featured */}
-                      {firstArticle.excerpt && (
-                        <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-                          {firstArticle.excerpt}
-                        </p>
-                      )}
-
-                      {/* Metadata */}
-                      <div className="mt-auto pt-4 border-t border-foreground/10">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Calendar className="w-4 h-4" aria-hidden="true" />
-                            <span className="font-medium">
-                              {new Date(firstArticle.date).toLocaleDateString("en-US", {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              })}
+                          aria-hidden="true"
+                        >
+                          <defs>
+                            <linearGradient id="pressFeaturedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
+                              <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
+                              <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
+                            </linearGradient>
+                          </defs>
+                          <path 
+                            d="M0,25 Q300,5 600,25 T1200,25 L1200,0 L0,0 Z" 
+                            fill="url(#pressFeaturedGradient)"
+                            stroke="none"
+                          />
+                        </svg>
+                        
+                        {/* Category badge */}
+                        {firstArticle.category && (
+                          <div className="absolute top-2 left-4 z-10">
+                            <span className="px-2 py-1 rounded-full text-xs bg-background/90 text-foreground font-bold uppercase tracking-wider backdrop-blur-sm">
+                              {firstArticle.category}
                             </span>
                           </div>
-                          <div className="flex items-center gap-2 text-sm text-[var(--color-brand-purple)] group-hover:text-[var(--color-action-hover)] transition-colors">
-                            <span className="font-medium">Read article</span>
-                            <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" aria-hidden="true" />
+                        )}
+                      </div>
+                      
+                      {/* Content area */}
+                      <div className="p-8 md:p-10 flex-grow flex flex-col">
+                        {/* Publication name */}
+                        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-4">
+                          {firstArticle.publication}
+                        </span>
+                        
+                        {/* Headline - larger for featured */}
+                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground mb-4 leading-[0.95] tracking-tight group-hover:text-[var(--color-brand-purple)] group-hover:underline transition-colors flex-grow">
+                          {firstArticle.title}
+                        </h3>
+                        
+                        {/* Expandable Excerpt - Mobile Only */}
+                        <div className="md:hidden">
+                          <div
+                            id={`press-content-0`}
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                              isExpanded ? 'max-h-[500px] opacity-100 mb-4' : 'max-h-0 opacity-0'
+                            }`}
+                          >
+                            {firstArticle.excerpt && (
+                              <p className="text-base leading-relaxed text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                                {firstArticle.excerpt}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Desktop Excerpt - Always Visible */}
+                        {firstArticle.excerpt && (
+                          <div className="hidden md:block">
+                            <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+                              {firstArticle.excerpt}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Metadata */}
+                        <div className="mt-auto pt-4 border-t border-foreground/10">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <Calendar className="w-4 h-4" aria-hidden="true" />
+                              <span className="font-medium">
+                                {new Date(firstArticle.date).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-[var(--color-brand-purple)] group-hover:text-[var(--color-action-hover)] transition-colors">
+                              <span className="font-medium">Read article</span>
+                              <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" aria-hidden="true" />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </Link>
+
+                  {/* Expand/Collapse Button - Mobile Only */}
+                  <div className="md:hidden flex justify-end pr-2">
+                    <button
+                      onClick={() => toggleCard(0)}
+                      className="w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center hover:bg-foreground/90 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 mt-2 mb-4 pb-1"
+                      aria-expanded={isExpanded}
+                      aria-controls={`press-content-0`}
+                      aria-label={isExpanded ? "Collapse article details" : "Expand article details"}
+                    >
+                      {isExpanded ? (
+                        <ChevronUp className="w-5 h-5 transition-transform duration-300" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 transition-transform duration-300" />
+                      )}
+                    </button>
                   </div>
-                </Link>
+                </div>
               )}
             </div>
           )

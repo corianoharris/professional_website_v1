@@ -50,7 +50,7 @@ const fascinate = Fascinate({
 export const metadata: Metadata = {
   title: "Coriano Harris - Color Intent Technologist",
   description:
-    "Color intent is my voice. Strategy, UX, UI, code—my stage. Experiences people remember",
+    "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
   manifest: "/manifest.json",
   icons: {
     icon: [

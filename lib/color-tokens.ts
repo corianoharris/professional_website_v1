@@ -1,10 +1,10 @@
 /**
  * Intent-Based Color Design System Tokens
  * 
- * Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first whisper—
+ * Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first whisper-
  * evoking calm, understanding, and belonging in 0.05 seconds."
  * 
- * This system follows psychology before pixels—colors are organized by emotional intent,
+ * This system follows psychology before pixels-colors are organized by emotional intent,
  * not appearance. Each token represents a psychological purpose that drives user behavior
  * and creates measurable results.
  * 
