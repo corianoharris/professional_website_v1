@@ -76,16 +76,15 @@ export const metadata: Metadata = {
     description:
       "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
     images: [
-      { url: `${siteUrl}/web-app-manifest-512x512.png`, width: 512, height: 512, alt: "Coriano Harris" },
-      { url: `${siteUrl}/web-app-manifest-192x192.png`, width: 192, height: 192, alt: "Coriano Harris" },
+      { url: `${siteUrl}/og-image.png`, width: 1200, height: 630, alt: "Coriano Harris - Color Intent Technologist" },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Coriano Harris - Color Intent Technologist",
     description:
       "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
-    images: [`${siteUrl}/web-app-manifest-192x192.png`],
+    images: [`${siteUrl}/og-image.png`],
   },
   appleWebApp: {
     capable: true,
