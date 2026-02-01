@@ -77,9 +77,9 @@ export const moreNavigation: NavigationFolder = {
     },
     {
       id: "blog",
-      label: "Blog",
+      label: "Blogs",
       sectionId: "blog",
-      ariaLabel: "Navigate to Blog section",
+      ariaLabel: "Navigate to Blogs section",
     },
     {
       id: "press",

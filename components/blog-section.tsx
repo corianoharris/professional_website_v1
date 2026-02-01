@@ -175,7 +175,7 @@ export function BlogSection() {
           <div className={`grid gap-4 md:gap-6 max-w-6xl mx-auto ${remainingPosts.length === 0 ? 'md:grid-cols-1 max-w-2xl' : 'md:grid-cols-2'}`}>
             {/* Left Column: Large Featured Card */}
             {firstPost && (
-              <Link href={`/blog/${firstPost.slug}`} className={`${remainingPosts.length === 0 ? '' : 'md:row-span-2'} focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl`}>
+              <Link href={`/blog/${firstPost.slug}`} aria-label={`Read article: ${firstPost.title}`} className={`${remainingPosts.length === 0 ? '' : 'md:row-span-2'} focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl`}>
                 <div className="group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent hover:border-primary hover:border-double">
                   <div className="relative w-full h-48 md:h-[400px] overflow-hidden">
                     <img
@@ -186,9 +186,7 @@ export function BlogSection() {
                   </div>
                   <div className="p-6 md:p-10">
                     <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2 md:mb-3">{firstPost.date}</span>
-                    <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 leading-tight group-hover:text-primary transition-colors">
-                      {firstPost.title}
-                    </h3>
+                    <p className="text-muted-foreground text-sm md:text-base line-clamp-2">{firstPost.excerpt}</p>
                   </div>
                 </div>
               </Link>
@@ -197,7 +195,7 @@ export function BlogSection() {
             {/* Right Column: Smaller Cards */}
             <div className="flex flex-col gap-4 md:gap-6">
               {remainingPosts.map((post, index) => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl">
+                <Link key={post.id} href={`/blog/${post.slug}`} aria-label={`Read article: ${post.title}`} className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl">
                   <div className={`group cursor-pointer bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent ${
                     index === 0 
                       ? 'hover:border-accent hover:border-dashed' 
@@ -212,9 +210,7 @@ export function BlogSection() {
                     </div>
                     <div className="p-4 md:p-8">
                       <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2">{post.date}</span>
-                      <h3 className="text-lg md:text-2xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors">
-                        {post.title}
-                      </h3>
+                      <p className="text-muted-foreground text-sm line-clamp-2">{post.excerpt}</p>
                     </div>
                   </div>
                 </Link>
@@ -239,7 +235,7 @@ export function BlogSection() {
               const borderStyle = borderStyles[index % borderStyles.length]
               
               return (
-              <Link key={post.id} href={`/blog/${post.slug}`} className={`focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-1 md:row-span-2' : ''}`}>
+              <Link key={post.id} href={`/blog/${post.slug}`} aria-label={`Read article: ${post.title}`} className={`focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-1 md:row-span-2' : ''}`}>
                 <div className={`group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent ${borderStyle}`}>
                   <div className={`relative w-full overflow-hidden ${index === 0 ? 'h-48 md:h-[400px]' : 'h-40 md:h-48'}`}>
                     <img
@@ -250,9 +246,7 @@ export function BlogSection() {
                   </div>
                   <div className={`${index === 0 ? 'p-6 md:p-10' : 'p-4 md:p-8'}`}>
                     <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2">{post.date}</span>
-                    <h3 className={`${index === 0 ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'} font-bold mb-2 leading-tight group-hover:text-primary transition-colors`}>
-                      {post.title}
-                    </h3>
+                    <p className={`text-muted-foreground line-clamp-2 ${index === 0 ? 'text-sm md:text-base' : 'text-sm'}`}>{post.excerpt}</p>
                   </div>
                 </div>
               </Link>
