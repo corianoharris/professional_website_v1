@@ -47,27 +47,53 @@ const fascinate = Fascinate({
   variable: "--font-fascinate" 
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
+
 export const metadata: Metadata = {
   title: "Coriano Harris - Color Intent Technologist",
   description:
     "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
   manifest: "/manifest.json",
+  metadataBase: new URL(siteUrl),
   icons: {
     icon: [
-      {
-        url: "/favicon.svg",
-        type: "image/svg+xml",
-      },
-      {
-        url: "/my_logo.svg",
-        type: "image/svg+xml",
-      },
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon-dark-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/web-app-manifest-192x192.png", type: "image/png", sizes: "192x192" },
+      { url: "/web-app-manifest-512x512.png", type: "image/png", sizes: "512x512" },
     ],
-    apple: "/my_logo.svg",
+    apple: [
+      { url: "/apple-icon.png", type: "image/png" },
+      { url: "/web-app-manifest-192x192.png", type: "image/png", sizes: "192x192" },
+    ],
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "Coriano Harris",
+    title: "Coriano Harris - Color Intent Technologist",
+    description:
+      "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
+    images: [
+      { url: `${siteUrl}/web-app-manifest-512x512.png`, width: 512, height: 512, alt: "Coriano Harris" },
+      { url: `${siteUrl}/web-app-manifest-192x192.png`, width: 192, height: 192, alt: "Coriano Harris" },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Coriano Harris - Color Intent Technologist",
+    description:
+      "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
+    images: [`${siteUrl}/web-app-manifest-192x192.png`],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
+  },
+  other: {
+    "theme-color": "#7c3aed",
+    "msapplication-TileColor": "#7c3aed",
   },
 }
 
@@ -77,6 +103,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   viewportFit: "cover",
+  themeColor: "#7c3aed",
 }
 
 export default function RootLayout({
