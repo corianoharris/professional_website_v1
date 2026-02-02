@@ -68,24 +68,6 @@ export const metadata: Metadata = {
       { url: "/web-app-manifest-192x192.png", type: "image/png", sizes: "192x192" },
     ],
   },
-  openGraph: {
-    type: "website",
-    url: siteUrl,
-    siteName: "Coriano Harris",
-    title: "Coriano Harris",
-    description:
-      "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
-    images: [
-      { url: `${siteUrl}/og-image.png`, width: 1200, height: 630, alt: "Coriano Harris - Color Intent Technologist" },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Coriano Harris",
-    description:
-      "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
-    images: [`${siteUrl}/og-image.png`],
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
