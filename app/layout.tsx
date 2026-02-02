@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Coriano Harris",
-    title: "Coriano Harris - Color Intent Technologist",
+    title: "Coriano Harris",
     description:
       "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
     images: [
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Coriano Harris - Color Intent Technologist",
+    title: "Coriano Harris",
     description:
       "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
     images: [`${siteUrl}/og-image.png`],
