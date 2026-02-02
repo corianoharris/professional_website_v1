@@ -192,17 +192,18 @@ export function AccessibilityControls() {
 
       {/* Accessibility Button */}
       <div className="relative">
-        {/* Popup Menu - positioned above the button */}
+        {/* Popup Menu - positioned above the button; on mobile: scrollable, max height so it doesn't get cut off */}
         <div
           ref={menuRef}
-          className={`absolute bottom-full right-0 mb-3 bg-card border-2 rounded-xl shadow-xl p-4 transition-all duration-300 ${
+          className={`absolute bottom-full right-0 left-0 sm:left-auto mb-3 w-[calc(100vw-2rem)] sm:w-auto sm:min-w-[240px] max-h-[70dvh] sm:max-h-[85dvh] overflow-y-auto overflow-x-hidden overscroll-contain rounded-xl border-2 border-border bg-card p-4 shadow-xl transition-all duration-300 [-webkit-overflow-scrolling:touch] ${
             isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
           }`}
           role="menu"
           aria-label="Accessibility settings menu"
           aria-hidden={!isOpen}
+          style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
         >
-          <div className="space-y-4 min-w-[240px]">
+          <div className="space-y-4 min-w-0">
             {/* Theme Toggle */}
             <div>
               <p className="text-sm font-medium mb-2">Theme</p>

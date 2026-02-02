@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter, Baloo_2, Space_Grotesk, Playfair_Display, Raleway, Cinzel_Decorative, Bungee, Monoton, Fascinate } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { MobileScrollFix } from "@/components/mobile-scroll-fix"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -93,7 +94,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="md:scroll-smooth" suppressHydrationWarning>
       <body
         className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} ${cinzelDecorative.variable} ${bungee.variable} ${monoton.variable} ${fascinate.variable} font-sans antialiased`}
         style={{
@@ -109,6 +110,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <ThemeProvider>
+          <MobileScrollFix />
           {children}
         </ThemeProvider>
         <Analytics />
