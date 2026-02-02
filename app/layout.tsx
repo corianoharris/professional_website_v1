@@ -51,13 +51,14 @@ const fascinate = Fascinate({
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 
 export const metadata: Metadata = {
-  title: "Coriano Harris - Color Intent Technologist",
+  title: "Coriano Harris",
   description:
-    "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember",
+    "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember. Color Intent Technologist.",
   manifest: "/manifest.json",
   metadataBase: new URL(siteUrl),
   icons: {
     icon: [
+      { url: "/favicon-tab.svg", type: "image/svg+xml", sizes: "any" },
       { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/icon-dark-32x32.png", type: "image/png", sizes: "32x32" },
@@ -95,6 +96,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="md:scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preload" href="/favicon.svg" as="image" />
+      </head>
       <body
         className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} ${cinzelDecorative.variable} ${bungee.variable} ${monoton.variable} ${fascinate.variable} font-sans antialiased`}
         style={{

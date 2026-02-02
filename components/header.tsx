@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun, Menu, X } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
@@ -211,11 +212,14 @@ export function Header() {
               aria-label="Go to homepage"
               className="flex items-center gap-2 sm:gap-3 text-base sm:text-xl font-bold tracking-tight text-foreground/90 dark:text-white/90 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
             >
-              <img 
-                src="/favicon.svg" 
-                alt="" 
+              <Image
+                src="/favicon.svg"
+                alt=""
+                width={32}
+                height={32}
+                priority
                 className="w-7 h-7 sm:w-8 sm:h-8 shrink-0"
-                aria-hidden="true"
+                aria-hidden
               />
               <span className="whitespace-nowrap">Coriano Harris</span>
             </button>
