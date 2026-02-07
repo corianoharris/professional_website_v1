@@ -265,7 +265,7 @@ export function HomepageAudio() {
         {/* Hidden audio element */}
         <audio
           ref={audioRef}
-          src="/audio/Visual-Spectrum.mp3"
+          src="/audio/Intent-Driven_Color_Technologist.mp3"
           preload="none"
           aria-label="Audio invitation message"
         />

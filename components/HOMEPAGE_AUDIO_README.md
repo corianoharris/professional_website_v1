@@ -183,7 +183,7 @@ COMPONENT HomepageAudio:
             TEXT: "Audio fading out..."
       
       AUDIO (hidden):
-        src: "/audio/Visual-Spectrum.mp3"
+        src: "/audio/Intent-Driven_Color_Technologist.mp3"
         preload: "none"
         ref: audioRef
 ```
@@ -250,7 +250,7 @@ components/
 - Tailwind CSS (styling)
 
 ### Audio File
-- **Path**: `/public/audio/Visual-Spectrum.mp3`
+- **Path**: `public/audio/Intent-Driven_Color_Technologist.mp3`
 - **Format**: MP3 (widely supported)
 - **Preload**: None (loads on user interaction)
 - **Duration**: Should be ~30 seconds or less (component fades out after 30 seconds)
