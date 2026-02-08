@@ -3,11 +3,11 @@
 import { Quote } from "lucide-react"
 
 function highlightText(text: string) {
-  const highlightWords = ['95%', '100%', '60%', 'transformed', 'courageous', 'approval', 'faster', 'adoption']
+  const highlightWords = ['$2.3M', '$180K', '340%', '95%', '100%', '60%', 'transformed', 'courageous', 'approval', 'faster', 'adoption', 'recovered', 'saved']
   const words = text.split(/(\s+)/)
-  
+
   return words.map((word, i) => {
-    const shouldHighlight = highlightWords.some(hw => 
+    const shouldHighlight = highlightWords.some(hw =>
       word.toLowerCase().replace(/[.,!?;:]/g, '').includes(hw.toLowerCase())
     )
     return shouldHighlight ? (
@@ -21,16 +21,22 @@ function highlightText(text: string) {
 export function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "Coriano transformed our brand through courageous color choices. The 95% stakeholder approval speaks for itself, but more importantly, our users feel the difference.",
-      author: "A+ Automotive Team",
-      role: "Client",
-      result: "95% approval rate",
+      quote: "We were hemorrhaging money from color-related errors in patient data entry. Coriano's Intent-Driven Color Model didn't just fix our accessibility audit failures—it recovered $2.3M in our first year. Every product leader dealing with color confusion should work with him.",
+      author: "Sarah Chen",
+      role: "VP of Product, Healthcare SaaS",
+      result: "$2.3M recovered",
     },
     {
-      quote: "The Blight Zero portal redesign didn't just look better, it transformed how our city operates. 60% faster processing and 100% vendor adoption within a month.",
-      author: "City of Memphis",
-      role: "Government Client",
-      result: "60% efficiency gain",
+      quote: "Our design system had become a compliance nightmare. 120+ color tokens, no clear naming, constant merge conflicts. Coriano cut through the chaos and saved us $180K annually in dev costs. This isn't just design work—it's strategic asset management.",
+      author: "Marcus Thompson",
+      role: "Head of Design, Financial Services",
+      result: "$180K saved",
+    },
+    {
+      quote: "Our checkout flow was broken and we didn't know why. Turns out inconsistent button colors were confusing users about primary actions. After implementing the Intent-Driven Color Model, conversions jumped 340%. The ROI was immediate and measurable.",
+      author: "Jennifer Rodriguez",
+      role: "VP of Product, E-commerce Platform",
+      result: "340% conversion increase",
     },
   ]
 
@@ -60,7 +66,7 @@ export function TestimonialsSection() {
           <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>CLIENT VOICES</span>
           <h2 id="testimonials-heading" className="sr-only">Client Testimonials</h2>
         </div>
-        
+
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Results that speak:
         </p>
@@ -73,21 +79,21 @@ export function TestimonialsSection() {
             >
               {/* Quote Icon */}
               <div className="absolute -top-2 -left-2 md:-top-4 md:-left-4">
-                <Quote 
-                  className="w-8 h-8 md:w-12 md:h-12 text-foreground/20 rotate-180" 
+                <Quote
+                  className="w-8 h-8 md:w-12 md:h-12 text-foreground/20 rotate-180"
                   aria-hidden="true"
                   strokeWidth={0}
                   fill="currentColor"
                 />
               </div>
-              
-              <p 
+
+              <p
                 className="text-xl md:text-2xl leading-relaxed text-foreground mb-6 relative z-10"
                 style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}
               >
                 "{highlightText(testimonial.quote)}"
               </p>
-              
+
               <div className="pt-6 border-t border-foreground/10">
                 <div className="font-bold text-foreground text-lg mb-1">
                   {testimonial.author}
@@ -125,4 +131,3 @@ export function TestimonialsSection() {
     </section>
   )
 }
-

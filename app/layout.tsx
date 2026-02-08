@@ -7,45 +7,45 @@ import { MobileScrollFix } from "@/components/mobile-scroll-fix"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const baloo2 = Baloo_2({ 
-  weight: ["400", "500", "600", "700", "800"], 
-  subsets: ["latin"], 
-  variable: "--font-baloo2" 
+const baloo2 = Baloo_2({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-baloo2"
 })
-const spaceGrotesk = Space_Grotesk({ 
-  weight: ["400", "500", "600", "700"], 
-  subsets: ["latin"], 
-  variable: "--font-space-grotesk" 
+const spaceGrotesk = Space_Grotesk({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-space-grotesk"
 })
-const playfairDisplay = Playfair_Display({ 
-  weight: ["400", "500", "600", "700", "800", "900"], 
-  subsets: ["latin"], 
-  variable: "--font-playfair" 
+const playfairDisplay = Playfair_Display({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-playfair"
 })
-const raleway = Raleway({ 
-  weight: ["400", "500", "600", "700", "800", "900"], 
-  subsets: ["latin"], 
-  variable: "--font-raleway" 
+const raleway = Raleway({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-raleway"
 })
-const cinzelDecorative = Cinzel_Decorative({ 
-  weight: ["400"], 
-  subsets: ["latin"], 
-  variable: "--font-cinzel-decorative" 
+const cinzelDecorative = Cinzel_Decorative({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-cinzel-decorative"
 })
-const bungee = Bungee({ 
-  weight: ["400"], 
-  subsets: ["latin"], 
-  variable: "--font-bungee" 
+const bungee = Bungee({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-bungee"
 })
-const monoton = Monoton({ 
-  weight: ["400"], 
-  subsets: ["latin"], 
-  variable: "--font-monoton" 
+const monoton = Monoton({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-monoton"
 })
-const fascinate = Fascinate({ 
-  weight: ["400"], 
-  subsets: ["latin"], 
-  variable: "--font-fascinate" 
+const fascinate = Fascinate({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--font-fascinate"
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
@@ -53,7 +53,7 @@ const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 export const metadata: Metadata = {
   title: "Coriano Harris",
   description:
-    "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember. Color Intent Technologist.",
+    "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember. Color Intent Technologist™.",
   manifest: "/manifest.json",
   metadataBase: new URL(siteUrl),
   icons: {

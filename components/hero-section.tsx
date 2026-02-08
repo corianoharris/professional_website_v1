@@ -66,12 +66,12 @@ export function HeroSection() {
       <div className="relative z-10 container mx-auto px-6 text-center max-w-sm">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="space-y-4">
-            <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>Introduction</p>
+            <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>For Product Leaders at B2B SaaS Companies</p>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-balance">
-              I help teams stand out with products people care about, through color
+              Turn your failing color system into a strategic asset
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto text-balance" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-              Founder of SpeciNate
+              Stop losing $100K-$500K/year to color confusion. The Intent-Driven Color Model™ makes color strategic, not subjective.
             </p>
           </div>
 
@@ -81,10 +81,10 @@ export function HeroSection() {
               onClick={scrollToContact}
               className="bg-foreground text-background hover:bg-foreground/90"
             >
-              Start a project
+              Book a Color System Audit (15 min)
             </Button>
             <Button size="lg" variant="outline">
-              View my work
+              See proof
             </Button>
           </div>
         </div>

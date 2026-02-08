@@ -22,28 +22,28 @@ export interface SocialLink {
 
 export const mainNavigation: NavigationItem[] = [
   {
-    id: "about",
-    label: "What I Believe",
-    sectionId: "about",
-    ariaLabel: "Navigate to What I Believe section",
-  },
-  {
-    id: "expertise",
-    label: "What I Do",
-    sectionId: "expertise",
-    ariaLabel: "Navigate to What I Do section",
-  },
-  {
     id: "portfolio",
-    label: "Outcomes",
+    label: "What I Deliver",
     sectionId: "portfolio",
-    ariaLabel: "Navigate to Outcomes section",
+    ariaLabel: "Navigate to What I Deliver section",
   },
   {
-    id: "engagement",
-    label: "Speaking",
-    sectionId: "engagement",
-    ariaLabel: "Navigate to Speaking section",
+    id: "services",
+    label: "Services",
+    sectionId: "services",
+    ariaLabel: "Navigate to Services section",
+  },
+  {
+    id: "roi-calculator",
+    label: "ROI Calculator",
+    sectionId: "roi-calculator",
+    ariaLabel: "Navigate to ROI Calculator section",
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    sectionId: "contact",
+    ariaLabel: "Navigate to Contact section",
   },
 ]
 
@@ -52,40 +52,22 @@ export const moreNavigation: NavigationFolder = {
   label: "More",
   items: [
     {
-      id: "services",
-      label: "Services",
-      sectionId: "services",
-      ariaLabel: "Navigate to Services section",
+      id: "qualifier",
+      label: "Is This For You?",
+      sectionId: "qualifier",
+      ariaLabel: "Navigate to Qualifier section",
     },
     {
-      id: "leadership",
-      label: "Leadership",
-      sectionId: "leadership",
-      ariaLabel: "Navigate to Leadership section",
+      id: "urgency",
+      label: "Costly Misjudgments",
+      sectionId: "urgency",
+      ariaLabel: "Navigate to Costly Misjudgments section",
     },
     {
-      id: "color-psychology",
-      label: "Color",
-      sectionId: "color-psychology",
-      ariaLabel: "Navigate to Color Psychology section",
-    },
-    {
-      id: "testimonials",
-      label: "Voices",
-      sectionId: "testimonials",
-      ariaLabel: "Navigate to Testimonials section",
-    },
-    {
-      id: "blog",
-      label: "Blogs",
-      sectionId: "blog",
-      ariaLabel: "Navigate to Blogs section",
-    },
-    {
-      id: "press",
-      label: "Press",
-      sectionId: "press",
-      ariaLabel: "Navigate to Press section",
+      id: "about",
+      label: "What I Believe",
+      sectionId: "about",
+      ariaLabel: "Navigate to What I Believe section",
     },
   ],
 }
@@ -116,4 +98,3 @@ export const socialLinks: SocialLink[] = [
     external: true,
   },
 ]
-

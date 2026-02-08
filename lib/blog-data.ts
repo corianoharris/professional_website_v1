@@ -493,7 +493,7 @@ type ColorTokens = typeof colors
 // Step 3: Create a helper type to get nested color paths
 // This is advanced TypeScript-it creates a union type of all possible color paths
 // Why this helps: You can now type-check color paths like 'action.primary' at compile time
-type ColorPath = 
+type ColorPath =
   | 'action.primary'
   | 'action.secondary'
   | 'text.heading'
@@ -594,7 +594,7 @@ The best color systems aren't just beautiful-they're scalable, accessible, and m
   {
     id: "7",
     slug: "color-intent-based-design-tokens",
-    title: "Color Intent-Based Design Tokens: Beyond Semantic Naming",
+    title: "Intent-Based Design Tokens: Beyond Semantic Naming",
     excerpt: "Semantic tokens tell you where. Intent tokens tell you why. Design with meaning, not just usage.",
     image: "/images/global-token.png",
     date: "January 25, 2026",
@@ -609,7 +609,7 @@ The best color systems aren't just beautiful-they're scalable, accessible, and m
       "When colors are organized by intent, designers and developers make better choices because they understand the 'why' behind each color"
     ],
     content: `
-# Color Intent-Based Design Tokens: Beyond Semantic Naming
+# Intent-Based Design Tokens: Beyond Semantic Naming
 
 Organize your **color system** by **psychological intent**, not just semantic purpose-build tokens that communicate emotion, action, and meaning.
 
@@ -829,9 +829,9 @@ const semanticColors = {
 const Button = ({ intent = 'courage', variant = 'create' }) => {
   // Direct intent access - designer chooses intent
   const backgroundColor = intentColors[intent][variant]
-  
+
   return (
-    <button 
+    <button
       style={{ backgroundColor }}
       className="px-4 py-2 rounded-lg text-white"
     >
@@ -844,9 +844,9 @@ const Button = ({ intent = 'courage', variant = 'create' }) => {
 const PrimaryButton = () => {
   // Semantic access - developer uses semantic token
   const backgroundColor = semanticColors.action.primary
-  
+
   return (
-    <button 
+    <button
       style={{ backgroundColor }}
       className="px-4 py-2 rounded-lg text-white"
     >

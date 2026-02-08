@@ -49,7 +49,7 @@ export function AIChat() {
   // Load chat-specific settings from localStorage
   useEffect(() => {
     const savedChatFontSize = localStorage.getItem("chatFontSize") as ChatFontSize | null
-    
+
     if (savedChatFontSize) setChatFontSize(savedChatFontSize)
   }, [])
 
@@ -132,7 +132,7 @@ export function AIChat() {
   // Apply chat-specific font size
   useEffect(() => {
     if (!chatContainerRef.current) return
-    
+
     const container = chatContainerRef.current
     container.classList.remove("chat-font-normal", "chat-font-large", "chat-font-extra-large")
     container.classList.add(`chat-font-${chatFontSize}`)
@@ -142,7 +142,7 @@ export function AIChat() {
   // Apply chat-specific high contrast
   useEffect(() => {
     if (!chatContainerRef.current) return
-    
+
     const container = chatContainerRef.current
     if (chatHighContrast) {
       container.classList.add("chat-high-contrast")
@@ -154,18 +154,18 @@ export function AIChat() {
 
   // Common emojis for quick selection
   const commonEmojis = [
-    '😊', '😄', '😁', '😆', '😅', '😂', '🤣', '😃', 
-    '😉', '😎', '🥳', '😍', '🤩', '😋', '😜', '🤪', 
-    '😝', '🤑', '🤗', '🤭', '🤫', '🤔', '🤐', '🤨', 
-    '😐', '😑', '😶', '😏', '😒', '🙄', '😬', '🤥', 
-    '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕', 
-    '🤢', '🤮', '🤧', '🥵', '🥶', '😵', '🤯', '🤠', 
-    '😇', '🤓', '🧐', '👍', '👎', '👌', '✌️', '🤞', 
-    '🤟', '🤘', '🤙', '👏', '🙌', '👐', '🤲', '🤝', 
-    '🙏', '✍️', '💪', '👀', '❤️', '🧡', '💛', '💚', 
-    '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️', '💕', 
-    '💞', '💓', '💗', '💖', '💘', '💝', '💟', '🔥', 
-    '⭐', '✨', '🎉', '🎊', '🎈', '🎁', '🏆', '🥇', 
+    '😊', '😄', '😁', '😆', '😅', '😂', '🤣', '😃',
+    '😉', '😎', '🥳', '😍', '🤩', '😋', '😜', '🤪',
+    '😝', '🤑', '🤗', '🤭', '🤫', '🤔', '🤐', '🤨',
+    '😐', '😑', '😶', '😏', '😒', '🙄', '😬', '🤥',
+    '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕',
+    '🤢', '🤮', '🤧', '🥵', '🥶', '😵', '🤯', '🤠',
+    '😇', '🤓', '🧐', '👍', '👎', '👌', '✌️', '🤞',
+    '🤟', '🤘', '🤙', '👏', '🙌', '👐', '🤲', '🤝',
+    '🙏', '✍️', '💪', '👀', '❤️', '🧡', '💛', '💚',
+    '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️', '💕',
+    '💞', '💓', '💗', '💖', '💘', '💝', '💟', '🔥',
+    '⭐', '✨', '🎉', '🎊', '🎈', '🎁', '🏆', '🥇',
     '✅', '❌', '⚠️', '💡', '🚀', '💯', '🎯', '⚡'
   ]
 
@@ -178,7 +178,7 @@ export function AIChat() {
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    
+
     // Announce new messages to screen readers
     if (messages.length > previousMessageCountRef.current) {
       const newMessage = messages[messages.length - 1]
@@ -242,24 +242,24 @@ export function AIChat() {
         setIsOpen(false)
       }
     }
-    
+
     if (isOpen) {
       // Prevent body scroll when modal is open (already handled in other useEffect, but keep for consistency)
       window.addEventListener('keydown', handleEscape)
-      
+
       // Focus trap
       const handleTab = (e: KeyboardEvent) => {
         if (e.key !== 'Tab') return
-        
+
         const focusableElements = chatContainerRef.current?.querySelectorAll(
           'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'
         ) as NodeListOf<HTMLElement>
-        
+
         if (!focusableElements || focusableElements.length === 0) return
-        
+
         const firstElement = focusableElements[0]
         const lastElement = focusableElements[focusableElements.length - 1]
-        
+
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {
             e.preventDefault()
@@ -272,9 +272,9 @@ export function AIChat() {
           }
         }
       }
-      
+
       chatContainerRef.current?.addEventListener('keydown', handleTab)
-      
+
       return () => {
         window.removeEventListener('keydown', handleEscape)
         chatContainerRef.current?.removeEventListener('keydown', handleTab)
@@ -325,18 +325,18 @@ export function AIChat() {
 
       setMessages(prev => [...prev, assistantMessage])
       setTypingMessage(fullResponse)
-      
+
       // Animate typing effect - reveal text character by character
       // This improves perceived performance on slower connections
       // Note: For very slow connections, consider implementing true streaming from the API
       let currentIndex = 0
       const typingSpeed = 15 // milliseconds per character (adjust for faster/slower - lower = faster)
-      
+
       // Clear any existing typing animation
       if (typingIntervalRef.current) {
         clearInterval(typingIntervalRef.current)
       }
-      
+
       const typingInterval = setInterval(() => {
         if (currentIndex < fullResponse.length) {
           const partialText = fullResponse.substring(0, currentIndex + 1)
@@ -355,7 +355,7 @@ export function AIChat() {
           setTypingMessage(null)
         }
       }, typingSpeed)
-      
+
       typingIntervalRef.current = typingInterval
     } catch (error) {
       console.error('Chat error:', error)
@@ -365,7 +365,7 @@ export function AIChat() {
         typingIntervalRef.current = null
       }
       setTypingMessage(null)
-      
+
       const errorMessage: Message = {
         role: 'assistant',
         content: "I'm sorry, I encountered an error. Please try again or contact Coriano directly at me@corianoharris.com"
@@ -424,18 +424,18 @@ export function AIChat() {
                 {/* Magazine Header */}
                 <div className="mb-6 text-center">
                   <div className="mb-4">
-                    <img 
-                      src="/images/chroma-icon.png" 
-                      alt="Chroma icon" 
+                    <img
+                      src="/images/chroma-icon.png"
+                      alt="Chroma icon"
                       className="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover"
                       style={{ objectPosition: "50% 30%" }}
                       aria-hidden="true"
                     />
                   </div>
                   <p className="text-xl md:text-2xl font-bold mb-3 flex items-center justify-center gap-2 flex-wrap">
-                    <span 
+                    <span
                       className="font-bold inline-block"
-                      style={{ 
+                      style={{
                         fontFamily: 'var(--font-baloo2), sans-serif',
                         color: 'var(--color-brand-purple)',
                         letterSpacing: '0.08em',
@@ -454,9 +454,9 @@ export function AIChat() {
                 {/* Magazine Content */}
                 <div className="mb-6">
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed text-center" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.7' }}>
-                    <span 
+                    <span
                       className="font-bold"
-                      style={{ 
+                      style={{
                         fontFamily: 'var(--font-baloo2), sans-serif',
                         color: 'var(--color-brand-purple)',
                         letterSpacing: '0.08em'
@@ -479,7 +479,7 @@ export function AIChat() {
                 </Button>
               </div>
               {/* Tooltip arrow pointing down to button */}
-              <div 
+              <div
                 className="absolute -bottom-1.5 left-6 w-3 h-3 bg-card border-r border-b border-[var(--color-brand-purple)]/20"
                 style={{ transform: 'translateX(-50%) rotate(45deg)' }}
               />
@@ -545,7 +545,7 @@ export function AIChat() {
           bottom: 0,
         }}
       >
-        <Card 
+        <Card
           ref={chatContainerRef}
           className="w-full h-full sm:h-auto sm:max-h-[80vh] sm:min-h-[500px] sm:max-w-md md:max-w-2xl sm:mx-auto flex flex-col shadow-2xl border pointer-events-auto animate-in fade-in-0 zoom-in-95 duration-200 bg-background overflow-hidden focus:outline-none rounded-lg"
           tabIndex={-1}
@@ -559,9 +559,9 @@ export function AIChat() {
             <div className="flex items-center gap-3 flex-1">
               <div className="flex-1 min-w-0">
                 <h2 id="ai-chat-title" className="text-lg font-semibold mb-1">
-                  Chat with <span 
+                  Chat with <span
                     className="font-bold"
-                    style={{ 
+                    style={{
                       fontFamily: 'var(--font-baloo2), sans-serif',
                       color: 'var(--color-brand-purple)',
                       letterSpacing: '0.08em'
@@ -569,7 +569,7 @@ export function AIChat() {
                   >Chroma</span>
                 </h2>
                 <p id="ai-chat-description" className="text-xs text-muted-foreground">
-                  • We're online
+                  • I'm online
                 </p>
               </div>
             </div>
@@ -648,7 +648,7 @@ export function AIChat() {
           </div>
 
           {/* Messages */}
-          <div 
+          <div
             className={`overflow-y-auto overflow-x-visible px-2 sm:px-0 py-2 sm:py-4 space-y-3 sm:space-y-4 bg-background flex-1 min-h-0`}
             role="log"
             aria-live="polite"
@@ -657,32 +657,32 @@ export function AIChat() {
           >
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground py-4 px-3 sm:py-8 sm:px-4">
-                <img 
-                  src="/images/chroma-icon.png" 
-                  alt="Chroma avatar" 
+                <img
+                  src="/images/chroma-icon.png"
+                  alt="Chroma avatar"
                   className="w-32 h-32 sm:w-40 sm:h-40 rounded-full mx-auto mb-4 sm:mb-8 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                 />
-                <h2 
+                <h2
                   className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-foreground"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
                 >
-                  Let's Dive Deeper with <span 
+                  Let's Dive Deeper with <span
                     className="font-bold"
-                    style={{ 
+                    style={{
                       fontFamily: 'var(--font-baloo2), sans-serif',
                       color: 'var(--color-brand-purple)',
                       letterSpacing: '0.08em'
                     }}
                   >Chroma</span>!
                 </h2>
-                <p 
+                <p
                   className="text-sm sm:text-base mb-4 sm:mb-8 max-w-lg mx-auto leading-relaxed"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
                 >
                   Chroma can guide you through Coriano's services, case studies, methodology, philosophy, and more. Ready to explore?
                 </p>
-                <p 
+                <p
                   className="text-sm sm:text-base font-semibold mb-4 sm:mb-8 max-w-lg mx-auto text-foreground"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
                 >
@@ -690,13 +690,13 @@ export function AIChat() {
                 </p>
                 <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-6 text-left max-w-lg mx-auto">
                   <div className="py-2 sm:py-3">
-                    <h3 
+                    <h3
                       className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Services
                     </h3>
-                    <p 
+                    <p
                       className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
@@ -704,27 +704,27 @@ export function AIChat() {
                     </p>
                   </div>
                   <div className="py-2 sm:py-3">
-                    <h3 
+                    <h3
                       className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Case Studies
                     </h3>
-                    <p 
+                    <p
                       className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
-                      See how he has helped brands like yours succeed with our design solutions.
+                      See how I've helped brands like yours succeed with strategic design solutions.
                     </p>
                   </div>
                   <div className="py-2 sm:py-3">
-                    <h3 
+                    <h3
                       className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Color Strategy
                     </h3>
-                    <p 
+                    <p
                       className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
@@ -732,13 +732,13 @@ export function AIChat() {
                     </p>
                   </div>
                   <div className="py-2 sm:py-3">
-                    <h3 
+                    <h3
                       className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
                       style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
                     >
                       Methodology
                     </h3>
-                    <p 
+                    <p
                       className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
                     >
@@ -760,9 +760,9 @@ export function AIChat() {
                 aria-label={message.role === 'user' ? 'Your message' : 'Chroma response'}
               >
                 {message.role === 'assistant' && (
-                  <img 
-                    src="/images/chroma-icon.png" 
-                    alt="Chroma avatar" 
+                  <img
+                    src="/images/chroma-icon.png"
+                    alt="Chroma avatar"
                     className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
                     style={{ objectPosition: "50% 30%" }}
                     aria-hidden="true"
@@ -803,15 +803,15 @@ export function AIChat() {
             ))}
 
             {isLoading && (
-              <div 
+              <div
                 className="flex items-start gap-2 justify-start pl-2"
                 role="status"
                 aria-live="polite"
                 aria-label="Chroma is typing"
               >
-                <img 
-                  src="/images/chroma-icon.png" 
-                  alt="Chroma avatar" 
+                <img
+                  src="/images/chroma-icon.png"
+                  alt="Chroma avatar"
                   className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
                   style={{ objectPosition: "50% 30%" }}
                   aria-hidden="true"
@@ -849,9 +849,9 @@ export function AIChat() {
                     Add emoji
                   </TooltipContent>
                 </Tooltip>
-                <PopoverContent 
-                  className="w-80 p-3 z-[200] bg-background border shadow-lg" 
-                  align="start" 
+                <PopoverContent
+                  className="w-80 p-3 z-[200] bg-background border shadow-lg"
+                  align="start"
                   side="top"
                   sideOffset={8}
                   onOpenAutoFocus={(e) => e.preventDefault()}
@@ -931,4 +931,3 @@ export function AIChat() {
     </>
   )
 }
-
