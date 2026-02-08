@@ -84,7 +84,7 @@ In a world of ordinary products, be remarkable. Be boldly distinctive: impossibl
 
 ## The Remarkable Standout Principle
 
-Seth Godin taught us that remarkable products ==stand out so boldly==-you can't help but notice them, talk about them, remember them. ==Color is your bold distinction==. It's your product's personality. Without it, you're just another gray blob in a sea of gray blobs. Exciting stuff.
+Remarkable products ==stand out so boldly==-you can't help but notice them, talk about them, remember them. ==Color is your bold distinction==. It's your product's personality. Without it, you're just another gray blob in a sea of gray blobs. Exciting stuff.
 
 ## Courage Over Comfort
 

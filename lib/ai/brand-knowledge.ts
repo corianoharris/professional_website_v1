@@ -94,7 +94,7 @@ Most fail because they armor up with safe generics - skipping vulnerability, aim
     source: 'website',
     content: `Smallest Viable Audience (SVA) & Ideal Client Profile
 
-Based on Seth Godin's principles, I serve a specific audience:
+I serve a specific audience:
 
 WHO: Product leaders at B2B SaaS companies
 - VP of Product, Head of Design, CPO, Design Directors
