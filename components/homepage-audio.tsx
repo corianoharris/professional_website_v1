@@ -1,11 +1,9 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Play, Pause, Volume2, FileText } from "lucide-react"
+import { Play, Pause } from "lucide-react"
 import { Button } from "./ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "./ui/tooltip"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { cn } from "@/lib/utils"
 
 /**
@@ -19,12 +17,14 @@ import { cn } from "@/lib/utils"
  * - No cookies, localStorage, or tracking
  * - Song plays in full and fades out at the end
  * - Accessible (keyboard + screen readers)
- * - Includes visible transcript toggle
  * - Never blocks scrolling or primary CTAs
+ *
+ * Variants:
+ * - floating: fixed bottom-left (legacy)
+ * - hero: inline in hero section, bottom-right, subtle and supportive
  */
-export function HomepageAudio() {
+export function HomepageAudio({ variant = "floating" }: { variant?: "floating" | "hero" }) {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [showTranscript, setShowTranscript] = useState(false)
   const [isFading, setIsFading] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -162,105 +162,103 @@ export function HomepageAudio() {
     }
   }
 
-  // Transcript content - replace with actual transcript
-  const transcript = `Hi there! I'm Coriano Harris, and I'd love to connect with you. If you're interested in learning more about how I can work with you to create remarkable products, please reach out. Let's start a conversation.`
+  const isHero = variant === "hero"
 
   return (
     <TooltipProvider>
       <div
-        className="fixed bottom-24 sm:bottom-28 left-4 sm:left-6 z-40 flex flex-col gap-3"
+        className={cn(
+          isHero
+            ? "absolute bottom-6 right-6 md:bottom-8 md:right-8 z-20 flex items-center justify-end"
+            : "fixed bottom-24 sm:bottom-28 left-4 sm:left-6 z-40 flex flex-col gap-3"
+        )}
         role="complementary"
         aria-label="Audio invitation"
       >
-        {/* Mobile: Just a button */}
-        <Button
-          onClick={togglePlay}
-          onKeyDown={handleKeyDown}
-          size="lg"
-          variant="default"
-          className={cn(
-            "w-12 h-12 rounded-full shrink-0 sm:hidden",
-            isFading && "opacity-75"
-          )}
-          aria-label={isPlaying ? "Pause audio invitation" : "Play audio invitation"}
-          aria-pressed={isPlaying}
-        >
-          {isPlaying ? (
-            <Pause className="w-5 h-5" aria-hidden="true" />
-          ) : (
-            <Play className="w-5 h-5 ml-0.5" aria-hidden="true" />
-          )}
-        </Button>
-
-        {/* Desktop: Minimal button with popover for transcript */}
-        <div className="hidden sm:flex items-center gap-2">
-          <Tooltip delayDuration={200}>
+        {isHero ? (
+          /* Hero: single subtle button, bottom-right */
+          <Tooltip delayDuration={300}>
             <TooltipTrigger asChild>
-              <Button
+              <button
+                type="button"
                 onClick={togglePlay}
                 onKeyDown={handleKeyDown}
-                size="lg"
-                variant="outline"
                 className={cn(
-                  "w-12 h-12 rounded-full shrink-0 border-2 bg-background/80 backdrop-blur-sm transition-all",
-                  "hover:bg-background hover:scale-110 hover:shadow-lg",
-                  "active:scale-95",
-                  "text-foreground hover:text-foreground",
-                  isFading && "opacity-75"
+                  "w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-all duration-200",
+                  "bg-white/15 backdrop-blur-sm border border-white/25 text-white",
+                  "hover:bg-white/25 hover:border-white/40 hover:scale-105",
+                  "focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent",
+                  isFading && "opacity-70"
                 )}
-                aria-label={isPlaying ? "Pause audio invitation" : "Play audio invitation"}
+                aria-label={isPlaying ? "Pause audio" : "Play audio"}
                 aria-pressed={isPlaying}
               >
                 {isPlaying ? (
-                  <Pause className="w-5 h-5 text-foreground" aria-hidden="true" />
+                  <Pause className="w-4 h-4 md:w-5 md:h-5" aria-hidden="true" />
                 ) : (
-                  <Play className="w-5 h-5 ml-0.5 text-foreground" aria-hidden="true" />
+                  <Play className="w-4 h-4 md:w-5 md:h-5 ml-0.5" aria-hidden="true" />
                 )}
-              </Button>
+              </button>
             </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={8} className="!z-[300]">
-              <p className="text-sm">
-                Enjoy the soothing music
-              </p>
+            <TooltipContent side="left" sideOffset={8} className="!z-[300]">
+              <p className="text-sm">Listen while you explore</p>
             </TooltipContent>
           </Tooltip>
-
-          {/* Transcript button */}
-          <Popover>
-            <Tooltip delayDuration={200}>
-              <TooltipTrigger asChild>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="w-10 h-10 rounded-full border-2 bg-background/80 backdrop-blur-sm transition-all hover:bg-background hover:scale-110 hover:shadow-lg active:scale-95 text-foreground hover:text-foreground"
-                    aria-label="Show transcript"
-                  >
-                    <FileText className="w-4 h-4 text-foreground" aria-hidden="true" />
-                  </Button>
-                </PopoverTrigger>
-              </TooltipTrigger>
-              <TooltipContent side="right" sideOffset={8} className="!z-[300]">
-                <p className="text-sm">
-                  {isPlaying ? (isFading ? "Fading out..." : "Click to pause") : "Click to hear a brief message"}
-                </p>
-              </TooltipContent>
-            </Tooltip>
-            <PopoverContent
-              side="right"
-              sideOffset={8}
-              align="end"
-              className="w-64 sm:w-80 !z-[300] -mt-2"
+        ) : (
+          <>
+            {/* Mobile: Just a button */}
+            <Button
+              onClick={togglePlay}
+              onKeyDown={handleKeyDown}
+              size="lg"
+              variant="default"
+              className={cn(
+                "w-12 h-12 rounded-full shrink-0 sm:hidden",
+                isFading && "opacity-75"
+              )}
+              aria-label={isPlaying ? "Pause audio invitation" : "Play audio invitation"}
+              aria-pressed={isPlaying}
             >
-              <div className="space-y-2">
-                <h3 className="text-sm font-semibold text-foreground">Transcript</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {transcript}
-                </p>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
+              {isPlaying ? (
+                <Pause className="w-5 h-5" aria-hidden="true" />
+              ) : (
+                <Play className="w-5 h-5 ml-0.5" aria-hidden="true" />
+              )}
+            </Button>
+
+            {/* Desktop: Play/pause button */}
+            <div className="hidden sm:flex items-center gap-2">
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={togglePlay}
+                    onKeyDown={handleKeyDown}
+                    size="lg"
+                    variant="outline"
+                    className={cn(
+                      "w-12 h-12 rounded-full shrink-0 border-2 bg-background/80 backdrop-blur-sm transition-all",
+                      "hover:bg-background hover:scale-110 hover:shadow-lg",
+                      "active:scale-95",
+                      "text-foreground hover:text-foreground",
+                      isFading && "opacity-75"
+                    )}
+                    aria-label={isPlaying ? "Pause audio invitation" : "Play audio invitation"}
+                    aria-pressed={isPlaying}
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5 text-foreground" aria-hidden="true" />
+                    ) : (
+                      <Play className="w-5 h-5 ml-0.5 text-foreground" aria-hidden="true" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right" sideOffset={8} className="!z-[300]">
+                  <p className="text-sm">Enjoy the soothing music</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </>
+        )}
 
         {/* Hidden audio element */}
         <audio

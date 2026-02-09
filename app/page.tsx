@@ -4,7 +4,6 @@ import { Footer } from "@/components/footer"
 import { AccessibilityControls } from "@/components/accessibility-controls"
 import { AIChat } from "@/components/ai-chat"
 import { AIChatProvider } from "@/components/ai-chat-context"
-import { HomepageAudio } from "@/components/homepage-audio"
 
 export default function Page() {
   return (
@@ -19,7 +18,6 @@ export default function Page() {
         </div>
         <AccessibilityControls />
         <AIChat />
-        <HomepageAudio />
       </main>
     </AIChatProvider>
   )

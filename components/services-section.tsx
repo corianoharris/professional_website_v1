@@ -114,7 +114,7 @@ export function ServicesSection() {
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          How I help you create remarkable products:
+          From "everyone picks their own blue" to one system everyone trusts. Here's how we get there.
         </p>
 
         {/* Services Grid */}

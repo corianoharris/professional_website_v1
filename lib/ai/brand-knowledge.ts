@@ -100,7 +100,7 @@ WHO: Product leaders at B2B SaaS companies
 - VP of Product, Head of Design, CPO, Design Directors
 - Annual Recurring Revenue (ARR): $5M-$100M
 - Company size: 50-500 employees
-- Has existing design system or color system (but it's broken)
+- Has existing design system or color system (but it's broken), or is scaling and needs one built from the ground up
 - Tech-savvy, data-driven decision makers
 
 THEIR PAIN POINTS:
@@ -127,7 +127,6 @@ WHY THEY CHOOSE ME:
 - Not just aesthetic work - strategic asset management
 
 NOT FOR:
-- Startups without existing design systems
 - Companies wanting just a "color refresh" or rebrand
 - Those who think color is purely creative work
 - Price shoppers looking for cheapest option

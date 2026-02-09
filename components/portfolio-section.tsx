@@ -20,27 +20,27 @@ export function PortfolioSection() {
   const outcomes = [
     {
       icon: TrendingUp,
-      title: "Healthcare SaaS: Recover $2M+ from color confusion",
-      description: <>When healthcare platforms experience accessibility failures, user errors in patient data entry lead to costly mistakes and compliance risks. The <span className="highlighter">Intent-Driven Color Model™</span> restructures bloated color systems (47+ inconsistent tokens) down to 12 semantic color intents. Expected outcome: $2M+ recovered annually from reduced errors, 89% decrease in UI-related support tickets, and passing WCAG 2.1 AA compliance on first attempt.</>,
+      title: "Healthcare SaaS: Could recover $2M+ from color confusion",
+      description: <>When healthcare platforms experience accessibility failures, user errors in patient data entry lead to costly mistakes and compliance risks. What if that bloated color system—dozens of tokens, no clear intent—could become a lean set of semantic color intents? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine fewer errors, fewer support tickets, and compliance that actually passes.</>,
       color: "bg-green-600",
       category: "color-system",
-      result: "Projected: $2M+ recovered",
+      result: "Potential outcome: $2M+ recovered",
     },
     {
       icon: Building2,
-      title: "Financial Services: Save $180K in development costs",
-      description: <>When fintech companies have 120+ <span className="highlighter">color</span> variables with no clear naming, dev teams spend 40% of sprint time resolving inconsistencies and merge conflicts. The <span className="highlighter">Intent-Driven Color Model™</span> creates a lean, semantic system that ends the chaos. Expected outcome: $180K saved annually in development costs, 65% reduction in design-to-dev handoff time, and zero color-related production bugs.</>,
+      title: "Financial Services: Could save $180K in development costs",
+      description: <>When fintech companies have 120+ <span className="highlighter">color</span> variables with no clear naming, dev teams spend 40% of sprint time resolving inconsistencies and merge conflicts. What if all those variables could speak one language—and handoff stopped eating the sprint? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine dev costs dropping and color-related bugs disappearing.</>,
       color: "bg-cyan-500",
       category: "color-system",
-      result: "Projected: $180K saved",
+      result: "Potential outcome: $180K saved",
     },
     {
       icon: TrendingUp,
-      title: "E-commerce Platform: 3x conversion in checkout flows",
-      description: <>When B2B marketplaces use inconsistent button colors, users get confused about primary actions. Cart abandonment skyrockets. Strategic <span className="highlighter">color psychology</span> creates intent-based hierarchy that removes confusion. Expected outcome: 3x increase in checkout completion, 52% decrease in "which button do I click?" support calls, and $890K+ additional Q1 revenue.</>,
+      title: "E-commerce Platform: Could 3x conversion in checkout flows",
+      description: <>When B2B marketplaces use inconsistent button colors, users get confused about primary actions. Cart abandonment skyrockets. What if every color had a job—and the next step was obvious? Strategic <span className="highlighter">color psychology</span> is built for that. Imagine checkout completion climbing and "which button?" support calls falling.</>,
       color: "bg-orange-500",
       category: "color-system",
-      result: "Projected: 3x conversion",
+      result: "Potential outcome: 3x conversion",
     },
   ]
 
@@ -80,12 +80,15 @@ export function PortfolioSection() {
 
       <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>WHAT I CAN DELIVER</span>
-          <h2 id="portfolio-heading" className="sr-only">Portfolio and Case Studies</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>WHO THIS COULD HELP</span>
+          <h2 id="portfolio-heading" className="sr-only">Example scenarios: who this could help and how</h2>
         </div>
 
-        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          Three scenarios. Real problems. Strategic solutions.
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-4 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+          Three ways it goes wrong. Three ways it could go right.
+        </p>
+        <p className="text-lg md:text-xl text-center text-muted-foreground/90 mb-12 max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+          Real problems. Here's how I could solve them.
         </p>
 
         {/* Table of Contents Style Layout - No Borders */}

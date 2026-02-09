@@ -5,7 +5,7 @@ import { Check, X } from "lucide-react"
 export function QualifierSection() {
   const benefits = [
     "You have a design system (but it's not working)",
-    "Startups without a design system yet",
+    "You're scaling and don't have a design system yet",
     "Color confusion is costing $100K+/year in support tickets",
     "Designers and engineers fight about every color choice",
     "You've failed accessibility audits or lost contracts",
@@ -17,6 +17,7 @@ export function QualifierSection() {
     "You just want a 'color refresh' or rebrand",
     "You think color is purely creative work",
     "You're looking for the cheapest option",
+    "You're not ready to invest in strategic transformation",
   ]
 
   return (
@@ -46,8 +47,11 @@ export function QualifierSection() {
           <h2 id="qualifier-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Is this for you?</h2>
         </div>
 
-        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-4 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           I work with specific people on specific problems.
+        </p>
+        <p className="text-lg md:text-xl text-center text-muted-foreground/90 mb-12 max-w-2xl mx-auto italic" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+          Some are in the first column. Some in the second. Which one are you?
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">

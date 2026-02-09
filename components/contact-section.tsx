@@ -253,7 +253,7 @@ export function ContactSection() {
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          Let's find solutions together:
+          What happens next is up to you.
         </p>
         
         <div className="mb-12 overflow-hidden md:overflow-visible">
