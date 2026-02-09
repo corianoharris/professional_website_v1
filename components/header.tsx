@@ -188,8 +188,8 @@ export function Header() {
     <header
       className={`fixed left-0 right-0 z-50 transition-all duration-300 overflow-visible ${
         scrolled 
-          ? "bg-background/80 dark:bg-gray-950 dark:backdrop-blur-2xl dark:backdrop-saturate-150 backdrop-blur-2xl backdrop-saturate-150 border-b border-foreground/10 dark:border-white/20" 
-          : "bg-background/60 dark:bg-gray-950 dark:backdrop-blur-xl dark:backdrop-saturate-150 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/5 dark:border-white/15"
+          ? "bg-background/95 dark:bg-gray-950/95 dark:backdrop-blur-2xl dark:backdrop-saturate-150 backdrop-blur-2xl backdrop-saturate-150 border-b border-foreground/10 dark:border-white/20" 
+          : "bg-background/92 dark:bg-gray-950/92 dark:backdrop-blur-xl dark:backdrop-saturate-150 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/5 dark:border-white/15"
       }`}
       style={{
         top: 0,
@@ -210,7 +210,7 @@ export function Header() {
                 }
               }}
               aria-label="Go to homepage"
-              className="flex items-center gap-2 sm:gap-3 text-base sm:text-xl font-bold tracking-tight text-foreground/90 dark:text-white/90 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
+              className="flex items-center gap-2 sm:gap-3 text-base sm:text-xl font-bold tracking-tight text-foreground dark:text-white hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md"
             >
               <Image
                 src="/favicon.svg"
@@ -277,7 +277,7 @@ export function Header() {
         <div
           ref={mobileMenuRef}
           id="mobile-menu"
-          className={`md:hidden fixed inset-x-0 bg-background/80 dark:bg-gray-950 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/10 dark:border-foreground/20 transition-all duration-300 z-50 ${
+          className={`md:hidden fixed inset-x-0 bg-background/98 dark:bg-gray-950/98 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/10 dark:border-foreground/20 transition-all duration-300 z-50 ${
             mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
           }`}
           style={{

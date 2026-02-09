@@ -47,7 +47,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
             }
           }}
           aria-label="Close navigation menu"
-          className="p-2 text-foreground/90 dark:text-foreground/90 hover:text-foreground hover:bg-foreground/5 rounded-md transition-colors"
+          className="p-2 text-foreground dark:text-white hover:bg-foreground/10 rounded-md transition-colors"
         >
           <X className="w-6 h-6" aria-hidden="true" />
         </button>
@@ -69,7 +69,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           className={`text-base font-semibold transition-all duration-300 text-left py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
             activeSection === item.sectionId
               ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
-              : "text-foreground/95 dark:text-foreground/95 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+              : "text-foreground dark:text-white hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
           }`}
         >
           {item.label}
@@ -92,7 +92,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           className={`w-full text-base font-semibold transition-all duration-300 text-left py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 flex items-center justify-between ${
             moreNavigation.items.some(item => activeSection === item.sectionId)
               ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
-              : "text-foreground/95 dark:text-foreground/95 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+              : "text-foreground dark:text-white hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
           }`}
         >
           <span>{moreNavigation.label}</span>
@@ -121,7 +121,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
                 className={`w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
                   activeSection === item.sectionId
                     ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
-                    : "text-foreground/95 dark:text-foreground/95 font-semibold hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                    : "text-foreground dark:text-white font-semibold hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
                 }`}
               >
                 {item.label}
@@ -141,7 +141,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
                       rel={social.external ? "noopener noreferrer" : undefined}
                       role="menuitem"
                       aria-label={social.ariaLabel}
-                      className="w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 flex items-center gap-2 text-foreground/95 dark:text-foreground/95 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                      className="w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 flex items-center gap-2 text-foreground dark:text-white hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
                       onClick={() => onNavigate()}
                     >
                       {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}

@@ -54,7 +54,7 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
           className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
             activeSection === item.sectionId
               ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-semibold"
-              : "text-foreground/90 dark:text-white/90 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+              : "text-foreground dark:text-white hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
           }`}
         >
           {item.label}
@@ -94,7 +94,7 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
 
         {/* Dropdown Menu */}
         {moreOpen && (
-          <div className="absolute top-full left-0 mt-2 w-48 bg-background dark:bg-gray-950 border border-foreground/10 dark:border-foreground/20 rounded-lg shadow-lg py-2 z-50">
+          <div className="absolute top-full left-0 mt-2 w-48 bg-background/98 dark:bg-gray-950/98 backdrop-blur-md border border-foreground/10 dark:border-foreground/20 rounded-lg shadow-lg py-2 z-50">
             {moreNavigation.items.map((item) => (
               <button
                 key={item.id}
@@ -109,7 +109,7 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
                 className={`w-full text-left px-4 py-2 text-sm transition-colors ${
                   activeSection === item.sectionId
                     ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-semibold bg-[var(--color-brand-purple)]/10 dark:bg-[#a78bfa]/10"
-                    : "text-foreground/90 dark:text-white/90 hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                    : "text-foreground dark:text-white hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
                 }`}
               >
                 {item.label}
@@ -128,7 +128,7 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
                       target={social.external ? "_blank" : undefined}
                       rel={social.external ? "noopener noreferrer" : undefined}
                       aria-label={social.ariaLabel}
-                      className="w-full text-left px-4 py-2 text-sm transition-colors flex items-center gap-2 text-foreground/90 dark:text-white/90 hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                      className="w-full text-left px-4 py-2 text-sm transition-colors flex items-center gap-2 text-foreground dark:text-white hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
                     >
                       {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}
                       {social.label}

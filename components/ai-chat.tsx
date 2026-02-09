@@ -489,12 +489,12 @@ export function AIChat() {
             <button
               ref={buttonRef}
               onClick={() => setSmallModalOpen(!smallModalOpen)}
-              className="bg-[var(--color-brand-purple)] text-white rounded-full p-4 shadow-lg hover:bg-[var(--color-action-hover)] transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:ring-offset-2 animate-in fade-in-0 slide-in-from-bottom-4 duration-300 ring-2 ring-[var(--color-brand-purple)]/20"
+              className="bg-[var(--color-brand-purple)] text-white rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shadow-lg hover:bg-[var(--color-action-hover)] transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:ring-offset-2 animate-in fade-in-0 slide-in-from-bottom-4 duration-300 ring-2 ring-[var(--color-brand-purple)]/20"
               aria-label="Open Chroma menu"
               aria-expanded={smallModalOpen}
               aria-haspopup="dialog"
             >
-              <MessageCircle className={`w-6 h-6 transition-transform duration-300 ${smallModalOpen ? "scale-110" : ""}`} aria-hidden="true" />
+              <MessageCircle className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${smallModalOpen ? "scale-110" : ""}`} aria-hidden="true" />
               <span className="sr-only">Chat with Chroma</span>
             </button>
           </div>

@@ -170,13 +170,13 @@ export function AccessibilityControls() {
   }, [readingFocus])
 
   return (
-    <div className="fixed bottom-6 right-4 z-50 flex flex-col items-end gap-6">
+    <div className="fixed bottom-4 right-3 md:bottom-6 md:right-4 z-50 flex flex-col items-end gap-4 md:gap-6">
       {/* Scroll to Top Button */}
       <Button
         onClick={scrollToTop}
         size="lg"
         variant="outline"
-        className={`w-12 h-12 rounded-full shadow-lg border-2 !bg-white hover:!bg-white/90 !border-[var(--color-brand-purple)]/20 hover:!border-[var(--color-brand-purple)] dark:!bg-white dark:hover:!bg-white/90 dark:!border-[var(--color-brand-purple)]/20 dark:hover:!border-[var(--color-brand-purple)] group relative transition-all duration-300 ${
+        className={`w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg border-2 !bg-white hover:!bg-white/90 !border-[var(--color-brand-purple)]/20 hover:!border-[var(--color-brand-purple)] dark:!bg-white dark:hover:!bg-white/90 dark:!border-[var(--color-brand-purple)]/20 dark:hover:!border-[var(--color-brand-purple)] group relative transition-all duration-300 ${
           showScrollToTop
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-2 pointer-events-none"
@@ -184,7 +184,7 @@ export function AccessibilityControls() {
         aria-label="Back to top"
         title="Scroll to the top of the page"
       >
-        <ArrowUp className="w-5 h-5 !text-[var(--color-brand-purple)] dark:!text-[var(--color-brand-purple)]" />
+        <ArrowUp className="w-4 h-4 md:w-5 md:h-5 !text-[var(--color-brand-purple)] dark:!text-[var(--color-brand-purple)]" />
         <span className="absolute right-full mr-3 !bg-black !text-white dark:!bg-black dark:!text-white px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           Back to Top
         </span>
@@ -192,10 +192,10 @@ export function AccessibilityControls() {
 
       {/* Accessibility Button */}
       <div className="relative">
-        {/* Popup Menu - positioned above the button; on mobile: scrollable, max height so it doesn't get cut off */}
+        {/* Popup Menu - above the button; on mobile: right-aligned, compact width */}
         <div
           ref={menuRef}
-          className={`absolute bottom-full right-0 left-0 sm:left-auto mb-3 w-[calc(100vw-2rem)] sm:w-auto sm:min-w-[240px] max-h-[70dvh] sm:max-h-[85dvh] overflow-y-auto overflow-x-hidden overscroll-contain rounded-xl border-2 border-border bg-card p-4 shadow-xl transition-all duration-300 [-webkit-overflow-scrolling:touch] ${
+          className={`absolute bottom-full right-0 left-auto mb-3 w-[260px] max-w-[calc(100vw-2rem)] sm:w-auto sm:min-w-[240px] max-h-[55dvh] sm:max-h-[85dvh] overflow-y-auto overflow-x-hidden overscroll-contain rounded-xl border-2 border-border bg-card p-3 sm:p-4 shadow-xl transition-all duration-300 [-webkit-overflow-scrolling:touch] ${
             isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
           }`}
           role="menu"
@@ -203,14 +203,15 @@ export function AccessibilityControls() {
           aria-hidden={!isOpen}
           style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
         >
-          <div className="space-y-4 min-w-0">
+          <div className="space-y-3 sm:space-y-4 min-w-0">
             {/* Theme Toggle */}
             <div>
-              <p className="text-sm font-medium mb-2">Theme</p>
+              <p className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Theme</p>
               <Button 
                 onClick={toggleTheme} 
                 variant="outline" 
-                className="w-full justify-start bg-transparent"
+                size="sm"
+                className="w-full justify-start bg-transparent h-8 sm:h-9"
                 title={theme === "light" ? "Switch to dark theme (Midnight)" : "Switch to light theme (Sunshine)"}
               >
                 {theme === "light" ? <Sun className="w-4 h-4 mr-2" /> : <Moon className="w-4 h-4 mr-2" />}
@@ -220,8 +221,8 @@ export function AccessibilityControls() {
 
             {/* Font Size */}
             <div>
-              <p className="text-sm font-medium mb-2">Font Size</p>
-              <div className="space-y-2">
+              <p className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Font Size</p>
+              <div className="space-y-1.5 sm:space-y-2">
                 <Button
                   onClick={() => setFontSize("normal")}
                   variant={fontSize === "normal" ? "default" : "outline"}
@@ -257,11 +258,12 @@ export function AccessibilityControls() {
 
             {/* Animations */}
             <div>
-              <p className="text-sm font-medium mb-2">Animations</p>
+              <p className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Animations</p>
               <Button 
                 onClick={toggleAnimations} 
                 variant="outline" 
-                className="w-full justify-start bg-transparent"
+                size="sm"
+                className="w-full justify-start bg-transparent h-8 sm:h-9"
                 title={animationsEnabled ? "Disable animations and transitions for reduced motion" : "Enable animations and transitions"}
               >
                 {animationsEnabled ? <Zap className="w-4 h-4 mr-2" /> : <ZapOff className="w-4 h-4 mr-2" />}
@@ -271,11 +273,12 @@ export function AccessibilityControls() {
 
             {/* High Contrast */}
             <div>
-              <p className="text-sm font-medium mb-2">High Contrast</p>
+              <p className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">High Contrast</p>
               <Button 
-                onClick={toggleHighContrast} 
+                onClick={toggleHighContrast}
+                size="sm"
                 variant={highContrast ? "default" : "outline"} 
-                className={`w-full justify-start ${
+                className={`h-8 sm:h-9 w-full justify-start ${
                   highContrast 
                     ? "!bg-primary !text-primary-foreground hover:!bg-primary/90 hover:!text-primary-foreground dark:hover:!bg-primary/80 dark:hover:!text-primary-foreground border-2 !border-primary" 
                     : "bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent dark:hover:text-accent-foreground border-2"
@@ -290,11 +293,12 @@ export function AccessibilityControls() {
 
             {/* Reading Focus */}
             <div>
-              <p className="text-sm font-medium mb-2">Reading Focus</p>
+              <p className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">Reading Focus</p>
               <Button 
-                onClick={toggleReadingFocus} 
+                onClick={toggleReadingFocus}
+                size="sm"
                 variant={readingFocus ? "default" : "outline"} 
-                className={`w-full justify-start ${
+                className={`h-8 sm:h-9 w-full justify-start ${
                   readingFocus 
                     ? "!bg-primary !text-primary-foreground hover:!bg-primary/90 hover:!text-primary-foreground dark:hover:!bg-primary/80 dark:hover:!text-primary-foreground border-2 !border-primary" 
                     : "bg-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent dark:hover:text-accent-foreground border-2"
@@ -313,13 +317,13 @@ export function AccessibilityControls() {
           ref={buttonRef}
           onClick={() => setIsOpen(!isOpen)}
           size="lg"
-          className="w-12 h-12 md:w-16 md:h-16 rounded-full shadow-2xl bg-primary hover:bg-primary/90 group relative ring-2 ring-primary/20"
+          className="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-2xl bg-primary hover:bg-primary/90 group relative ring-2 ring-primary/20"
           aria-label="Accessibility settings"
           aria-expanded={isOpen}
           aria-haspopup="menu"
           title={isOpen ? "Close accessibility settings menu" : "Open accessibility settings menu"}
         >
-          <Accessibility className="!w-6 !h-6 md:!w-9 md:!h-9" />
+          <Accessibility className="!w-5 !h-5 md:!w-6 md:!h-6" />
           <span className="absolute right-full mr-3 bg-foreground text-background px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             Accessibility
           </span>

@@ -1,6 +1,7 @@
 "use client"
 
 import { AboutSection } from "@/components/about-section"
+import { BlogSection } from "@/components/blog-section"
 import { ServicesSection } from "@/components/services-section"
 import { PortfolioSection } from "@/components/portfolio-section"
 import { ContactSection } from "@/components/contact-section"
@@ -55,6 +56,7 @@ export function HeroWithContent() {
           <UrgencySection />
           <QualifierSection />
           <RoiCalculatorSection />
+          <BlogSection />
           <ContactSection />
           <AboutSection />
         </div>

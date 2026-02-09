@@ -69,6 +69,12 @@ export const moreNavigation: NavigationFolder = {
       sectionId: "about",
       ariaLabel: "Navigate to What I Believe section",
     },
+    {
+      id: "blog",
+      label: "Blog",
+      sectionId: "blog",
+      ariaLabel: "Navigate to Blog section",
+    },
   ],
 }
 
