@@ -14,7 +14,7 @@ export function HeroWithContent() {
   return (
     <section className="relative mt-7 overflow-x-hidden md:overflow-x-visible">
       <div className="px-4 md:px-6 mt-24 overflow-x-hidden md:overflow-x-visible">
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[80vh] max-w-6xl mx-auto">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl min-h-[100dvh] md:min-h-0 md:h-[80vh] max-w-6xl mx-auto">
           <div className="absolute inset-0 z-0">
             <img
               src="/images/background-site-image.jpg"
@@ -23,7 +23,7 @@ export function HeroWithContent() {
               aria-hidden="true"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
-            <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-center justify-center text-white px-4 sm:px-6 md:pl-16 md:pr-12 lg:pl-20 lg:pr-16 pt-12 md:pt-16 pb-32 z-10 gap-8 md:gap-12 overflow-hidden">
+            <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-center justify-center text-white px-4 sm:px-6 md:pl-16 md:pr-12 lg:pl-20 lg:pr-16 pt-12 md:pt-16 pb-36 md:pb-32 z-10 gap-6 md:gap-12 overflow-y-auto overflow-x-hidden md:overflow-hidden">
               {/* Left side - Headline */}
               <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2 w-full px-2 sm:px-0 gap-4">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-balance leading-[1.1] max-w-4xl break-words">
