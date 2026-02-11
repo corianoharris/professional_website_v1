@@ -487,7 +487,7 @@ export function ContactSection() {
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
                   For your convenience: This form will automatically populate your email information, so you don't have to retype it in your email provider. It will open your default email client, and your information is never stored on this website. It's securely sent directly through your email provider.
                   <br /><br />
-                  If you'd prefer, you can also contact me directly via email: <a href="mailto:me@corianoharris.com" className="text-primary hover:underline font-semibold">me@corianoharris.com</a>.
+                  If you'd prefer, you can also contact me directly via email: <a href="mailto:me@corianoharris.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">me@corianoharris.com</a>.
                 </p>
               </div>
             </div>
@@ -526,7 +526,7 @@ export function ContactSection() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <Mail className="w-6 h-6 text-foreground" />
-                  <a href="mailto:me@corianoharris.com" className="text-base md:text-lg lg:text-xl font-semibold text-foreground hover:text-primary transition-colors">
+                  <a href="mailto:me@corianoharris.com" target="_blank" rel="noopener noreferrer" className="text-base md:text-lg lg:text-xl font-semibold text-foreground hover:text-primary transition-colors">
                     me@corianoharris.com
                   </a>
                 </div>
@@ -544,6 +544,8 @@ export function ContactSection() {
                           <a
                             key={index}
                             href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             aria-label={social.label}
                             className="w-12 h-12 rounded-full bg-background hover:bg-foreground hover:text-background hover:scale-110 hover:shadow-lg transition-all duration-300 flex items-center justify-center"
                           >

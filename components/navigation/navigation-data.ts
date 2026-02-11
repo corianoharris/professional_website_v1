@@ -93,7 +93,7 @@ export const socialLinks: SocialLink[] = [
     href: "mailto:me@corianoharris.com",
     ariaLabel: "Send email",
     icon: "Mail",
-    external: false,
+    external: true,
   },
   {
     id: "github",
