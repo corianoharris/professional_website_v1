@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Copy, Check } from "lucide-react"
-
-const QUOTE = "People decide who you're for before they read a single word. Color is that decision."
-const SOURCE = "Intent-Driven Color Model"
+import { Copy, Check, Quote } from "lucide-react"
+const QUOTE = "People decide who you are before they read a single word. Color is that decision."
+const SOURCE = "Coriano Harris"
 
 export function ShareableQuote() {
   const [copied, setCopied] = useState(false)
@@ -39,9 +38,12 @@ export function ShareableQuote() {
 
   return (
     <div className="rounded-xl p-6 md:p-8">
-      <blockquote className="text-lg md:text-xl font-medium text-muted-foreground italic mb-2">
-        &ldquo;{QUOTE}&rdquo;
-      </blockquote>
+      <div className="flex gap-3 items-start mb-4">
+        <Quote className="w-6 h-6 text-muted-foreground/40 flex-shrink-0 mt-1" aria-hidden />
+        <blockquote className="text-lg md:text-xl font-medium text-muted-foreground italic">
+          {QUOTE}
+        </blockquote>
+      </div>
       <p className="text-sm text-muted-foreground mb-4">{SOURCE}</p>
       <div className="flex gap-2">
         <button
