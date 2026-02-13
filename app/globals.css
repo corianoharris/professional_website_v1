@@ -4,26 +4,26 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette for vibrant creative portfolio with cyan, orange, and pink accents */
-  --background: oklch(0.98 0.01 120);
-  --foreground: oklch(0.15 0.02 270);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.02 270);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 270);
-  --primary: oklch(0.65 0.24 200);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.75 0.22 35);
-  --secondary-foreground: oklch(0.15 0.02 270);
-  --muted: oklch(0.95 0.01 270);
-  --muted-foreground: oklch(0.5 0.02 270);
+  /* Microsoft.ai-inspired: Primary blue (trust), secondary green (growth), neutral grays (clarity) */
+  --background: #ffffff;
+  --foreground: #333333;
+  --card: #ffffff;
+  --card-foreground: #333333;
+  --popover: #ffffff;
+  --popover-foreground: #333333;
+  --primary: #06b6d4;
+  --primary-foreground: #ffffff;
+  --secondary: #107C10;
+  --secondary-foreground: #ffffff;
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
   --accent: oklch(0.7 0.26 330);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0.01 270);
-  --input: oklch(0.9 0.01 270);
-  --ring: oklch(0.65 0.24 200);
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #06b6d4;
   --chart-1: oklch(0.65 0.24 200);
   --chart-2: oklch(0.75 0.22 35);
   --chart-3: oklch(0.7 0.26 330);
@@ -102,23 +102,52 @@
   /* Border colors - Maps to intent colors */
   --color-border-accent: var(--intent-attention);         /* Accent borders → attention */
 
-  /* Brand colors - Base palette for gradients and accents */
-  --color-brand-purple: #7c3aed;         /* Primary brand purple */
-  --color-brand-purple-hover: #a78bfa;  /* Lighter purple for dark mode */
-  --color-brand-purple-light: #a855f7;  /* Lighter purple variant */
-  --color-brand-cyan: #06b6d4;           /* Trust & Calm */
-  --color-brand-teal: #14b8a6;           /* Growth & Balance */
-  --color-brand-blue: #1e40af;           /* Focus & Precision */
-  --color-brand-blue-light: #3b82f6;     /* Lighter blue variant */
+  /* Brand colors - Microsoft.ai-inspired trust/energy palette */
+  --color-brand-primary: #06b6d4;       /* Trust - cyan */
+  --color-brand-primary-hover: #0891b2; /* Darker on hover */
+  --color-brand-secondary: #14b8a6;    /* Growth - teal */
+  --color-brand-purple: #7c3aed;       /* Belonging */
+  --color-brand-purple-hover: #6d28d9;
+  --color-brand-purple-light: #50E6FF;
+  --color-brand-cyan: #06b6d4;          /* Trust & Calm */
+  --color-brand-teal: #14b8a6;          /* Growth & Balance */
+  --color-brand-blue: #06b6d4;         /* Trust - cyan */
+  --color-brand-blue-light: #50E6FF;    /* Lighter blue variant */
   --color-brand-orange: #f97316;         /* Energy & Action */
   --color-brand-pink: #ec4899;           /* Pink accent */
   --color-brand-green: #22c55e;          /* Green accent */
   --color-brand-gray: #6b7280;           /* Gray neutral */
 
-  /* Gradient colors - Used in wave patterns and decorative elements */
-  --color-brand-gradient-start: #1e40af;   /* Blue - start of gradient */
-  --color-brand-gradient-middle: #7c3aed;  /* Purple - middle of gradient */
-  --color-brand-gradient-end: #14b8a6;     /* Teal - end of gradient */
+  /* Gradient colors - Intent spectrum (trust → growth → energy) */
+  --color-brand-gradient-start: #06b6d4;   /* Trust - cyan */
+  --color-brand-gradient-middle: #14b8a6;  /* Growth - teal */
+  --color-brand-gradient-end: #f97316;    /* Energy - orange */
+}
+
+/* Scroll fade-in animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 { animation-delay: 0.1s; }
+.animate-fade-in-delay-2 { animation-delay: 0.2s; }
+.animate-fade-in-delay-3 { animation-delay: 0.3s; }
+
+/* Color intent demo - hero animation */
+@keyframes color-intent-pulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
 .dark {
@@ -378,13 +407,20 @@
   textarea:focus {
     caret-width: 4px;
   }
-  /* Ensure html and body are scrollable on mobile (fix Chrome/Safari first-load scroll bug) */
+  /* Smooth scroll - soothing, calming flow */
   html {
     @apply overflow-x-hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     height: 100%;
     scroll-padding-top: 100px;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   body {
@@ -1039,6 +1075,102 @@
   animation-delay: 0.3s;
 }
 
+/* Microsoft AI-style section reveal - soothing, calming transitions */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-reveal.section-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-reveal .stagger-child {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-reveal.section-revealed .stagger-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Interactive card hover - Microsoft AI style */
+.interactive-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.15);
+}
+
+/* Smooth link underline */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--intent-trust);
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Hero entrance animation */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-animate {
+  animation: hero-fade-up 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hero-animate-delay-1 { animation-delay: 0.15s; opacity: 0; }
+.hero-animate-delay-2 { animation-delay: 0.3s; opacity: 0; }
+.hero-animate-delay-3 { animation-delay: 0.45s; opacity: 0; }
+.hero-animate-delay-4 { animation-delay: 0.6s; opacity: 0; }
+.hero-animate-delay-5 { animation-delay: 0.75s; opacity: 0; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal,
+  .section-reveal .stagger-child,
+  .hero-animate {
+    animation: none !important;
+    transition: none !important;
+  }
+  .section-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .section-reveal.section-revealed .stagger-child {
+    opacity: 1;
+    transform: none;
+  }
+  .interactive-card:hover {
+    transform: none;
+  }
+}
+
 /* Disable animations on wave pattern SVGs and all SVG elements */
 svg,
 svg path,
@@ -1063,22 +1195,23 @@ svg[viewBox*="1200"] stop {
   opacity: 1 !important;
 }
 
-/* Custom scrollbar styling */
+/* Custom scrollbar - soft, calming */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: oklch(0.95 0.01 270);
+  background: oklch(0.97 0.01 270);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.65 0.24 200);
-  border-radius: 5px;
+  background: oklch(0.7 0.15 200);
+  border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.55 0.24 200);
+  background: oklch(0.6 0.2 200);
 }
 
 /* Diagonal triangle background - black in light mode, white in dark mode - works on all screen sizes */
@@ -1128,15 +1261,15 @@ svg[viewBox*="1200"] stop {
   }
 }
 
-/* Highlighter effect for impactful words - available on all screen sizes */
+/* Highlighter effect for impactful words - intent spectrum (cyan/teal) */
 .highlighter {
-  background: linear-gradient(180deg, transparent 60%, #e9d5ff 60%);
+  background: linear-gradient(180deg, transparent 60%, rgba(6, 182, 212, 0.25) 60%);
   padding: 0 2px;
   display: inline;
 }
 
 .dark .highlighter {
-  background: linear-gradient(180deg, transparent 60%, #7c3aed 60%);
+  background: linear-gradient(180deg, transparent 60%, rgba(20, 184, 166, 0.35) 60%);
 }
 
 /* Article highlighter - yellow marker pen effect */

@@ -22,8 +22,9 @@ import { cn } from "@/lib/utils"
  * Variants:
  * - floating: fixed bottom-left (legacy)
  * - hero: inline in hero section, bottom-right, subtle and supportive
+ * - nav: center bottom of nav bar, half off (half sticks out below)
  */
-export function HomepageAudio({ variant = "floating" }: { variant?: "floating" | "hero" }) {
+export function HomepageAudio({ variant = "floating" }: { variant?: "floating" | "hero" | "nav" }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFading, setIsFading] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -163,19 +164,51 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
   }
 
   const isHero = variant === "hero"
+  const isNav = variant === "nav"
 
   return (
     <TooltipProvider>
       <div
         className={cn(
-          isHero
-            ? "absolute bottom-6 right-6 md:bottom-8 md:right-8 z-20 flex items-center justify-end"
-            : "fixed bottom-24 sm:bottom-28 left-4 sm:left-6 z-40 flex flex-col gap-3"
+          isNav
+            ? "absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-3/4 z-30 flex items-center justify-center"
+            : isHero
+              ? "absolute bottom-6 right-6 md:bottom-8 md:right-8 z-20 flex items-center justify-end"
+              : "fixed bottom-24 sm:bottom-28 left-4 sm:left-6 z-40 flex flex-col gap-3"
         )}
         role="complementary"
         aria-label="Audio invitation"
       >
-        {isHero ? (
+        {isNav ? (
+          /* Nav: center bottom, half off - matches nav bar styling */
+          <Tooltip delayDuration={300}>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                onClick={togglePlay}
+                onKeyDown={handleKeyDown}
+                className={cn(
+                  "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 shrink-0",
+                  "bg-[#f7f0e6] dark:bg-background border border-[#e8e0d5] dark:border-white/20 backdrop-blur-sm",
+                  "hover:bg-white dark:hover:bg-muted hover:scale-105 shadow-lg",
+                  "focus:outline-none focus:ring-2 focus:ring-[#06b6d4] focus:ring-offset-2",
+                  isFading && "opacity-70"
+                )}
+                aria-label={isPlaying ? "Pause audio" : "Play audio"}
+                aria-pressed={isPlaying}
+              >
+                {isPlaying ? (
+                  <Pause className="w-4 h-4 md:w-5 md:h-5 text-foreground" aria-hidden="true" />
+                ) : (
+                  <Play className="w-4 h-4 md:w-5 md:h-5 ml-0.5 text-foreground" aria-hidden="true" />
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" sideOffset={8} className="!z-[300]">
+              <p className="text-sm">Listen while you explore</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : isHero ? (
           /* Hero: single subtle button, bottom-right */
           <Tooltip delayDuration={300}>
             <TooltipTrigger asChild>
@@ -263,7 +296,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
         {/* Hidden audio element */}
         <audio
           ref={audioRef}
-          src="/audio/Intent-Driven_Color_Technologist.mp3"
+          src="/audio/Visual-Spectrum.mp3"
           preload="none"
           aria-label="Audio invitation message"
         />

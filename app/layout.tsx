@@ -51,9 +51,9 @@ const fascinate = Fascinate({
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 
 export const metadata: Metadata = {
-  title: "Coriano Harris",
+  title: "Coriano Harris | Color Intent Technologist",
   description:
-    "Color intent is my voice. Strategy, UX, UI, code, my stage. Experiences people remember. Color Intent Technologist™.",
+    "Color Intent Technologist. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. Intent-Driven Color Model™.",
   manifest: "/manifest.json",
   metadataBase: new URL(siteUrl),
   icons: {
@@ -75,8 +75,8 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
   other: {
-    "theme-color": "#7c3aed",
-    "msapplication-TileColor": "#7c3aed",
+    "theme-color": "#06b6d4",
+    "msapplication-TileColor": "#06b6d4",
   },
 }
 
@@ -86,7 +86,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   viewportFit: "cover",
-  themeColor: "#7c3aed",
+  themeColor: "#06b6d4",
 }
 
 export default function RootLayout({
@@ -102,9 +102,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} ${cinzelDecorative.variable} ${bungee.variable} ${monoton.variable} ${fascinate.variable} font-sans antialiased`}
         style={{
-          backgroundImage: "linear-gradient(45deg, #FFB3BA, #FFDFBA, #FFFFBA, #BAFFC9, #BAE1FF, #E1BAFF, #FFBAE1)",
-          backgroundSize: "400% 400%",
-          animation: "funGradient 15s ease infinite",
+          backgroundColor: "var(--background)",
         }}
       >
         <a

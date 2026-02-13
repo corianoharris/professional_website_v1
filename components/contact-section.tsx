@@ -227,7 +227,7 @@ export function ContactSection() {
         </AlertDialogContent>
       </AlertDialog>
 
-      <section id="contact" className="w-[95%] mx-auto md:w-full md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="contact-heading">
+      <section id="contact" className="section-reveal w-[95%] mx-auto md:w-full md:px-8 lg:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="contact-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -444,7 +444,7 @@ export function ContactSection() {
                       aria-describedby={errors.message ? "message-error" : "message-hint"}
                       aria-invalid={!!errors.message}
                       aria-required="true"
-                      className={`text-base md:text-xl lg:text-2xl py-4 md:py-6 px-4 md:px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors leading-relaxed resize-none bg-background w-full max-w-full ${
+                      className={`text-base md:text-xl lg:text-2xl py-4 md:py-6 px-4 md:px-6 border-2 border-foreground/30 hover:border-primary/50 focus:border-primary transition-colors leading-relaxed resize-y min-h-[200px] bg-background w-full max-w-full ${
                         errors.message ? "border-amber-500 focus:border-amber-500" : ""
                       }`}
                       style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}

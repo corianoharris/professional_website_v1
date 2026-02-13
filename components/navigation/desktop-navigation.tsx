@@ -1,16 +1,16 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, Linkedin, Mail, Github } from "lucide-react"
-import { mainNavigation, moreNavigation, socialLinks, type NavigationItem } from "./navigation-data"
+import { ChevronDown, Linkedin, Mail, Github, Search } from "lucide-react"
+import { primaryNav, mainNavigation, moreNavigation, socialLinks } from "./navigation-data"
 
 interface DesktopNavigationProps {
   activeSection: string
   scrollToSection: (id: string) => void
+  onSearchClick?: () => void
 }
 
-export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNavigationProps) {
+export function DesktopNavigation({ activeSection, scrollToSection, onSearchClick }: DesktopNavigationProps) {
   const [moreOpen, setMoreOpen] = useState(false)
   const moreRef = useRef<HTMLDivElement>(null)
 
@@ -37,7 +37,39 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
   }
 
   return (
-    <div className="hidden md:flex items-center gap-8">
+    <div className="hidden md:flex items-center gap-6 lg:gap-8">
+      {/* Microsoft.ai-style primary nav: Search, Explore, Latest */}
+      {primaryNav.map((item) => (
+        "action" in item && item.action === "search" ? (
+          <button
+            key={item.id}
+            onClick={onSearchClick}
+            aria-label={item.ariaLabel}
+            className="text-sm font-medium text-foreground hover:text-[#0078D4] transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#0078D4] focus:ring-offset-2 rounded-md px-2 py-1"
+          >
+            <Search className="w-4 h-4" aria-hidden />
+            {item.label}
+          </button>
+        ) : (
+          <button
+            key={item.id}
+            onClick={() => item.sectionId && handleNavClick(item.sectionId)}
+            aria-label={item.ariaLabel}
+            aria-current={activeSection === item.sectionId ? "page" : undefined}
+            className={`text-sm font-medium transition-colors relative focus:outline-none focus:ring-2 focus:ring-[#0078D4] focus:ring-offset-2 rounded-md px-2 py-1 ${
+              activeSection === item.sectionId
+                ? "text-[#0078D4] font-semibold"
+                : "text-foreground hover:text-[#0078D4]"
+            }`}
+          >
+            {item.label}
+            {activeSection === item.sectionId && (
+              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#0078D4]" aria-hidden />
+            )}
+          </button>
+        )
+      ))}
+      <span className="text-border w-px h-4" aria-hidden />
       {/* Main Navigation Items */}
       {mainNavigation.map((item) => (
         <button
@@ -51,15 +83,15 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
           }}
           aria-label={item.ariaLabel}
           aria-current={activeSection === item.sectionId ? "page" : undefined}
-          className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 ${
+          className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-[#0078D4] focus:ring-offset-2 rounded-md px-2 py-1 ${
             activeSection === item.sectionId
-              ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-semibold"
-              : "text-foreground dark:text-white hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+              ? "text-[#0078D4] font-semibold"
+              : "text-foreground hover:text-[#0078D4]"
           }`}
         >
           {item.label}
           {activeSection === item.sectionId && (
-            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--color-brand-purple)] dark:bg-[#a78bfa]" aria-hidden="true"></span>
+            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#0078D4]" aria-hidden="true"></span>
           )}
         </button>
       ))}
@@ -76,10 +108,10 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
           }}
           aria-label="More navigation options"
           aria-expanded={moreOpen}
-          className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-2 py-1 flex items-center gap-1 ${
+          className={`text-sm font-medium transition-all duration-300 relative focus:outline-none focus:ring-2 focus:ring-[#0078D4] focus:ring-offset-2 rounded-md px-2 py-1 flex items-center gap-1 ${
             moreNavigation.items.some(item => activeSection === item.sectionId)
-              ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-semibold"
-              : "text-foreground/90 dark:text-white/90 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+              ? "text-[#0078D4] font-semibold"
+              : "text-foreground/90 hover:text-[#0078D4]"
           }`}
         >
           {moreNavigation.label}
@@ -88,7 +120,7 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
             aria-hidden="true"
           />
           {moreNavigation.items.some(item => activeSection === item.sectionId) && (
-            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--color-brand-purple)] dark:bg-[#a78bfa]" aria-hidden="true"></span>
+            <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#0078D4]" aria-hidden="true"></span>
           )}
         </button>
 
@@ -108,8 +140,8 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
                 aria-label={item.ariaLabel}
                 className={`w-full text-left px-4 py-2 text-sm transition-colors ${
                   activeSection === item.sectionId
-                    ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-semibold bg-[var(--color-brand-purple)]/10 dark:bg-[#a78bfa]/10"
-                    : "text-foreground dark:text-white hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                    ? "text-[#0078D4] font-semibold bg-[#0078D4]/10"
+                    : "text-foreground hover:bg-foreground/5 hover:text-[#0078D4]"
                 }`}
               >
                 {item.label}
@@ -128,7 +160,7 @@ export function DesktopNavigation({ activeSection, scrollToSection }: DesktopNav
                       target={social.external ? "_blank" : undefined}
                       rel={social.external ? "noopener noreferrer" : undefined}
                       aria-label={social.ariaLabel}
-                      className="w-full text-left px-4 py-2 text-sm transition-colors flex items-center gap-2 text-foreground dark:text-white hover:bg-foreground/5 hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                      className="w-full text-left px-4 py-2 text-sm transition-colors flex items-center gap-2 text-foreground hover:bg-foreground/5 hover:text-[#0078D4]"
                     >
                       {IconComponent && <IconComponent className="w-4 h-4" aria-hidden="true" />}
                       {social.label}

@@ -1,22 +1,25 @@
 "use client"
 
 import { useState } from "react"
+import { Slider } from "@/components/ui/slider"
+import { MaiScrollSection } from "@/components/mai-scroll-section"
+import { Button } from "@/components/ui/button"
 
 export function RoiCalculatorSection() {
-  const [supportTickets, setSupportTickets] = useState("50")
-  const [avgResolutionTime, setAvgResolutionTime] = useState("30")
-  const [avgHourlyRate, setAvgHourlyRate] = useState("75")
-  const [monthlyUsers, setMonthlyUsers] = useState("10000")
-  const [conversionRate, setConversionRate] = useState("2")
-  const [avgDealValue, setAvgDealValue] = useState("5000")
+  const [supportTickets, setSupportTickets] = useState(50)
+  const [avgResolutionTime, setAvgResolutionTime] = useState(30)
+  const [avgHourlyRate, setAvgHourlyRate] = useState(75)
+  const [monthlyUsers, setMonthlyUsers] = useState(10000)
+  const [conversionRate, setConversionRate] = useState(2)
+  const [avgDealValue, setAvgDealValue] = useState(5000)
 
   const calculateROI = () => {
-    const tickets = parseFloat(supportTickets) || 0
-    const minutes = parseFloat(avgResolutionTime) || 0
-    const hourlyRate = parseFloat(avgHourlyRate) || 0
-    const users = parseFloat(monthlyUsers) || 0
-    const conversion = parseFloat(conversionRate) || 0
-    const dealValue = parseFloat(avgDealValue) || 0
+    const tickets = supportTickets
+    const minutes = avgResolutionTime
+    const hourlyRate = avgHourlyRate
+    const users = monthlyUsers
+    const conversion = conversionRate
+    const dealValue = avgDealValue
 
     // Support ticket costs (monthly)
     const hoursSpent = (tickets * minutes) / 60
@@ -53,80 +56,68 @@ export function RoiCalculatorSection() {
   }
 
   return (
-    <section id="roi-calculator" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative">
-      {/* Top wave pattern */}
-      <svg
-        className="absolute top-0 left-0 w-full"
-        viewBox="0 0 1200 80"
-        preserveAspectRatio="none"
-        style={{ height: "80px" }}
-        stroke="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="roiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="var(--color-brand-gradient-start)" />
-            <stop offset="50%" stopColor="var(--color-brand-gradient-middle)" />
-            <stop offset="100%" stopColor="var(--color-brand-gradient-end)" />
-          </linearGradient>
-        </defs>
-        <path d="M0,40 Q300,10 600,40 T1200,40 L1200,0 L0,0 Z" fill="url(#roiGradient)" stroke="none" />
-      </svg>
-
-      <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4">
-        <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>ROI CALCULATOR</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">How much is color <span className="highlighter">confusion</span> costing you?</h2>
-        </div>
-
-        <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          Most product leaders underestimate the financial impact. Enter your numbers to see the real cost.
-        </p>
-
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Left Column - Inputs */}
-          <div className="bg-card border border-border rounded-lg p-6 space-y-6">
-            <h3 className="text-xl font-semibold mb-4">Your Current Situation</h3>
+    <MaiScrollSection
+      id="roi-calculator"
+      title="How much is it costing you?"
+      subtitle="You probably don't know. Adjust the sliders. See the number."
+      variant="muted"
+    >
+      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {/* Left Column - Interactive Sliders + Inputs */}
+          <div className="rounded-xl border border-border bg-background p-6 space-y-6">
+            <h3 className="text-lg font-semibold mb-4">Your Current Situation</h3>
 
             <div>
-              <label htmlFor="supportTickets" className="block text-sm font-medium mb-2">
-                Color-related support tickets per month
-              </label>
-              <input
+              <div className="flex justify-between text-sm mb-2">
+                <label htmlFor="supportTickets" className="font-medium">
+                  Color-related support tickets/month
+                </label>
+                <span className="font-semibold text-[#14b8a6]">{supportTickets}</span>
+              </div>
+              <Slider
                 id="supportTickets"
-                type="number"
-                value={supportTickets}
-                onChange={(e) => setSupportTickets(e.target.value)}
-                className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="50"
+                min={10}
+                max={200}
+                step={5}
+                value={[supportTickets]}
+                onValueChange={([v]) => setSupportTickets(v)}
+                className="mb-2"
               />
             </div>
 
             <div>
-              <label htmlFor="avgResolutionTime" className="block text-sm font-medium mb-2">
-                Average resolution time (minutes)
-              </label>
-              <input
+              <div className="flex justify-between text-sm mb-2">
+                <label htmlFor="avgResolutionTime" className="font-medium">
+                  Avg resolution time (min)
+                </label>
+                <span className="font-semibold text-[#14b8a6]">{avgResolutionTime}</span>
+              </div>
+              <Slider
                 id="avgResolutionTime"
-                type="number"
-                value={avgResolutionTime}
-                onChange={(e) => setAvgResolutionTime(e.target.value)}
-                className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="30"
+                min={5}
+                max={120}
+                step={5}
+                value={[avgResolutionTime]}
+                onValueChange={([v]) => setAvgResolutionTime(v)}
+                className="mb-2"
               />
             </div>
 
             <div>
-              <label htmlFor="avgHourlyRate" className="block text-sm font-medium mb-2">
-                Average support hourly rate ($)
-              </label>
-              <input
+              <div className="flex justify-between text-sm mb-2">
+                <label htmlFor="avgHourlyRate" className="font-medium">
+                  Support hourly rate ($)
+                </label>
+                <span className="font-semibold text-[#14b8a6]">{avgHourlyRate}</span>
+              </div>
+              <Slider
                 id="avgHourlyRate"
-                type="number"
-                value={avgHourlyRate}
-                onChange={(e) => setAvgHourlyRate(e.target.value)}
-                className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="75"
+                min={25}
+                max={200}
+                step={5}
+                value={[avgHourlyRate]}
+                onValueChange={([v]) => setAvgHourlyRate(v)}
+                className="mb-2"
               />
             </div>
 
@@ -135,45 +126,50 @@ export function RoiCalculatorSection() {
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="monthlyUsers" className="block text-sm font-medium mb-2">
-                    Monthly active users
-                  </label>
-                  <input
+                  <div className="flex justify-between text-sm mb-2">
+                    <label htmlFor="monthlyUsers" className="font-medium">Monthly active users</label>
+                    <span className="font-semibold text-[#14b8a6]">{monthlyUsers.toLocaleString()}</span>
+                  </div>
+                  <Slider
                     id="monthlyUsers"
-                    type="number"
-                    value={monthlyUsers}
-                    onChange={(e) => setMonthlyUsers(e.target.value)}
-                    className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="10000"
+                    min={1000}
+                    max={100000}
+                    step={1000}
+                    value={[monthlyUsers]}
+                    onValueChange={([v]) => setMonthlyUsers(v)}
+                    className="mb-2"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="conversionRate" className="block text-sm font-medium mb-2">
-                    Current conversion rate (%)
-                  </label>
-                  <input
+                  <div className="flex justify-between text-sm mb-2">
+                    <label htmlFor="conversionRate" className="font-medium">Conversion rate (%)</label>
+                    <span className="font-semibold text-[#14b8a6]">{conversionRate}%</span>
+                  </div>
+                  <Slider
                     id="conversionRate"
-                    type="number"
-                    value={conversionRate}
-                    onChange={(e) => setConversionRate(e.target.value)}
-                    className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="2"
-                    step="0.1"
+                    min={0.5}
+                    max={10}
+                    step={0.1}
+                    value={[conversionRate]}
+                    onValueChange={([v]) => setConversionRate(v)}
+                    className="mb-2"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="avgDealValue" className="block text-sm font-medium mb-2">
-                    Average deal value ($)
-                  </label>
-                  <input
+                  <div className="flex justify-between text-sm mb-2">
+                    <label htmlFor="avgDealValue" className="font-medium">Avg deal value ($)</label>
+                    <span className="font-semibold text-[#14b8a6]">${avgDealValue.toLocaleString()}</span>
+                  </div>
+                  <Slider
                     id="avgDealValue"
-                    type="number"
-                    value={avgDealValue}
-                    onChange={(e) => setAvgDealValue(e.target.value)}
-                    className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="5000"
+                    min={500}
+                    max={50000}
+                    step={500}
+                    value={[avgDealValue]}
+                    onValueChange={([v]) => setAvgDealValue(v)}
+                    className="mb-2"
                   />
                 </div>
               </div>
@@ -181,23 +177,23 @@ export function RoiCalculatorSection() {
           </div>
 
           {/* Right Column - Results */}
-          <div className="space-y-6">
-            <div className="bg-destructive/10 border-2 border-destructive/50 rounded-lg p-6">
-              <h3 className="text-xl font-bold mb-4 text-destructive" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>Support Ticket Costs</h3>
+          <div className="space-y-4">
+            <div className="rounded-xl border border-border bg-background p-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Support Ticket Costs</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div className="flex justify-between">
                   <span>Monthly:</span>
                   <span className="font-semibold text-foreground">${roi.monthlySupportCost.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between border-t border-destructive/20 pt-2">
+                <div className="flex justify-between border-t border-border pt-2">
                   <span>Annual:</span>
                   <span className="font-semibold text-foreground">${roi.annualSupportCost.toLocaleString()}</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-orange-500/10 border-2 border-orange-500/50 rounded-lg p-6">
-              <h3 className="text-xl font-bold mb-2 text-orange-600 dark:text-orange-400" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>Lost Revenue Opportunity</h3>
+            <div className="rounded-xl border border-border bg-background p-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Lost Revenue Opportunity</h3>
               <p className="text-xs text-muted-foreground mb-3">
                 If clearer color increased conversion by just 1%
               </p>
@@ -206,30 +202,30 @@ export function RoiCalculatorSection() {
                   <span>Monthly:</span>
                   <span className="font-semibold text-foreground">${roi.monthlyOpportunityCost.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between border-t border-orange-500/20 pt-2">
+                <div className="flex justify-between border-t border-border pt-2">
                   <span>Annual:</span>
                   <span className="font-semibold text-foreground">${roi.annualOpportunityCost.toLocaleString()}</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-primary/10 border-2 border-primary rounded-lg p-6">
-              <h3 className="text-2xl font-bold mb-2" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>Total Annual Cost</h3>
-              <p className="text-4xl font-black text-primary mb-4">
+            <div className="rounded-xl border border-[#14b8a6]/40 bg-[#14b8a6]/5 dark:bg-[#14b8a6]/10 p-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#14b8a6] mb-2">Total Annual Cost</h3>
+              <p className="text-3xl font-bold text-[#14b8a6] mb-4 transition-all duration-300">
                 ${roi.totalAnnualCost.toLocaleString()}
               </p>
               <p className="text-sm text-muted-foreground mb-4">
                 This is what a broken color system costs you every year. And this is a <span className="font-semibold text-foreground">conservative</span> estimate.
               </p>
-              <button
+              <Button
                 onClick={scrollToContact}
-                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90 transition-colors"
+                className="w-full bg-[#f97316] hover:bg-[#ea580c] text-white"
               >
-                Book a 15-min Color System Audit
-              </button>
+                Book the 15-min Audit
+              </Button>
             </div>
 
-            <div className="bg-card border border-border rounded-lg p-4">
+            <div className="rounded-xl border border-border bg-background p-4">
               <p className="text-xs text-muted-foreground">
                 <span className="font-semibold text-foreground">Note:</span> This calculator uses industry averages. Your actual costs may be higher when factoring in developer time fighting color tokens, failed accessibility audits, and lost contracts.
               </p>
@@ -237,15 +233,9 @@ export function RoiCalculatorSection() {
           </div>
         </div>
 
-        <div className="mt-12 text-center max-w-3xl mx-auto">
-          <p className="text-lg md:text-xl text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-playfair), serif', fontStyle: 'italic' }}>
-            See those numbers? That's why my clients typically see 5-10x ROI in the first year.
-          </p>
-          <p className="text-xl md:text-2xl font-bold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-            The <span className="highlighter">Intent-Driven Color Model™</span> doesn't just fix symptoms. It eliminates the root cause.
-          </p>
-        </div>
-      </div>
-    </section>
+        <p className="mt-12 text-center text-lg font-semibold max-w-2xl mx-auto">
+          That number? It&apos;s real. The fix? It&apos;s real too. The <span className="highlighter">Intent-Driven Color Model™</span> doesn&apos;t paper over the problem. It eliminates it.
+        </p>
+      </MaiScrollSection>
   )
 }

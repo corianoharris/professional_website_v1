@@ -12,7 +12,7 @@ export function UrgencySection() {
     },
     {
       question: `"Users won't notice bad colors"`,
-      detail: "They won't tell you—they'll just leave. 67% of B2B buyers abandon apps with confusing interfaces.",
+      detail: "They won't tell you. They'll just leave. 67% of B2B buyers abandon apps with confusing interfaces.",
     },
     {
       question: `"This rebrand will be quick"`,
@@ -21,7 +21,7 @@ export function UrgencySection() {
   ]
 
   return (
-    <section className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative">
+    <section id="urgency" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -72,7 +72,7 @@ export function UrgencySection() {
             You're not alone. Every product leader at scaling B2B SaaS companies deals with this.
           </p>
           <p className="text-2xl md:text-3xl font-black" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-            The difference? They <span className="highlighter">act now</span>—before the board asks <span className="highlighter">why</span>.
+            The difference? They <span className="highlighter">act now</span>, before the board asks <span className="highlighter">why</span>.
           </p>
         </div>
       </div>

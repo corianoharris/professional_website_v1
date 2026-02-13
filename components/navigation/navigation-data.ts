@@ -20,6 +20,16 @@ export interface SocialLink {
   external?: boolean
 }
 
+/* Microsoft.ai-style primary nav: Search, Explore, Latest */
+export const primaryNav: Array<
+  | { id: string; label: string; action: "search"; ariaLabel: string }
+  | { id: string; label: string; sectionId: string; ariaLabel: string }
+> = [
+  { id: "search", label: "Search", action: "search", ariaLabel: "Open search / ask a question" },
+  { id: "explore", label: "Explore", sectionId: "portfolio", ariaLabel: "Explore solutions and services" },
+  { id: "latest", label: "Latest", sectionId: "blog", ariaLabel: "View latest articles" },
+]
+
 export const mainNavigation: NavigationItem[] = [
   {
     id: "portfolio",

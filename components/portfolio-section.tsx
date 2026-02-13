@@ -21,7 +21,7 @@ export function PortfolioSection() {
     {
       icon: TrendingUp,
       title: "Healthcare SaaS: Could recover $2M+ from color confusion",
-      description: <>When healthcare platforms experience accessibility failures, user errors in patient data entry lead to costly mistakes and compliance risks. What if that bloated color system—dozens of tokens, no clear intent—could become a lean set of semantic color intents? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine fewer errors, fewer support tickets, and compliance that actually passes.</>,
+      description: <>When healthcare platforms experience accessibility failures, user errors in patient data entry lead to costly mistakes and compliance risks. What if that bloated color system (dozens of tokens, no clear intent) could become a lean set of semantic color intents? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine fewer errors, fewer support tickets, and compliance that actually passes.</>,
       color: "bg-green-600",
       category: "color-system",
       result: "Potential outcome: $2M+ recovered",
@@ -29,7 +29,7 @@ export function PortfolioSection() {
     {
       icon: Building2,
       title: "Financial Services: Could save $180K in development costs",
-      description: <>When fintech companies have 120+ <span className="highlighter">color</span> variables with no clear naming, dev teams spend 40% of sprint time resolving inconsistencies and merge conflicts. What if all those variables could speak one language—and handoff stopped eating the sprint? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine dev costs dropping and color-related bugs disappearing.</>,
+      description: <>When fintech companies have 120+ <span className="highlighter">color</span> variables with no clear naming, dev teams spend 40% of sprint time resolving inconsistencies and merge conflicts. What if all those variables could speak one language, and handoff stopped eating the sprint? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine dev costs dropping and color-related bugs disappearing.</>,
       color: "bg-cyan-500",
       category: "color-system",
       result: "Potential outcome: $180K saved",
@@ -37,7 +37,7 @@ export function PortfolioSection() {
     {
       icon: TrendingUp,
       title: "E-commerce Platform: Could 3x conversion in checkout flows",
-      description: <>When B2B marketplaces use inconsistent button colors, users get confused about primary actions. Cart abandonment skyrockets. What if every color had a job—and the next step was obvious? Strategic <span className="highlighter">color psychology</span> is built for that. Imagine checkout completion climbing and "which button?" support calls falling.</>,
+      description: <>When B2B marketplaces use inconsistent button colors, users get confused about primary actions. Cart abandonment skyrockets. What if every color had a job, and the next step was obvious? Strategic <span className="highlighter">color psychology</span> is built for that. Imagine checkout completion climbing and "which button?" support calls falling.</>,
       color: "bg-orange-500",
       category: "color-system",
       result: "Potential outcome: 3x conversion",
@@ -58,7 +58,7 @@ export function PortfolioSection() {
   }
 
   return (
-    <section id="portfolio" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="portfolio-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"

@@ -25,7 +25,11 @@ interface Message {
 
 type ChatFontSize = "normal" | "large" | "extra-large"
 
-export function AIChat() {
+interface AIChatProps {
+  hideFloatingButton?: boolean
+}
+
+export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   const { isOpen, setIsOpen } = useAIChat()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
@@ -406,8 +410,8 @@ export function AIChat() {
 
   return (
     <>
-      {/* Chroma Button with Small Modal - Bottom Left */}
-      {!isOpen && (
+      {/* Chroma Button with Small Modal - Bottom Left (hidden when hideFloatingButton) */}
+      {!isOpen && !hideFloatingButton && (
         <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-50">
           <div className="relative">
             {/* Small Modal - positioned above the button */}
@@ -885,7 +889,7 @@ export function AIChat() {
                 onKeyDown={handleKeyDown}
                 placeholder="Enter message"
                 disabled={isLoading}
-                className="flex-1 min-h-[60px] max-h-[200px] resize-none"
+                className="flex-1 min-h-[60px] max-h-[200px] resize-y"
                 aria-label="Chat input"
                 aria-describedby="input-instructions"
                 aria-invalid="false"

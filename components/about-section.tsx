@@ -1,8 +1,9 @@
+import Image from "next/image"
 import { Quote } from "lucide-react"
 
 export function AboutSection() {
   return (
-    <section id="about" className="w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="about-heading">
+    <section id="about" className="section-reveal w-[95%] mx-auto md:w-full md:px-16 py-12 md:py-16 relative overflow-hidden md:overflow-visible" aria-labelledby="about-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -32,8 +33,21 @@ export function AboutSection() {
           Starting with why:
         </p>
 
-        {/* Quote-focused layout - Single column with large decorative quotes */}
+        {/* Quote-focused layout with photo */}
         <div className="relative max-w-5xl mx-auto md:overflow-visible">
+          {/* Photo - above or beside quote on larger screens */}
+          <div className="flex justify-center mb-8 md:mb-12">
+            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-4 ring-[#0078D4]/20 shadow-xl">
+              <Image
+                src="/images/my-image.jpg"
+                alt="Coriano Harris"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 128px, 160px"
+                priority
+              />
+            </div>
+          </div>
           {/* Main Quote with Large Decorative Quote Marks - Extends outside on desktop */}
           <div className="relative mb-12 md:mb-16 md:-ml-32 md:pl-32 md:-mr-32 md:pr-32" style={{ overflow: 'visible' }}>
             {/* Opening Quote Icon - Very Large */}
