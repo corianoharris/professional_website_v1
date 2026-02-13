@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { MaiScrollSection } from "@/components/mai-scroll-section"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
 
 const QUESTIONS = [
@@ -123,8 +122,6 @@ function scrollToContact() {
 export function SiteAuditScoreMai() {
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [submitted, setSubmitted] = useState(false)
-  const [email, setEmail] = useState("")
-  const [emailSubmitted, setEmailSubmitted] = useState(false)
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0)
   const maxScore = QUESTIONS.length * 2
@@ -136,8 +133,13 @@ export function SiteAuditScoreMai() {
     setAnswers((prev) => ({ ...prev, [questionId]: value }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     setSubmitted(true)
+    // Keep user in the current section by scrolling to the section top
+    setTimeout(() => {
+      document.getElementById("site-audit")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 50)
   }
 
   const handleReset = () => {
@@ -183,7 +185,7 @@ export function SiteAuditScoreMai() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-8 flex justify-center">
               <Button
                 onClick={handleSubmit}
                 disabled={!allAnswered}
@@ -192,11 +194,6 @@ export function SiteAuditScoreMai() {
                 Get my score
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              {allAnswered && (
-                <p className="text-sm text-muted-foreground self-center">
-                  {totalScore}/{maxScore} points
-                </p>
-              )}
             </div>
           </>
         ) : (
@@ -209,41 +206,7 @@ export function SiteAuditScoreMai() {
               <p className={`text-lg font-semibold uppercase tracking-wider ${color} mb-4`}>
                 {label}
               </p>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">{message}</p>
-
-              {/* Permission ladder: email for PDF before main CTA */}
-              {!emailSubmitted ? (
-                <div className="mb-6 p-4 rounded-lg border border-[#06b6d4]/30 bg-[#06b6d4]/5 dark:bg-[#06b6d4]/10">
-                  <p className="text-sm font-medium text-foreground mb-3">
-                    Get your score + 3 next steps as a PDF
-                  </p>
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      if (email.trim()) setEmailSubmitted(true)
-                    }}
-                    className="flex flex-col sm:flex-row gap-2"
-                  >
-                    <label htmlFor="site-audit-email" className="sr-only">
-                      Email address for PDF
-                    </label>
-                    <Input
-                      id="site-audit-email"
-                      type="email"
-                      placeholder="you@company.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="flex-1"
-                      required
-                    />
-                    <Button type="submit" variant="outline" className="border-[#06b6d4] text-[#06b6d4] hover:bg-[#06b6d4]/10">
-                      Send PDF
-                    </Button>
-                  </form>
-                </div>
-              ) : (
-                <p className="text-sm text-[#14b8a6] font-medium mb-6">Check your inbox. We&apos;ve sent it.</p>
-              )}
+              <p className="text-muted-foreground mb-8 max-w-md mx-auto">{message}</p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
