@@ -16,7 +16,7 @@ export function AboutMai() {
         <div className="relative order-2 md:order-1">
           <div className="relative aspect-[4/5] max-w-md mx-auto md:mx-0">
             <div className="absolute -inset-4 bg-gradient-to-br from-[#7c3aed]/20 via-[#06b6d4]/10 to-[#f97316]/20 rounded-3xl -z-10" />
-            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5">
+            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src="/images/my-image.jpg"
                 alt="Coriano Harris"
@@ -32,10 +32,13 @@ export function AboutMai() {
         {/* Content */}
         <div className="order-1 md:order-2 space-y-6 text-left">
           <p className="text-foreground text-lg leading-relaxed">
-            I&apos;m a <span className="highlighter">Color Intent Technologist</span>. I help product leaders stop bleeding money to color debt. Errors. Tickets. Rework. Lost conversions. Color isn&apos;t decoration. It&apos;s neuroscience.
+            I&apos;m the one who&apos;d stare at flower color patterns for hours in a botanical garden. So I get it. Color isn&apos;t decoration. It&apos;s what we notice first. What we trust. What we remember. I help product leaders stop bleeding money to color debt (errors, tickets, rework, lost conversions) because I&apos;ve seen what happens when color hides the truth. And when it doesn&apos;t.
+          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed italic">
+            When a product doesn&apos;t hide, people feel seen. They trust you. They choose you. That&apos;s worth fighting for.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            <span className="text-foreground font-medium">Real color systems build real trust.</span> When your product doesn&apos;t hide, people feel <span className="highlighter">seen</span>. They choose you. They tell others.
+            <span className="text-foreground font-medium">Real color systems build real trust.</span> Start with why. Be real. Build for the people who notice. Everyone benefits.
           </p>
 
           {/* Proof - badges */}
@@ -52,7 +55,7 @@ export function AboutMai() {
           </div>
 
           <p className="text-foreground text-lg leading-relaxed">
-            Start with why. Be real. Build for the one billion first. Everyone benefits. The Intent-Driven Color Model™. It works.
+            The Intent-Driven Color Model™. It works. Because it&apos;s built for people like us, the ones who notice.
           </p>
         </div>
       </div>

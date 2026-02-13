@@ -1,9 +1,11 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { MessageCircle, Moon, Sun, Menu, X, ChevronDown } from "lucide-react"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
+import { useIntentLanding } from "@/components/intent-landing-context"
+import { getIntentById, getSectionOrderForIntent, type IntentId, type SectionId } from "@/lib/intent-landing"
 import { ServicesMai, UrgencyMai, HowItWorksMai, ProofMai, QualifierMai, SiteAuditScoreMai, StoryMai, BlogMai, ContactMai, AboutMai } from "@/components/mai-sections"
 import { RoiCalculatorSection } from "@/components/roi-calculator-section"
 import { ColorIntentDemo } from "@/components/color-intent-demo"
@@ -19,7 +21,7 @@ const navLinks = [
 const exploreLinks = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#story", label: "The story" },
-  { href: "#proof", label: "Results" },
+  { href: "#proof", label: "What's Possible" },
   { href: "#blog", label: "Articles" },
   { href: "#about", label: "About" },
 ]
@@ -39,7 +41,7 @@ function scrollToSection(id: string) {
   const targetY = elementPosition + window.scrollY - headerOffset
   const startY = window.scrollY
   const distance = targetY - startY
-  const duration = 2000 // Slower, soothing scroll
+  const duration = 700 // Responsive, smooth scroll
   let startTime: number | null = null
 
   const easeInOutCubic = (t: number) =>
@@ -56,6 +58,44 @@ function scrollToSection(id: string) {
   requestAnimationFrame(animate)
 }
 
+const defaultHeroSubhead = "I'm the one who'd stare at flower color patterns for hours in a botanical garden."
+const defaultHeroSupport =
+  "So I never take color lightly. When your product doesn't hide—when color tells the truth—people feel seen. They trust you. They choose you. That's worth fighting for."
+
+const SECTION_MAP: Record<SectionId, React.ReactNode> = {
+  qualifier: <QualifierMai />,
+  contact: <ContactMai />,
+  urgency: <UrgencyMai />,
+  "how-it-works": <HowItWorksMai />,
+  story: <StoryMai />,
+  proof: <ProofMai />,
+  services: <ServicesMai />,
+  "site-audit": <SiteAuditScoreMai />,
+  "roi-calculator": <RoiCalculatorSection />,
+  blog: <BlogMai />,
+  about: <AboutMai />,
+}
+
+function IntentDrivenSections({ intent }: { intent: IntentId | null }) {
+  const order = getSectionOrderForIntent(intent)
+  return (
+    <div className="intent-float-in intent-float-in-sections bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate">
+      {order.map((id) => (
+        <React.Fragment key={id}>
+          {SECTION_MAP[id]}
+          {id === "contact" && (
+            <section className="py-12 px-6 border-t border-border">
+              <p className="text-center text-sm uppercase tracking-[0.2em] text-muted-foreground font-semibold mb-8">
+                Explore further
+              </p>
+            </section>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  )
+}
+
 export function ColorIntentMaiPage() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -64,6 +104,8 @@ export function ColorIntentMaiPage() {
   const exploreTriggerRef = useRef<HTMLButtonElement>(null)
   const { theme, toggleTheme } = useTheme()
   const { toggleChat } = useAIChat()
+  const { intent } = useIntentLanding()
+  const intentOption = intent ? getIntentById(intent) : null
 
   // Focus first menu item when dropdown opens
   useEffect(() => {
@@ -138,10 +180,11 @@ export function ColorIntentMaiPage() {
     <div className="min-h-screen bg-[#f7f0e6] dark:bg-background">
       {/* Spacer so content isn't hidden under fixed header */}
       <div className="h-20 shrink-0" aria-hidden />
-      {/* Header - fixed at top, content scrolls under */}
-      <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 md:px-8 pt-4">
+      <div className="intent-float-in">
+        {/* Header - fixed at top, content scrolls under */}
+        <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 md:px-8 pt-4">
         <div className="relative max-w-4xl mx-auto">
-        <div className="flex h-14 items-center justify-between px-4 md:px-6 rounded-full border border-[#e8e0d5] dark:border-white/20 bg-[#f7f0e6]/95 dark:bg-background/95 backdrop-blur shadow-sm gap-2 md:gap-0">
+        <div className="flex h-14 items-center justify-between px-4 md:px-6 rounded-full border border-[#e8e0d5] dark:border-white/20 bg-[#f7f0e6]/95 dark:bg-background/95 backdrop-blur gap-2 md:gap-0">
           {/* Left: Chat - ask a question */}
           <div className="flex items-center shrink-0">
             <button
@@ -280,9 +323,9 @@ export function ColorIntentMaiPage() {
         {/* Hero - Warm gradient, serif heading, Color Intent content */}
         <section
           id="hero"
-          className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden px-6 py-20"
+          className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden px-6 py-20 bg-[#f7f0e6] dark:bg-background"
         >
-          {/* Warm gradient background - peach/orange/gold (light mode) */}
+          {/* Warm gradient background - peach/orange/gold (light mode) - opaque base prevents intent bg flicker on scroll */}
           <div
             className="absolute inset-0 pointer-events-none dark:opacity-0"
             style={{
@@ -311,29 +354,21 @@ export function ColorIntentMaiPage() {
               className="hero-animate hero-animate-delay-3 text-xl md:text-2xl text-muted-foreground mb-4"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
-              Trust starts when your product doesn&apos;t hide.
+              {intentOption?.heroSubhead ?? defaultHeroSubhead}
             </p>
             <p
               className="hero-animate hero-animate-delay-3 text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto"
               style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
-              I do this because I&apos;ve seen what happens when color hides the truth—and what happens when it doesn&apos;t. For product leaders ready to stop bleeding.
+              {intentOption?.heroSupport ?? defaultHeroSupport}
             </p>
-            <div className="hero-animate hero-animate-delay-4 flex flex-wrap justify-center gap-4">
+            <div className="hero-animate hero-animate-delay-4 flex justify-center">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("contact")}
                 className="bg-[#f97316] hover:bg-[#ea580c] text-white"
               >
                 Book the 15-min Audit
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => scrollToSection("services")}
-                className="border-[#06b6d4] text-[#06b6d4] hover:bg-[#06b6d4]/10 dark:hover:bg-[#06b6d4]/20"
-              >
-                Explore services
               </Button>
             </div>
           </div>
@@ -347,20 +382,8 @@ export function ColorIntentMaiPage() {
           </div>
         </section>
 
-        {/* Content sections - Microsoft AI style, content reveals with text on scroll */}
-        <div className="bg-background rounded-t-3xl -mt-8 relative z-20 shadow-2xl overflow-hidden">
-          <UrgencyMai />
-          <HowItWorksMai />
-          <StoryMai />
-          <ProofMai />
-          <ServicesMai />
-          <QualifierMai />
-          <SiteAuditScoreMai />
-          <RoiCalculatorSection />
-          <BlogMai />
-          <ContactMai />
-          <AboutMai />
-        </div>
+        {/* Content sections - intent-driven order: surface most relevant content first */}
+        <IntentDrivenSections intent={intent} />
       </main>
 
       {/* Footer - CTA repeat, newsletter, contact */}
@@ -414,7 +437,8 @@ export function ColorIntentMaiPage() {
             </div>
           </div>
         </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   )
 }

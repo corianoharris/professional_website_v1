@@ -29,6 +29,12 @@ export function MaiScrollSection({
     const el = ref.current
     if (!el) return
 
+    // If inside intent-float-in, start visible so the section-level animation controls the reveal
+    if (el.closest(".intent-float-in")) {
+      setIsVisible(true)
+      return
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -73,7 +79,7 @@ export function MaiScrollSection({
             {subtitle}
           </p>
         )}
-        <div className={layout === "center" ? "" : ""}>{children}</div>
+        <div>{children}</div>
       </div>
     </section>
   )

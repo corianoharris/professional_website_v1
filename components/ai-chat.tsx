@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card"
 import { X, Send, Loader2, RefreshCw, Smile, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAIChat } from "@/components/ai-chat-context"
+import { useIntentLanding } from "@/components/intent-landing-context"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { useTheme } from "@/components/theme-provider"
@@ -31,6 +32,7 @@ interface AIChatProps {
 
 export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   const { isOpen, setIsOpen } = useAIChat()
+  const { intent } = useIntentLanding()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -306,7 +308,8 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
         },
         body: JSON.stringify({
           message: userMessage.content,
-          conversationHistory: messages
+          conversationHistory: messages,
+          intent: intent ?? undefined
         }),
       })
 

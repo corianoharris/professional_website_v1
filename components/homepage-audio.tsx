@@ -190,7 +190,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
                 className={cn(
                   "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 shrink-0",
                   "bg-[#f7f0e6] dark:bg-background border border-[#e8e0d5] dark:border-white/20 backdrop-blur-sm",
-                  "hover:bg-white dark:hover:bg-muted hover:scale-105 shadow-lg",
+                  "hover:bg-white dark:hover:bg-muted hover:scale-105",
                   "focus:outline-none focus:ring-2 focus:ring-[#06b6d4] focus:ring-offset-2",
                   isFading && "opacity-70"
                 )}
@@ -270,7 +270,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
                     variant="outline"
                     className={cn(
                       "w-12 h-12 rounded-full shrink-0 border-2 bg-background/80 backdrop-blur-sm transition-all",
-                      "hover:bg-background hover:scale-110 hover:shadow-lg",
+                      "hover:bg-background hover:scale-110",
                       "active:scale-95",
                       "text-foreground hover:text-foreground",
                       isFading && "opacity-75"

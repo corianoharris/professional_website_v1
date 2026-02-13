@@ -39,7 +39,7 @@ export function ServicesMai() {
   return (
     <MaiScrollSection
       id="services"
-      title="What can you buy or try?"
+      title="How we work together"
       subtitle="Start free. No commitment. Just clarity."
     >
       <div className="grid md:grid-cols-2 gap-6 mb-10">
@@ -50,8 +50,8 @@ export function ServicesMai() {
               t.tagline === "Start free"
                 ? "border-[#06b6d4] bg-[#06b6d4]/5 dark:bg-[#06b6d4]/10"
                 : t.tagline === "Accessibility"
-                  ? "border-[#7c3aed]/40 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 hover:border-[#7c3aed]/50 hover:shadow-lg"
-                  : "border-border bg-card hover:border-[#14b8a6]/30 hover:shadow-lg"
+                  ? "border-[#7c3aed]/40 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 hover:border-[#7c3aed]/50"
+                  : "border-border bg-card hover:border-[#14b8a6]/30"
             } transition-all`}
           >
             <span
@@ -74,20 +74,13 @@ export function ServicesMai() {
           </div>
         ))}
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="flex justify-center">
         <Button
           onClick={scrollToContact}
           className="bg-[#f97316] hover:bg-[#ea580c] text-white"
         >
-          Start free. Book Audit
+          Book the 15-min Audit
           <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
-        <Button
-          variant="outline"
-          onClick={scrollToContact}
-          className="border-foreground/30"
-        >
-          Select services
         </Button>
       </div>
     </MaiScrollSection>

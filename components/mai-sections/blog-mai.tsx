@@ -20,7 +20,7 @@ export function BlogMai() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group rounded-xl border border-border bg-background p-6 hover:border-[#7c3aed]/30 hover:shadow-lg transition-all block"
+            className="group rounded-xl border border-border bg-background p-6 hover:border-[#7c3aed]/30 transition-all block"
           >
             <span className="text-xs font-medium text-[#7c3aed] uppercase tracking-wider">
               {post.tags[0] || "Article"}

@@ -1098,14 +1098,13 @@
   transform: translateY(0);
 }
 
-/* Interactive card hover - Microsoft AI style */
+/* Interactive card hover - subtle lift only */
 .interactive-card {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .interactive-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Smooth link underline */
@@ -1150,13 +1149,92 @@
 .hero-animate-delay-4 { animation-delay: 0.6s; opacity: 0; }
 .hero-animate-delay-5 { animation-delay: 0.75s; opacity: 0; }
 
+/* Intent reveal - gentle pace, not too fast */
+
+@keyframes intent-float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(calc(-100% - 40px));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intent-float-in > * {
+  animation: intent-float-in 4s cubic-bezier(0, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+.intent-float-in > *:nth-child(1) { animation-delay: 0ms; }
+.intent-float-in > *:nth-child(2) { animation-delay: 500ms; }
+.intent-float-in > *:nth-child(3) { animation-delay: 1000ms; }
+.intent-float-in > *:nth-child(4) { animation-delay: 1500ms; }
+.intent-float-in > *:nth-child(5) { animation-delay: 2000ms; }
+.intent-float-in > *:nth-child(6) { animation-delay: 2500ms; }
+.intent-float-in > *:nth-child(7) { animation-delay: 3000ms; }
+.intent-float-in > *:nth-child(8) { animation-delay: 3500ms; }
+.intent-float-in > *:nth-child(9) { animation-delay: 4000ms; }
+.intent-float-in > *:nth-child(10) { animation-delay: 4500ms; }
+.intent-float-in > *:nth-child(11) { animation-delay: 5000ms; }
+.intent-float-in > *:nth-child(12) { animation-delay: 5500ms; }
+.intent-float-in > *:nth-child(13) { animation-delay: 6000ms; }
+.intent-float-in > *:nth-child(14) { animation-delay: 6500ms; }
+.intent-float-in > *:nth-child(15) { animation-delay: 7000ms; }
+.intent-float-in > *:nth-child(n+16) { animation-delay: 7500ms; }
+
+/* Page sections: same pace, delayed to start after main appears - z-index so animating content stacks above previous sections */
+.intent-float-in-sections > * {
+  animation-duration: 4s;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  position: relative;
+}
+.intent-float-in-sections > *:nth-child(1) { z-index: 1; }
+.intent-float-in-sections > *:nth-child(2) { z-index: 2; }
+.intent-float-in-sections > *:nth-child(3) { z-index: 3; }
+.intent-float-in-sections > *:nth-child(4) { z-index: 4; }
+.intent-float-in-sections > *:nth-child(5) { z-index: 5; }
+.intent-float-in-sections > *:nth-child(6) { z-index: 6; }
+.intent-float-in-sections > *:nth-child(7) { z-index: 7; }
+.intent-float-in-sections > *:nth-child(8) { z-index: 8; }
+.intent-float-in-sections > *:nth-child(9) { z-index: 9; }
+.intent-float-in-sections > *:nth-child(10) { z-index: 10; }
+.intent-float-in-sections > *:nth-child(11) { z-index: 11; }
+.intent-float-in-sections > *:nth-child(12) { z-index: 12; }
+.intent-float-in-sections > *:nth-child(13) { z-index: 13; }
+.intent-float-in-sections > *:nth-child(14) { z-index: 14; }
+.intent-float-in-sections > *:nth-child(15) { z-index: 15; }
+.intent-float-in-sections > *:nth-child(n+16) { z-index: 16; }
+.intent-float-in-sections > *:nth-child(1) { animation-delay: 500ms; }
+.intent-float-in-sections > *:nth-child(2) { animation-delay: 1000ms; }
+.intent-float-in-sections > *:nth-child(3) { animation-delay: 1500ms; }
+.intent-float-in-sections > *:nth-child(4) { animation-delay: 2000ms; }
+.intent-float-in-sections > *:nth-child(5) { animation-delay: 2500ms; }
+.intent-float-in-sections > *:nth-child(6) { animation-delay: 3000ms; }
+.intent-float-in-sections > *:nth-child(7) { animation-delay: 3500ms; }
+.intent-float-in-sections > *:nth-child(8) { animation-delay: 4000ms; }
+.intent-float-in-sections > *:nth-child(9) { animation-delay: 4500ms; }
+.intent-float-in-sections > *:nth-child(10) { animation-delay: 5000ms; }
+.intent-float-in-sections > *:nth-child(11) { animation-delay: 5500ms; }
+.intent-float-in-sections > *:nth-child(12) { animation-delay: 6000ms; }
+.intent-float-in-sections > *:nth-child(13) { animation-delay: 6500ms; }
+.intent-float-in-sections > *:nth-child(14) { animation-delay: 7000ms; }
+.intent-float-in-sections > *:nth-child(15) { animation-delay: 7500ms; }
+.intent-float-in-sections > *:nth-child(n+16) { animation-delay: 8000ms; }
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .section-reveal,
   .section-reveal .stagger-child,
-  .hero-animate {
+  .hero-animate,
+  .intent-float-in > * {
     animation: none !important;
     transition: none !important;
+  }
+  .intent-float-in > * {
+    opacity: 1;
+    transform: none;
   }
   .section-reveal {
     opacity: 1;

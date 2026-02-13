@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react"
 import { Copy, Check } from "lucide-react"
 
-const QUOTE = "Average is a failing strategy. Choose remarkable."
-const SOURCE = "— Coriano Harris, Color Intent Technologist"
+const QUOTE = "People decide who you're for before they read a single word. Color is that decision."
+const SOURCE = "Intent-Driven Color Model"
 
 export function ShareableQuote() {
   const [copied, setCopied] = useState(false)
@@ -28,7 +28,7 @@ export function ShareableQuote() {
   const handleShare = () => {
     if (canShare && navigator.share) {
       navigator.share({
-        title: "Color Intent Technologist",
+        title: "Intent-Driven Color Model",
         text: `${QUOTE} ${SOURCE}`,
         url: typeof window !== "undefined" ? window.location.href : "",
       }).catch(() => {})
@@ -38,8 +38,8 @@ export function ShareableQuote() {
   }
 
   return (
-    <div className="rounded-xl border border-[#7c3aed]/30 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 p-6 md:p-8">
-      <blockquote className="text-xl md:text-2xl font-semibold text-foreground italic mb-2">
+    <div className="rounded-xl p-6 md:p-8">
+      <blockquote className="text-lg md:text-xl font-medium text-muted-foreground italic mb-2">
         &ldquo;{QUOTE}&rdquo;
       </blockquote>
       <p className="text-sm text-muted-foreground mb-4">{SOURCE}</p>

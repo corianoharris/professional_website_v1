@@ -22,9 +22,10 @@ export function ScrollAnimations() {
       { threshold: 0.06, rootMargin: "0px 0px -60px 0px" }
     )
 
-    // Sections get the reveal treatment
+    // Sections get the reveal treatment (skip sections inside intent-float-in - they use that animation)
     const sections = document.querySelectorAll("section[id]")
     sections.forEach((section) => {
+      if (section.closest(".intent-float-in")) return
       if (!section.classList.contains("section-reveal")) {
         section.classList.add("section-reveal")
       }

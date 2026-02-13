@@ -50,9 +50,9 @@ export function ProofMai() {
       <div className="flex justify-center">
         <Button
           onClick={scrollToContact}
-          className="bg-[#14b8a6] hover:bg-[#0d9488] text-white"
+          className="bg-[#f97316] hover:bg-[#ea580c] text-white"
         >
-          Find out
+          Book the 15-min Audit
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </div>

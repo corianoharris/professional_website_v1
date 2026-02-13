@@ -15,7 +15,7 @@ import { ragQuery } from '@/lib/ai/rag-pipeline'
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, conversationHistory } = await request.json()
+    const { message, conversationHistory, intent } = await request.json()
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
@@ -24,9 +24,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // For now, we'll use just the current message
-    // In the future, you could include conversation history for context
-    const result = await ragQuery(message)
+    const result = await ragQuery(message, intent)
 
     return NextResponse.json({
       response: result.response,

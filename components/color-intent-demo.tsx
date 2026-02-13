@@ -64,7 +64,7 @@ export function ColorIntentDemo({
             }}
           >
             <div
-              className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl"
+              className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl transition-all duration-500 group-hover:scale-110"
               style={{
                 backgroundColor: intent.color,
                 boxShadow: `0 0 20px ${intent.color}40`,

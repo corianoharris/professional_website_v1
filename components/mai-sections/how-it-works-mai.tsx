@@ -59,10 +59,9 @@ export function HowItWorksMai() {
         </div>
         <Button
           onClick={scrollToContact}
-          variant="outline"
-          className="border-[#06b6d4] text-[#06b6d4] hover:bg-[#06b6d4] hover:text-white"
+          className="bg-[#f97316] hover:bg-[#ea580c] text-white"
         >
-          Ship it
+          Book the 15-min Audit
         </Button>
       </div>
     </MaiScrollSection>
