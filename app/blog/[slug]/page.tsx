@@ -162,10 +162,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="fixed inset-0 -z-10" />
 
       {/* Hero Section */}
-      <div className="relative pt-32 pb-16 px-4 md:px-6">
+      <div id="main-content" className="relative pt-32 pb-16 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
-          <Link href="/#blog" className="inline-block mb-12">
+          <Link href="/blog" className="inline-block mb-12">
             <Button 
               variant="ghost" 
               className="text-black hover:bg-black/10 transition-all duration-300 group"
@@ -235,7 +235,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Featured Image */}
-          <div className="relative w-full h-[60vh] mb-16 overflow-hidden rounded-lg shadow-2xl">
+          <div className="relative w-full max-w-2xl mx-auto aspect-video max-h-48 mb-12 overflow-hidden rounded-lg shadow-lg">
             <img
               src={post.image || "/images/background-site-image.jpg"}
               alt={post.title}
@@ -243,10 +243,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
           </div>
         </div>
-      </div>
 
-      {/* Article Content - Magazine Layout */}
-      <article className="relative px-4 md:px-6 pb-24">
+        {/* Article Content - Magazine Layout */}
+        <article className="relative px-4 md:px-6 pb-24">
         <div className="max-w-4xl mx-auto">
           {/* Main content column - Full width */}
           <div className="max-w-3xl mx-auto">
@@ -274,7 +273,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <span 
                         className="inline-block text-7xl md:text-8xl lg:text-9xl font-black leading-none mr-3 md:mr-4 text-black align-middle" 
                         style={{ 
-                          fontFamily: 'var(--font-bungee), sans-serif',
+                          fontFamily: 'var(--font-baloo2), sans-serif',
                           verticalAlign: 'middle',
                           lineHeight: '1',
                           letterSpacing: '0.02em'
@@ -305,14 +304,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     )
                   } else if (section.type === "quote") {
                     return (
-                      <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-16 md:my-20 italic text-xl md:text-2xl lg:text-3xl text-black font-light leading-relaxed bg-muted/30 rounded-r-lg" style={{ fontFamily: 'var(--font-cinzel-decorative), serif', letterSpacing: '0.03em' }}>
+                      <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-16 md:my-20 italic text-xl md:text-2xl lg:text-3xl text-black font-light leading-relaxed bg-muted/30 rounded-r-lg" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.02em' }}>
                         <Quote className="w-8 h-8 mb-4 text-primary/50" />
                         <span dangerouslySetInnerHTML={{ __html: section.content }} />
                       </blockquote>
                     )
                   } else if (section.type === "emphasis") {
                     return (
-                      <p key={index} className="text-2xl md:text-3xl lg:text-4xl font-bold text-black leading-relaxed my-12 md:my-16 text-center italic" style={{ fontFamily: 'var(--font-cinzel-decorative), serif', letterSpacing: '0.05em' }}>
+                      <p key={index} className="text-2xl md:text-3xl lg:text-4xl font-bold text-black leading-relaxed my-12 md:my-16 text-center italic" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.02em' }}>
                         {section.content}
                       </p>
                     )
@@ -329,7 +328,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <ul key={index} className="space-y-3 md:space-y-4 my-8 ml-0 list-none">
                         {section.items?.map((item, itemIndex) => (
                           <li key={itemIndex} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black pl-8 md:pl-10 relative" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
-                            <span className="absolute left-0 top-0 text-black font-black" style={{ fontSize: '1.5em', lineHeight: '1.2', fontFamily: 'var(--font-bungee), sans-serif' }}>▶</span>
+                            <span className="absolute left-0 top-0 text-black font-semibold" style={{ fontSize: '1.25em', lineHeight: '1.2', fontFamily: 'var(--font-baloo2), sans-serif' }}>–</span>
                             <span dangerouslySetInnerHTML={{ __html: item }} />
                           </li>
                         ))}
@@ -352,7 +351,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <p className="text-sm text-black/60 mb-2">Written by</p>
                 <p className="text-lg font-semibold text-black">{post.author}</p>
               </div>
-              <Link href="/#blog">
+              <Link href="/blog">
                 <Button 
                   size="lg" 
                   className="bg-black text-white hover:bg-black/90 transition-all duration-300"
@@ -365,10 +364,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </article>
-
-      {/* Accessibility Controls */}
+      </div>
       <AccessibilityControls />
-    </div>
+      </div>
     </BlogPageWrapper>
   )
 }

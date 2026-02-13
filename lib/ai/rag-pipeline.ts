@@ -125,12 +125,21 @@ export async function retrieveRelevantKnowledge(
   }
 }
 
+const INTENT_TO_CONTEXT: Record<string, string> = {
+  "fix-design-system": "The user chose 'Fix a broken design system'—they have a design system that's not working. Focus on trust and reliability.",
+  "prove-roi": "The user chose 'Prove design ROI to leadership'—they need measurable outcomes. Focus on growth, case studies, and ROI.",
+  accessibility: "The user chose 'Resolve color/accessibility issues'—they're dealing with audits or compliance. Focus on understanding and clarity.",
+  scale: "The user chose 'Scale without chaos'—they're growing and want order. Focus on calm and systematic approaches.",
+  exploring: "The user chose 'Just exploring'—they're browsing. Focus on belonging and invitation.",
+}
+
 /**
  * Generate response using Hugging Face chat model
  */
 export async function generateResponse(
   query: string,
-  context: BrandKnowledge[]
+  context: BrandKnowledge[],
+  intent?: string
 ): Promise<string> {
   // Build context from retrieved knowledge
   const contextText = context
@@ -144,7 +153,11 @@ export async function generateResponse(
     day: 'numeric'
   })
 
-  const systemPrompt = `You are Chroma, Coriano's AI assistant-embodying vulnerability, authenticity, and human connection. You help brave teams understand how the Intent-Driven Color Model™ and strategic color systems drive measurable business results.
+  const intentContext = intent && INTENT_TO_CONTEXT[intent]
+    ? `\n\nUSER INTENT: ${INTENT_TO_CONTEXT[intent]} Reference this when relevant—it shows the choice mattered.\n`
+    : ""
+
+  const systemPrompt = `You are Chroma, Coriano's AI assistant-embodying vulnerability, authenticity, and human connection. You help brave teams understand how the Intent-Driven Color Model™ and strategic color systems drive measurable business results.${intentContext}
 
 Current date: ${currentDate}
 Model: meta-llama/Llama-3.1-8B-Instruct (knowledge cutoff: April 2024)
@@ -281,7 +294,10 @@ Use the following context to answer questions about Coriano's work, services, ex
 /**
  * Main RAG pipeline: retrieve + generate
  */
-export async function ragQuery(query: string): Promise<{
+export async function ragQuery(
+  query: string,
+  intent?: string
+): Promise<{
   response: string
   sources: BrandKnowledge[]
 }> {
@@ -289,7 +305,7 @@ export async function ragQuery(query: string): Promise<{
   const relevantKnowledge = await retrieveRelevantKnowledge(query, 3)
 
   // Step 2: Generate response with context
-  const response = await generateResponse(query, relevantKnowledge)
+  const response = await generateResponse(query, relevantKnowledge, intent)
 
   return {
     response,

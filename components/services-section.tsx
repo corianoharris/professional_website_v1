@@ -87,7 +87,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section id="services" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative" aria-labelledby="services-heading">
+    <section id="services" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative" aria-labelledby="services-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -109,12 +109,12 @@ export function ServicesSection() {
 
       <div className="relative max-w-6xl mx-auto mb-12 z-10 pt-4 overflow-hidden md:overflow-visible">
         <div className="mb-8 mt-0 md:-mt-8">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>SERVICES</span>
-          <h2 id="services-heading" className="sr-only" aria-hidden="true">Services</h2>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold block mb-2" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>COLOR INTENT TECHNOLOGY</span>
+          <h2 id="services-heading" className="sr-only" aria-hidden="true">Color Intent Technology Services</h2>
         </div>
         
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-          From "everyone picks their own blue" to one system everyone trusts. Here's how we get there.
+          From &quot;everyone picks their own blue&quot; to one system everyone trusts. Color Intent Technology exclusively.
         </p>
 
         {/* Services Grid */}
@@ -126,10 +126,10 @@ export function ServicesSection() {
             return (
               <div
                 key={index}
-                className="relative group rounded-3xl overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl"
+                className="interactive-card relative group rounded-3xl overflow-hidden shadow-lg"
                 style={{
-                  backgroundColor: isPrimary ? 'rgba(124, 58, 237, 0.08)' : 'rgba(6, 182, 212, 0.08)',
-                  border: `2px solid ${isPrimary ? 'rgba(124, 58, 237, 0.3)' : 'rgba(6, 182, 212, 0.3)'}`,
+                  backgroundColor: isPrimary ? 'rgba(0, 120, 212, 0.08)' : 'rgba(16, 124, 16, 0.08)',
+                  border: `2px solid ${isPrimary ? 'rgba(0, 120, 212, 0.3)' : 'rgba(16, 124, 16, 0.3)'}`,
                   boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
                 }}
               >
@@ -138,8 +138,8 @@ export function ServicesSection() {
                   className="h-10 md:h-24 relative overflow-hidden"
                   style={{
                     background: isPrimary 
-                      ? 'linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(168, 85, 247, 0.2) 50%, rgba(124, 58, 237, 0.3) 100%)'
-                      : 'linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(34, 211, 238, 0.2) 50%, rgba(6, 182, 212, 0.3) 100%)',
+                      ? 'linear-gradient(135deg, rgba(0, 120, 212, 0.3) 0%, rgba(80, 230, 255, 0.2) 50%, rgba(0, 120, 212, 0.3) 100%)'
+                      : 'linear-gradient(135deg, rgba(16, 124, 16, 0.3) 0%, rgba(34, 211, 238, 0.2) 50%, rgba(16, 124, 16, 0.3) 100%)',
                     filter: 'blur(0.5px)',
                   }}
                 >
@@ -158,7 +158,7 @@ export function ServicesSection() {
                     <div 
                       className="px-3 md:px-6 py-2 md:py-4 rounded-tl-2xl rounded-tr-lg"
                       style={{
-                        backgroundColor: isPrimary ? 'rgba(124, 58, 237, 0.15)' : 'rgba(6, 182, 212, 0.15)',
+                        backgroundColor: isPrimary ? 'rgba(0, 120, 212, 0.15)' : 'rgba(16, 124, 16, 0.15)',
                       }}
                     >
                       {/* Header Label - Pill */}
@@ -166,8 +166,8 @@ export function ServicesSection() {
                         <span 
                           className={`inline-block px-2.5 py-0.5 md:px-3 md:py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                             isPrimary 
-                              ? 'bg-purple-500 text-white' 
-                              : 'bg-cyan-500 text-white'
+                              ? 'bg-[#0078D4] text-white' 
+                              : 'bg-[#107C10] text-white'
                           }`}
                           style={{ 
                             fontFamily: 'var(--font-space-grotesk), sans-serif',
@@ -271,8 +271,8 @@ export function ServicesSection() {
           <div 
             className="p-6 md:p-8 rounded-2xl border"
             style={{
-              backgroundColor: 'rgba(124, 58, 237, 0.1)',
-              borderColor: 'rgba(124, 58, 237, 0.3)',
+              backgroundColor: 'rgba(0, 120, 212, 0.1)',
+              borderColor: 'rgba(0, 120, 212, 0.3)',
             }}
           >
             <h3 
@@ -304,7 +304,7 @@ export function ServicesSection() {
           <Button
             onClick={scrollToContact}
             size="lg"
-            className="bg-foreground text-background hover:bg-foreground/90 hover:scale-105 hover:shadow-xl transition-all duration-300 text-sm md:text-xl px-4 md:px-10 py-5 md:py-7 font-black uppercase tracking-wider w-full md:w-auto whitespace-normal md:whitespace-nowrap"
+            className="bg-[#0078D4] hover:bg-[#106EBE] text-white hover:scale-105 hover:shadow-xl transition-all duration-300 text-sm md:text-xl px-4 md:px-10 py-5 md:py-7 font-black uppercase tracking-wider w-full md:w-auto whitespace-normal md:whitespace-nowrap"
           >
             <span className="block md:inline">Select Services You're Interested In</span>
             <ArrowRight className="w-4 h-4 md:w-6 md:h-6 ml-2 mt-1 md:mt-0 inline-block" />

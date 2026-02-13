@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card"
 import { X, Send, Loader2, RefreshCw, Smile, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAIChat } from "@/components/ai-chat-context"
+import { useIntentLanding } from "@/components/intent-landing-context"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { useTheme } from "@/components/theme-provider"
@@ -25,8 +26,13 @@ interface Message {
 
 type ChatFontSize = "normal" | "large" | "extra-large"
 
-export function AIChat() {
+interface AIChatProps {
+  hideFloatingButton?: boolean
+}
+
+export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   const { isOpen, setIsOpen } = useAIChat()
+  const { intent } = useIntentLanding()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -302,7 +308,8 @@ export function AIChat() {
         },
         body: JSON.stringify({
           message: userMessage.content,
-          conversationHistory: messages
+          conversationHistory: messages,
+          intent: intent ?? undefined
         }),
       })
 
@@ -406,8 +413,8 @@ export function AIChat() {
 
   return (
     <>
-      {/* Chroma Button with Small Modal - Bottom Left */}
-      {!isOpen && (
+      {/* Chroma Button with Small Modal - Bottom Left (hidden when hideFloatingButton) */}
+      {!isOpen && !hideFloatingButton && (
         <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-50">
           <div className="relative">
             {/* Small Modal - positioned above the button */}
@@ -885,7 +892,7 @@ export function AIChat() {
                 onKeyDown={handleKeyDown}
                 placeholder="Enter message"
                 disabled={isLoading}
-                className="flex-1 min-h-[60px] max-h-[200px] resize-none"
+                className="flex-1 min-h-[60px] max-h-[200px] resize-y"
                 aria-label="Chat input"
                 aria-describedby="input-instructions"
                 aria-invalid="false"

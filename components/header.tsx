@@ -229,6 +229,7 @@ export function Header() {
           <DesktopNavigation 
             activeSection={activeSection} 
             scrollToSection={scrollToSection}
+            onSearchClick={toggleChat}
           />
           <div className="hidden md:flex items-center gap-4">
             <Button 
@@ -249,7 +250,7 @@ export function Header() {
                 }
               }}
               size="sm"
-              className="bg-foreground dark:bg-background text-background dark:text-foreground border-2 border-[var(--color-brand-purple)] hover:bg-[var(--color-brand-purple)] hover:text-white dark:hover:bg-[var(--color-brand-purple)] dark:hover:text-white transition-all"
+              className="bg-[#0078D4] hover:bg-[#106EBE] text-white border-0 transition-all"
               aria-label="Navigate to contact form"
             >
               Get in touch

@@ -104,7 +104,7 @@ export function BlogSection() {
   }
 
   return (
-    <section id="blog" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative">
+    <section id="blog" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -176,7 +176,7 @@ export function BlogSection() {
             {/* Left Column: Large Featured Card */}
             {firstPost && (
               <Link href={`/blog/${firstPost.slug}`} aria-label={`Read article: ${firstPost.title}`} className={`${remainingPosts.length === 0 ? '' : 'md:row-span-2'} focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl`}>
-                <div className="group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent hover:border-primary hover:border-double">
+                <div className="interactive-card group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg border-2 border-transparent hover:border-[#0078D4] hover:border-double">
                   <div className="relative w-full h-48 md:h-[400px] overflow-hidden">
                     <img
                       src={firstPost.image || "/placeholder.svg"}
@@ -186,7 +186,7 @@ export function BlogSection() {
                   </div>
                   <div className="p-6 md:p-10">
                     <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2 md:mb-3">{firstPost.date}</span>
-                    <p className="text-muted-foreground text-sm md:text-base line-clamp-2">{firstPost.excerpt}</p>
+                    <p className="text-muted-foreground text-sm md:text-base">{firstPost.excerpt}</p>
                   </div>
                 </div>
               </Link>
@@ -196,7 +196,7 @@ export function BlogSection() {
             <div className="flex flex-col gap-4 md:gap-6">
               {remainingPosts.map((post, index) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} aria-label={`Read article: ${post.title}`} className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl">
-                  <div className={`group cursor-pointer bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent ${
+                  <div className={`interactive-card group cursor-pointer bg-background rounded-2xl overflow-hidden shadow-lg border-2 border-transparent ${
                     index === 0 
                       ? 'hover:border-accent hover:border-dashed' 
                       : 'hover:border-secondary hover:border-solid'
@@ -210,7 +210,7 @@ export function BlogSection() {
                     </div>
                     <div className="p-4 md:p-8">
                       <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2">{post.date}</span>
-                      <p className="text-muted-foreground text-sm line-clamp-2">{post.excerpt}</p>
+                      <p className="text-muted-foreground text-sm">{post.excerpt}</p>
                     </div>
                   </div>
                 </Link>
@@ -236,7 +236,7 @@ export function BlogSection() {
               
               return (
               <Link key={post.id} href={`/blog/${post.slug}`} aria-label={`Read article: ${post.title}`} className={`focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-1 md:row-span-2' : ''}`}>
-                <div className={`group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent ${borderStyle}`}>
+                <div className={`interactive-card group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg border-2 border-transparent ${borderStyle}`}>
                   <div className={`relative w-full overflow-hidden ${index === 0 ? 'h-48 md:h-[400px]' : 'h-40 md:h-48'}`}>
                     <img
                       src={post.image || "/placeholder.svg"}
@@ -246,7 +246,7 @@ export function BlogSection() {
                   </div>
                   <div className={`${index === 0 ? 'p-6 md:p-10' : 'p-4 md:p-8'}`}>
                     <span className="text-xs uppercase tracking-[0.15em] text-muted-foreground font-semibold block mb-2">{post.date}</span>
-                    <p className={`text-muted-foreground line-clamp-2 ${index === 0 ? 'text-sm md:text-base' : 'text-sm'}`}>{post.excerpt}</p>
+                    <p className={`text-muted-foreground ${index === 0 ? 'text-sm md:text-base' : 'text-sm'}`}>{post.excerpt}</p>
                   </div>
                 </div>
               </Link>

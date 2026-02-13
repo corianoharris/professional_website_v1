@@ -21,7 +21,7 @@ export function QualifierSection() {
   ]
 
   return (
-    <section id="qualifier" className="w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="qualifier-heading">
+    <section id="qualifier" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 border-b relative" aria-labelledby="qualifier-heading">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -84,7 +84,7 @@ export function QualifierSection() {
 
         <div className="mt-12 text-center max-w-3xl mx-auto">
           <p className="text-lg md:text-xl text-muted-foreground italic" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-            If you're in the first column, let's talk. If you're in the second, I'm not the right fit—and that's okay.
+            If you're in the first column, let's talk. If you're in the second, I'm not the right fit, and that's okay.
           </p>
         </div>
       </div>
