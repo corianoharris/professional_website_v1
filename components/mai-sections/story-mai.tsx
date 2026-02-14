@@ -13,22 +13,24 @@ export function StoryMai() {
     <MaiScrollSection
       id="story"
       title="Here's what happened"
-      subtitle="One story. Real stakes. Real numbers."
+      subtitle="One story. A moment that matters."
       variant="default"
     >
       <div className="max-w-2xl mx-auto space-y-6">
         <article className="space-y-6 text-lg leading-relaxed">
           <p className="text-foreground">
-            A regional healthcare network was about to lose a <span className="font-semibold text-[#14b8a6]">$2M contract</span>. Their accessibility audit had failed. Again. The procurement team had given them 90 days to fix it, or the deal was off.
+           They were 90 days away from losing a <span className="font-semibold text-[#14b8a6]">$2M contract</span>. Not because they lacked talent. Because they lacked clarity. Their accessibility audit failed again. Error looked like success. Warning looked like info. Users couldn&apos;t tell the difference. The report was 47 pages long.
           </p>
           <p className="text-muted-foreground">
-            The problem wasn&apos;t effort. They had designers. They had developers. They had a design system. What they didn&apos;t have was a color system that communicated intent. Error states looked like success. Warnings looked like info. Users with color vision differences couldn&apos;t tell the difference. The audit report was 47 pages long.
+            So they stopped decorating and started communicating.
+
+Color mapped to intent. Trust for confirmation. Energy for urgency. Growth for success. One system. Design and engineering aligned.
           </p>
           <p className="text-foreground">
-            We mapped their palette to intent. Trust for confirmation. Energy for urgency. Growth for success. One system. Design and engineering aligned. They passed the audit. They kept the contract. They recovered the cost, and then some.
+            In this scenario, they passed the audit. They kept the contract.
           </p>
           <p className="text-muted-foreground italic">
-            That&apos;s one story. Your results will vary. But the people who act? They&apos;re the ones who find out.
+           Your results will vary. But clarity compounds. And the teams who act before the next deadline? They’re the ones who find out what&apos;s possible.
           </p>
         </article>
         <div className="flex justify-center">

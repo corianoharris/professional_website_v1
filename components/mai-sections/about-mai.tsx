@@ -32,17 +32,22 @@ export function AboutMai() {
         {/* Content */}
         <div className="order-1 md:order-2 space-y-6 text-left">
           <p className="text-foreground text-lg leading-relaxed">
-            I&apos;m the one who&apos;d stare at flower color patterns for hours in a botanical garden. So I get it. Color isn&apos;t decoration. It&apos;s what we notice first. What we trust. What we remember. I help product leaders stop bleeding money to color debt (errors, tickets, rework, lost conversions) because I&apos;ve seen what happens when color hides the truth. And when it doesn&apos;t.
+           I&apos;m the person who stands in a botanical garden and studies the petals.
+
+Not because they&apos;re pretty. Because they&apos;re precise.
+
+Color isn&apos;t decoration. It&apos;s a signal. It&apos;s the first thing we notice, the shortcut our brain uses to decide: safe or risky, clear or confusing, trustworthy or not.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed italic">
-            When a product doesn&apos;t hide, people feel seen. They trust you. They choose you. That&apos;s worth fighting for.
+           In products, color debt is real. It shows up as errors, support tickets, rework, and quiet lost conversions. It shows up when “success” feels like “warning” and users hesitate instead of act. I help product leaders replace color debt with color intent.
+           Because when a product doesn&apos;t hide when it communicates clearly, people feel seen. They trust you. And trust is a growth strategy.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            <span className="text-foreground font-medium">Real color systems build real trust.</span> Start with why. Be real. Build for the people who notice. Everyone benefits.
+            <span className="text-foreground font-medium">Real color systems build real trust.</span> Start with why. Be real. Build for the people who notice. Everyone else will feel it too.
           </p>
 
           {/* Proof - badges */}
-          <div className="flex flex-wrap gap-2">
+          {/* <div className="flex flex-wrap gap-2">
             <span className="inline-flex items-center rounded-full border border-[#14b8a6]/40 bg-[#14b8a6]/10 px-3 py-1 text-sm font-medium text-[#14b8a6]">
               Healthcare · costs recovered
             </span>
@@ -52,7 +57,7 @@ export function AboutMai() {
             <span className="inline-flex items-center rounded-full border border-[#14b8a6]/40 bg-[#14b8a6]/10 px-3 py-1 text-sm font-medium text-[#14b8a6]">
               E-commerce · checkout improved
             </span>
-          </div>
+          </div> */}
 
           <p className="text-foreground text-lg leading-relaxed">
             The Intent-Driven Color Model™. It works. Because it&apos;s built for people like us, the ones who notice.
