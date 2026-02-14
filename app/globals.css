@@ -42,42 +42,42 @@
   /* Intent-Based Color Tokens - Psychology-driven, not appearance-driven */
   /* Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first whisper-
      evoking calm, understanding, and belonging in 0.05 seconds." */
-  
+
   /* Trust - Builds confidence and reduces anxiety (cyan) */
   --intent-trust: #06b6d4;                /* Primary trust color - the brave first whisper */
   --intent-trust-hover: #0891b2;         /* Deeper trust on interaction */
   --intent-trust-subtle: #a5f3fc;        /* Gentle trust for backgrounds */
-  
+
   /* Calm - Reduces cognitive load and creates peace (cyan) */
   --intent-calm: #06b6d4;                /* Primary calm color - understanding */
   --intent-calm-hover: #0891b2;          /* Maintained calm on interaction */
   --intent-calm-subtle: #cffafe;         /* Soothing calm for backgrounds */
-  
+
   /* Belonging - Creates connection and authenticity (purple) */
   --intent-belonging: #7c3aed;           /* Primary belonging color - connection */
   --intent-belonging-hover: #6d28d9;     /* Stronger connection on interaction */
   --intent-belonging-subtle: #e9d5ff;    /* Gentle invitation */
-  
+
   /* Vulnerability - The birthplace of trust (purple) */
   --intent-vulnerability: #7c3aed;       /* Primary vulnerability color - courage */
   --intent-vulnerability-hover: #6d28d9; /* Deeper authenticity */
   --intent-vulnerability-subtle: #f3e8ff; /* Soft courage */
-  
+
   /* Attention - Directs focus and creates hierarchy (blue/purple) */
   --intent-attention: #1e40af;           /* Primary attention color - focus */
   --intent-attention-hover: #1e3a8a;     /* Stronger focus on interaction */
   --intent-attention-subtle: #dbeafe;    /* Gentle guidance */
-  
+
   /* Growth - Signals progress and forward movement (teal) */
   --intent-growth: #14b8a6;              /* Primary growth color - advancement */
   --intent-growth-hover: #0d9488;        /* Accelerated progress */
   --intent-growth-subtle: #ccfbf1;       /* Gentle advancement */
-  
+
   /* Energy - Drives action and creates urgency (orange) */
   --intent-energy: #f97316;              /* Primary energy color - urgency */
   --intent-energy-hover: #ea580c;        /* Increased urgency */
   --intent-energy-subtle: #ffedd5;       /* Gentle motivation */
-  
+
   /* Understanding - Facilitates clarity and comprehension (cyan/blue) */
   --intent-understanding: #06b6d4;       /* Primary understanding color - clarity */
   --intent-understanding-hover: #0891b2; /* Deeper clarity */
@@ -102,7 +102,7 @@
   /* Border colors - Maps to intent colors */
   --color-border-accent: var(--intent-attention);         /* Accent borders → attention */
 
-  /* Brand colors - Microsoft.ai-inspired trust/energy palette */
+  /* Brand colors - trust/energy palette */
   --color-brand-primary: #06b6d4;       /* Trust - cyan */
   --color-brand-primary-hover: #0891b2; /* Darker on hover */
   --color-brand-secondary: #14b8a6;    /* Growth - teal */
@@ -190,35 +190,35 @@
   --intent-trust: #22d3ee;               /* Lighter trust for dark mode */
   --intent-trust-hover: #06b6d4;         /* Standard trust on hover */
   --intent-trust-subtle: #155e75;        /* Subtle trust for dark backgrounds */
-  
+
   --intent-calm: #22d3ee;                /* Lighter calm for dark mode */
   --intent-calm-hover: #06b6d4;          /* Standard calm on hover */
   --intent-calm-subtle: #164e63;         /* Subtle calm for dark backgrounds */
-  
+
   /* Belonging & Vulnerability - Lighter purple for dark backgrounds */
   --intent-belonging: #a78bfa;           /* Lighter belonging for dark mode */
   --intent-belonging-hover: #c4b5fd;     /* Even lighter for hover */
   --intent-belonging-subtle: #4c1d95;    /* Subtle belonging for dark backgrounds */
-  
+
   --intent-vulnerability: #a78bfa;       /* Lighter vulnerability for dark mode */
   --intent-vulnerability-hover: #c4b5fd;  /* Even lighter for hover */
   --intent-vulnerability-subtle: #581c87; /* Subtle vulnerability for dark backgrounds */
-  
+
   /* Attention - Lighter blue for dark backgrounds */
   --intent-attention: #3b82f6;           /* Lighter attention for dark mode */
   --intent-attention-hover: #60a5fa;     /* Even lighter for hover */
   --intent-attention-subtle: #1e3a8a;    /* Subtle attention for dark backgrounds */
-  
+
   /* Growth - Lighter teal for dark backgrounds */
   --intent-growth: #2dd4bf;              /* Lighter growth for dark mode */
   --intent-growth-hover: #14b8a6;        /* Standard growth on hover */
   --intent-growth-subtle: #134e4a;       /* Subtle growth for dark backgrounds */
-  
+
   /* Energy - Lighter orange for dark backgrounds */
   --intent-energy: #fb923c;              /* Lighter energy for dark mode */
   --intent-energy-hover: #f97316;        /* Standard energy on hover */
   --intent-energy-subtle: #7c2d12;       /* Subtle energy for dark backgrounds */
-  
+
   /* Understanding - Lighter cyan/blue for dark backgrounds */
   --intent-understanding: #22d3ee;       /* Lighter understanding for dark mode */
   --intent-understanding-hover: #06b6d4;  /* Standard understanding on hover */
@@ -372,7 +372,7 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Skip link styles */
   .sr-only {
     position: absolute;
@@ -385,7 +385,7 @@
     white-space: nowrap;
     border-width: 0;
   }
-  
+
   .focus\:not-sr-only:focus {
     position: static;
     width: auto;
@@ -396,13 +396,13 @@
     clip: auto;
     white-space: normal;
   }
-  
+
   /* Make cursor bigger in input fields and textareas */
   input,
   textarea {
     caret-width: 3px;
   }
-  
+
   input:focus,
   textarea:focus {
     caret-width: 4px;
@@ -839,7 +839,7 @@
 
   /* Section-specific typography classes */
   /* Editorial Magazine Style: Distinct fonts per section type */
-  
+
   /* Primary Headers - Bold, expressive (Baloo 2) */
   .font-hero-title,
   .font-about-title,
@@ -852,7 +852,7 @@
     font-family: var(--font-baloo2), sans-serif;
     font-weight: 800;
   }
-  
+
   /* Sub-headers - Modern, readable (Space Grotesk) */
   .font-hero-subtitle,
   .font-about-subtitle,
@@ -865,7 +865,7 @@
     font-family: var(--font-space-grotesk), sans-serif;
     font-weight: 600;
   }
-  
+
   /* Body content - Editorial serif (Playfair Display) */
   .font-hero-content,
   .font-about-content,
@@ -886,12 +886,12 @@
     line-height: 1;
     letter-spacing: -0.02em;
   }
-  
+
   .font-hero-subtitle {
     font-size: 1.75rem;
     line-height: 1.3;
   }
-  
+
   .font-hero-content {
     font-size: 1.5rem;
   }
@@ -903,11 +903,11 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
-  
+
   .font-about-content {
     font-size: 1.25rem;
   }
-  
+
   .font-about-emphasis {
     font-family: var(--font-baloo2), sans-serif;
     font-size: 1.75rem;
@@ -922,11 +922,11 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  
+
   .font-expertise-content {
     font-size: 1.25rem;
   }
-  
+
   .font-expertise-emphasis {
     font-family: var(--font-baloo2), sans-serif;
     font-size: 1.75rem;
@@ -940,11 +940,11 @@
     line-height: 1;
     letter-spacing: -0.01em;
   }
-  
+
   .font-services-content {
     font-size: 1.25rem;
   }
-  
+
   .font-services-emphasis {
     font-family: var(--font-baloo2), sans-serif;
     font-size: 1.5rem;
@@ -958,11 +958,11 @@
     line-height: 1.1;
     letter-spacing: 0.05em;
   }
-  
+
   .font-portfolio-content {
     font-size: 1.125rem;
   }
-  
+
   .font-portfolio-emphasis {
     font-family: var(--font-baloo2), sans-serif;
     font-size: 1.5rem;
@@ -977,7 +977,7 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
-  
+
   .font-engagement-content {
     font-size: 1.125rem;
   }
@@ -988,7 +988,7 @@
     line-height: 1.1;
     letter-spacing: -0.01em;
   }
-  
+
   .font-blog-content {
     font-size: 1.125rem;
   }
@@ -999,11 +999,11 @@
     line-height: 1;
     letter-spacing: 0.02em;
   }
-  
+
   .font-contact-content {
     font-size: 1.25rem;
   }
-  
+
   .font-contact-emphasis {
     font-family: var(--font-baloo2), sans-serif;
     font-size: 1.75rem;
@@ -1017,15 +1017,15 @@
       position: relative;
       z-index: 10;
     }
-    
+
     .editorial-breakout-left {
       margin-left: -4rem;
     }
-    
+
     .editorial-breakout-right {
       margin-right: -4rem;
     }
-    
+
     .editorial-breakout-full {
       margin-left: -8rem;
       margin-right: -8rem;

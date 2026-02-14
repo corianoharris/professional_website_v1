@@ -53,17 +53,17 @@ export function BlogSection() {
     if (selectedFilter === "all") {
       return allPosts
     }
-    
+
     const categoryTags = filterCategories[
       selectedFilter === "color" ? "Color" :
       selectedFilter === "accessibility" ? "Accessibility" :
       selectedFilter === "design-systems" ? "Design Systems" :
       selectedFilter === "ux-research" ? "UX & Research" : ""
     ] || []
-    
-    return allPosts.filter(post => 
-      post.tags.some(tag => 
-        categoryTags.some(categoryTag => 
+
+    return allPosts.filter(post =>
+      post.tags.some(tag =>
+        categoryTags.some(categoryTag =>
           tag.toLowerCase() === categoryTag.toLowerCase()
         )
       )
@@ -78,7 +78,7 @@ export function BlogSection() {
   // Show 3 posts initially, or all if showAll is true
   const displayedPosts = showAll ? filteredPosts : filteredPosts.slice(0, 3)
   const hasMorePosts = filteredPosts.length > 3
-  
+
   // For the initial 3-post layout
   const initialPosts = filteredPosts.slice(0, 3)
   const [firstPost, ...remainingPosts] = initialPosts
@@ -86,17 +86,17 @@ export function BlogSection() {
   // Check if a filter has associated posts
   const hasPostsForFilter = (filterId: string): boolean => {
     if (filterId === "all") return allPosts.length > 0
-    
+
     const categoryTags = filterCategories[
       filterId === "color" ? "Color" :
       filterId === "accessibility" ? "Accessibility" :
       filterId === "design-systems" ? "Design Systems" :
       filterId === "ux-research" ? "UX & Research" : ""
     ] || []
-    
-    return allPosts.some(post => 
-      post.tags.some(tag => 
-        categoryTags.some(categoryTag => 
+
+    return allPosts.some(post =>
+      post.tags.some(tag =>
+        categoryTags.some(categoryTag =>
           tag.toLowerCase() === categoryTag.toLowerCase()
         )
       )
@@ -104,7 +104,7 @@ export function BlogSection() {
   }
 
   return (
-    <section id="blog" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative">
+    <section id="blogs" className="section-reveal w-full px-4 md:w-full md:px-16 py-12 md:py-16 relative">
       {/* Top wave pattern */}
       <svg
         className="absolute top-0 left-0 w-full"
@@ -131,7 +131,7 @@ export function BlogSection() {
             <h2 id="blog-heading" className="sr-only">Blog and Editorial Content</h2>
           </div>
         </div>
-        
+
         <p className="text-xl md:text-2xl text-center text-muted-foreground mb-12 max-w-3xl mx-auto font-semibold" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
           Building with stories:
         </p>
@@ -197,8 +197,8 @@ export function BlogSection() {
               {remainingPosts.map((post, index) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} aria-label={`Read article: ${post.title}`} className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl">
                   <div className={`interactive-card group cursor-pointer bg-background rounded-2xl overflow-hidden shadow-lg border-2 border-transparent ${
-                    index === 0 
-                      ? 'hover:border-accent hover:border-dashed' 
+                    index === 0
+                      ? 'hover:border-accent hover:border-dashed'
                       : 'hover:border-secondary hover:border-solid'
                   }`}>
                     <div className="relative w-full h-40 md:h-48 overflow-hidden">
@@ -233,7 +233,7 @@ export function BlogSection() {
                 'hover:border-secondary hover:border-dashed',   // 5: Dashed border secondary
               ]
               const borderStyle = borderStyles[index % borderStyles.length]
-              
+
               return (
               <Link key={post.id} href={`/blog/${post.slug}`} aria-label={`Read article: ${post.title}`} className={`focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-1 md:row-span-2' : ''}`}>
                 <div className={`interactive-card group cursor-pointer h-full bg-background rounded-2xl overflow-hidden shadow-lg border-2 border-transparent ${borderStyle}`}>

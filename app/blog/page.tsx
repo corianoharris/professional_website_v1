@@ -31,10 +31,10 @@ export default async function BlogIndexPage({
       <div className="min-h-screen w-full relative">
         <main id="main-content" className="relative pt-32 pb-16 px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
-            <Link href="/#blog" className="inline-block mb-12">
+            <Link href="/#blogs" className="inline-block mb-12">
               <Button
                 variant="ghost"
-                className="text-black dark:text-foreground hover:bg-black/10 dark:hover:bg-muted transition-all duration-300 group"
+                className="text-black dark:text-foreground hover:bg-black/10 dark:hover:bg-muted hover:text-black dark:hover:text-foreground transition-all duration-300 group"
               >
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Back to Home
@@ -59,7 +59,7 @@ export default async function BlogIndexPage({
                   <span className="text-xs font-medium text-[#7c3aed] uppercase tracking-wider">
                     {post.tags[0] || "Article"}
                   </span>
-                  <h2 className="text-xl font-semibold mt-2 group-hover:text-[#7c3aed] transition-colors text-foreground">
+                  <h2 className="text-xl font-semibold mt-2 group-hover:text-[#7c3aed] transition-colors text-foreground dark:text-white">
                     {post.title}
                   </h2>
                   <p className="text-muted-foreground text-sm mt-2">

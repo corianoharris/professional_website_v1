@@ -61,10 +61,10 @@ export function MaiScrollSection({
     <section
       ref={ref}
       id={id}
-      className={`py-16 md:py-24 px-6 transition-all duration-[900ms] scroll-mt-24 ${bgClass}`}
+      className={`py-16 md:py-24 px-6 transition-all duration-900 scroll-mt-24 ${bgClass}`}
     >
       <div
-        className={`max-w-4xl mx-auto transition-all duration-[900ms] ${
+        className={`max-w-4xl mx-auto transition-all duration-900 ${
           isVisible
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-8"

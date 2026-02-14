@@ -25,7 +25,7 @@ export function BlogMai() {
             <span className="text-xs font-medium text-[#7c3aed] uppercase tracking-wider">
               {post.tags[0] || "Article"}
             </span>
-            <h3 className="text-lg font-semibold mt-2 group-hover:text-[#7c3aed] transition-colors">
+            <h3 className="text-lg font-semibold mt-2 group-hover:text-[#7c3aed] transition-colors dark:text-white">
               {post.title}
             </h3>
             <p className="text-muted-foreground text-sm mt-2">

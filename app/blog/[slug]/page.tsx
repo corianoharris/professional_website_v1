@@ -38,33 +38,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const processBold = (text: string): string => {
     return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
   }
-  
+
   // Helper function to process highlighter syntax (==text==)
   const processHighlighter = (text: string): string => {
     return text.replace(/==([^=]+)==/g, '<span class="article-highlighter">$1</span>')
   }
-  
+
   // Parse content into structured sections
   const parseContent = (content: string) => {
     const lines = content.split("\n")
     const sections: Array<{ type: string; content: string; language?: string; level?: number }> = []
-    
+
     let i = 0
     let inCodeBlock = false
     let currentCodeBlock: string[] = []
     let codeLanguage = ""
-    
+
     while (i < lines.length) {
       const line = lines[i]
       const trimmedLine = line.trim()
-      
+
       // Handle code blocks
       if (trimmedLine.startsWith("```")) {
         if (inCodeBlock) {
           // End of code block
           const codeContent = currentCodeBlock.join("\n")
-          sections.push({ 
-            type: "code", 
+          sections.push({
+            type: "code",
             content: codeContent,
             language: codeLanguage || undefined
           })
@@ -79,19 +79,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         i++
         continue
       }
-      
+
       if (inCodeBlock) {
         // Collect code lines
         currentCodeBlock.push(line)
         i++
         continue
       }
-      
+
       // Helper to process both bold and highlighter
       const processText = (text: string): string => {
         return processHighlighter(processBold(text))
       }
-      
+
       // Handle other markdown elements
       if (trimmedLine.startsWith("# ")) {
         sections.push({ type: "h1", content: processText(trimmedLine.replace("# ", "")) })
@@ -110,19 +110,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         // Handle inline bold text in paragraphs
         sections.push({ type: "paragraph", content: processText(trimmedLine) })
       }
-      
+
       i++
     }
-    
+
     // Handle unclosed code block
     if (inCodeBlock && currentCodeBlock.length > 0) {
-      sections.push({ 
-        type: "code", 
+      sections.push({
+        type: "code",
         content: currentCodeBlock.join("\n"),
         language: codeLanguage || undefined
       })
     }
-    
+
     return sections
   }
 
@@ -138,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Group consecutive list items (but preserve code blocks)
   const groupedSections: Array<{ type: string; content: string; items?: string[]; language?: string }> = []
   let currentListItems: string[] = []
-  
+
   for (const section of remainingSections) {
     if (section.type === "list-item") {
       // Process highlighter in list items too
@@ -166,12 +166,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="max-w-4xl mx-auto">
           {/* Back button */}
           <Link href="/blog" className="inline-block mb-12">
-            <Button 
-              variant="ghost" 
-              className="text-black hover:bg-black/10 transition-all duration-300 group"
+            <Button
+              variant="ghost"
+              className="text-black dark:text-white hover:bg-black/10 hover:text-black hover:dark:text-white hover:dark:bg-white/10 transition-all duration-300 group"
             >
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-              Back to Home
+              Back to Articles
             </Button>
           </Link>
 
@@ -182,7 +182,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-black/10 text-black border border-black/20"
+                  className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-black/10 text-black dark:text-white border border-black/20"
                 >
                   {tag}
                 </span>
@@ -190,7 +190,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             {/* Main Title - Magazine Style */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-black">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-black dark:text-white ">
               {post.title}
             </h1>
 
@@ -202,10 +202,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Share section - Above TLDR */}
             <div className="mb-8 pb-8 border-b border-black/10">
               <div className="bg-white rounded-lg p-6 max-w-md mx-auto md:max-w-sm">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-black/60 mb-4 text-center">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-black/60 dark:text-white mb-4 text-center">
                   Share This Article
                 </h3>
-                <BlogShare 
+                <BlogShare
                   title={post.title}
                   url={postUrl}
                   excerpt={post.excerpt}
@@ -221,7 +221,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             )}
 
             {/* Byline - Magazine Style */}
-            <div className="flex items-center gap-6 text-sm text-black/60 border-t border-b border-black/10 py-4">
+            <div className="flex items-center gap-6 text-sm text-black/60 dark:text-white border-t border-b border-black/10 py-4">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 <span className="font-medium">Written By {post.author}</span>
@@ -269,10 +269,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 const afterChar = firstParagraph.content.substring(charIndex + 1)
                 return (
                   <div className="mb-16">
-                    <p className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
-                      <span 
-                        className="inline-block text-7xl md:text-8xl lg:text-9xl font-black leading-none mr-3 md:mr-4 text-black align-middle" 
-                        style={{ 
+                    <p className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black dark:text-white" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
+                      <span
+                        className="inline-block text-7xl md:text-8xl lg:text-9xl font-black leading-none mr-3 md:mr-4 text-black dark:text-white align-middle"
+                        style={{
                           fontFamily: 'var(--font-baloo2), sans-serif',
                           verticalAlign: 'middle',
                           lineHeight: '1',
@@ -292,26 +292,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {groupedSections.map((section, index) => {
                   if (section.type === "h1") {
                     return (
-                      <h1 key={index} className="text-4xl md:text-5xl font-black tracking-tight mt-20 mb-10 text-black leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <h1 key={index} className="text-4xl md:text-5xl font-black tracking-tight mt-20 mb-10 text-black dark:text-white leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "h2") {
                     return (
-                      <h2 key={index} className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-20 mb-10 text-black leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <h2 key={index} className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-20 mb-10 text-black dark:text-white leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "h3") {
                     return (
-                      <h3 key={index} className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mt-16 mb-8 text-black leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <h3 key={index} className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mt-16 mb-8 text-black dark:text-white leading-tight" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   } else if (section.type === "quote") {
                     return (
-                      <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-16 md:my-20 italic text-xl md:text-2xl lg:text-3xl text-black font-light leading-relaxed bg-muted/30 rounded-r-lg" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.02em' }}>
+                      <blockquote key={index} className="border-l-4 border-primary pl-8 py-6 my-16 md:my-20 italic text-xl md:text-2xl lg:text-3xl text-black dark:text-white font-light leading-relaxed bg-muted/30 rounded-r-lg" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.02em' }}>
                         <Quote className="w-8 h-8 mb-4 text-primary/50" />
                         <span dangerouslySetInnerHTML={{ __html: section.content }} />
                       </blockquote>
                     )
                   } else if (section.type === "emphasis") {
                     return (
-                      <p key={index} className="text-2xl md:text-3xl lg:text-4xl font-bold text-black leading-relaxed my-12 md:my-16 text-center italic" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.02em' }}>
+                      <p key={index} className="text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white leading-relaxed my-12 md:my-16 text-center italic" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.02em' }}>
                         {section.content}
                       </p>
                     )
@@ -327,8 +327,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     return (
                       <ul key={index} className="space-y-3 md:space-y-4 my-8 ml-0 list-none">
                         {section.items?.map((item, itemIndex) => (
-                          <li key={itemIndex} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black pl-8 md:pl-10 relative" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
-                            <span className="absolute left-0 top-0 text-black font-semibold" style={{ fontSize: '1.25em', lineHeight: '1.2', fontFamily: 'var(--font-baloo2), sans-serif' }}>–</span>
+                          <li key={itemIndex} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black dark:text-white pl-8 md:pl-10 relative" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }}>
+                            <span className="absolute left-0 top-0 text-black dark:text-white font-semibold" style={{ fontSize: '1.25em', lineHeight: '1.2', fontFamily: 'var(--font-baloo2), sans-serif' }}>–</span>
                             <span dangerouslySetInnerHTML={{ __html: item }} />
                           </li>
                         ))}
@@ -336,7 +336,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     )
                   } else if (section.type === "paragraph") {
                     return (
-                      <p key={index} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black mb-8 md:mb-10" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
+                      <p key={index} className="text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed text-black dark:text-white mb-8 md:mb-10" style={{ fontFamily: 'var(--font-space-grotesk), sans-serif' }} dangerouslySetInnerHTML={{ __html: section.content }} />
                     )
                   }
                   return null
@@ -348,12 +348,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mt-24 pt-12 border-t border-black/10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-center md:text-left">
-                <p className="text-sm text-black/60 mb-2">Written by</p>
-                <p className="text-lg font-semibold text-black">{post.author}</p>
+                <p className="text-sm text-black/60 dark:text-white/60 mb-2">Written by</p>
+                <p className="text-lg font-semibold text-black dark:text-white">{post.author}</p>
               </div>
               <Link href="/blog">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-black text-white hover:bg-black/90 transition-all duration-300"
                 >
                   Read More Articles

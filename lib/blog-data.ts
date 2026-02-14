@@ -113,20 +113,20 @@ The remarkable edge isn't in following the crowd. It's in ==including everyone==
     content: `
 # The Future of Color in Digital Interfaces
 
-Color isn't decoration. It's ==communication==. Every hue tells a story. In the digital age, color is your ==first and most powerful tool for connection==.
+Color isn't decoration. It's communication. Every hue tells a story.
 
-Color psychology isn't pseudoscience. It's ==neuroscience==. When users see a color, their brains process it before they read a word. ==Red triggers urgency==. ==Blue builds trust==. ==Green signals growth==. But ==context changes everything==.
+Color psychology is neuroscience. Your brain processes color before reading words. Red triggers urgency. Blue builds trust. Green signals growth. But context changes everything.
 
-A red button on checkout means "complete purchase." The same red on a medical app means "emergency." Same color. Different story.
+A red button at checkout means "buy now." The same red on a medical app means "emergency." Same color. Different story.
 
-The future of color isn't about consistency. It's about ==intentionality==. Every color choice should answer: What emotion? What action? What story?
+The future isn't about consistency. It's about intention. Every color should answer: What emotion? What action? What story?
 
-Color is ==emotional architecture==. It sets mood, guides attention, creates atmosphere. The future belongs to designers who understand that ==color is atmosphere, not just aesthetics==.
+Color is emotional architecture. It sets mood. Guides attention. Creates atmosphere.
 
-Choose colors with purpose. Not because they match brand guidelines. Not because they're trendy. But because they serve a specific function in the user's journey.
+Choose colors with purpose. Not because they match brand guidelines. Not because they're trendy. Because they serve your user's journey.
 
-Color isn't decoration. It's direction. It's emotion. Build with intention.
-    `,
+Color isn't decoration. It's direction.
+`,
   },
   {
     id: "5",
@@ -173,15 +173,15 @@ The question isn't whether you should build accessible products. The question is
     content: `
 # React Color Design System: Building Scalable Palettes
 
-A designer picks a blue. A developer hardcodes \`#3b82f6\`. Six months later, the brand refreshes. That blue becomes purple. The developer searches hundreds of files. ==They always miss some==. One button stays blue forever.
+A designer picks blue. A developer hardcodes #3b82f6. Six months later, the brand changes. That blue becomes purple. The developer searches hundreds of files. They always miss some. One button stays blue forever.
 
-==Color tokens solve this==. Semantic names that describe purpose, not appearance. \`color.action.primary\` instead of \`primaryBlue\`. When your brand changes, you ==update one file==. Your entire application adapts. Dark mode isn't a separate codebase—it's ==the same tokens, different values==.
+Color tokens solve this. Names that describe purpose, not appearance. 'color.action.primary' instead of 'primaryBlue'. When your brand changes, you update one file. Your entire app adapts.
 
-Structure in layers: base colors → semantic colors → component colors → theme colors. Each layer builds on the last.
+Structure in layers: base → semantic → component → theme. Each builds on the last.
 
-Build ==accessibility in from the start==. Every combination meets WCAG AA. Don't rely on color alone—icons, labels, patterns. TypeScript catches typos at compile time. Your IDE suggests valid paths. One source of truth.
+Build accessibility from the start. Every color combo meets contrast standards. Don't rely on color alone—add icons, labels, patterns.
 
-Start with semantic tokens. Build it right, and everything else becomes easier. Build it wrong, and you'll fight it forever.
+Build it right, everything else becomes easier. Build it wrong, you'll fight it forever.
     `,
   },
   {
@@ -200,22 +200,28 @@ Start with semantic tokens. Build it right, and everything else becomes easier. 
     content: `
 # Intent-Based Design Tokens: Beyond Semantic Naming
 
-Most design systems stop at semantic tokens. \`action.primary\`. \`text.heading\`. Done. But ==semantic tokens tell you WHERE to use a color, not WHY==. They answer "What component?" but not "What feeling?"
+Most design systems stop at semantic tokens. 'action.primary'. 'text.heading'. Done.
 
-Intent-based tokens go deeper. They organize colors by ==psychological purpose==. What emotion? What action? What story? Instead of \`action.primary\`, you have \`trust.calm\` or \`energy.action\`. Instead of \`status.success\`, you have \`growth.positive\`. It's the difference between naming a color "blue" and naming it "trust."
+But semantic tokens tell you WHERE to use color, not WHY. They answer "What component?" not "What feeling?"
 
-A designer sees \`action.primary\` and uses it for every button. But they don't know purple was chosen for ==courage and creativity==. So when they need a trust-building feature, they use purple—when \`trust.calm\` (cyan) would be right.
+Intent-based tokens go deeper. They organize by emotional goal. What emotion? What action? What story?
 
-==Semantic tokens answer "what." Intent tokens answer "why."== When you understand the why, you make better choices.
+Instead of 'action.primary', you have 'trust.calm' or 'energy.action'. Instead of 'status.success', you have 'growth.positive'.
 
-Four layers: base colors → intent colors → semantic colors → component colors. Healthcare needs \`trust.calm\`. E-commerce checkout needs \`energy.action\`. The intent guides the choice.
+It's the difference between naming a color "blue" and naming it "trust."
 
-Your brand refreshes. Purple becomes blue. With intent tokens, you update one mapping. Components don't break. ==Only the color changes. The intent remains.==
+Semantic tokens answer "what." Intent tokens answer "why." When you understand why, you make better choices.
 
-Intent tokens create shared language. Designer: "I need a color that builds trust." Developer: "Use \`trust.calm\`." The conversation shifts from "what color?" to "what feeling?"
+Four layers: base → intent → semantic → component.
 
-Build with intent. Design with meaning. Color with purpose.
-    `,
+Healthcare needs 'trust.calm'. E-commerce needs 'energy.action'. The intent guides the choice.
+
+Your brand changes. Purple becomes blue. With intent tokens, you update one mapping. Components don't break. Only the color changes. The intent remains.
+
+Intent tokens create shared language. Designer: "I need trust." Developer: "Use 'trust.calm'." The conversation shifts from "what color?" to "what feeling?"
+
+Build with intent. Design with meaning.
+`,
   },
 ]
 

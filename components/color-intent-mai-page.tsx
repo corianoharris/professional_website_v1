@@ -333,7 +333,7 @@ export function ColorIntentMaiPage() {
                 "linear-gradient(135deg, rgba(255, 220, 180, 0.6) 0%, rgba(255, 235, 205, 0.5) 40%, rgba(255, 248, 220, 0.6) 100%)",
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-background pointer-events-none opacity-0 dark:opacity-100" />
+          <div className="absolute inset-0 bg-linear-to-b from-muted/30 via-background to-background pointer-events-none opacity-0 dark:opacity-100" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center">
             <p

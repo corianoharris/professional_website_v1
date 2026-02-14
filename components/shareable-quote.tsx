@@ -39,7 +39,7 @@ export function ShareableQuote() {
   return (
     <div className="rounded-xl p-6 md:p-8">
       <div className="flex gap-3 items-start mb-4">
-        <Quote className="w-6 h-6 text-muted-foreground/40 flex-shrink-0 mt-1" aria-hidden />
+        <Quote className="w-6 h-6 text-muted-foreground/40 shrink-0 mt-1" aria-hidden />
         <blockquote className="text-lg md:text-xl font-medium text-muted-foreground italic">
           {QUOTE}
         </blockquote>

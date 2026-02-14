@@ -1,6 +1,6 @@
 # Accessibility & Keyboard Audit
 
-**Date:** February 2026  
+**Date:** February 2026
 **Scope:** Full site (homepage, blog, components)
 
 ---
@@ -27,8 +27,8 @@
 
 | Issue | Location | Fix |
 |-------|----------|-----|
-| **Blog index has no main-content** | `app/blog/page.tsx` | Wrap content in `<main id="main-content">` |
-| **Blog post has no main-content** | `app/blog/[slug]/page.tsx` | Add `<main id="main-content">` around article |
+| **Blog index has no main-content** | `app/blogs/page.tsx` | Wrap content in `<main id="main-content">` |
+| **Blog post has no main-content** | `app/blogs/[slug]/page.tsx` | Add `<main id="main-content">` around article |
 | **Skip link breaks on blog** | Blog routes | Skip link targets #main-content which doesn't exist on /blog |
 
 ---
