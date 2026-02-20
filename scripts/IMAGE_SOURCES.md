@@ -57,7 +57,7 @@
 3. **Inclusive Design Elements**
    - Accessibility icons and symbols
    - Interface showing accessibility features
-   - Design system with accessibility considerations
+   - Design system with color accessibility considerations
 
 4. **Connection and Belonging**
    - Diverse group of people connecting
@@ -108,4 +108,3 @@ Here are some example search results you can browse:
 - https://unsplash.com/photos/inclusive-design-interface
 
 Note: Always check the license of images you download. Unsplash, Pexels, and Pixabay images are generally free to use, but verify the specific license for each image.
-

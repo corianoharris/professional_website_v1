@@ -21,7 +21,7 @@ function highlightText(text: string) {
 export function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "We were hemorrhaging money from color-related errors in patient data entry. Coriano's Intent-Driven Color Model didn't just fix our accessibility audit failures. It recovered $2.3M in our first year. Every product leader dealing with color confusion should work with him.",
+      quote: "We were hemorrhaging money from color-related errors in patient data entry. Coriano's Intent-Driven Color Model didn't just fix our color accessibility audit failures. It recovered $2.3M in our first year. Every product leader dealing with color confusion should work with him.",
       author: "Sarah Chen",
       role: "VP of Product, Healthcare SaaS",
       result: "$2.3M recovered",

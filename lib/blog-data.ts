@@ -32,7 +32,7 @@ You know that blue? The one that looks like every SaaS product ever made? Yeah, 
 
 Users trust it. And forget it ==instantly==. It's like meeting someone at a party who's perfectly nice but has the personality of a beige wall. You'll never remember their name.
 
-Teams keep choosing it because it passes accessibility checks. Stakeholders rarely object. The meeting ends faster. But your product suffers.
+Teams keep choosing it because it passes color accessibility checks. Stakeholders rarely object. The meeting ends faster. But your product suffers.
 
 Your product ==blends into the SaaS crowd==. Your brand becomes ==interchangeable==. Your UI doesn't tell a story—only instructions.
 

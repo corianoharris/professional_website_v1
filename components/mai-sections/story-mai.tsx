@@ -19,7 +19,7 @@ export function StoryMai() {
       <div className="max-w-2xl mx-auto space-y-6">
         <article className="space-y-6 text-lg leading-relaxed">
           <p className="text-foreground">
-           They were 90 days away from losing a <span className="font-semibold text-[#14b8a6]">$2M contract</span>. Not because they lacked talent. Because they lacked clarity. Their accessibility audit failed again. Error looked like success. Warning looked like info. Users couldn&apos;t tell the difference. The report was 47 pages long.
+           They were 90 days away from losing a <span className="font-semibold text-[#14b8a6]">$2M contract</span>. Not because they lacked talent. Because they lacked clarity. Their color accessibility audit failed again. Error looked like success. Warning looked like info. Users couldn&apos;t tell the difference. The report was 47 pages long.
           </p>
           <p className="text-muted-foreground">
             So they stopped decorating and started communicating.

@@ -33,6 +33,8 @@ export function BlogPageWrapper({ children }: { children: React.ReactNode }) {
     fadeInScroll()
   }, [])
 
-  return <div className="animate-fade-in">{children}</div>
+  return <>
+  <div>{children}
+  </div>
+  </>
 }
-

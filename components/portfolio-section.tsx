@@ -21,7 +21,7 @@ export function PortfolioSection() {
     {
       icon: TrendingUp,
       title: "Healthcare SaaS: Could recover $2M+ from color confusion",
-      description: <>When healthcare platforms experience accessibility failures, user errors in patient data entry lead to costly mistakes and compliance risks. What if that bloated color system (dozens of tokens, no clear intent) could become a lean set of semantic color intents? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine fewer errors, fewer support tickets, and compliance that actually passes.</>,
+      description: <>When healthcare platforms experience color accessibility failures, user errors in patient data entry lead to costly mistakes and compliance risks. What if that bloated color system (dozens of tokens, no clear intent) could become a lean set of semantic color intents? The <span className="highlighter">Intent-Driven Color Model™</span> is built for that. Imagine fewer errors, fewer support tickets, and compliance that actually passes.</>,
       color: "bg-green-600",
       category: "color-system",
       result: "Potential outcome: $2M+ recovered",

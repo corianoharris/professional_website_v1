@@ -3,6 +3,7 @@ export interface NavigationItem {
   label: string
   sectionId: string
   ariaLabel: string
+  href?: string // Optional external link (takes precedence over sectionId)
 }
 
 export interface NavigationFolder {
@@ -83,7 +84,8 @@ export const moreNavigation: NavigationFolder = {
       id: "blog",
       label: "Blog",
       sectionId: "blog",
-      ariaLabel: "Navigate to Blog section",
+      ariaLabel: "Navigate to Blog page",
+      href: "http://localhost:3000/blog",
     },
   ],
 }

@@ -8,7 +8,7 @@ const benefits = [
   "You're scaling and don't have a design system yet",
   "Color confusion is costing $100K+/year",
   "Designers and engineers fight about every color choice",
-  "You've failed accessibility audits or lost contracts",
+  "You've failed color audits or lost contracts",
 ]
 const notFor = [
   "You just want a 'color refresh' or rebrand",
@@ -24,7 +24,7 @@ export function QualifierMai() {
       subtitle="We're looking for people who get it. Everyone else? That's fine too."
     >
       <p className="text-center text-foreground font-medium mb-8 max-w-xl mx-auto">
-        I write for the Head of Product at a 40-person SaaS who&apos;s lost two contracts to accessibility. She knows color is broken. She can&apos;t prove it yet.
+        I write for the Head of Product at a 40-person SaaS who&apos;s lost two contracts to color accessibility. She knows color is broken. She can&apos;t prove it yet.
       </p>
       <p className="text-center text-muted-foreground text-sm mb-10 max-w-lg mx-auto">
         If you want a quick rebrand or the cheapest option, this isn&apos;t for you. And that&apos;s fine.

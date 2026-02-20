@@ -27,7 +27,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
   }
 
   return (
-    <div 
+    <div
       className="container mx-auto px-6 flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-73px-env(safe-area-inset-top))]"
       style={{
         paddingTop: 'calc(73px + max(0px, env(safe-area-inset-top)))',
@@ -52,7 +52,7 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
           <X className="w-6 h-6" aria-hidden="true" />
         </button>
       </div>
-      
+
       {/* Main Navigation Items */}
       {mainNavigation.map((item) => (
         <button
@@ -106,27 +106,43 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
         {/* Folder Items */}
         {moreOpen && (
           <div className="pl-6 mt-2 space-y-1">
-            {moreNavigation.items.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.sectionId)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault()
-                    handleNavClick(item.sectionId)
-                  }
-                }}
-                role="menuitem"
-                aria-label={item.ariaLabel}
-                className={`w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
-                  activeSection === item.sectionId
-                    ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
-                    : "text-foreground dark:text-white font-semibold hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+            {moreNavigation.items.map((item) => {
+              if (item.href) {
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    role="menuitem"
+                    aria-label={item.ariaLabel}
+                    className="w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 text-foreground dark:text-white font-semibold hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                    onClick={() => onNavigate()}
+                  >
+                    {item.label}
+                  </a>
+                )
+              }
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item.sectionId)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      handleNavClick(item.sectionId)
+                    }
+                  }}
+                  role="menuitem"
+                  aria-label={item.ariaLabel}
+                  className={`w-full text-left text-sm font-semibold transition-all duration-300 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 ${
+                    activeSection === item.sectionId
+                      ? "text-[var(--color-brand-purple)] dark:text-[var(--color-action-hover)] font-bold"
+                      : "text-foreground dark:text-white font-semibold hover:text-[var(--color-brand-purple)] dark:hover:text-[var(--color-action-hover)]"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              )
+            })}
             {/* Social Links Separator */}
             {socialLinks.length > 0 && (
               <>
@@ -172,4 +188,3 @@ export function MobileNavigation({ activeSection, scrollToSection, onNavigate }:
     </div>
   )
 }
-

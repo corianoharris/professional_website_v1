@@ -150,6 +150,17 @@
   50% { opacity: 1; transform: scale(1.05); }
 }
 
+.animate-fade-in-fast {
+  animation: fadeIn 400ms forwards;
+  animation-delay: 100ms;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .dark {
   /* Dark mode with vibrant accents on dark background */
   --background: oklch(0.12 0.02 270);

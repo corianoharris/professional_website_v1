@@ -55,7 +55,7 @@ export const intentOptions: IntentOption[] = [
     bgColor: "#0891b2",
     bgColorLight: "#e0f2fe",
     heroSubhead: "Pass the audit. Stay passed.",
-    heroSupport: "Accessibility audits, compliance, clarity. Intent-driven color makes it pass—and stay passed.",
+    heroSupport: "Color Accessibility audits, compliance, clarity. Intent-driven color makes it pass—and stay passed.",
   },
   {
     id: "scale",

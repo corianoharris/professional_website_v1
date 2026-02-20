@@ -10,7 +10,7 @@ const scenarios = [
     after: "One system. Design and engineering aligned. Revision cycles cut.",
   },
   {
-    before: "Accessibility audits kept failing. We were about to lose a big contract.",
+    before: "Color Accessibility audits kept failing. We were about to lose a big contract.",
     after: "Passed. Contract secured. Costs recovered.",
   },
   {

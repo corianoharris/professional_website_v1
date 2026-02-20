@@ -227,7 +227,7 @@ export function RoiCalculatorSection() {
 
             <div className="rounded-xl border border-border bg-background p-4">
               <p className="text-xs text-muted-foreground">
-                <span className="font-semibold text-foreground">Note:</span> This calculator uses industry averages. Your actual costs may be higher when factoring in developer time fighting color tokens, failed accessibility audits, and lost contracts.
+                <span className="font-semibold text-foreground">Note:</span> This calculator uses industry averages. Your actual costs may be higher when factoring in developer time fighting color tokens, failed color accessibility audits, and lost contracts.
               </p>
             </div>
           </div>

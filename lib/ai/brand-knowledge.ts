@@ -105,16 +105,16 @@ WHO: Product leaders at B2B SaaS companies
 
 THEIR PAIN POINTS:
 - Losing $100K-$500K/year from color confusion
-- Failed accessibility audits (WCAG compliance issues)
+- Failed color accessibility audits (WCAG compliance issues)
 - Support tickets from UI confusion eating budget
 - Design-to-dev handoff chaos (120+ inconsistent color tokens)
 - Legal/compliance warnings about accessibility
-- Lost contracts due to accessibility failures
+- Lost contracts due to color accessibility failures
 - Dev team fighting over color tokens (40% of sprint time)
 
 WHAT THEY NEED:
 - Strategic color system that drives measurable ROI
-- Accessibility compliance without compromising brand
+- Color Accessibility compliance without compromising brand
 - Clear naming conventions and semantic color architecture
 - Reduction in support costs and development time
 - Proof of concept with real dollar amounts ($2.3M recovered, $180K saved, 340% conversion increase)
@@ -143,7 +143,7 @@ NOT FOR:
 
 Client: Healthcare platform (B2B SaaS, $50M ARR)
 
-The problem: The existing color system caused user errors in patient data entry, leading to costly mistakes and compliance risks. Users couldn't distinguish between critical actions and secondary information due to poor color differentiation. This resulted in failed accessibility audits and lost contracts.
+The problem: The existing color system caused user errors in patient data entry, leading to costly mistakes and compliance risks. Users couldn't distinguish between critical actions and secondary information due to poor color differentiation. This resulted in failed color accessibility audits and lost contracts.
 
 The solution: Implemented the Intent-Driven Color Model™. Restructured their entire color architecture from 47 inconsistent tokens down to 12 semantic color intents. Created a semantic color system that used color psychology to guide user attention and reduce cognitive load.
 
@@ -153,7 +153,7 @@ The result:
 - Passed WCAG 2.1 AA compliance audit on first attempt
 - Onboarding completion went from 34% to 81%
 
-Testimonial: "We were hemorrhaging money from color-related errors in patient data entry. Coriano's Intent-Driven Color Model didn't just fix our accessibility audit failures—it recovered $2.3M in our first year." - Sarah Chen, VP of Product`,
+Testimonial: "We were hemorrhaging money from color-related errors in patient data entry. Coriano's Intent-Driven Color Model didn't just fix our color accessibility audit failures—it recovered $2.3M in our first year." - Sarah Chen, VP of Product`,
     metadata: {
       title: 'Healthcare SaaS Case Study',
       tags: ['case-study', 'healthcare', 'accessibility', 'revenue', 'color-confusion']
@@ -168,7 +168,7 @@ Client: Fintech company (B2B SaaS, $25M ARR)
 
 The problem: Design token system had ballooned to over 120 color variables with no clear naming convention. Development team spent 40% of sprint time resolving color inconsistencies and merge conflicts. Users couldn't distinguish between success, warning, and error states, leading to confusion and support tickets.
 
-The solution: Applied the Intent-Driven Color Model™ to create a lean, semantic system. Implemented clear visual hierarchy and accessibility compliance.
+The solution: Applied the Intent-Driven Color Model™ to create a lean, semantic system. Implemented clear visual hierarchy and color accessibility compliance.
 
 The result:
 - $180K saved annually in development costs
