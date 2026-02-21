@@ -8,7 +8,7 @@ export function QualifierSection() {
     "You're scaling and don't have a design system yet",
     "Color confusion is costing $100K+/year in support tickets",
     "Designers and engineers fight about every color choice",
-    "You've failed accessibility audits or lost contracts",
+    "You've failed color accessibility audits or lost contracts",
     "You need to prove design ROI to leadership",
     "You're a product leader at a B2B SaaS company ($5M-$100M ARR)",
   ]
