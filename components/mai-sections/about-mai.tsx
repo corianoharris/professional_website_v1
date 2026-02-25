@@ -1,7 +1,6 @@
 "use client"
 
 import { MaiScrollSection } from "@/components/mai-scroll-section"
-import Image from "next/image"
 
 export function AboutMai() {
   return (
@@ -11,26 +10,9 @@ export function AboutMai() {
       subtitle="The story. The why. The permission to be different."
       variant="muted"
     >
-      <div className="grid md:grid-cols-[1fr_1.2fr] gap-8 md:gap-12 items-center max-w-5xl mx-auto">
-        {/* Image - creative frame with offset accent */}
-        <div className="relative order-2 md:order-1">
-          <div className="relative aspect-[4/5] max-w-md mx-auto md:mx-0">
-            <div className="absolute -inset-4 bg-gradient-to-br from-[#7c3aed]/20 via-[#06b6d4]/10 to-[#f97316]/20 rounded-3xl -z-10" />
-            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
-              <Image
-                src="/images/my-image.jpg"
-                alt="Coriano Harris"
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 100vw, 400px"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-
+      <div className="max-w-2xl mx-auto">
         {/* Content */}
-        <div className="order-1 md:order-2 space-y-6 text-left">
+        <div className="space-y-6 text-left">
           <p className="text-foreground text-lg leading-relaxed">
            I&apos;m the person who stands in a botanical garden and studies the petals.
 

@@ -1239,11 +1239,17 @@
   .section-reveal,
   .section-reveal .stagger-child,
   .hero-animate,
-  .intent-float-in > * {
+  .intent-float-in > *,
+  .intent-float-in-sections > *,
+  .fade-in-on-scroll,
+  .animate-fade-in {
     animation: none !important;
     transition: none !important;
   }
-  .intent-float-in > * {
+  .intent-float-in > *,
+  .intent-float-in-sections > *,
+  .fade-in-on-scroll,
+  .animate-fade-in {
     opacity: 1;
     transform: none;
   }

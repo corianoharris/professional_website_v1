@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useState, useRef, useEffect } from "react"
-import { MessageCircle, Moon, Sun, Menu, X, ChevronDown } from "lucide-react"
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react"
+import Image from "next/image"
+import { MessageCircle, Moon, Sun, Menu, X, ChevronDown, HelpCircle } from "lucide-react"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
 import { useIntentLanding } from "@/components/intent-landing-context"
@@ -41,7 +42,7 @@ function scrollToSection(id: string) {
   const targetY = elementPosition + window.scrollY - headerOffset
   const startY = window.scrollY
   const distance = targetY - startY
-  const duration = 700 // Responsive, smooth scroll
+  const duration = 1800 // Slow, deliberate scroll
   let startTime: number | null = null
 
   const easeInOutCubic = (t: number) =>
@@ -76,10 +77,10 @@ const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   about: <AboutMai />,
 }
 
-function IntentDrivenSections({ intent }: { intent: IntentId | null }) {
+function IntentDrivenSections({ intent, shouldAnimate }: { intent: IntentId | null; shouldAnimate: boolean }) {
   const order = getSectionOrderForIntent(intent)
   return (
-    <div className="intent-float-in intent-float-in-sections bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate">
+    <div className={`${shouldAnimate ? "intent-float-in intent-float-in-sections" : ""} bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate`}>
       {order.map((id) => (
         <React.Fragment key={id}>
           {SECTION_MAP[id]}
@@ -99,6 +100,7 @@ function IntentDrivenSections({ intent }: { intent: IntentId | null }) {
 export function ColorIntentMaiPage() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [citPopoverOpen, setCitPopoverOpen] = useState(false)
   const [exploreOpen, setExploreOpen] = useState(false)
   const exploreWrapperRef = useRef<HTMLDivElement>(null)
   const exploreTriggerRef = useRef<HTMLButtonElement>(null)
@@ -106,6 +108,26 @@ export function ColorIntentMaiPage() {
   const { toggleChat } = useAIChat()
   const { intent } = useIntentLanding()
   const intentOption = intent ? getIntentById(intent) : null
+
+  // Run synchronously before paint so return visitors never see the entry animation flash
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+  useLayoutEffect(() => {
+    if (!localStorage.getItem('site-visited')) {
+      localStorage.setItem('site-visited', '1')
+      setShouldAnimate(true)
+    }
+  }, [])
+
+  // Scroll to hash section after mount (e.g. navigating back to /#blog)
+  useEffect(() => {
+    const hash = window.location.hash
+    if (!hash) return
+    const id = hash.slice(1)
+    const timer = setTimeout(() => {
+      scrollToSection(id)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Focus first menu item when dropdown opens
   useEffect(() => {
@@ -180,7 +202,7 @@ export function ColorIntentMaiPage() {
     <div className="min-h-screen bg-[#f7f0e6] dark:bg-background">
       {/* Spacer so content isn't hidden under fixed header */}
       <div className="h-20 shrink-0" aria-hidden />
-      <div className="intent-float-in">
+      <div className={shouldAnimate ? "intent-float-in" : ""}>
         {/* Header - fixed at top, content scrolls under */}
         <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 md:px-8 pt-4">
         <div className="relative max-w-4xl mx-auto">
@@ -270,8 +292,8 @@ export function ColorIntentMaiPage() {
               size="sm"
               className="bg-[#f97316] hover:bg-[#ea580c] text-white text-xs md:text-sm px-3 md:px-4 h-8 md:h-9 shrink-0"
             >
-              <span className="sm:hidden">Contact</span>
-              <span className="hidden sm:inline">Get in touch</span>
+              <span className="sm:hidden">Book a call</span>
+              <span className="hidden sm:inline">Book a 15-min call</span>
             </Button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -336,14 +358,61 @@ export function ColorIntentMaiPage() {
           <div className="absolute inset-0 bg-linear-to-b from-muted/30 via-background to-background pointer-events-none opacity-0 dark:opacity-100" />
 
           <div className="relative z-10 max-w-4xl mx-auto text-center">
+            {/* Headshot — human face anchors the trust claim */}
+            <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} flex justify-center mb-5`}>
+              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-4 ring-[#f97316]/30 shadow-xl">
+                <Image
+                  src="/images/my-image.jpg"
+                  alt="Coriano Harris"
+                  fill
+                  className="object-cover object-top"
+                  sizes="96px"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* ICP eyebrow — speak their language first */}
             <p
-              className="hero-animate hero-animate-delay-1 text-sm uppercase tracking-[0.2em] text-foreground/80 mb-4"
+              className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} text-sm uppercase tracking-[0.2em] text-foreground/80 mb-2`}
+              style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+            >
+              For Product Leaders Whose Color System Is Costing Them
+            </p>
+            <p
+              className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5`}
               style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
               <span className="highlighter">Color Intent Technologist</span>
+              <span className="relative inline-flex items-center normal-case tracking-normal">
+                <button
+                  onClick={() => setCitPopoverOpen((v) => !v)}
+                  aria-label="What is a Color Intent Technologist?"
+                  aria-expanded={citPopoverOpen}
+                  className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+                >
+                  <HelpCircle className="w-3.5 h-3.5" />
+                </button>
+                {citPopoverOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setCitPopoverOpen(false)} aria-hidden />
+                    <div
+                      role="tooltip"
+                      className="absolute left-1/2 -translate-x-1/2 top-6 z-50 w-64 rounded-xl border border-border bg-background shadow-lg p-4 text-left"
+                    >
+                      <p className="text-xs font-semibold text-foreground mb-1">Color Intent Technologist</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        A specialist who designs color systems with deliberate intent — ensuring every hue communicates the right emotion, builds trust, and drives action across your product.
+                      </p>
+                    </div>
+                  </>
+                )}
+              </span>
+              · Coriano Harris
             </p>
+
             <h1
-              className="hero-animate hero-animate-delay-2 text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6"
+              className={`${shouldAnimate ? "hero-animate hero-animate-delay-2" : ""} text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6`}
               style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontStyle: "italic" }}
             >
               Real <span className="highlighter">color systems</span>
@@ -351,30 +420,38 @@ export function ColorIntentMaiPage() {
               build real <span className="highlighter">trust</span>.
             </h1>
             <p
-              className="hero-animate hero-animate-delay-3 text-xl md:text-2xl text-muted-foreground mb-4"
+              className={`${shouldAnimate ? "hero-animate hero-animate-delay-3" : ""} text-xl md:text-2xl text-muted-foreground mb-4`}
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {intentOption?.heroSubhead ?? defaultHeroSubhead}
             </p>
             <p
-              className="hero-animate hero-animate-delay-3 text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto"
+              className={`${shouldAnimate ? "hero-animate hero-animate-delay-3" : ""} text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto`}
               style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
               {intentOption?.heroSupport ?? defaultHeroSupport}
             </p>
-            <div className="hero-animate hero-animate-delay-4 flex justify-center">
+            <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-4" : ""} flex flex-col sm:flex-row items-center justify-center gap-3`}>
               <Button
                 size="lg"
                 onClick={() => scrollToSection("contact")}
                 className="bg-[#f97316] hover:bg-[#ea580c] text-white"
               >
-                Book the 15-min Audit
+                Book the 15-min Color ROI Call
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => scrollToSection("proof")}
+                className="border-foreground/30 hover:border-foreground/60"
+              >
+                See proof →
               </Button>
             </div>
           </div>
 
           {/* Color Intent Demo + shareable quote */}
-          <div className="hero-animate hero-animate-delay-5 relative z-10 mt-16 flex flex-col items-center gap-8">
+          <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-5" : ""} relative z-10 mt-16 flex flex-col items-center gap-8`}>
             <ColorIntentDemo variant="light" preset="spectrum" />
             <div className="w-full max-w-xl">
               <ShareableQuote />
@@ -383,7 +460,7 @@ export function ColorIntentMaiPage() {
         </section>
 
         {/* Content sections - intent-driven order: surface most relevant content first */}
-        <IntentDrivenSections intent={intent} />
+        <IntentDrivenSections intent={intent} shouldAnimate={shouldAnimate} />
       </main>
 
       {/* Footer - CTA repeat, newsletter, contact */}
@@ -400,7 +477,7 @@ export function ColorIntentMaiPage() {
                 size="lg"
                 className="bg-[#f97316] hover:bg-[#ea580c] text-white"
               >
-                Book the 15-min Audit
+                Book the 15-min Color ROI Call
               </Button>
             </div>
             <div className="flex flex-wrap justify-center gap-6">

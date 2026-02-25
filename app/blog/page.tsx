@@ -31,7 +31,7 @@ export default async function BlogIndexPage({
       <div className="min-h-screen w-full relative">
         <main id="main-content" className="relative pt-32 pb-16 px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
-            <Link href="/#blogs" className="inline-block mb-12">
+            <Link href="/#blog" className="inline-block mb-12">
               <Button
                 variant="ghost"
                 className="text-black dark:text-foreground hover:bg-black/10 dark:hover:bg-muted hover:text-black dark:hover:text-foreground transition-all duration-300 group"
