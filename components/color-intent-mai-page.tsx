@@ -379,37 +379,40 @@ export function ColorIntentMaiPage() {
             >
               For Product Leaders Whose Color System Is Costing Them
             </p>
-            <p
-              className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5`}
-              style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
-            >
-              <span className="highlighter">Color Intent Technologist</span>
-              <span className="relative inline-flex items-center normal-case tracking-normal">
-                <button
-                  onClick={() => setCitPopoverOpen((v) => !v)}
-                  aria-label="What is a Color Intent Technologist?"
-                  aria-expanded={citPopoverOpen}
-                  className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-                >
-                  <HelpCircle className="w-3.5 h-3.5" />
-                </button>
-                {citPopoverOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setCitPopoverOpen(false)} aria-hidden />
-                    <div
-                      role="tooltip"
-                      className="absolute left-1/2 -translate-x-1/2 top-6 z-50 w-64 rounded-xl border border-border bg-background shadow-lg p-4 text-left"
-                    >
-                      <p className="text-xs font-semibold text-foreground mb-1">Color Intent Technologist</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        A specialist who designs color systems with deliberate intent — ensuring every hue communicates the right emotion, builds trust, and drives action across your product.
-                      </p>
-                    </div>
-                  </>
-                )}
-              </span>
-              · Coriano Harris
-            </p>
+            <div
+  role="text"
+  aria-label="Color Intent Technologist description"
+  className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5`}
+  style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+>
+  <p className="m-0">
+    <span className="highlighter">Color Intent Technologist</span>
+  </p>
+  <span className="relative inline-flex items-center normal-case tracking-normal">
+    <button
+      onClick={() => setCitPopoverOpen((v) => !v)}
+      aria-label="What is a Color Intent Technologist?"
+      aria-expanded={citPopoverOpen}
+      className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
+    >
+      <HelpCircle className="w-3.5 h-3.5" />
+    </button>
+    {citPopoverOpen && (
+      <>
+        <div className="fixed inset-0 z-40" onClick={() => setCitPopoverOpen(false)} aria-hidden />
+        <div
+          role="tooltip"
+          className="absolute left-1/2 -translate-x-1/2 top-6 z-50 w-64 rounded-xl border border-border bg-background shadow-lg p-4 text-left"
+        >
+          <p className="text-xs font-semibold text-foreground mb-1">Color Intent Technologist</p>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            A specialist who designs color systems with deliberate intent — ensuring every hue communicates the right emotion, builds trust, and drives action across your product.
+          </p>
+        </div>
+      </>
+    )}
+  </span>
+</div>
 
             <h1
               className={`${shouldAnimate ? "hero-animate hero-animate-delay-2" : ""} text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6`}
