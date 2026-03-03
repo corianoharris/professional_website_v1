@@ -396,7 +396,7 @@ export function ColorIntentMaiPage() {
         <div className="fixed inset-0 z-40" onClick={() => setCitPopoverOpen(false)} aria-hidden />
         <div
           role="tooltip"
-          className="absolute left-1/2 -translate-x-1/2 top-6 z-50 w-64 rounded-xl border border-border bg-background shadow-lg p-4 text-left"
+          className="absolute right-0 top-6 z-50 w-64 rounded-xl border border-border bg-background shadow-lg p-4 text-left"
         >
           <p className="text-xs font-semibold text-foreground mb-1">Color Intent Technologist</p>
           <p className="text-xs text-muted-foreground leading-relaxed">
