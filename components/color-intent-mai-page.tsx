@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { MessageCircle, Moon, Sun, Menu, X, ChevronDown, HelpCircle } from "lucide-react"
 import { useAIChat } from "@/components/ai-chat-context"
@@ -76,10 +76,10 @@ const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   about: <AboutMai />,
 }
 
-function IntentDrivenSections({ intent, shouldAnimate }: { intent: null; shouldAnimate: boolean }) {
+function IntentDrivenSections({ intent }: { intent: null }) {
   const order = getSectionOrderForIntent(intent)
   return (
-    <div className={`${shouldAnimate ? "intent-float-in intent-float-in-sections" : ""} bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate`}>
+    <div className="bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate">
       {order.map((id) => (
         <React.Fragment key={id}>
           {SECTION_MAP[id]}
@@ -106,15 +106,6 @@ export function ColorIntentMaiPage() {
   const { theme, toggleTheme } = useTheme()
   const { toggleChat } = useAIChat()
   const intent = null
-
-  // Run synchronously before paint so return visitors never see the entry animation flash
-  const [shouldAnimate, setShouldAnimate] = useState(false)
-  useLayoutEffect(() => {
-    if (!localStorage.getItem('site-visited')) {
-      localStorage.setItem('site-visited', '1')
-      setShouldAnimate(true)
-    }
-  }, [])
 
   // Scroll to hash section after mount (e.g. navigating back to /#blog)
   // Use instant scroll — no animation — so the page doesn't flicker at the top
@@ -205,7 +196,7 @@ export function ColorIntentMaiPage() {
     <div className="min-h-screen bg-[#f7f0e6] dark:bg-background">
       {/* Spacer so content isn't hidden under fixed header */}
       <div className="h-20 shrink-0" aria-hidden />
-      <div className={shouldAnimate ? "intent-float-in" : ""}>
+      <div>
         {/* Header - fixed at top, content scrolls under */}
         <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 md:px-8 pt-4">
         <div className="relative max-w-4xl mx-auto">
@@ -362,7 +353,7 @@ export function ColorIntentMaiPage() {
 
           <div className="relative z-10 max-w-4xl mx-auto text-center">
             {/* Headshot — human face anchors the trust claim */}
-            <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} flex justify-center mb-5`}>
+            <div className="flex justify-center mb-5">
               <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-4 ring-[#f97316]/30 shadow-xl">
                 <Image
                   src="/images/my-image.jpg"
@@ -377,7 +368,7 @@ export function ColorIntentMaiPage() {
 
             {/* ICP eyebrow — speak their language first */}
             <p
-              className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} text-sm uppercase tracking-[0.2em] text-foreground/80 mb-2`}
+              className="text-sm uppercase tracking-[0.2em] text-foreground/80 mb-2"
               style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
               For Product Leaders Whose Color System Is Costing Them
@@ -385,7 +376,7 @@ export function ColorIntentMaiPage() {
             <div
   role="text"
   aria-label="Color Intent Technologist description"
-  className={`${shouldAnimate ? "hero-animate hero-animate-delay-1" : ""} text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5`}
+  className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
   <p className="m-0">
@@ -418,7 +409,7 @@ export function ColorIntentMaiPage() {
 </div>
 
             <h1
-              className={`${shouldAnimate ? "hero-animate hero-animate-delay-2" : ""} text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6`}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6"
               style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontStyle: "italic" }}
             >
               Real <span className="highlighter">color systems</span>
@@ -426,18 +417,18 @@ export function ColorIntentMaiPage() {
               build real <span className="highlighter">trust</span>.
             </h1>
             <p
-              className={`${shouldAnimate ? "hero-animate hero-animate-delay-3" : ""} text-xl md:text-2xl text-muted-foreground mb-4`}
+              className="text-xl md:text-2xl text-muted-foreground mb-4"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {defaultHeroSubhead}
             </p>
             <p
-              className={`${shouldAnimate ? "hero-animate hero-animate-delay-3" : ""} text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto`}
+              className="text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto"
               style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
               {defaultHeroSupport}
             </p>
-            <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-4" : ""} flex flex-col sm:flex-row items-center justify-center gap-3`}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("contact")}
@@ -457,7 +448,7 @@ export function ColorIntentMaiPage() {
           </div>
 
           {/* Color Intent Demo + shareable quote */}
-          <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-5" : ""} relative z-10 mt-16 flex flex-col items-center gap-8`}>
+          <div className="relative z-10 mt-16 flex flex-col items-center gap-8">
             <ColorIntentDemo variant="light" preset="spectrum" />
             <div className="w-full max-w-xl">
               <ShareableQuote />
@@ -466,7 +457,7 @@ export function ColorIntentMaiPage() {
         </section>
 
         {/* Content sections - intent-driven order: surface most relevant content first */}
-        <IntentDrivenSections intent={intent} shouldAnimate={shouldAnimate} />
+        <IntentDrivenSections intent={intent} />
       </main>
 
       {/* Footer - CTA repeat, newsletter, contact */}
