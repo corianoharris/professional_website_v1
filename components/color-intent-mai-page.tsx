@@ -5,8 +5,7 @@ import Image from "next/image"
 import { MessageCircle, Moon, Sun, Menu, X, ChevronDown, HelpCircle } from "lucide-react"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
-import { useIntentLanding } from "@/components/intent-landing-context"
-import { getIntentById, getSectionOrderForIntent, type IntentId, type SectionId } from "@/lib/intent-landing"
+import { getSectionOrderForIntent, type SectionId } from "@/lib/intent-landing"
 import { ServicesMai, UrgencyMai, HowItWorksMai, ProofMai, QualifierMai, SiteAuditScoreMai, StoryMai, BlogMai, ContactMai, AboutMai } from "@/components/mai-sections"
 import { RoiCalculatorSection } from "@/components/roi-calculator-section"
 import { ColorIntentDemo } from "@/components/color-intent-demo"
@@ -77,7 +76,7 @@ const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   about: <AboutMai />,
 }
 
-function IntentDrivenSections({ intent, shouldAnimate }: { intent: IntentId | null; shouldAnimate: boolean }) {
+function IntentDrivenSections({ intent, shouldAnimate }: { intent: null; shouldAnimate: boolean }) {
   const order = getSectionOrderForIntent(intent)
   return (
     <div className={`${shouldAnimate ? "intent-float-in intent-float-in-sections" : ""} bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate`}>
@@ -106,8 +105,7 @@ export function ColorIntentMaiPage() {
   const exploreTriggerRef = useRef<HTMLButtonElement>(null)
   const { theme, toggleTheme } = useTheme()
   const { toggleChat } = useAIChat()
-  const { intent } = useIntentLanding()
-  const intentOption = intent ? getIntentById(intent) : null
+  const intent = null
 
   // Run synchronously before paint so return visitors never see the entry animation flash
   const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -119,12 +117,17 @@ export function ColorIntentMaiPage() {
   }, [])
 
   // Scroll to hash section after mount (e.g. navigating back to /#blog)
+  // Use instant scroll — no animation — so the page doesn't flicker at the top
   useEffect(() => {
     const hash = window.location.hash
     if (!hash) return
     const id = hash.slice(1)
     const timer = setTimeout(() => {
-      scrollToSection(id)
+      const el = document.getElementById(id)
+      if (!el) return
+      const headerOffset = 80
+      const top = el.getBoundingClientRect().top + window.scrollY - headerOffset
+      window.scrollTo(0, top)
     }, 100)
     return () => clearTimeout(timer)
   }, [])
@@ -426,13 +429,13 @@ export function ColorIntentMaiPage() {
               className={`${shouldAnimate ? "hero-animate hero-animate-delay-3" : ""} text-xl md:text-2xl text-muted-foreground mb-4`}
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
-              {intentOption?.heroSubhead ?? defaultHeroSubhead}
+              {defaultHeroSubhead}
             </p>
             <p
               className={`${shouldAnimate ? "hero-animate hero-animate-delay-3" : ""} text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto`}
               style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
-              {intentOption?.heroSupport ?? defaultHeroSupport}
+              {defaultHeroSupport}
             </p>
             <div className={`${shouldAnimate ? "hero-animate hero-animate-delay-4" : ""} flex flex-col sm:flex-row items-center justify-center gap-3`}>
               <Button

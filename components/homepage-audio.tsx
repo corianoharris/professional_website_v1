@@ -205,7 +205,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
               </button>
             </TooltipTrigger>
             <TooltipContent side="bottom" sideOffset={8} className="!z-[300]">
-              <p className="text-sm">Listen while you explore</p>
+              <p className="text-sm">What is a Color Intent Technologist?</p>
             </TooltipContent>
           </Tooltip>
         ) : isHero ? (
@@ -234,7 +234,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
               </button>
             </TooltipTrigger>
             <TooltipContent side="left" sideOffset={8} className="!z-[300]">
-              <p className="text-sm">Listen while you explore</p>
+              <p className="text-sm">What is a Color Intent Technologist?</p>
             </TooltipContent>
           </Tooltip>
         ) : (
@@ -286,7 +286,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="right" sideOffset={8} className="!z-[300]">
-                  <p className="text-sm">Enjoy the soothing music</p>
+                  <p className="text-sm">What is a Color Intent Technologist?</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -296,7 +296,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
         {/* Hidden audio element */}
         <audio
           ref={audioRef}
-          src="/audio/Visual-Spectrum.mp3"
+          src="/audio/Intent-Driven_Color_Technologist.mp3"
           preload="none"
           aria-label="Audio invitation message"
         />
