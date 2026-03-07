@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Baloo_2, Space_Grotesk, Playfair_Display, Raleway, Cinzel_Decorative, Bungee, Monoton, Fascinate } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { MobileScrollFix } from "@/components/mobile-scroll-fix"
 import "./globals.css"
@@ -116,6 +117,9 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Analytics />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
       </body>
     </html>
   )
