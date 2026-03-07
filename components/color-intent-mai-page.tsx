@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { MessageCircle, Moon, Sun, Menu, X, ChevronDown, HelpCircle } from "lucide-react"
+import { sendGAEvent } from "@next/third-parties/google"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
 import { getSectionOrderForIntent, type SectionId } from "@/lib/intent-landing"
@@ -204,7 +205,7 @@ export function ColorIntentMaiPage() {
           {/* Left: Chat - ask a question */}
           <div className="flex items-center shrink-0">
             <button
-              onClick={() => toggleChat()}
+              onClick={() => { sendGAEvent("event", "chat_open", { location: "nav" }); toggleChat() }}
               className="p-2 rounded-lg hover:bg-white/60 dark:hover:bg-muted/50 text-foreground transition-colors flex items-center gap-2"
               aria-label="Ask a question"
             >
@@ -282,7 +283,7 @@ export function ColorIntentMaiPage() {
               {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
             <Button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "nav" }); scrollToSection("contact") }}
               size="sm"
               className="bg-[#f97316] hover:bg-[#ea580c] text-white text-xs md:text-sm px-3 md:px-4 h-8 md:h-9 shrink-0"
             >
@@ -431,7 +432,7 @@ export function ColorIntentMaiPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button
                 size="lg"
-                onClick={() => scrollToSection("contact")}
+                onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "hero" }); scrollToSection("contact") }}
                 className="bg-[#f97316] hover:bg-[#ea580c] text-white"
               >
                 Book the 15-min Color ROI Call
@@ -439,7 +440,7 @@ export function ColorIntentMaiPage() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => scrollToSection("proof")}
+                onClick={() => { sendGAEvent("event", "cta_click", { label: "see_proof", location: "hero" }); scrollToSection("proof") }}
                 className="border-foreground/30 hover:border-foreground/60"
               >
                 See proof →
@@ -470,7 +471,7 @@ export function ColorIntentMaiPage() {
                 The second best is now. 15 minutes. No pitch. Just the truth about what color is costing you.
               </p>
               <Button
-                onClick={() => scrollToSection("contact")}
+                onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "footer" }); scrollToSection("contact") }}
                 size="lg"
                 className="bg-[#f97316] hover:bg-[#ea580c] text-white"
               >

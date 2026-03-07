@@ -4,6 +4,7 @@ import { MaiScrollSection } from "@/components/mai-scroll-section"
 import Link from "next/link"
 import { getAllBlogPosts } from "@/lib/blog-data"
 import { ArrowRight } from "lucide-react"
+import { sendGAEvent } from "@next/third-parties/google"
 
 export function BlogMai() {
   const posts = getAllBlogPosts().slice(0, 4)
@@ -21,6 +22,7 @@ export function BlogMai() {
             key={post.slug}
             href={`/blog/${post.slug}`}
             className="group rounded-xl border border-border bg-background p-6 hover:border-[#7c3aed]/30 transition-all block"
+            onClick={() => sendGAEvent("event", "article_click", { slug: post.slug, title: post.title })}
           >
             <span className="text-xs font-medium text-[#7c3aed] uppercase tracking-wider">
               {post.tags[0] || "Article"}
@@ -42,6 +44,7 @@ export function BlogMai() {
         <Link
           href="/blog"
           className="text-[#7c3aed] font-semibold hover:underline"
+          onClick={() => sendGAEvent("event", "cta_click", { label: "all_articles", location: "blog" })}
         >
           All articles
         </Link>

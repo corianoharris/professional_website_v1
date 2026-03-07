@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState, useMemo } from "react"
+import { sendGAEvent } from "@next/third-parties/google"
 import { MaiScrollSection } from "@/components/mai-scroll-section"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -112,6 +113,7 @@ export function ContactMai() {
     const body = encodeURIComponent(
       `Name: ${sanitizedName}\nEmail: ${sanitizedEmail}\n\nServices: ${formData.services.join(", ")}\n\nMessage:\n${sanitizedMessage}`,
     )
+    sendGAEvent("event", "form_submit", { form: "contact", services: formData.services.join(", ") || "none" })
     window.location.href = `mailto:me@corianoharris.com?subject=${subject}&body=${body}`
 
     setTimeout(() => {
