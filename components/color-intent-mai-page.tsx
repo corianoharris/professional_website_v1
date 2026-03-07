@@ -39,6 +39,10 @@ function scrollToSection(id: string) {
 
   const headerOffset = 80
   const elementPosition = el.getBoundingClientRect().top
+
+  // If the element is already in view (below the header and above the bottom), skip scroll
+  if (elementPosition >= headerOffset && elementPosition <= window.innerHeight) return
+
   const targetY = elementPosition + window.scrollY - headerOffset
   const startY = window.scrollY
   const distance = targetY - startY
