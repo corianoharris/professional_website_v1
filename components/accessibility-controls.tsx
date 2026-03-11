@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Accessibility, Moon, Sun, Type, Zap, ZapOff, ArrowUp, Contrast, Eye } from "lucide-react"
+import { Accessibility, Moon, Sun, Zap, ZapOff, ArrowUp, Contrast, Eye } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 
 export function AccessibilityControls() {
@@ -116,76 +116,8 @@ export function AccessibilityControls() {
     requestAnimationFrame(animate)
   }
 
-  // Reading focus: highlight paragraphs on hover
-  useEffect(() => {
-    if (!readingFocus) {
-      // Remove any existing highlights when disabled
-      document.querySelectorAll(".reading-focus-highlight").forEach((el) => {
-        el.classList.remove("reading-focus-highlight")
-      })
-      return
-    }
-
-    // Select text content elements, excluding interactive elements
-    const textElements = document.querySelectorAll("p, li, blockquote, h1, h2, h3, h4, h5, h6, article, section, dd, dt")
-    let highlightedElement: HTMLElement | null = null
-
-    const handleMouseEnter = (e: Event) => {
-      const target = e.target as HTMLElement
-      
-      // Don't highlight if inside accessibility controls or other interactive areas
-      if (
-        target.closest('[role="menu"]') || 
-        target.closest('.fixed.bottom-6.right-4') ||
-        target.closest('button') ||
-        target.closest('a') ||
-        target.closest('input') ||
-        target.closest('textarea') ||
-        target.closest('select') ||
-        target.closest('[role="button"]') ||
-        target.tagName === 'BUTTON' ||
-        target.tagName === 'A' ||
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.tagName === 'SELECT'
-      ) {
-        return
-      }
-      
-      // Remove previous highlight
-      if (highlightedElement) {
-        highlightedElement.classList.remove("reading-focus-highlight")
-      }
-      
-      // Add highlight to current element
-      target.classList.add("reading-focus-highlight")
-      highlightedElement = target
-    }
-
-    const handleMouseLeave = (e: Event) => {
-      const target = e.target as HTMLElement
-      target.classList.remove("reading-focus-highlight")
-      if (highlightedElement === target) {
-        highlightedElement = null
-      }
-    }
-
-    textElements.forEach((element) => {
-      element.addEventListener("mouseenter", handleMouseEnter)
-      element.addEventListener("mouseleave", handleMouseLeave)
-    })
-
-    return () => {
-      textElements.forEach((element) => {
-        element.removeEventListener("mouseenter", handleMouseEnter)
-        element.removeEventListener("mouseleave", handleMouseLeave)
-        element.classList.remove("reading-focus-highlight")
-      })
-      if (highlightedElement) {
-        highlightedElement.classList.remove("reading-focus-highlight")
-      }
-    }
-  }, [readingFocus])
+  // Reading focus is now pure CSS via html.reading-focus class (toggled in ThemeProvider).
+  // No JavaScript event listeners needed — browser handles :hover natively at compositor level.
 
   return (
     <div className="fixed bottom-4 right-3 md:bottom-6 md:right-4 z-50 flex flex-col items-end gap-3 md:gap-4">

@@ -73,7 +73,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
     localStorage.setItem("highContrast", String(highContrast))
 
-    // Reading focus
+    // Reading focus — toggle class on html; CSS :hover rules handle the actual highlighting
+    if (readingFocus) {
+      root.classList.add("reading-focus")
+    } else {
+      root.classList.remove("reading-focus")
+    }
     localStorage.setItem("readingFocus", String(readingFocus))
   }, [theme, fontSize, animationsEnabled, highContrast, readingFocus])
 

@@ -29,7 +29,18 @@ export function ScrollAnimations() {
       if (!section.classList.contains("section-reveal")) {
         section.classList.add("section-reveal")
       }
-      sectionObserver.observe(section)
+      // If already visible on load, reveal immediately to avoid opacity-0 flash
+      const rect = section.getBoundingClientRect()
+      const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0
+      if (alreadyVisible) {
+        section.classList.add("section-revealed")
+        const children = section.querySelectorAll(".stagger-child")
+        children.forEach((child) => {
+          ;(child as HTMLElement).style.transitionDelay = "0ms"
+        })
+      } else {
+        sectionObserver.observe(section)
+      }
     })
 
     return () => {

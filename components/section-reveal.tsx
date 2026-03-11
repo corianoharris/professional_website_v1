@@ -21,6 +21,20 @@ export function SectionReveal({ children, className = "", delay = 0, stagger = f
     const el = ref.current
     if (!el) return
 
+    // If already visible on mount, reveal immediately to prevent opacity-0 flash
+    const rect = el.getBoundingClientRect()
+    const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0
+    if (alreadyVisible) {
+      el.classList.add("section-revealed")
+      if (stagger) {
+        const children = el.querySelectorAll(".stagger-child")
+        children.forEach((child) => {
+          ;(child as HTMLElement).style.animationDelay = "0ms"
+        })
+      }
+      return
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

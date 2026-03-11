@@ -14,6 +14,13 @@ export function ScrollRevealWrapper({ children, className = "" }: { children: Re
     const el = ref.current
     if (!el) return
 
+    // If already visible on mount, reveal without animation to avoid flash
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setIsVisible(true)
+      return
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,11 +37,12 @@ export function ScrollRevealWrapper({ children, className = "" }: { children: Re
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${className}`}
+      className={className}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(24px)",
-        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+        transition: "opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
+        willChange: "opacity, transform",
       }}
     >
       {children}

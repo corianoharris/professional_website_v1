@@ -685,30 +685,96 @@
     font-weight: 700 !important;
   }
 
-  /* Reading Focus - Highlight paragraphs on hover */
-  .reading-focus-highlight {
-    background-color: rgba(124, 58, 237, 0.15) !important;
-    outline: 2px solid rgba(124, 58, 237, 0.4) !important;
-    outline-offset: 4px !important;
-    border-radius: 4px !important;
-    transition: background-color 0.2s ease, outline 0.2s ease !important;
-    padding: 0.5rem !important;
-    margin: 0.25rem 0 !important;
+  /* Reading Focus Mode — pure CSS :hover, zero JavaScript.
+     The browser handles :hover at the compositor level — no event loop,
+     no DOM class churn, no flicker. ThemeProvider toggles html.reading-focus. */
+
+  /* Shared highlight style (inset box-shadow = no layout shift) */
+  html.reading-focus p:hover,
+  html.reading-focus li:hover,
+  html.reading-focus blockquote:hover,
+  html.reading-focus h1:hover,
+  html.reading-focus h2:hover,
+  html.reading-focus h3:hover,
+  html.reading-focus h4:hover,
+  html.reading-focus h5:hover,
+  html.reading-focus h6:hover,
+  html.reading-focus dd:hover,
+  html.reading-focus dt:hover {
+    background-color: rgba(124, 58, 237, 0.1);
+    box-shadow: inset 0 0 0 2px rgba(124, 58, 237, 0.35);
+    border-radius: 4px;
   }
 
-  .dark .reading-focus-highlight {
-    background-color: rgba(167, 139, 250, 0.2) !important;
-    outline: 2px solid rgba(167, 139, 250, 0.5) !important;
+  /* When a nested text element is hovered, cancel the parent highlight so
+     only the innermost element is highlighted (:has() supported in all
+     modern browsers: Chrome 105+, Firefox 121+, Safari 15.4+) */
+  html.reading-focus li:hover:has(p:hover),
+  html.reading-focus blockquote:hover:has(p:hover) {
+    background-color: transparent;
+    box-shadow: none;
   }
 
-  html.high-contrast .reading-focus-highlight {
-    background-color: rgba(0, 0, 255, 0.2) !important;
-    outline: 3px solid rgba(0, 0, 255, 0.8) !important;
+  /* Never highlight inside interactive elements */
+  html.reading-focus button p:hover,
+  html.reading-focus a p:hover,
+  html.reading-focus button li:hover,
+  html.reading-focus a li:hover {
+    background-color: transparent;
+    box-shadow: none;
   }
 
-  html.high-contrast.dark .reading-focus-highlight {
-    background-color: rgba(0, 255, 255, 0.2) !important;
-    outline: 3px solid rgba(0, 255, 255, 0.8) !important;
+  /* Dark mode */
+  html.dark.reading-focus p:hover,
+  html.dark.reading-focus li:hover,
+  html.dark.reading-focus blockquote:hover,
+  html.dark.reading-focus h1:hover,
+  html.dark.reading-focus h2:hover,
+  html.dark.reading-focus h3:hover,
+  html.dark.reading-focus h4:hover,
+  html.dark.reading-focus h5:hover,
+  html.dark.reading-focus h6:hover,
+  html.dark.reading-focus dd:hover,
+  html.dark.reading-focus dt:hover {
+    background-color: rgba(167, 139, 250, 0.15);
+    box-shadow: inset 0 0 0 2px rgba(167, 139, 250, 0.4);
+  }
+
+  html.dark.reading-focus li:hover:has(p:hover),
+  html.dark.reading-focus blockquote:hover:has(p:hover) {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  /* High contrast */
+  html.high-contrast.reading-focus p:hover,
+  html.high-contrast.reading-focus li:hover,
+  html.high-contrast.reading-focus blockquote:hover,
+  html.high-contrast.reading-focus h1:hover,
+  html.high-contrast.reading-focus h2:hover,
+  html.high-contrast.reading-focus h3:hover,
+  html.high-contrast.reading-focus h4:hover,
+  html.high-contrast.reading-focus h5:hover,
+  html.high-contrast.reading-focus h6:hover,
+  html.high-contrast.reading-focus dd:hover,
+  html.high-contrast.reading-focus dt:hover {
+    background-color: rgba(0, 0, 255, 0.15);
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 255, 0.8);
+  }
+
+  html.high-contrast.dark.reading-focus p:hover,
+  html.high-contrast.dark.reading-focus li:hover,
+  html.high-contrast.dark.reading-focus blockquote:hover,
+  html.high-contrast.dark.reading-focus h1:hover,
+  html.high-contrast.dark.reading-focus h2:hover,
+  html.high-contrast.dark.reading-focus h3:hover,
+  html.high-contrast.dark.reading-focus h4:hover,
+  html.high-contrast.dark.reading-focus h5:hover,
+  html.high-contrast.dark.reading-focus h6:hover,
+  html.high-contrast.dark.reading-focus dd:hover,
+  html.high-contrast.dark.reading-focus dt:hover {
+    background-color: rgba(0, 255, 255, 0.15);
+    box-shadow: inset 0 0 0 3px rgba(0, 255, 255, 0.8);
   }
 
   /* Bigger cursor for better visibility - site-wide */
@@ -1091,6 +1157,7 @@
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
 }
 
 .section-reveal.section-revealed {
@@ -1102,11 +1169,28 @@
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
 }
 
 .section-reveal.section-revealed .stagger-child {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Respect reduced-motion: skip animation entirely */
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+  .section-reveal .stagger-child {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
 }
 
 /* Interactive card hover - subtle lift only */
