@@ -32,7 +32,7 @@ const tiers: Tier[] = [
   {
     name: "Color Blindness Audit",
     tagline: "Accessibility",
-    price: "$3,499",
+    price: "$3,500",
     priceNote: "flat fee per product module",
     description: "Protect against lost contracts and legal liability. Know exactly what 8% of your users — including enterprise decision-makers — actually see.",
     features: ["WCAG compliance analysis", "8% user experience recovery", "Remediation report with intent mapping"],
@@ -40,7 +40,7 @@ const tiers: Tier[] = [
   {
     name: "Strategy & Design Systems",
     tagline: "Primary",
-    price: "From $14,999",
+    price: "From $15,000",
     description: "One system. Everyone trusts it. Design and engineering aligned.",
     features: ["Intent mapping", "Token architecture", "Design system build"],
   },
