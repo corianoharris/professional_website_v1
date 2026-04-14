@@ -24,7 +24,7 @@ export function QualifierMai() {
       subtitle="We're looking for people who get it. Everyone else? That's fine too."
     >
       <p className="text-center text-foreground font-medium mb-8 max-w-xl mx-auto">
-        I write for the Head of Product at a 40-person SaaS who&apos;s lost two contracts to color accessibility. She knows color is broken. She can&apos;t prove it yet.
+        You&apos;re the Head of Product at a 40-person SaaS. You&apos;ve lost contracts to color accessibility. You know it&apos;s broken. You can&apos;t prove it yet.
       </p>
       <p className="text-center text-muted-foreground text-sm mb-10 max-w-lg mx-auto">
         If you want a quick rebrand or the cheapest option, this isn&apos;t for you. And that&apos;s fine.

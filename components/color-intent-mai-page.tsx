@@ -2,27 +2,27 @@
 
 import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { MessageCircle, Moon, Sun, Menu, X, ChevronDown, HelpCircle } from "lucide-react"
+import { MessageCircle, Moon, Sun, Menu, X, ChevronDown } from "lucide-react"
 import { sendGAEvent } from "@next/third-parties/google"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
 import { getSectionOrderForIntent, type SectionId } from "@/lib/intent-landing"
-import { ServicesMai, UrgencyMai, HowItWorksMai, ProofMai, QualifierMai, SiteAuditScoreMai, StoryMai, BlogMai, ContactMai, AboutMai } from "@/components/mai-sections"
+import { ServicesMai, UrgencyMai, HowItWorksMai, ProofMai, QualifierMai, SiteAuditScoreMai, StoryMai, ContactMai, AboutMai } from "@/components/mai-sections"
+// BlogMai is hidden from homepage but component is preserved: import { BlogMai } from "@/components/mai-sections"
 import { RoiCalculatorSection } from "@/components/roi-calculator-section"
-import { ColorIntentDemo } from "@/components/color-intent-demo"
-import { ShareableQuote } from "@/components/shareable-quote"
+
 import { HomepageAudio } from "@/components/homepage-audio"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
   { href: "#services", label: "Services" },
-  { href: "#site-audit", label: "Audit" },
-  { href: "#roi-calculator", label: "ROI" },
 ]
 const exploreLinks = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#story", label: "The story" },
   { href: "#proof", label: "What's Possible" },
+  { href: "#site-audit", label: "Score your system" },
+  { href: "#roi-calculator", label: "ROI Calculator" },
   { href: "#blog", label: "Articles" },
   { href: "#about", label: "About" },
 ]
@@ -63,9 +63,9 @@ function scrollToSection(id: string) {
   requestAnimationFrame(animate)
 }
 
-const defaultHeroSubhead = "I'm the one who'd stare at flower color patterns for hours in a botanical garden."
+const defaultHeroSubhead = "You know color is broken. But you can't prove it—and you can't fix what you can't measure."
 const defaultHeroSupport =
-  "So I never take color lightly. When your product doesn't hide—when color tells the truth—people feel seen. They trust you. They choose you. That's worth fighting for."
+  "That's what we change. In 15 minutes, you'll know exactly what your color system is costing you—in failed audits, lost contracts, and revision cycles that never end."
 
 const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   qualifier: <QualifierMai />,
@@ -77,7 +77,7 @@ const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   services: <ServicesMai />,
   "site-audit": <SiteAuditScoreMai />,
   "roi-calculator": <RoiCalculatorSection />,
-  blog: <BlogMai />,
+  blog: null, // hidden — content preserved in BlogMai component
   about: <AboutMai />,
 }
 
@@ -88,13 +88,6 @@ function IntentDrivenSections({ intent }: { intent: null }) {
       {order.map((id) => (
         <React.Fragment key={id}>
           {SECTION_MAP[id]}
-          {id === "contact" && (
-            <section className="py-12 px-6 border-t border-border">
-              <p className="text-center text-sm uppercase tracking-[0.2em] text-muted-foreground font-semibold mb-8">
-                Explore further
-              </p>
-            </section>
-          )}
         </React.Fragment>
       ))}
     </div>
@@ -104,7 +97,6 @@ function IntentDrivenSections({ intent }: { intent: null }) {
 export function ColorIntentMaiPage() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [citPopoverOpen, setCitPopoverOpen] = useState(false)
   const [exploreOpen, setExploreOpen] = useState(false)
   const exploreWrapperRef = useRef<HTMLDivElement>(null)
   const exploreTriggerRef = useRef<HTMLButtonElement>(null)
@@ -371,46 +363,15 @@ export function ColorIntentMaiPage() {
               </div>
             </div>
 
-            {/* ICP eyebrow — speak their language first */}
-            <p
-              className="text-sm uppercase tracking-[0.2em] text-foreground/80 mb-2"
-              style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
-            >
-              For Product Leaders Whose Color System Is Costing Them
-            </p>
             <div
   role="text"
-  aria-label="Color Intent Technologist description"
+  aria-label="I fix the color systems costing you contracts — Color Intent Technologist"
   className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
   <p className="m-0">
-    <span className="highlighter">Color Intent Technologist</span>
+    I fix the color systems costing you contracts —&nbsp;<span className="highlighter">Color Intent Technologist</span>
   </p>
-  <span className="relative inline-flex items-center normal-case tracking-normal">
-    <button
-      onClick={() => setCitPopoverOpen((v) => !v)}
-      aria-label="What is a Color Intent Technologist?"
-      aria-expanded={citPopoverOpen}
-      className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none"
-    >
-      <HelpCircle className="w-3.5 h-3.5" />
-    </button>
-    {citPopoverOpen && (
-      <>
-        <div className="fixed inset-0 z-40" onClick={() => setCitPopoverOpen(false)} aria-hidden />
-        <div
-          role="tooltip"
-          className="absolute right-0 top-6 z-50 w-64 rounded-xl border border-border bg-background shadow-lg p-4 text-left"
-        >
-          <p className="text-xs font-semibold text-foreground mb-1">Color Intent Technologist</p>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            A specialist who designs color systems with deliberate intent — ensuring every hue communicates the right emotion, builds trust, and drives action across your product.
-          </p>
-        </div>
-      </>
-    )}
-  </span>
 </div>
 
             <h1
@@ -433,7 +394,7 @@ export function ColorIntentMaiPage() {
             >
               {defaultHeroSupport}
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
                 size="lg"
                 onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "hero" }); scrollToSection("contact") }}
@@ -441,24 +402,15 @@ export function ColorIntentMaiPage() {
               >
                 Book the 15-min Color ROI Call
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
+              <button
                 onClick={() => { sendGAEvent("event", "cta_click", { label: "see_proof", location: "hero" }); scrollToSection("proof") }}
-                className="border-foreground/30 hover:border-foreground/60"
+                className="text-sm text-foreground/70 hover:text-foreground underline underline-offset-4 transition-colors"
               >
-                See proof →
-              </Button>
+                See how it works →
+              </button>
             </div>
           </div>
 
-          {/* Color Intent Demo + shareable quote */}
-          <div className="relative z-10 mt-16 flex flex-col items-center gap-8">
-            <ColorIntentDemo variant="light" preset="spectrum" />
-            <div className="w-full max-w-xl">
-              <ShareableQuote />
-            </div>
-          </div>
         </section>
 
         {/* Content sections - intent-driven order: surface most relevant content first */}

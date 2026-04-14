@@ -27,8 +27,8 @@ export function ProofMai() {
   return (
     <MaiScrollSection
       id="proof"
-      title="What could it look like?"
-      subtitle="Illustrative scenarios, not promises. Could this be you?"
+      title="Here's what changes."
+      subtitle="The same problems. Solved."
       variant="muted"
     >
       <div className="grid md:grid-cols-3 gap-6 mb-10">
@@ -37,15 +37,15 @@ export function ProofMai() {
             key={i}
             className="rounded-xl border border-border bg-background p-6"
           >
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Scenario</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Before</p>
             <p className="text-sm text-muted-foreground italic mb-4">&quot;{s.before}&quot;</p>
-            <p className="text-sm text-muted-foreground mb-1">What it could look like:</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#14b8a6] mb-1">After</p>
             <p className="text-lg font-bold text-[#14b8a6]">{s.after}</p>
           </div>
         ))}
       </div>
       <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-        Ideas that spread, win. These scenarios show what&apos;s possible. Your results will vary. But the people who act? They&apos;re the ones who find out.
+        The teams who act before the next deadline are the ones who find out what&apos;s possible.
       </p>
       <div className="flex justify-center">
         <Button

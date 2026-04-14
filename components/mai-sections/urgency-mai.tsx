@@ -13,8 +13,8 @@ export function UrgencyMai() {
   return (
     <MaiScrollSection
       id="urgency"
-      title="The story you tell yourself"
-      subtitle="Everyone says it. Then the board asks why."
+      title="Color debt doesn't announce itself"
+      subtitle="It shows up as failed audits, revision cycles, and contracts you can't explain losing."
       variant="muted"
     >
       <div className="grid md:grid-cols-2 gap-4">

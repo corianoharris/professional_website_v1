@@ -26,11 +26,11 @@ export function StoryMai() {
 
 Color mapped to intent. Trust for confirmation. Energy for urgency. Growth for success. One system. Design and engineering aligned.
           </p>
-          <p className="text-foreground">
-            In this scenario, they passed the audit. They kept the contract.
+          <p className="text-foreground font-semibold">
+            They passed the audit. They kept the contract.
           </p>
           <p className="text-muted-foreground italic">
-           Your results will vary. But clarity compounds. And the teams who act before the next deadline? They’re the ones who find out what&apos;s possible.
+           Clarity compounds. The teams who act before the next deadline are the ones who find out what&apos;s possible.
           </p>
         </article>
         <div className="flex justify-center">

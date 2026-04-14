@@ -24,6 +24,7 @@ import DOMPurify from "dompurify"
 const services = [
   { name: "Color Intent Strategy", type: "Primary" },
   { name: "Color Blindness Audit", type: "Primary" },
+  { name: "Screen Analysis Audit", type: "Primary" },
   { name: "Intent-Based Design Systems", type: "Primary" },
   { name: "Product Design Validation", type: "Secondary" },
   { name: "Implementation Support", type: "Secondary" },
@@ -150,8 +151,8 @@ export function ContactMai() {
 
       <MaiScrollSection
         id="contact"
-        title="Get in touch"
-        subtitle="You're here. You're ready. What happens next is up to you."
+        title="Let's talk."
+        subtitle="Send a message. I'll respond within one business day."
       >
         <div className="grid md:grid-cols-5 gap-12 max-w-4xl">
           {/* Form */}
@@ -222,7 +223,7 @@ export function ContactMai() {
                   rows={5}
                   value={formData.message}
                   onChange={(e) => handleFieldChange("message", e.target.value)}
-                  className={`border-2 resize-y min-h-[120px] ${errors.message ? "border-amber-500" : "border-border"}`}
+                  className={`border-2 resize-y min-h-30 ${errors.message ? "border-amber-500" : "border-border"}`}
                   aria-invalid={!!errors.message}
                 />
                 {errors.message && (

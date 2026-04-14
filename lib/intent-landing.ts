@@ -91,14 +91,16 @@ export type SectionId =
   | "blog"
   | "about"
 
-/** Default section order (exploring / general) */
+/** Default section order
+ *  Fast path: qualifier → proof → contact (act now or keep scrolling for context)
+ */
 const defaultSectionOrder: SectionId[] = [
   "qualifier",
+  "proof",
   "contact",
   "urgency",
   "how-it-works",
   "story",
-  "proof",
   "services",
   "site-audit",
   "roi-calculator",
@@ -113,12 +115,12 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
     case "prove-roi":
       return [
         "qualifier",
-        "contact",
+        "proof",
         "roi-calculator",
+        "contact",
         "urgency",
         "how-it-works",
         "story",
-        "proof",
         "services",
         "site-audit",
         "blog",
@@ -127,13 +129,13 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
     case "accessibility":
       return [
         "qualifier",
-        "contact",
+        "proof",
         "site-audit",
-        "services",
+        "contact",
         "urgency",
         "how-it-works",
         "story",
-        "proof",
+        "services",
         "roi-calculator",
         "blog",
         "about",
@@ -142,12 +144,12 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
     case "scale":
       return [
         "qualifier",
-        "contact",
-        "services",
-        "how-it-works",
-        "urgency",
-        "story",
         "proof",
+        "services",
+        "contact",
+        "urgency",
+        "how-it-works",
+        "story",
         "site-audit",
         "roi-calculator",
         "blog",
