@@ -202,7 +202,7 @@ export function ColorIntentMaiPage() {
           <div className="flex items-center shrink-0">
             <button
               onClick={() => { sendGAEvent("event", "chat_open", { location: "nav" }); toggleChat() }}
-              className="p-2 rounded-lg hover:bg-white/60 dark:hover:bg-muted/50 text-foreground transition-colors flex items-center gap-2"
+              className="p-2 rounded-lg hover:bg-white/60 text-foreground transition-colors flex items-center gap-2"
               aria-label="Ask a question"
             >
               <MessageCircle className="w-5 h-5 shrink-0" />
@@ -273,7 +273,7 @@ export function ColorIntentMaiPage() {
             </nav>
             <button
               onClick={toggleTheme}
-              className="hidden md:flex p-2 rounded-lg hover:bg-white/60 dark:hover:bg-muted/50 text-foreground transition-colors"
+              className="hidden md:flex p-2 rounded-lg hover:bg-white/60 text-foreground transition-colors"
               aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
             >
               {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
