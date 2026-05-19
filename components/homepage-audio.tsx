@@ -205,7 +205,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
               </button>
             </TooltipTrigger>
             <TooltipContent side="bottom" sideOffset={8} className="!z-[300]">
-              <p className="text-sm">What is a Color Intent Technologist?</p>
+              <p className="text-sm">What does Coriano do as a Product Designer & Full-Stack Developer?</p>
             </TooltipContent>
           </Tooltip>
         ) : isHero ? (
@@ -234,7 +234,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
               </button>
             </TooltipTrigger>
             <TooltipContent side="left" sideOffset={8} className="!z-[300]">
-              <p className="text-sm">What is a Color Intent Technologist?</p>
+              <p className="text-sm">What does Coriano do as a Product Designer & Full-Stack Developer?</p>
             </TooltipContent>
           </Tooltip>
         ) : (
@@ -286,7 +286,7 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="right" sideOffset={8} className="!z-[300]">
-                  <p className="text-sm">What is a Color Intent Technologist?</p>
+                  <p className="text-sm">What does Coriano do as a Product Designer & Full-Stack Developer?</p>
                 </TooltipContent>
               </Tooltip>
             </div>

@@ -11,7 +11,7 @@ export function Footer() {
           </div>
           <div className="pt-4 border-t border-background/20 w-full max-w-md space-y-1">
             <p className="text-sm text-background/70" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-              © {new Date().getFullYear()} Coriano Harris, Color Intent Technologist™
+              © {new Date().getFullYear()} Coriano Harris, Product Designer & Full-Stack Developer
             </p>
             <p className="text-xs text-background/60" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
               Intent-Driven Color Model™ | All rights reserved

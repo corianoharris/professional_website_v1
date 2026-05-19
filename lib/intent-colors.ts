@@ -1,5 +1,5 @@
 /**
- * Intent-based color mapping for Color Intent Technologist site.
+ * Intent-based color mapping for Product Designer & Full-Stack Developer site.
  * Each color communicates purpose by scenario—not a single brand blue.
  *
  * Trust (#06b6d4): Confidence, safety, low-barrier actions

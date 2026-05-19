@@ -21,7 +21,7 @@ export const brandKnowledgeBase: BrandKnowledge[] = [
   {
     id: 'resume-1',
     source: 'resume',
-    content: `Coriano Harris - Color Intent Technologist™
+    content: `Coriano Harris - Product Designer & Full-Stack Developer
 
 Expertise:
 - Product Strategy & Web Strategy
@@ -57,7 +57,7 @@ Philosophy: "Vulnerability is the birthplace of trust. Color is that brave first
 
 Proprietary Methodologies:
 - Intent-Driven Color Model™: A psychology-based framework for strategic color systems
-- Color Intent Technologist™: The role bridging color psychology, product strategy, and technical implementation`,
+- Product Designer & Full-Stack Developer: The role bridging color psychology, product strategy, and technical implementation`,
     metadata: {
       title: 'Professional Resume',
       tags: ['expertise', 'achievements', 'services']
@@ -121,7 +121,7 @@ WHAT THEY NEED:
 
 WHY THEY CHOOSE ME:
 - Intent-Driven Color Model™ - proprietary psychology-based framework
-- Color Intent Technologist™ - unique positioning bridging psychology, strategy, and technical implementation
+- Product Designer & Full-Stack Developer - unique positioning bridging psychology, strategy, and technical implementation
 - Proven results with specific ROI metrics
 - Full-stack capability (strategy + design + implementation)
 - Not just aesthetic work - strategic asset management

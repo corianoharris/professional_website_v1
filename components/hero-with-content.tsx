@@ -33,7 +33,7 @@ export function HeroWithContent() {
               {/* Left side - Headline with entrance animation */}
               <div className="flex flex-col items-center md:items-start text-center md:text-left md:pl-2 w-full px-2 sm:px-0 gap-4">
                 <p className="hero-animate hero-animate-delay-1 text-sm uppercase tracking-widest text-white/80 font-medium" style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}>
-                  Color Intent Technologist
+                  Product Designer & Full-Stack Developer
                 </p>
                 <h1 className="hero-animate hero-animate-delay-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-balance leading-[1.1] max-w-4xl break-words">
                   Real <span className="highlighter">color systems</span> build real <span className="highlighter">trust</span>.

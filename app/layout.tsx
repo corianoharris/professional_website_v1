@@ -52,9 +52,9 @@ const fascinate = Fascinate({
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 
 export const metadata: Metadata = {
-  title: "Coriano Harris | Color Intent Technologist",
+  title: "Coriano Harris | Product Designer & Full-Stack Developer",
   description:
-    "Color Intent Technologist. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. Intent-Driven Color Model™.",
+    "Product Designer & Full-Stack Developer. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. Intent-Driven Color Model™.",
   manifest: "/manifest.json",
   metadataBase: new URL(siteUrl),
   icons: {

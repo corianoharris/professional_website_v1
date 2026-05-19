@@ -365,12 +365,12 @@ export function ColorIntentMaiPage() {
 
             <div
   role="text"
-  aria-label="I fix the color systems costing you contracts — Color Intent Technologist"
+  aria-label="I fix the color systems costing you contracts — Product Designer & Full-Stack Developer"
   className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
   <p className="m-0">
-    I fix the color systems costing you contracts —&nbsp;<span className="highlighter">Color Intent Technologist</span>
+    I fix the color systems costing you contracts —&nbsp;<span className="highlighter">Product Designer & Full-Stack Developer</span>
   </p>
 </div>
 
@@ -460,7 +460,7 @@ export function ColorIntentMaiPage() {
             </div>
             <div className="pt-6 border-t border-white/20 dark:border-neutral-200 w-full max-w-md space-y-1">
               <p className="text-sm text-white/70 dark:text-neutral-600" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
-                © {new Date().getFullYear()} Coriano Harris, <span className="highlighter">Color Intent Technologist</span>™
+                © {new Date().getFullYear()} Coriano Harris, <span className="highlighter">Product Designer & Full-Stack Developer</span>
               </p>
               <p className="text-xs text-white/60 dark:text-neutral-500" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
                 Intent-Driven Color Model™ | All rights reserved
