@@ -11,6 +11,7 @@ interface Tier {
   priceNote?: string
   description: string
   features: string[]
+  showTool?: boolean
 }
 
 const tiers: Tier[] = [
@@ -18,7 +19,7 @@ const tiers: Tier[] = [
     name: "15-min Color ROI Call",
     tagline: "Start free",
     price: "Free",
-    description: "15 minutes. No pitch. The truth about what color is costing you.",
+    description: "15 minutes. The truth about what color is costing you.",
     features: ["Cost-of-confusion snapshot", "Your biggest color risk identified", "Next-step recommendations"],
   },
   {
@@ -26,16 +27,18 @@ const tiers: Tier[] = [
     tagline: "Free audit",
     price: "Free",
     priceNote: "first page · $299 per additional page",
-    description: "Share any screen. Get a full color intent breakdown — what each color is communicating, what it should be communicating, and the gap between the two.",
+    description: "Share any screen. Get a full color breakdown. See what each color says, what it should say, and the gap.",
     features: ["Color intent mapping per screen", "Cost-of-confusion score", "Prioritized fix recommendations"],
+    showTool: true,
   },
   {
     name: "Color Blindness Audit",
     tagline: "Accessibility",
     price: "$3,500",
     priceNote: "flat fee per product module",
-    description: "Protect against lost contracts and legal liability. Know exactly what 8% of your users — including enterprise decision-makers — actually see.",
+    description: "Protect against lost contracts and legal risk. Know exactly what 8% of your users see. Yes, that includes the buyers who matter most.",
     features: ["WCAG compliance analysis", "8% user experience recovery", "Remediation report with intent mapping"],
+    showTool: true,
   },
   {
     name: "Strategy & Design Systems",
@@ -43,15 +46,46 @@ const tiers: Tier[] = [
     price: "From $15,000",
     description: "One system. Everyone trusts it. Design and engineering aligned.",
     features: ["Intent mapping", "Token architecture", "Design system build"],
-  },
-  {
-    name: "Implementation & Enterprise",
-    tagline: "Scale",
-    price: "Custom",
-    description: "Scale without the chaos. Validation. Implementation. Ongoing alignment.",
-    features: ["Product validation", "Code/token support", "Ongoing alignment"],
+    showTool: true,
   },
 ]
+
+function ToolPreview() {
+  return (
+    <div className="rounded-lg border border-border bg-background/60 p-3 mb-4 text-xs font-mono">
+      <div className="flex items-center gap-1.5 mb-2">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
+        <span className="ml-2 text-muted-foreground text-[10px]">Color Code Studio™</span>
+      </div>
+      <div className="space-y-1.5">
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-red-500 shrink-0" />
+          <div className="flex-1 h-1.5 rounded bg-red-200 dark:bg-red-900/40">
+            <div className="h-full w-[72%] rounded bg-red-500" />
+          </div>
+          <span className="text-muted-foreground text-[10px]">Error · wrong intent</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-yellow-400 shrink-0" />
+          <div className="flex-1 h-1.5 rounded bg-yellow-100 dark:bg-yellow-900/40">
+            <div className="h-full w-[45%] rounded bg-yellow-400" />
+          </div>
+          <span className="text-muted-foreground text-[10px]">Warning · ambiguous</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-sm bg-[#14b8a6] shrink-0" />
+          <div className="flex-1 h-1.5 rounded bg-teal-100 dark:bg-teal-900/40">
+            <div className="h-full w-[91%] rounded bg-[#14b8a6]" />
+          </div>
+          <span className="text-muted-foreground text-[10px]">Success · clear</span>
+        </div>
+      </div>
+      <p className="text-[10px] text-muted-foreground mt-2 text-right">Cost-of-confusion score: 68 / 100</p>
+    </div>
+  )
+}
 
 function scrollToContact() {
   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
@@ -61,8 +95,8 @@ export function ServicesMai() {
   return (
     <MaiScrollSection
       id="services"
-      title="How we work together"
-      subtitle="Start free. No commitment. Just clarity."
+      title="Choose where to start."
+      subtitle="Start free. Just clarity."
     >
       <div className="grid md:grid-cols-2 gap-6 mb-10">
         {tiers.map((t) => (
@@ -97,7 +131,8 @@ export function ServicesMai() {
                 )}
               </div>
             )}
-            <p className="text-muted-foreground text-sm mb-4 flex-1">{t.description}</p>
+            <p className="text-muted-foreground text-sm mb-4">{t.description}</p>
+            {t.showTool && <ToolPreview />}
             <ul className="space-y-2">
               {t.features.map((f) => (
                 <li key={f} className="flex items-center gap-2 text-sm">

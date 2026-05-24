@@ -37,7 +37,7 @@ export const intentOptions: IntentOption[] = [
     bgColor: "#06b6d4",
     bgColorLight: "#cffafe",
     heroSubhead: "One source of truth. Design and engineering aligned.",
-    heroSupport: "Broken systems cost you. One source of truth—design and engineering aligned—builds the trust you need.",
+    heroSupport: "Broken systems cost you. One source of truth. Design and engineering aligned. That builds real trust.",
   },
   {
     id: "prove-roi",
@@ -46,7 +46,7 @@ export const intentOptions: IntentOption[] = [
     bgColor: "#14b8a6",
     bgColorLight: "#ccfbf1",
     heroSubhead: "Let's talk numbers. The cost is real.",
-    heroSupport: "Color system failures cost $100K–$500K/year. I help you prove the upside.",
+    heroSupport: "Color system failures cost $100K to $500K a year. I help you prove the upside.",
   },
   {
     id: "accessibility",
@@ -55,7 +55,7 @@ export const intentOptions: IntentOption[] = [
     bgColor: "#0891b2",
     bgColorLight: "#e0f2fe",
     heroSubhead: "Pass the audit. Stay passed.",
-    heroSupport: "Color Accessibility audits, compliance, clarity. Intent-driven color makes it pass—and stay passed.",
+    heroSupport: "Color Accessibility audits, compliance, clarity. Color Code™ makes it pass—and stay passed.",
   },
   {
     id: "scale",
@@ -81,15 +81,10 @@ export const intentOptions: IntentOption[] = [
 export type SectionId =
   | "qualifier"
   | "contact"
-  | "urgency"
-  | "how-it-works"
   | "story"
   | "proof"
   | "services"
-  | "site-audit"
   | "roi-calculator"
-  | "blog"
-  | "about"
 
 /** Default section order
  *  Fast path: qualifier → proof → contact (act now or keep scrolling for context)
@@ -98,14 +93,9 @@ const defaultSectionOrder: SectionId[] = [
   "qualifier",
   "proof",
   "contact",
-  "urgency",
-  "how-it-works",
   "story",
   "services",
-  "site-audit",
   "roi-calculator",
-  "blog",
-  "about",
 ]
 
 /** Intent-specific section order: surface the most relevant content first */
@@ -118,27 +108,17 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
         "proof",
         "roi-calculator",
         "contact",
-        "urgency",
-        "how-it-works",
         "story",
         "services",
-        "site-audit",
-        "blog",
-        "about",
       ]
     case "accessibility":
       return [
         "qualifier",
         "proof",
-        "site-audit",
         "contact",
-        "urgency",
-        "how-it-works",
         "story",
         "services",
         "roi-calculator",
-        "blog",
-        "about",
       ]
     case "fix-design-system":
     case "scale":
@@ -147,13 +127,8 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
         "proof",
         "services",
         "contact",
-        "urgency",
-        "how-it-works",
         "story",
-        "site-audit",
         "roi-calculator",
-        "blog",
-        "about",
       ]
     default:
       return defaultSectionOrder

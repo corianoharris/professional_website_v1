@@ -6,16 +6,16 @@ import { ArrowRight } from "lucide-react"
 
 const scenarios = [
   {
-    before: "Blues scattered across Figma and code. No single source of truth. Releases stalled.",
-    after: "One system. Design and engineering aligned. Revision cycles cut.",
+    before: "No two blues were the same. Design and engineering argued every week. Nothing shipped.",
+    after: "One system. Everyone aligned. Shipping.",
   },
   {
-    before: "Color Accessibility audits kept failing. We were about to lose a big contract.",
-    after: "Passed. Contract secured. Costs recovered.",
+    before: "Failing audits. A major contract on the line.",
+    after: "Passed. Contract saved.",
   },
   {
-    before: "Checkout was failing. Users couldn't tell errors from success. Conversion was a guess.",
-    after: "Intent-driven palette. Clear feedback. Conversions improved.",
+    before: "Users couldn't tell errors from success. Checkout was broken.",
+    after: "Clear signals. Conversions up.",
   },
 ]
 
@@ -27,8 +27,8 @@ export function ProofMai() {
   return (
     <MaiScrollSection
       id="proof"
-      title="Here's what changes."
-      subtitle="The same problems. Solved."
+      title="The work speaks."
+      subtitle="Real problems. Fixed for good."
       variant="muted"
     >
       <div className="grid md:grid-cols-3 gap-6 mb-10">

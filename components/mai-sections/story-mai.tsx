@@ -19,18 +19,19 @@ export function StoryMai() {
       <div className="max-w-2xl mx-auto space-y-6">
         <article className="space-y-6 text-lg leading-relaxed">
           <p className="text-foreground">
-           They were 90 days away from losing a <span className="font-semibold text-[#14b8a6]">$2M contract</span>. Not because they lacked talent. Because they lacked clarity. Their color accessibility audit failed again. Error looked like success. Warning looked like info. Users couldn&apos;t tell the difference. The report was 47 pages long.
+            <span className="font-semibold text-[#14b8a6]">$2 million.</span> Almost gone. Because the colors lied.
           </p>
           <p className="text-muted-foreground">
-            So they stopped decorating and started communicating.
-
-Color mapped to intent. Trust for confirmation. Energy for urgency. Growth for success. One system. Design and engineering aligned.
+            Red looked like green. Errors looked fine.
+          </p>
+          <p className="text-muted-foreground">
+            They fixed it. One color. One job.
           </p>
           <p className="text-foreground font-semibold">
-            They passed the audit. They kept the contract.
+            They passed. They won.
           </p>
           <p className="text-muted-foreground italic">
-           Clarity compounds. The teams who act before the next deadline are the ones who find out what&apos;s possible.
+            Your audit is next.
           </p>
         </article>
         <div className="flex justify-center">

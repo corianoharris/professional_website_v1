@@ -27,7 +27,7 @@ export function ShareableQuote() {
   const handleShare = () => {
     if (canShare && navigator.share) {
       navigator.share({
-        title: "Intent-Driven Color Model",
+        title: "The Color Code",
         text: `${QUOTE} ${SOURCE}`,
         url: typeof window !== "undefined" ? window.location.href : "",
       }).catch(() => {})

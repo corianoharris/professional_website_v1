@@ -227,14 +227,14 @@ export function RoiCalculatorSection() {
 
             <div className="rounded-xl border border-border bg-background p-4">
               <p className="text-xs text-muted-foreground">
-                <span className="font-semibold text-foreground">Note:</span> This calculator uses industry averages. Your actual costs may be higher when factoring in developer time fighting color tokens, failed color accessibility audits, and lost contracts.
+                These numbers are conservative. Your real cost is probably worse.
               </p>
             </div>
           </div>
         </div>
 
         <p className="mt-12 text-center text-lg font-semibold max-w-2xl mx-auto">
-          That number? It&apos;s real. The fix? It&apos;s real too. The <span className="highlighter">Intent-Driven Color Model™</span> doesn&apos;t paper over the problem. It eliminates it.
+          The number is real. The fix is simple.
         </p>
       </MaiScrollSection>
   )

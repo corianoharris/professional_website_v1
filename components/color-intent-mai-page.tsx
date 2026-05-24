@@ -7,8 +7,7 @@ import { sendGAEvent } from "@next/third-parties/google"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
 import { getSectionOrderForIntent, type SectionId } from "@/lib/intent-landing"
-import { ServicesMai, UrgencyMai, HowItWorksMai, ProofMai, QualifierMai, SiteAuditScoreMai, StoryMai, ContactMai, AboutMai } from "@/components/mai-sections"
-// BlogMai is hidden from homepage but component is preserved: import { BlogMai } from "@/components/mai-sections"
+import { ServicesMai, ProofMai, QualifierMai, StoryMai, ContactMai } from "@/components/mai-sections"
 import { RoiCalculatorSection } from "@/components/roi-calculator-section"
 
 import { HomepageAudio } from "@/components/homepage-audio"
@@ -18,13 +17,9 @@ const navLinks = [
   { href: "#services", label: "Services" },
 ]
 const exploreLinks = [
-  { href: "#how-it-works", label: "How it works" },
   { href: "#story", label: "The story" },
   { href: "#proof", label: "What's Possible" },
-  { href: "#site-audit", label: "Score your system" },
   { href: "#roi-calculator", label: "ROI Calculator" },
-  { href: "#blog", label: "Articles" },
-  { href: "#about", label: "About" },
 ]
 
 function scrollToSection(id: string) {
@@ -63,22 +58,16 @@ function scrollToSection(id: string) {
   requestAnimationFrame(animate)
 }
 
-const defaultHeroSubhead = "You know color is broken. But you can't prove it—and you can't fix what you can't measure."
-const defaultHeroSupport =
-  "That's what we change. In 15 minutes, you'll know exactly what your color system is costing you—in failed audits, lost contracts, and revision cycles that never end."
+const defaultHeroSubhead = "You know it. You just can't prove it yet."
+const defaultHeroSupport = "15 minutes changes that. See the cost. Fix the system."
 
 const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   qualifier: <QualifierMai />,
   contact: <ContactMai />,
-  urgency: <UrgencyMai />,
-  "how-it-works": <HowItWorksMai />,
   story: <StoryMai />,
   proof: <ProofMai />,
   services: <ServicesMai />,
-  "site-audit": <SiteAuditScoreMai />,
   "roi-calculator": <RoiCalculatorSection />,
-  blog: null, // hidden — content preserved in BlogMai component
-  about: <AboutMai />,
 }
 
 function IntentDrivenSections({ intent }: { intent: null }) {
@@ -95,7 +84,6 @@ function IntentDrivenSections({ intent }: { intent: null }) {
 }
 
 export function ColorIntentMaiPage() {
-  const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [exploreOpen, setExploreOpen] = useState(false)
   const exploreWrapperRef = useRef<HTMLDivElement>(null)
@@ -365,12 +353,12 @@ export function ColorIntentMaiPage() {
 
             <div
   role="text"
-  aria-label="I fix the color systems costing you contracts — Product Designer & Full-Stack Developer"
+  aria-label="I fix the color systems costing you contracts. Product Designer and Full-Stack Developer"
   className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
   <p className="m-0">
-    I fix the color systems costing you contracts —&nbsp;<span className="highlighter">Product Designer & Full-Stack Developer</span>
+    I fix the color systems costing you contracts.&nbsp;<span className="highlighter">Product Designer & Full-Stack Developer</span>
   </p>
 </div>
 
@@ -378,9 +366,7 @@ export function ColorIntentMaiPage() {
               className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6"
               style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontStyle: "italic" }}
             >
-              Real <span className="highlighter">color systems</span>
-              <br />
-              build real <span className="highlighter">trust</span>.
+              Your color is <span className="highlighter">broken</span>.
             </h1>
             <p
               className="text-xl md:text-2xl text-muted-foreground mb-4"
@@ -422,9 +408,9 @@ export function ColorIntentMaiPage() {
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="flex flex-col items-center text-center gap-10">
             <div>
-              <h3 className="text-xl font-bold mb-2">The best time was yesterday</h3>
+              <h3 className="text-xl font-bold mb-2">Your audit isn&apos;t waiting.</h3>
               <p className="text-white/80 dark:text-neutral-600 text-sm mb-6 max-w-md mx-auto">
-                The second best is now. 15 minutes. No pitch. Just the truth about what color is costing you.
+                15 minutes. Just the truth about what it&apos;s costing you.
               </p>
               <Button
                 onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "footer" }); scrollToSection("contact") }}
@@ -447,7 +433,7 @@ export function ColorIntentMaiPage() {
                 rel="noopener noreferrer"
                 className="text-sm text-white/80 dark:text-neutral-600 hover:text-white dark:hover:text-neutral-900 transition-colors"
               >
-                LinkedIn
+                LinkedIn <span className="text-xs text-[#14b8a6]">· Open to work</span>
               </a>
               <a
                 href="https://github.com/corianoharris"
@@ -463,7 +449,7 @@ export function ColorIntentMaiPage() {
                 © {new Date().getFullYear()} Coriano Harris, <span className="highlighter">Product Designer & Full-Stack Developer</span>
               </p>
               <p className="text-xs text-white/60 dark:text-neutral-500" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
-                Intent-Driven Color Model™ | All rights reserved
+                The Color Code™ | All rights reserved
               </p>
             </div>
           </div>

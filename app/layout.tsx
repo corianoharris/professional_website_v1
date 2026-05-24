@@ -54,7 +54,7 @@ const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 export const metadata: Metadata = {
   title: "Coriano Harris | Product Designer & Full-Stack Developer",
   description:
-    "Product Designer & Full-Stack Developer. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. Intent-Driven Color Model™.",
+    "Product Designer & Full-Stack Developer. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. The Color Code™.",
   manifest: "/manifest.json",
   metadataBase: new URL(siteUrl),
   icons: {

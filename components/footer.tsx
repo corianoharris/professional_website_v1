@@ -14,7 +14,18 @@ export function Footer() {
               © {new Date().getFullYear()} Coriano Harris, Product Designer & Full-Stack Developer
             </p>
             <p className="text-xs text-background/60" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
-              Intent-Driven Color Model™ | All rights reserved
+              The Color Code™ | All rights reserved
+            </p>
+            <p className="text-xs text-background/50 pt-1" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+              Open to work{" "}
+              <a
+                href="https://www.linkedin.com/in/corianoharris"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-background/80 transition-colors"
+              >
+                LinkedIn
+              </a>
             </p>
           </div>
         </div>

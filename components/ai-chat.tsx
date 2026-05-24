@@ -4,10 +4,9 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
-import { X, Send, Loader2, RefreshCw, Smile, MessageCircle } from "lucide-react"
+import { X, Send, Loader2, RefreshCw, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAIChat } from "@/components/ai-chat-context"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { useTheme } from "@/components/theme-provider"
 import ReactMarkdown from "react-markdown"
@@ -24,6 +23,24 @@ interface Message {
 }
 
 type ChatFontSize = "normal" | "large" | "extra-large"
+type ChatTone = "default" | "urgent" | "roi" | "accessibility" | "exploratory"
+
+const TONE_COLORS: Record<ChatTone, string> = {
+  default:       "#7c3aed",  // brand purple
+  urgent:        "#0369a1",
+  roi:           "#0d9488",
+  accessibility: "#0891b2",
+  exploratory:   "#7c3aed",
+}
+
+function detectTone(text: string): ChatTone {
+  const t = text.toLowerCase()
+  if (/failing audit|failed audit|lose.*contract|lost.*contract|legal|compli|lose|losing|risk|deadline/.test(t)) return "urgent"
+  if (/cost|money|roi|revenue|budget|expensive|save|invest|price/.test(t)) return "roi"
+  if (/accessibility|wcag|blind|contrast|inclusive|disabilit|508/.test(t)) return "accessibility"
+  if (/what|how|tell|explain|curious|wonder|explore|learn|about/.test(t)) return "exploratory"
+  return "default"
+}
 
 interface AIChatProps {
   hideFloatingButton?: boolean
@@ -40,7 +57,6 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   const [smallModalOpen, setSmallModalOpen] = useState(false)
   const smallModalRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
   // Chat-specific accessibility settings (all settings are chat-only)
   const [chatFontSize, setChatFontSize] = useState<ChatFontSize>("normal")
   const [chatHighContrast, setChatHighContrast] = useState(false)
@@ -50,6 +66,8 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   const previousMessageCountRef = useRef(0)
   const triggerButtonRef = useRef<HTMLElement | null>(null)
   const [hasShownWelcome, setHasShownWelcome] = useState(false)
+  const [chatTone, setChatTone] = useState<ChatTone>("default")
+  const toneColor = TONE_COLORS[chatTone]
 
   // Load chat-specific settings from localStorage
   useEffect(() => {
@@ -157,28 +175,6 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
     localStorage.setItem("chatHighContrast", String(chatHighContrast))
   }, [chatHighContrast])
 
-  // Common emojis for quick selection
-  const commonEmojis = [
-    '😊', '😄', '😁', '😆', '😅', '😂', '🤣', '😃',
-    '😉', '😎', '🥳', '😍', '🤩', '😋', '😜', '🤪',
-    '😝', '🤑', '🤗', '🤭', '🤫', '🤔', '🤐', '🤨',
-    '😐', '😑', '😶', '😏', '😒', '🙄', '😬', '🤥',
-    '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕',
-    '🤢', '🤮', '🤧', '🥵', '🥶', '😵', '🤯', '🤠',
-    '😇', '🤓', '🧐', '👍', '👎', '👌', '✌️', '🤞',
-    '🤟', '🤘', '🤙', '👏', '🙌', '👐', '🤲', '🤝',
-    '🙏', '✍️', '💪', '👀', '❤️', '🧡', '💛', '💚',
-    '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️', '💕',
-    '💞', '💓', '💗', '💖', '💘', '💝', '💟', '🔥',
-    '⭐', '✨', '🎉', '🎊', '🎈', '🎁', '🏆', '🥇',
-    '✅', '❌', '⚠️', '💡', '🚀', '💯', '🎯', '⚡'
-  ]
-
-  const insertEmoji = (emoji: string) => {
-    setInput(prev => prev + emoji)
-    setEmojiPickerOpen(false)
-    inputRef.current?.focus()
-  }
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -233,12 +229,6 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        // Close popovers first if open
-        if (emojiPickerOpen) {
-          setEmojiPickerOpen(false)
-          inputRef.current?.focus()
-          return
-        }
         // Blur input to dismiss keyboard on mobile
         if (inputRef.current) {
           inputRef.current.blur()
@@ -285,7 +275,7 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
         chatContainerRef.current?.removeEventListener('keydown', handleTab)
       }
     }
-  }, [isOpen, setIsOpen, emojiPickerOpen])
+  }, [isOpen, setIsOpen])
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return
@@ -296,6 +286,8 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
     }
 
     setMessages(prev => [...prev, userMessage])
+    const inputTone = detectTone(userMessage.content)
+    setChatTone(prev => inputTone !== "default" ? inputTone : prev)
     setInput("")
     setIsLoading(true)
 
@@ -320,9 +312,9 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
 
       const data = await response.json()
 
-      // Add typing animation for better perceived performance
-      // This helps users feel like the response is coming faster, especially on slower connections
       const fullResponse = data.response
+      const responseTone = detectTone(fullResponse)
+      setChatTone(prev => responseTone !== "default" ? responseTone : prev)
       const assistantMessage: Message = {
         role: 'assistant',
         content: '',
@@ -419,9 +411,10 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
             {/* Small Modal - positioned above the button */}
             <div
               ref={smallModalRef}
-              className={`absolute bottom-full left-0 mb-3 bg-card border-2 border-[var(--color-brand-purple)]/20 rounded-xl shadow-xl transition-all duration-300 w-[calc(100vw-2rem)] max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl sm:w-auto ${
+              className={`absolute bottom-full left-0 mb-3 bg-card rounded-xl shadow-xl transition-all duration-300 w-[calc(100vw-2rem)] max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl sm:w-auto border-2 ${
                 smallModalOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
               }`}
+              style={{ borderColor: `${toneColor}33` }}
               role="dialog"
               aria-label="Chroma greeting"
               aria-hidden={!smallModalOpen}
@@ -440,17 +433,17 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
                   </div>
                   <p className="text-xl md:text-2xl font-bold mb-3 flex items-center justify-center gap-2 flex-wrap">
                     <span
-                      className="font-bold inline-block"
+                      className="font-bold inline-block transition-colors duration-500"
                       style={{
                         fontFamily: 'var(--font-baloo2), sans-serif',
-                        color: 'var(--color-brand-purple)',
+                        color: toneColor,
                         letterSpacing: '0.08em',
                         lineHeight: '1.2'
                       }}
                     >
                       Chroma
                     </span>
-                    <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.2' }}>is Here to Help!</span>
+                    <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.2' }}>knows color.</span>
                   </p>
                 </div>
 
@@ -460,33 +453,24 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
                 {/* Magazine Content */}
                 <div className="mb-6">
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed text-center" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.7' }}>
-                    <span
-                      className="font-bold"
-                      style={{
-                        fontFamily: 'var(--font-baloo2), sans-serif',
-                        color: 'var(--color-brand-purple)',
-                        letterSpacing: '0.08em'
-                      }}
-                    >
-                      Chroma
-                    </span>
-                    {' '}is your assistant for all things related to Coriano. Whether you have questions about services, design, or anything else, I'm here to guide you! Ask away anytime.
+                    Ask about color. Audits. How it works. Or Coriano&apos;s story.
                   </p>
                 </div>
 
                 {/* Magazine CTA */}
                 <Button
                   onClick={handleOpenFullChat}
-                  className="w-full bg-[var(--color-brand-purple)] text-white hover:bg-[var(--color-action-hover)] text-base md:text-lg py-6 font-semibold"
-                  aria-label="Open full chat with Chroma"
-                  style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.05em' }}
+                  className="w-full text-white text-base md:text-lg py-6 font-semibold transition-colors duration-500"
+                  style={{ backgroundColor: toneColor, fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.05em' }}
+                  aria-label="Open chat"
                 >
-                  Chat with Chroma
+                  Ask a question
                 </Button>
               </div>
               {/* Tooltip arrow pointing down to button */}
               <div
-                className="absolute -bottom-1.5 left-6 w-3 h-3 bg-card border-r border-b border-[var(--color-brand-purple)]/20"
+                className="absolute -bottom-1.5 left-6 w-3 h-3 bg-card border-r border-b"
+                style={{ borderColor: `${toneColor}33` }}
                 style={{ transform: 'translateX(-50%) rotate(45deg)' }}
               />
             </div>
@@ -495,7 +479,8 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
             <button
               ref={buttonRef}
               onClick={() => setSmallModalOpen(!smallModalOpen)}
-              className="bg-[var(--color-brand-purple)] text-white rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shadow-lg hover:bg-[var(--color-action-hover)] transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:ring-offset-2 animate-in fade-in-0 slide-in-from-bottom-4 duration-300 ring-2 ring-[var(--color-brand-purple)]/20"
+              className="text-white rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shadow-lg transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 animate-in fade-in-0 slide-in-from-bottom-4 duration-300"
+              style={{ backgroundColor: toneColor, ringColor: toneColor }}
               aria-label="Open Chroma menu"
               aria-expanded={smallModalOpen}
               aria-haspopup="dialog"
@@ -566,17 +551,14 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
               <div className="flex-1 min-w-0">
                 <h2 id="ai-chat-title" className="text-lg font-semibold mb-1">
                   Chat with <span
-                    className="font-bold"
+                    className="font-bold transition-colors duration-500"
                     style={{
                       fontFamily: 'var(--font-baloo2), sans-serif',
-                      color: 'var(--color-brand-purple)',
+                      color: toneColor,
                       letterSpacing: '0.08em'
                     }}
                   >Chroma</span>
                 </h2>
-                <p id="ai-chat-description" className="text-xs text-muted-foreground">
-                  • I'm online
-                </p>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -670,87 +652,35 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
                   style={{ objectPosition: "50% 30%" }}
                 />
                 <h2
-                  className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-bold text-foreground"
+                  className="mb-3 text-2xl sm:text-3xl font-bold text-foreground"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
                 >
-                  Let's Dive Deeper with <span
-                    className="font-bold"
-                    style={{
-                      fontFamily: 'var(--font-baloo2), sans-serif',
-                      color: 'var(--color-brand-purple)',
-                      letterSpacing: '0.08em'
-                    }}
-                  >Chroma</span>!
+                  Ask anything.
                 </h2>
                 <p
-                  className="text-sm sm:text-base mb-4 sm:mb-8 max-w-lg mx-auto leading-relaxed"
+                  className="text-sm sm:text-base mb-6 max-w-sm mx-auto text-muted-foreground"
                   style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}
                 >
-                  Chroma can guide you through Coriano's services, case studies, methodology, philosophy, and more. Ready to explore?
+                  Color. Audits. How it works. Coriano&apos;s story.
                 </p>
-                <p
-                  className="text-sm sm:text-base font-semibold mb-4 sm:mb-8 max-w-lg mx-auto text-foreground"
-                  style={{ fontFamily: 'var(--font-playfair), Georgia, serif', letterSpacing: '0.05em' }}
-                >
-                  Here's how I can assist you further:
-                </p>
-                <div className="mt-4 sm:mt-8 space-y-4 sm:space-y-6 text-left max-w-lg mx-auto">
-                  <div className="py-2 sm:py-3">
-                    <h3
-                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
-                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
+                <div className="mt-6 flex flex-col gap-2 max-w-sm mx-auto">
+                  {[
+                    "What does color do for a product?",
+                    "What is a color audit?",
+                    "Tell me about Coriano.",
+                  ].map((prompt) => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      onClick={() => {
+                        setInput(prompt)
+                        setTimeout(() => inputRef.current?.focus(), 0)
+                      }}
+                      className="text-left text-sm px-4 py-3 rounded-lg border border-border bg-background hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     >
-                      Services
-                    </h3>
-                    <p
-                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
-                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
-                    >
-                      Discover how he can deliver top-tier UX/UI design and software development.
-                    </p>
-                  </div>
-                  <div className="py-2 sm:py-3">
-                    <h3
-                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
-                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
-                    >
-                      Case Studies
-                    </h3>
-                    <p
-                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
-                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
-                    >
-                      See how I've helped brands like yours succeed with strategic design solutions.
-                    </p>
-                  </div>
-                  <div className="py-2 sm:py-3">
-                    <h3
-                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
-                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
-                    >
-                      Color Strategy
-                    </h3>
-                    <p
-                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
-                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
-                    >
-                      Learn how he align color strategies with your brand's vision and user needs.
-                    </p>
-                  </div>
-                  <div className="py-2 sm:py-3">
-                    <h3
-                      className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-foreground uppercase tracking-[0.15em]"
-                      style={{ fontFamily: 'var(--font-space-grotesk), sans-serif', letterSpacing: '0.15em' }}
-                    >
-                      Methodology
-                    </h3>
-                    <p
-                      className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
-                      style={{ fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: '1.8' }}
-                    >
-                      Get an inside look at his structured approach to design and development.
-                    </p>
-                  </div>
+                      {prompt}
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
@@ -776,11 +706,15 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
                 )}
                 <div
                   className={cn(
-                    "rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 shadow-md",
+                    "rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 shadow-md transition-all duration-500",
                     message.role === 'user'
-                      ? "bg-[var(--color-brand-purple)] text-white max-w-[90%] ml-auto -mr-3"
-                      : "bg-muted text-foreground max-w-[85%] -ml-3"
+                      ? "text-white max-w-[90%] ml-auto -mr-3"
+                      : "bg-muted text-foreground max-w-[85%] -ml-3 border-l-4"
                   )}
+                  style={message.role === 'user'
+                    ? { backgroundColor: toneColor }
+                    : { borderLeftColor: toneColor }
+                  }
                 >
                   {message.role === 'assistant' ? (
                     <div className="text-sm prose prose-sm max-w-none dark:prose-invert">
@@ -835,55 +769,6 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
           {/* Input */}
           <div className="p-3 sm:p-4 border-t bg-background">
             <div className="flex items-center gap-2">
-              <Popover open={emojiPickerOpen} onOpenChange={setEmojiPickerOpen}>
-                <Tooltip delayDuration={200}>
-                  <TooltipTrigger asChild>
-                <PopoverTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                     className="h-8 w-8 flex-shrink-0 group"
-                    aria-label="Emoji"
-                    onClick={() => setEmojiPickerOpen(!emojiPickerOpen)}
-                  >
-                         <Smile className="w-4 h-4 text-foreground group-hover:text-white transition-colors" />
-                  </Button>
-                </PopoverTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" sideOffset={8} className="!z-[300] !bg-gray-900 !text-white border-gray-700 [&>*]:!text-white">
-                    Add emoji
-                  </TooltipContent>
-                </Tooltip>
-                <PopoverContent
-                  className="w-80 p-3 z-[200] bg-background border shadow-lg"
-                  align="start"
-                  side="top"
-                  sideOffset={8}
-                  onOpenAutoFocus={(e) => e.preventDefault()}
-                >
-                  <div className="grid grid-cols-8 gap-1 max-h-64 overflow-y-auto">
-                    {commonEmojis.map((emoji, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => insertEmoji(emoji)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            insertEmoji(emoji)
-                          }
-                        }}
-                        className="text-2xl hover:bg-muted rounded p-1.5 transition-colors cursor-pointer flex items-center justify-center aspect-square min-w-[2.5rem] min-h-[2.5rem] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                        aria-label={`Insert ${emoji} emoji`}
-                        title={emoji}
-                      >
-                        {emoji}
-                      </button>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
               <Textarea
                 ref={inputRef}
                 value={input}
@@ -913,7 +798,8 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
                 disabled={!input.trim() || isLoading}
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8 flex-shrink-0 text-[var(--color-brand-purple)] hover:text-[var(--color-brand-purple)] hover:bg-[var(--color-brand-purple)]/10 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                className="h-8 w-8 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-colors duration-500"
+                style={{ color: toneColor }}
                 aria-label={isLoading ? "Sending message" : "Send message"}
                 aria-disabled={!input.trim() || isLoading}
               >

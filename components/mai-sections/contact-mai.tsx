@@ -22,14 +22,9 @@ import { Filter } from "bad-words"
 import DOMPurify from "dompurify"
 
 const services = [
-  { name: "Color Intent Strategy", type: "Primary" },
-  { name: "Color Blindness Audit", type: "Primary" },
-  { name: "Screen Analysis Audit", type: "Primary" },
-  { name: "Intent-Based Design Systems", type: "Primary" },
-  { name: "Product Design Validation", type: "Secondary" },
-  { name: "Implementation Support", type: "Secondary" },
-  { name: "Intent Alignment", type: "Secondary" },
-  { name: "Brand → Intent Translation", type: "Secondary" },
+  { name: "Find the Problem (Audit)", type: "Primary" },
+  { name: "Make a Plan (Strategy)", type: "Primary" },
+  { name: "Build It (Color System)", type: "Primary" },
 ]
 
 export function ContactMai() {
@@ -152,7 +147,7 @@ export function ContactMai() {
       <MaiScrollSection
         id="contact"
         title="Let's talk."
-        subtitle="Send a message. I'll respond within one business day."
+        subtitle="Send a message."
       >
         <div className="grid md:grid-cols-5 gap-12 max-w-4xl">
           {/* Form */}
@@ -243,7 +238,7 @@ export function ContactMai() {
           <div className="md:col-span-2 space-y-6">
             <div className="rounded-xl border border-border bg-muted/20 p-6">
               <p className="text-sm text-muted-foreground mb-4">
-                This form opens your email client with your message. Your information is never stored on this site.
+                This opens your email app. Your info goes straight to me. Nothing is saved here.
               </p>
               <a
                 href="mailto:me@corianoharris.com"
