@@ -5,8 +5,8 @@ const scenarios = [
   {
     label: "",
     paragraphs: [
-      <>Something feels off. The colors don&apos;t match. Users hesitate. You see it.</>,
-      <>That&apos;s not just a glitch. It&apos;s a broken promise to your user, and it is costing you deals before they even sign.</>,
+      <>Something feels off. The colors don&apos;t match. You see users hesitating.</>,
+      <>That&apos;s not just a glitch. It is costing you deals before they even sign.</>,
       <>I point out where the work is broken. Then, I fix it.</>,
     ],
   },

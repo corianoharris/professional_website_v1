@@ -17,7 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Send, Mail, Linkedin, Github, AlertCircle } from "lucide-react"
+import { Send, Mail, Linkedin, AlertCircle } from "lucide-react"
 import { Filter } from "bad-words"
 import DOMPurify from "dompurify"
 
@@ -259,15 +259,6 @@ export function ContactMai() {
                   className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center hover:bg-[#06b6d4] hover:text-white transition-colors"
                 >
                   <Linkedin className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://github.com/corianoharris"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center hover:bg-[#06b6d4] hover:text-white transition-colors"
-                >
-                  <Github className="w-5 h-5" />
                 </a>
               </div>
             </div>

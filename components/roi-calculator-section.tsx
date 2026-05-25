@@ -205,22 +205,9 @@ export function RoiCalculatorSection() {
               <p className="text-3xl font-bold text-[#14b8a6] mb-4 transition-all duration-300">
                 ${roi.totalAnnualCost.toLocaleString()}
               </p>
-              <p className="text-sm text-muted-foreground mb-4">
-                This is what a broken color system costs you every year. And this is a <span className="font-semibold text-foreground">conservative</span> estimate.
-              </p>
-            </div>
-
-            <div className="rounded-xl border border-border bg-background p-4">
-              <p className="text-xs text-muted-foreground">
-                These numbers are conservative. Your real cost is probably worse.
-              </p>
             </div>
           </div>
         </div>
-
-        <p className="mt-12 text-center text-lg font-semibold max-w-2xl mx-auto">
-          The number is real. The fix is simple.
-        </p>
       </MaiScrollSection>
   )
 }

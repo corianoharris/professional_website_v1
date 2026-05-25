@@ -404,14 +404,6 @@ export function ColorIntentMaiPage() {
               >
                 LinkedIn
               </a>
-              <a
-                href="https://github.com/corianoharris"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-white/80 dark:text-neutral-600 hover:text-white dark:hover:text-neutral-900 transition-colors"
-              >
-                GitHub
-              </a>
             </div>
             <div className="pt-6 border-t border-white/20 dark:border-neutral-200 w-full max-w-md space-y-1">
               <p className="text-sm text-white/70 dark:text-neutral-600" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>

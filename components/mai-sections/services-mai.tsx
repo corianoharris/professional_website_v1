@@ -27,7 +27,7 @@ const entryTier: Tier = {
 const suiteTiers: Tier[] = [
   {
     name: "Screen Color Checker",
-    tagline: "Intent analysis",
+    tagline: "Color check",
     price: "$499",
     priceNote: "per page",
     description: "Share a link to your live page. I check what each color is communicating and test what colorblind users see. Fast. Clear. Done.",
@@ -104,12 +104,12 @@ function TierCard({ t }: { t: Tier }) {
     <div
       className={`rounded-xl border p-6 flex flex-col ${
         t.tagline === "Start here"
-          ? "border-[#06b6d4] bg-[#06b6d4]/5 dark:bg-[#06b6d4]/10"
+          ? "border-[#06b6d4] bg-[#06b6d4]/5 dark:bg-[#06b6d4]/10 hover:shadow-lg hover:shadow-[#06b6d4]/20"
           : t.tagline === "Color science"
-            ? "border-[#7c3aed]/40 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 hover:border-[#7c3aed]/50"
+            ? "border-[#7c3aed]/40 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 hover:border-[#7c3aed]/50 hover:shadow-lg hover:shadow-[#7c3aed]/20"
             : t.tagline === "Guide"
-              ? "border-amber-400/40 bg-amber-50/30 dark:bg-amber-900/10 hover:border-amber-400/60"
-              : "border-border bg-card hover:border-[#14b8a6]/30"
+              ? "border-amber-400/40 bg-amber-50/30 dark:bg-amber-900/10 hover:border-amber-400/60 hover:shadow-lg hover:shadow-amber-400/20"
+              : "border-border bg-card hover:border-[#14b8a6]/30 hover:shadow-lg hover:shadow-[#14b8a6]/20"
       } transition-all`}
     >
       <span
