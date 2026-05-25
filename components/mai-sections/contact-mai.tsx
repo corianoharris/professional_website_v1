@@ -22,9 +22,10 @@ import { Filter } from "bad-words"
 import DOMPurify from "dompurify"
 
 const services = [
-  { name: "Find the Problem (Audit)", type: "Primary" },
-  { name: "Make a Plan (Strategy)", type: "Primary" },
-  { name: "Build It (Color System)", type: "Primary" },
+  { name: "Screen Color Checker", type: "Primary" },
+  { name: "The Color Code Cleaner", type: "Primary" },
+  { name: "The Color Feeling Matcher", type: "Primary" },
+  { name: "The Color Code Book", type: "Primary" },
 ]
 
 export function ContactMai() {
@@ -146,8 +147,7 @@ export function ContactMai() {
 
       <MaiScrollSection
         id="contact"
-        title="Let's talk."
-        subtitle="Send a message."
+        title="Talk to me."
       >
         <div className="grid md:grid-cols-5 gap-12 max-w-4xl">
           {/* Form */}

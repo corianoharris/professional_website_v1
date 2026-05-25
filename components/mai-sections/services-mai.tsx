@@ -1,8 +1,8 @@
 "use client"
 
+import Image from "next/image"
 import { MaiScrollSection } from "@/components/mai-scroll-section"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Check } from "lucide-react"
+import { Check } from "lucide-react"
 
 interface Tier {
   name: string
@@ -12,41 +12,53 @@ interface Tier {
   description: string
   features: string[]
   showTool?: boolean
+  image?: string
+  addon?: { label: string; price: string }
 }
 
-const tiers: Tier[] = [
+const entryTier: Tier = {
+  name: "15-min Color Call",
+  tagline: "Start here",
+  price: "Free",
+  description: "Talk to me for 15 minutes. I will tell you exactly where to start.",
+  features: ["Any service, any question", "No commitment", "Walk away with a clear next step"],
+}
+
+const suiteTiers: Tier[] = [
   {
-    name: "15-min Color ROI Call",
-    tagline: "Start free",
-    price: "Free",
-    description: "15 minutes. The truth about what color is costing you.",
-    features: ["Cost-of-confusion snapshot", "Your biggest color risk identified", "Next-step recommendations"],
+    name: "Screen Color Checker",
+    tagline: "Intent analysis",
+    price: "$499",
+    priceNote: "per page",
+    description: "Share a link to your live page. I check what each color is communicating and test what colorblind users see. Fast. Clear. Done.",
+    features: ["See what each color is saying", "Know what colorblind users see", "Get a clear fix list"],
+    image: "/images/screen_analysis.png",
   },
   {
-    name: "Screen Analysis Audit",
-    tagline: "Free audit",
-    price: "Free",
-    priceNote: "first page · $299 per additional page",
-    description: "Share any screen. Get a full color breakdown. See what each color says, what it should say, and the gap.",
-    features: ["Color intent mapping per screen", "Cost-of-confusion score", "Prioritized fix recommendations"],
-    showTool: true,
+    name: "The Color Code Cleaner",
+    tagline: "Code cleanup",
+    price: "$1,500",
+    priceNote: "flat fee per repository",
+    description: "Color names like Blue-500 and Gray-300 mean nothing to the computer. I scan your code, find every one, and rename them so your whole team knows exactly why each color is there.",
+    features: ["See every color name in your code", "Know what needs to change", "Get a clear plan"],
+    image: "/images/token_auditor.png",
   },
   {
-    name: "Color Blindness Audit",
-    tagline: "Accessibility",
+    name: "The Color Feeling Matcher",
+    tagline: "Color science",
     price: "$3,500",
-    priceNote: "flat fee per product module",
-    description: "Protect against lost contracts and legal risk. Know exactly what 8% of your users see. Yes, that includes the buyers who matter most.",
-    features: ["WCAG compliance analysis", "8% user experience recovery", "Remediation report with intent mapping"],
-    showTool: true,
+    priceNote: "flat fee",
+    description: "Colors talk to the brain. I test your full palette to see exactly what it makes people feel. Safe and ready to act. Or unsure and confused.",
+    features: ["See if your colors work together", "Know how people feel when they look", "See what works and what does not"],
+    image: "/images/colors_comparison.png",
   },
   {
-    name: "Strategy & Design Systems",
-    tagline: "Primary",
-    price: "From $15,000",
-    description: "One system. Everyone trusts it. Design and engineering aligned.",
-    features: ["Intent mapping", "Token architecture", "Design system build"],
-    showTool: true,
+    name: "The Color Code Book",
+    tagline: "Guide",
+    price: "Free",
+    description: "A clear set of rules for picking colors that mean something. Pick it up and know exactly what to do.",
+    features: ["A simple color naming system", "Rules your whole team can follow", "Ready to use on day one"],
+    addon: { label: "Want me to set it up in your system for you?", price: "+ $1,800" },
   },
 ]
 
@@ -87,72 +99,81 @@ function ToolPreview() {
   )
 }
 
-function scrollToContact() {
-  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+function TierCard({ t }: { t: Tier }) {
+  return (
+    <div
+      className={`rounded-xl border p-6 flex flex-col ${
+        t.tagline === "Start here"
+          ? "border-[#06b6d4] bg-[#06b6d4]/5 dark:bg-[#06b6d4]/10"
+          : t.tagline === "Color science"
+            ? "border-[#7c3aed]/40 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 hover:border-[#7c3aed]/50"
+            : t.tagline === "Guide"
+              ? "border-amber-400/40 bg-amber-50/30 dark:bg-amber-900/10 hover:border-amber-400/60"
+              : "border-border bg-card hover:border-[#14b8a6]/30"
+      } transition-all`}
+    >
+      <span
+        className={`text-xs font-semibold uppercase tracking-wider ${
+          t.tagline === "Start here" ? "text-[#06b6d4]"
+          : t.tagline === "Color science" ? "text-[#7c3aed]"
+          : t.tagline === "Guide" ? "text-amber-500"
+          : "text-[#14b8a6]"
+        }`}
+      >
+        {t.tagline}
+      </span>
+      <h3 className="text-xl font-semibold mt-2 mb-1">{t.name}</h3>
+      {t.price && (
+        <div className="mb-3">
+          <span className={`text-2xl font-bold ${t.price === "Free" ? "text-[#06b6d4]" : "text-foreground"}`}>
+            {t.price}
+          </span>
+          {t.priceNote && (
+            <span className="text-xs text-muted-foreground ml-2">{t.priceNote}</span>
+          )}
+        </div>
+      )}
+      <p className="text-muted-foreground text-sm mb-4">{t.description}</p>
+      {t.image ? (
+        <div className="relative w-full h-28 rounded-lg overflow-hidden mb-4">
+          <Image src={t.image} alt={t.name} fill className="object-cover object-top" />
+        </div>
+      ) : t.showTool && <ToolPreview />}
+      <ul className="space-y-2">
+        {t.features.map((f: string) => (
+          <li key={f} className="flex items-center gap-2 text-sm">
+            <Check className="w-4 h-4 text-[#14b8a6] shrink-0" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      {t.addon && (
+        <div className="mt-5 pt-4 border-t border-amber-300/40 flex items-start justify-between gap-3">
+          <p className="text-xs text-muted-foreground">{t.addon.label}</p>
+          <span className="text-xs font-bold text-amber-500 whitespace-nowrap">{t.addon.price}</span>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export function ServicesMai() {
   return (
     <MaiScrollSection
       id="services"
-      title="Choose where to start."
-      subtitle="Start free. Just clarity."
+      title="Where to start."
     >
+      {/* Entry point */}
+      <div className="mb-8">
+        <TierCard t={entryTier} />
+      </div>
+
       <div className="grid md:grid-cols-2 gap-6 mb-10">
-        {tiers.map((t) => (
-          <div
-            key={t.name}
-            className={`rounded-xl border p-6 flex flex-col ${
-              t.tagline === "Start free" || t.tagline === "Free audit"
-                ? "border-[#06b6d4] bg-[#06b6d4]/5 dark:bg-[#06b6d4]/10"
-                : t.tagline === "Accessibility"
-                  ? "border-[#7c3aed]/40 bg-[#7c3aed]/5 dark:bg-[#7c3aed]/10 hover:border-[#7c3aed]/50"
-                  : "border-border bg-card hover:border-[#14b8a6]/30"
-            } transition-all`}
-          >
-            <span
-              className={`text-xs font-semibold uppercase tracking-wider ${
-                t.tagline === "Start free" || t.tagline === "Free audit" ? "text-[#06b6d4]"
-                : t.tagline === "Accessibility" ? "text-[#7c3aed]"
-                : t.tagline === "Primary" ? "text-[#14b8a6]"
-                : "text-muted-foreground"
-              }`}
-            >
-              {t.tagline}
-            </span>
-            <h3 className="text-xl font-semibold mt-2 mb-1">{t.name}</h3>
-            {t.price && (
-              <div className="mb-3">
-                <span className={`text-2xl font-bold ${t.price === "Free" ? "text-[#06b6d4]" : "text-foreground"}`}>
-                  {t.price}
-                </span>
-                {t.priceNote && (
-                  <span className="text-xs text-muted-foreground ml-2">{t.priceNote}</span>
-                )}
-              </div>
-            )}
-            <p className="text-muted-foreground text-sm mb-4">{t.description}</p>
-            {t.showTool && <ToolPreview />}
-            <ul className="space-y-2">
-              {t.features.map((f) => (
-                <li key={f} className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-[#14b8a6] shrink-0" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {suiteTiers.map((t) => (
+          <TierCard key={t.name} t={t} />
         ))}
       </div>
-      <div className="flex justify-center">
-        <Button
-          onClick={scrollToContact}
-          className="bg-[#f97316] hover:bg-[#ea580c] text-white"
-        >
-          Book the 15-min Audit
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
+
     </MaiScrollSection>
   )
 }

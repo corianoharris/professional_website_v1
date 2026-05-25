@@ -4,9 +4,9 @@ import { MaiScrollSection } from "@/components/mai-scroll-section"
 import { Check } from "lucide-react"
 
 const benefits = [
-  "Color is costing you customers",
-  "Your team can't ship fast enough",
-  "You've already lost a deal over it",
+  "You own a product with a UI.",
+  "You know color leaves the station with every single deploy.",
+  "You believe accessibility is a promise, not a checklist.",
 ]
 
 export function QualifierMai() {
@@ -14,11 +14,8 @@ export function QualifierMai() {
     <MaiScrollSection
       id="qualifier"
       title="Is this for you?"
-      subtitle="I work with people ready to fix it."
+      subtitle="I work with people who refuse to ship sloppy work."
     >
-      <p className="text-center text-foreground font-medium mb-8 max-w-xl mx-auto">
-        Your color is broken. You know it. You just can&apos;t prove it yet.
-      </p>
       <ul className="space-y-3 max-w-sm mx-auto mb-8">
         {benefits.map((b) => (
           <li key={b} className="flex gap-2">
@@ -27,9 +24,6 @@ export function QualifierMai() {
           </li>
         ))}
       </ul>
-      <p className="text-center text-muted-foreground text-sm max-w-lg mx-auto">
-        If you want a quick fix or the cheapest option, I&apos;m not your person.
-      </p>
     </MaiScrollSection>
   )
 }

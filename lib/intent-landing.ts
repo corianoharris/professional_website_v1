@@ -91,9 +91,9 @@ export type SectionId =
  */
 const defaultSectionOrder: SectionId[] = [
   "qualifier",
+  "story",
   "proof",
   "contact",
-  "story",
   "services",
   "roi-calculator",
 ]
@@ -105,18 +105,18 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
     case "prove-roi":
       return [
         "qualifier",
+        "story",
         "proof",
         "roi-calculator",
         "contact",
-        "story",
         "services",
       ]
     case "accessibility":
       return [
         "qualifier",
+        "story",
         "proof",
         "contact",
-        "story",
         "services",
         "roi-calculator",
       ]
@@ -124,10 +124,10 @@ export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
     case "scale":
       return [
         "qualifier",
+        "story",
         "proof",
         "services",
         "contact",
-        "story",
         "roi-calculator",
       ]
     default:

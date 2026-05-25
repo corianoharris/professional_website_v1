@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { Slider } from "@/components/ui/slider"
 import { MaiScrollSection } from "@/components/mai-scroll-section"
-import { Button } from "@/components/ui/button"
 
 export function RoiCalculatorSection() {
   const [supportTickets, setSupportTickets] = useState(50)
@@ -48,18 +47,10 @@ export function RoiCalculatorSection() {
 
   const roi = calculateROI()
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById("contact")
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
   return (
     <MaiScrollSection
       id="roi-calculator"
       title="How much is it costing you?"
-      subtitle="You probably don't know. Adjust the sliders. See the number."
       variant="muted"
     >
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -217,12 +208,6 @@ export function RoiCalculatorSection() {
               <p className="text-sm text-muted-foreground mb-4">
                 This is what a broken color system costs you every year. And this is a <span className="font-semibold text-foreground">conservative</span> estimate.
               </p>
-              <Button
-                onClick={scrollToContact}
-                className="w-full bg-[#f97316] hover:bg-[#ea580c] text-white"
-              >
-                Book the 15-min Audit
-              </Button>
             </div>
 
             <div className="rounded-xl border border-border bg-background p-4">

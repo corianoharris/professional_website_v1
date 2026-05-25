@@ -6,8 +6,7 @@ export function AboutMai() {
   return (
     <MaiScrollSection
       id="about"
-      title="Who are you?"
-      subtitle="The story. The why. The permission to be different."
+      title="About."
       variant="muted"
     >
       <div className="max-w-xl mx-auto">

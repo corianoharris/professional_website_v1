@@ -15,7 +15,7 @@ import { ragQuery } from '@/lib/ai/rag-pipeline'
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, conversationHistory, intent } = await request.json()
+    const { message, conversationHistory, intent, tone } = await request.json()
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
@@ -24,10 +24,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const result = await ragQuery(message, intent)
+    const result = await ragQuery(message, intent, tone)
 
     return NextResponse.json({
       response: result.response,
+      blocked: result.blocked ?? false,
       sources: result.sources.map(s => ({
         id: s.id,
         title: s.metadata.title || s.source,

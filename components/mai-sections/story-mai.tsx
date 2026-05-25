@@ -1,48 +1,32 @@
 "use client"
 
 import { MaiScrollSection } from "@/components/mai-scroll-section"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-
-function scrollToContact() {
-  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-}
 
 export function StoryMai() {
   return (
     <MaiScrollSection
       id="story"
-      title="Here's what happened"
-      subtitle="One story. A moment that matters."
+      title="What happened."
       variant="default"
     >
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto">
         <article className="space-y-6 text-lg leading-relaxed">
           <p className="text-foreground">
-            <span className="font-semibold text-[#14b8a6]">$2 million.</span> Almost gone. Because the colors lied.
+            A <span className="font-semibold text-[#14b8a6]">$2 million</span> contract was nearly lost. Because a single design token lied.
           </p>
           <p className="text-muted-foreground">
-            Red looked like green. Errors looked fine.
+            Red looked like green. Errors looked like success. The team was blind to the gap until the client called them on it.
           </p>
           <p className="text-muted-foreground">
-            They fixed it. One color. One job.
+            I fixed it.
           </p>
           <p className="text-foreground font-semibold">
-            They passed. They won.
+            The audit passed. The contract stayed.
           </p>
-          <p className="text-muted-foreground italic">
-            Your audit is next.
+          <p className="font-semibold text-[#14b8a6]">
+            Color is never just color.
           </p>
         </article>
-        <div className="flex justify-center">
-          <Button
-            onClick={scrollToContact}
-            className="bg-[#f97316] hover:bg-[#ea580c] text-white"
-          >
-            Book the 15-min Audit
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
       </div>
     </MaiScrollSection>
   )

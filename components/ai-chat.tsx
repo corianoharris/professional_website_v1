@@ -7,8 +7,7 @@ import { Card } from "@/components/ui/card"
 import { X, Send, Loader2, RefreshCw, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAIChat } from "@/components/ai-chat-context"
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
-import { useTheme } from "@/components/theme-provider"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import ReactMarkdown from "react-markdown"
 
 interface Message {
@@ -26,11 +25,36 @@ type ChatFontSize = "normal" | "large" | "extra-large"
 type ChatTone = "default" | "urgent" | "roi" | "accessibility" | "exploratory"
 
 const TONE_COLORS: Record<ChatTone, string> = {
-  default:       "#7c3aed",  // brand purple
+  default:       "#7c3aed",
   urgent:        "#0369a1",
   roi:           "#0d9488",
   accessibility: "#0891b2",
   exploratory:   "#7c3aed",
+}
+
+const TONE_BG_PASTEL: Record<ChatTone, string> = {
+  default:       "#ede9fe",  // soft lavender
+  urgent:        "#dbeafe",  // soft sky blue
+  roi:           "#ccfbf1",  // soft mint
+  accessibility: "#e0f9ff",  // soft cyan
+  exploratory:   "#ede9fe",  // soft lavender
+}
+
+// Soothing counterpart colors for Chroma's replies — calms the user's tone
+const TONE_SOOTHING_BG: Record<ChatTone, string> = {
+  default:       "#f0fdf4",  // soft sage — grounds neutral energy
+  urgent:        "#fdf4ff",  // soft lavender — calms stress and urgency
+  roi:           "#fff7ed",  // warm peach — reassuring, confident
+  accessibility: "#f0fdf4",  // soft sage green — steady, inclusive
+  exploratory:   "#fefce8",  // warm yellow — welcoming curiosity
+}
+
+const TONE_SOOTHING_BORDER: Record<ChatTone, string> = {
+  default:       "#86efac",  // sage green
+  urgent:        "#d8b4fe",  // soft purple
+  roi:           "#fdba74",  // warm amber
+  accessibility: "#86efac",  // sage green
+  exploratory:   "#fde047",  // warm yellow
 }
 
 function detectTone(text: string): ChatTone {
@@ -52,22 +76,22 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [typingMessage, setTypingMessage] = useState<string | null>(null)
+  const [, setTypingMessage] = useState<string | null>(null)
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const [smallModalOpen, setSmallModalOpen] = useState(false)
   const smallModalRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  // Chat-specific accessibility settings (all settings are chat-only)
   const [chatFontSize, setChatFontSize] = useState<ChatFontSize>("normal")
-  const [chatHighContrast, setChatHighContrast] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const previousMessageCountRef = useRef(0)
   const triggerButtonRef = useRef<HTMLElement | null>(null)
-  const [hasShownWelcome, setHasShownWelcome] = useState(false)
   const [chatTone, setChatTone] = useState<ChatTone>("default")
   const toneColor = TONE_COLORS[chatTone]
+  const toneBgPastel = TONE_BG_PASTEL[chatTone]
+  const soothingBg = TONE_SOOTHING_BG[chatTone]
+  const soothingBorder = TONE_SOOTHING_BORDER[chatTone]
 
   // Load chat-specific settings from localStorage
   useEffect(() => {
@@ -161,20 +185,6 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
     container.classList.add(`chat-font-${chatFontSize}`)
     localStorage.setItem("chatFontSize", chatFontSize)
   }, [chatFontSize])
-
-  // Apply chat-specific high contrast
-  useEffect(() => {
-    if (!chatContainerRef.current) return
-
-    const container = chatContainerRef.current
-    if (chatHighContrast) {
-      container.classList.add("chat-high-contrast")
-    } else {
-      container.classList.remove("chat-high-contrast")
-    }
-    localStorage.setItem("chatHighContrast", String(chatHighContrast))
-  }, [chatHighContrast])
-
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -300,7 +310,8 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
         body: JSON.stringify({
           message: userMessage.content,
           conversationHistory: messages,
-          intent: intent ?? undefined
+          intent: intent ?? undefined,
+          tone: inputTone,
         }),
       })
 
@@ -311,6 +322,11 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
       }
 
       const data = await response.json()
+
+      if (data.blocked) {
+        setIsOpen(false)
+        return
+      }
 
       const fullResponse = data.response
       const responseTone = detectTone(fullResponse)
@@ -470,8 +486,7 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
               {/* Tooltip arrow pointing down to button */}
               <div
                 className="absolute -bottom-1.5 left-6 w-3 h-3 bg-card border-r border-b"
-                style={{ borderColor: `${toneColor}33` }}
-                style={{ transform: 'translateX(-50%) rotate(45deg)' }}
+                style={{ borderColor: `${toneColor}33`, transform: 'translateX(-50%) rotate(45deg)' }}
               />
             </div>
 
@@ -480,7 +495,7 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
               ref={buttonRef}
               onClick={() => setSmallModalOpen(!smallModalOpen)}
               className="text-white rounded-full w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shadow-lg transition-all hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 animate-in fade-in-0 slide-in-from-bottom-4 duration-300"
-              style={{ backgroundColor: toneColor, ringColor: toneColor }}
+              style={{ backgroundColor: toneColor }}
               aria-label="Open Chroma menu"
               aria-expanded={smallModalOpen}
               aria-haspopup="dialog"
@@ -706,14 +721,14 @@ export function AIChat({ hideFloatingButton = false }: AIChatProps) {
                 )}
                 <div
                   className={cn(
-                    "rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 shadow-md transition-all duration-500",
+                    "rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 shadow-sm transition-all duration-500",
                     message.role === 'user'
-                      ? "text-white max-w-[90%] ml-auto -mr-3"
-                      : "bg-muted text-foreground max-w-[85%] -ml-3 border-l-4"
+                      ? "max-w-[90%] ml-auto"
+                      : "text-foreground max-w-[85%] border-l-4"
                   )}
                   style={message.role === 'user'
-                    ? { backgroundColor: toneColor }
-                    : { borderLeftColor: toneColor }
+                    ? { backgroundColor: toneBgPastel, color: toneColor }
+                    : { backgroundColor: soothingBg, borderLeftColor: soothingBorder }
                   }
                 >
                   {message.role === 'assistant' ? (

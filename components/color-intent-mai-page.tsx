@@ -7,7 +7,7 @@ import { sendGAEvent } from "@next/third-parties/google"
 import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
 import { getSectionOrderForIntent, type SectionId } from "@/lib/intent-landing"
-import { ServicesMai, ProofMai, QualifierMai, StoryMai, ContactMai } from "@/components/mai-sections"
+import { ServicesMai, ProofMai, QualifierMai, ContactMai } from "@/components/mai-sections"
 import { RoiCalculatorSection } from "@/components/roi-calculator-section"
 
 import { HomepageAudio } from "@/components/homepage-audio"
@@ -17,8 +17,8 @@ const navLinks = [
   { href: "#services", label: "Services" },
 ]
 const exploreLinks = [
-  { href: "#story", label: "The story" },
-  { href: "#proof", label: "What's Possible" },
+  { href: "#story", label: "What happened" },
+  { href: "#proof", label: "Sound familiar?" },
   { href: "#roi-calculator", label: "ROI Calculator" },
 ]
 
@@ -58,13 +58,13 @@ function scrollToSection(id: string) {
   requestAnimationFrame(animate)
 }
 
-const defaultHeroSubhead = "You know it. You just can't prove it yet."
-const defaultHeroSupport = "15 minutes changes that. See the cost. Fix the system."
+const defaultHeroSubhead = "It’s a silent tax on your conversion and a broken promise to your user. You can see it, but you can’t map it yet."
+const defaultHeroSupport = "15 minutes changes that."
 
 const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   qualifier: <QualifierMai />,
   contact: <ContactMai />,
-  story: <StoryMai />,
+  story: null, // hidden until real testimonial is ready
   proof: <ProofMai />,
   services: <ServicesMai />,
   "roi-calculator": <RoiCalculatorSection />,
@@ -74,11 +74,11 @@ function IntentDrivenSections({ intent }: { intent: null }) {
   const order = getSectionOrderForIntent(intent)
   return (
     <div className="bg-background rounded-t-3xl -mt-8 relative z-20 shadow-sm overflow-x-hidden overflow-y-visible isolate">
-      {order.map((id) => (
-        <React.Fragment key={id}>
-          {SECTION_MAP[id]}
-        </React.Fragment>
-      ))}
+      {order.map((id) => {
+        const section = SECTION_MAP[id]
+        if (!section) return null
+        return <React.Fragment key={id}>{section}</React.Fragment>
+      })}
     </div>
   )
 }
@@ -178,7 +178,7 @@ export function ColorIntentMaiPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f0e6] dark:bg-background">
+    <div className="min-h-screen bg-[#f7f4ff] dark:bg-background">
       {/* Spacer so content isn't hidden under fixed header */}
       <div className="h-20 shrink-0" aria-hidden />
       <div>
@@ -271,8 +271,7 @@ export function ColorIntentMaiPage() {
               size="sm"
               className="bg-[#f97316] hover:bg-[#ea580c] text-white text-xs md:text-sm px-3 md:px-4 h-8 md:h-9 shrink-0"
             >
-              <span className="sm:hidden">Book a call</span>
-              <span className="hidden sm:inline">Book a 15-min call</span>
+              15-min call
             </Button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -353,13 +352,11 @@ export function ColorIntentMaiPage() {
 
             <div
   role="text"
-  aria-label="I fix the color systems costing you contracts. Product Designer and Full-Stack Developer"
+  aria-label="I fix the colors costing you."
   className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
-  <p className="m-0">
-    I fix the color systems costing you contracts.&nbsp;<span className="highlighter">Product Designer & Full-Stack Developer</span>
-  </p>
+  <p className="m-0">I fix the colors costing you.</p>
 </div>
 
             <h1
@@ -380,21 +377,6 @@ export function ColorIntentMaiPage() {
             >
               {defaultHeroSupport}
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                size="lg"
-                onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "hero" }); scrollToSection("contact") }}
-                className="bg-[#f97316] hover:bg-[#ea580c] text-white"
-              >
-                Book the 15-min Color ROI Call
-              </Button>
-              <button
-                onClick={() => { sendGAEvent("event", "cta_click", { label: "see_proof", location: "hero" }); scrollToSection("proof") }}
-                className="text-sm text-foreground/70 hover:text-foreground underline underline-offset-4 transition-colors"
-              >
-                See how it works →
-              </button>
-            </div>
           </div>
 
         </section>
@@ -407,19 +389,6 @@ export function ColorIntentMaiPage() {
       <footer className="bg-[#0f172a] dark:bg-[#f7f0e6] text-white dark:text-neutral-900 py-16 border-t border-white/10 dark:border-neutral-200">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="flex flex-col items-center text-center gap-10">
-            <div>
-              <h3 className="text-xl font-bold mb-2">Your audit isn&apos;t waiting.</h3>
-              <p className="text-white/80 dark:text-neutral-600 text-sm mb-6 max-w-md mx-auto">
-                15 minutes. Just the truth about what it&apos;s costing you.
-              </p>
-              <Button
-                onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "footer" }); scrollToSection("contact") }}
-                size="lg"
-                className="bg-[#f97316] hover:bg-[#ea580c] text-white"
-              >
-                Book the 15-min Color ROI Call
-              </Button>
-            </div>
             <div className="flex flex-wrap justify-center gap-6">
               <a
                 href="mailto:me@corianoharris.com"
@@ -433,7 +402,7 @@ export function ColorIntentMaiPage() {
                 rel="noopener noreferrer"
                 className="text-sm text-white/80 dark:text-neutral-600 hover:text-white dark:hover:text-neutral-900 transition-colors"
               >
-                LinkedIn <span className="text-xs text-[#14b8a6]">· Open to work</span>
+                LinkedIn
               </a>
               <a
                 href="https://github.com/corianoharris"
@@ -446,10 +415,10 @@ export function ColorIntentMaiPage() {
             </div>
             <div className="pt-6 border-t border-white/20 dark:border-neutral-200 w-full max-w-md space-y-1">
               <p className="text-sm text-white/70 dark:text-neutral-600" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
-                © {new Date().getFullYear()} Coriano Harris, <span className="highlighter">Product Designer & Full-Stack Developer</span>
+                © {new Date().getFullYear()} Coriano Harris
               </p>
               <p className="text-xs text-white/60 dark:text-neutral-500" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
-                The Color Code™ | All rights reserved
+                The Color Code™
               </p>
             </div>
           </div>
