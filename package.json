@@ -10,6 +10,8 @@
     "scrape": "node scripts/scraper.js",
     "extract-pdf": "node scripts/pdf-extractor.js"
   },
+  "author": "Coriano Harris",
+  "email": "me@corianoharris.com",
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@huggingface/inference": "^4.13.5",
