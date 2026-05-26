@@ -35,7 +35,7 @@ const suiteTiers: Tier[] = [
     image: "/images/screen_analysis.png",
   },
   {
-    name: "The Color Code Cleaner",
+    name: "The Color Naming Cleaner",
     tagline: "Code cleanup",
     price: "$1,500",
     priceNote: "flat fee per repository",
@@ -44,7 +44,7 @@ const suiteTiers: Tier[] = [
     image: "/images/token_auditor.png",
   },
   {
-    name: "The Color Feeling Matcher",
+    name: "The Color Mood Finder",
     tagline: "Color science",
     price: "$3,500",
     priceNote: "flat fee",

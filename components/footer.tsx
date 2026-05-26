@@ -27,6 +27,14 @@ export function Footer() {
                 LinkedIn
               </a>
             </p>
+            <p className="text-xs text-background/70 pt-1" style={{ fontFamily: 'var(--font-baloo2), sans-serif' }}>
+              <a
+                href="/blog"
+                className="underline underline-offset-2 hover:text-background transition-colors"
+              >
+                Blog
+              </a>
+            </p>
           </div>
         </div>
       </div>

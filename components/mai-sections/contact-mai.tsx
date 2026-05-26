@@ -23,8 +23,8 @@ import DOMPurify from "dompurify"
 
 const services = [
   { name: "Screen Color Checker", type: "Primary" },
-  { name: "The Color Code Cleaner", type: "Primary" },
-  { name: "The Color Feeling Matcher", type: "Primary" },
+  { name: "The Color Naming Cleaner", type: "Primary" },
+  { name: "The Color Mood Finder", type: "Primary" },
   { name: "The Color Code Book", type: "Primary" },
 ]
 
@@ -120,7 +120,7 @@ export function ContactMai() {
   }
 
   const handleFieldChange = (field: string, value: string) => {
-    const maxLen = { name: 50, email: 100, message: 1000 }[field as keyof typeof formData]
+    const maxLen = { name: 50, email: 100, message: 1000 }[field as keyof typeof errors]
     const sanitized = typeof window !== "undefined" ? DOMPurify.sanitize(value.slice(0, maxLen), { ALLOWED_TAGS: [] }) : value.slice(0, maxLen)
     setFormData((prev) => ({ ...prev, [field]: sanitized }))
     if (errors[field as keyof typeof errors]) setErrors((prev) => ({ ...prev, [field]: "" }))

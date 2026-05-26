@@ -4,11 +4,8 @@ import Link from "next/link"
 import { Linkedin, Instagram } from "lucide-react"
 
 const footerLinks = [
-  { href: "https://microsoft.ai/contact", label: "Contact" },
-  { href: "https://privacy.microsoft.com", label: "Privacy & Cookies" },
-  { href: "https://www.microsoft.com/legal/terms-of-use", label: "Terms" },
-  { href: "https://www.microsoft.com/legal/intellectualproperty/trademarks", label: "Trademarks" },
-  { href: "https://www.microsoft.com", label: "Microsoft.com" },
+  { href: "#contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
 ]
 
 function XIcon({ className }: { className?: string }) {
@@ -37,8 +34,7 @@ export function MaiFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="text-sm text-muted-foreground hover:text-[#0066ff] transition-colors"
                   >
                     {link.label}
@@ -70,7 +66,7 @@ export function MaiFooter() {
 
         <div className="mt-8 pt-8 border-t border-border">
           <p className="text-sm text-muted-foreground">
-            © Microsoft {new Date().getFullYear()}
+            © {new Date().getFullYear()} Coriano Harris. All rights reserved.
           </p>
         </div>
       </div>

@@ -28,7 +28,6 @@ export const primaryNav: Array<
 > = [
   { id: "search", label: "Search", action: "search", ariaLabel: "Open search / ask a question" },
   { id: "explore", label: "Explore", sectionId: "portfolio", ariaLabel: "Explore solutions and services" },
-  { id: "latest", label: "Latest", sectionId: "blog", ariaLabel: "View latest articles" },
 ]
 
 export const mainNavigation: NavigationItem[] = [
@@ -79,13 +78,6 @@ export const moreNavigation: NavigationFolder = {
       label: "What I Believe",
       sectionId: "about",
       ariaLabel: "Navigate to What I Believe section",
-    },
-    {
-      id: "blog",
-      label: "Blog",
-      sectionId: "blog",
-      ariaLabel: "Navigate to Blog page",
-      href: "http://localhost:3000/blog",
     },
   ],
 }

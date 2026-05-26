@@ -26,7 +26,7 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    const sections = ["hero", "about", "expertise", "portfolio", "services", "leadership", "color-psychology", "testimonials", "engagement", "press", "blog", "contact"]
+    const sections = ["hero", "about", "expertise", "portfolio", "services", "leadership", "color-psychology", "testimonials", "engagement", "press", "contact"]
     
     const observerOptions = {
       root: null,
