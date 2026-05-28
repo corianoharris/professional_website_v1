@@ -187,7 +187,7 @@ export function CollapsibleCodeBlock({ code, language = "typescript", title }: C
                     }
 
                     // Build spans with keywords highlighted
-                    const spans: JSX.Element[] = []
+                    const spans: React.JSX.Element[] = []
                     let lastPos = 0
                     keywordMatches.forEach(({ word, index }) => {
                       // Add text before keyword

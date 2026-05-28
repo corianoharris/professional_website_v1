@@ -8,20 +8,41 @@ import { useTheme } from "@/components/theme-provider"
 import { useAIChat } from "@/components/ai-chat-context"
 import { DesktopNavigation } from "@/components/navigation/desktop-navigation"
 import { MobileNavigation } from "@/components/navigation/mobile-navigation"
+import { AccessibilityControls } from "@/components/accessibility-controls"
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const { theme, toggleTheme } = useTheme()
   const { isOpen: chatOpen, toggleChat } = useAIChat()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const lastScrollY = useRef(0)
+  const mobileMenuOpenRef = useRef(mobileMenuOpen)
+
+  useEffect(() => {
+    mobileMenuOpenRef.current = mobileMenuOpen
+  }, [mobileMenuOpen])
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      const currentScrollY = window.scrollY
+      const delta = currentScrollY - lastScrollY.current
+
+      setScrolled(currentScrollY > 50)
+
+      if (currentScrollY < 10) {
+        setHeaderVisible(true)
+      } else if (delta > 8 && currentScrollY > 80 && !mobileMenuOpenRef.current) {
+        setHeaderVisible(false)
+      } else if (delta < -2) {
+        setHeaderVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -186,14 +207,16 @@ export function Header() {
 
   return (
     <header
-      className={`fixed left-0 right-0 z-50 transition-all duration-300 overflow-visible ${
-        scrolled 
-          ? "bg-background/95 dark:bg-gray-950/95 dark:backdrop-blur-2xl dark:backdrop-saturate-150 backdrop-blur-2xl backdrop-saturate-150 border-b border-foreground/10 dark:border-white/20" 
+      className={`fixed left-0 right-0 z-50 overflow-visible ${
+        scrolled
+          ? "bg-background/95 dark:bg-gray-950/95 dark:backdrop-blur-2xl dark:backdrop-saturate-150 backdrop-blur-2xl backdrop-saturate-150 border-b border-foreground/10 dark:border-white/20"
           : "bg-background/92 dark:bg-gray-950/92 dark:backdrop-blur-xl dark:backdrop-saturate-150 backdrop-blur-xl backdrop-saturate-150 border-b border-foreground/5 dark:border-white/15"
       }`}
       style={{
         top: 0,
         paddingTop: 'max(0px, env(safe-area-inset-top))',
+        transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.35s ease-in-out, background-color 0.3s, border-color 0.3s, backdrop-filter 0.3s',
       }}
     >
       <div className="container mx-auto px-6 py-3 relative z-10">
@@ -232,15 +255,16 @@ export function Header() {
             onSearchClick={toggleChat}
           />
           <div className="hidden md:flex items-center gap-4">
-            <Button 
-              onClick={toggleTheme} 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              onClick={toggleTheme}
+              variant="ghost"
+              size="icon"
               className="text-foreground hover:text-foreground/80"
               aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
             >
               {theme === "light" ? <Moon className="w-5 h-5" aria-hidden="true" /> : <Sun className="w-5 h-5" aria-hidden="true" />}
             </Button>
+            <AccessibilityControls />
             <Button
               onClick={() => scrollToSection("contact")}
               onKeyDown={(e) => {
@@ -258,6 +282,7 @@ export function Header() {
           </div>
 
           <div className="flex md:hidden items-center gap-2">
+            <AccessibilityControls />
             {!mobileMenuOpen && (
               <Button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

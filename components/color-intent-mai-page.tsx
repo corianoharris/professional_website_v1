@@ -12,6 +12,7 @@ import { RoiCalculatorSection } from "@/components/roi-calculator-section"
 
 import { HomepageAudio } from "@/components/homepage-audio"
 import { Button } from "@/components/ui/button"
+import { AccessibilityControls } from "@/components/accessibility-controls"
 
 const navLinks = [
   { href: "#services", label: "Services" },
@@ -86,11 +87,37 @@ function IntentDrivenSections({ intent }: { intent: null }) {
 export function ColorIntentMaiPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [exploreOpen, setExploreOpen] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(true)
   const exploreWrapperRef = useRef<HTMLDivElement>(null)
   const exploreTriggerRef = useRef<HTMLButtonElement>(null)
+  const lastScrollY = useRef(0)
+  const mobileMenuOpenRef = useRef(false)
   const { theme, toggleTheme } = useTheme()
   const { toggleChat } = useAIChat()
   const intent = null
+
+  useEffect(() => {
+    mobileMenuOpenRef.current = mobileMenuOpen
+  }, [mobileMenuOpen])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const delta = currentScrollY - lastScrollY.current
+
+      if (currentScrollY < 10) {
+        setHeaderVisible(true)
+      } else if (delta > 8 && currentScrollY > 80 && !mobileMenuOpenRef.current) {
+        setHeaderVisible(false)
+      } else if (delta < -2) {
+        setHeaderVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Scroll to hash section after mount (e.g. navigating back to /#blog)
   // Use instant scroll — no animation — so the page doesn't flicker at the top
@@ -183,7 +210,13 @@ export function ColorIntentMaiPage() {
       <div className="h-20 shrink-0" aria-hidden />
       <div>
         {/* Header - fixed at top, content scrolls under */}
-        <header className="fixed top-0 left-0 right-0 z-50 w-full px-4 md:px-8 pt-4">
+        <header
+          className="fixed top-0 left-0 right-0 z-50 w-full px-4 md:px-8 pt-4"
+          style={{
+            transform: headerVisible ? 'translateY(0)' : 'translateY(calc(-100% - 50px))',
+            transition: 'transform 0.35s ease-in-out',
+          }}
+        >
         <div className="relative max-w-4xl mx-auto">
         <div className="flex h-14 items-center justify-between px-4 md:px-6 rounded-full border border-[#e8e0d5] dark:border-white/20 bg-[#f7f0e6]/95 dark:bg-background/95 backdrop-blur gap-2 md:gap-0">
           {/* Left: Chat - ask a question */}
@@ -266,6 +299,9 @@ export function ColorIntentMaiPage() {
             >
               {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
+            <div className="hidden md:block">
+              <AccessibilityControls />
+            </div>
             <Button
               onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "nav" }); scrollToSection("contact") }}
               size="sm"
@@ -315,6 +351,19 @@ export function ColorIntentMaiPage() {
                 </button>
               ))}
             </nav>
+            <div className="mt-3 pt-3 border-t border-border/40 flex items-center justify-between">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground">Display</span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg hover:bg-white/60 dark:hover:bg-muted/50 text-foreground transition-colors"
+                  aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+                >
+                  {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                </button>
+                <AccessibilityControls />
+              </div>
+            </div>
           </div>
         )}
       </header>

@@ -2,28 +2,14 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Accessibility, Moon, Sun, Zap, ZapOff, ArrowUp, Contrast, Eye } from "lucide-react"
+import { Accessibility, Moon, Sun, Zap, ZapOff, Contrast, Eye } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 
 export function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false)
-  const [showScrollToTop, setShowScrollToTop] = useState(false)
   const { theme, toggleTheme, fontSize, setFontSize, animationsEnabled, toggleAnimations, highContrast, toggleHighContrast, readingFocus, toggleReadingFocus } = useTheme()
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show button after scrolling down 400px
-      setShowScrollToTop(window.scrollY > 400)
-    }
-
-    // Check initial scroll position
-    handleScroll()
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   // Handle Escape key to close menu
   useEffect(() => {
@@ -94,59 +80,15 @@ export function AccessibilityControls() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [isOpen])
 
-  const scrollToTop = () => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (prefersReducedMotion) {
-      window.scrollTo({ top: 0 })
-      return
-    }
-    const startY = window.scrollY
-    const duration = 1000
-    let startTime: number | null = null
-    const easeInOutCubic = (t: number) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-    function animate(currentTime: number) {
-      if (startTime === null) startTime = currentTime
-      const elapsed = currentTime - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = easeInOutCubic(progress)
-      window.scrollTo(0, startY * (1 - eased))
-      if (progress < 1) requestAnimationFrame(animate)
-    }
-    requestAnimationFrame(animate)
-  }
-
   // Reading focus is now pure CSS via html.reading-focus class (toggled in ThemeProvider).
   // No JavaScript event listeners needed — browser handles :hover natively at compositor level.
 
   return (
-    <div className="fixed bottom-4 right-3 md:bottom-6 md:right-4 z-50 flex flex-col items-end gap-3 md:gap-4">
-      {/* Scroll to Top Button */}
-      <Button
-        onClick={scrollToTop}
-        size="sm"
-        variant="outline"
-        className={`w-8 h-8 md:w-9 md:h-9 rounded-full shadow-lg border !bg-white hover:!bg-white/90 !border-[var(--color-brand-purple)]/20 hover:!border-[var(--color-brand-purple)] dark:!bg-white dark:hover:!bg-white/90 dark:!border-[var(--color-brand-purple)]/20 dark:hover:!border-[var(--color-brand-purple)] group relative transition-all duration-300 ${
-          showScrollToTop
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-2 pointer-events-none"
-        }`}
-        aria-label="Back to top"
-        title="Scroll to the top of the page"
-      >
-        <ArrowUp className="w-3 h-3 md:w-4 md:h-4 !text-[var(--color-brand-purple)] dark:!text-[var(--color-brand-purple)]" />
-        <span className="absolute right-full mr-3 !bg-black !text-white dark:!bg-black dark:!text-white px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          Back to Top
-        </span>
-      </Button>
-
-      {/* Accessibility Button */}
-      <div className="relative">
-        {/* Popup Menu - above the button; on mobile: right-aligned, compact width */}
-        <div
+    <div className="relative">
+      <div
           ref={menuRef}
-          className={`absolute bottom-full right-0 left-auto mb-3 w-[200px] max-w-[calc(100vw-2rem)] sm:min-w-[180px] max-h-[45dvh] sm:max-h-[60dvh] overflow-y-auto overflow-x-hidden overscroll-contain rounded-lg border border-border bg-card p-2.5 sm:p-3 shadow-xl transition-all duration-300 [-webkit-overflow-scrolling:touch] ${
-            isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+          className={`absolute top-full right-0 left-auto mt-3 w-[200px] max-w-[calc(100vw-2rem)] sm:min-w-[180px] max-h-[45dvh] sm:max-h-[60dvh] overflow-y-auto overflow-x-hidden overscroll-contain rounded-lg border border-border bg-card p-2.5 sm:p-3 shadow-xl transition-all duration-300 [-webkit-overflow-scrolling:touch] z-50 ${
+            isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
           role="menu"
           aria-label="Accessibility settings menu"
@@ -278,7 +220,6 @@ export function AccessibilityControls() {
             Accessibility
           </span>
         </Button>
-      </div>
     </div>
   )
 }
