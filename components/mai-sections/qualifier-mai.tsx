@@ -20,13 +20,13 @@ const bullets = [
 export function QualifierMai() {
   return (
     <MaiScrollSection id="qualifier" title="Is this for you?">
-      <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">
+      <p className="text-lg md:text-xl text-muted-foreground mb-8">
         Half of y&apos;all love shipping sloppy work. You look at a glitched layout at 4:55 PM on a Friday and say, &ldquo;Looks good from my house. Hit deploy, I got happy hour in ten minutes.&rdquo; If that&apos;s you, close the tab. I don&apos;t want your money.
       </p>
       <p className="text-base font-semibold text-foreground mb-6">
         I only work with people who refuse to ship sloppy work:
       </p>
-      <ul className="space-y-6 max-w-2xl">
+      <ul className="space-y-6">
         {bullets.map((b) => (
           <li key={b.heading} className="flex gap-3">
             <span className="mt-1 w-2 h-2 rounded-full bg-primary shrink-0" aria-hidden />
