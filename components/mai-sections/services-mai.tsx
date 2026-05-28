@@ -20,8 +20,8 @@ const entryTier: Tier = {
   name: "15-min Color Call",
   tagline: "Start here",
   price: "Free",
-  description: "Talk to me for 15 minutes. I will tell you exactly where to start.",
-  features: ["Any service, any question", "No commitment", "Walk away with a clear next step"],
+  description: "Talk to me for 15 minutes. It's free. That is less time than it takes Red Lobster to bring out your appetizers. Just pointing out exactly where your app is leaking money and giving you a clear next step.",
+  features: [],
 }
 
 const suiteTiers: Tier[] = [
@@ -30,8 +30,8 @@ const suiteTiers: Tier[] = [
     tagline: "Color check",
     price: "$499",
     priceNote: "per page",
-    description: "Share a link to your live page. I check what each color is communicating and test what colorblind users see. Fast. Clear. Done.",
-    features: ["See what each color is saying", "Know what colorblind users see", "Get a clear fix list"],
+    description: "You think your website looks sleek, but to 10% of your users, it looks like a muddy football field after a rainy Sunday. Hand over a live link. I'll map out exactly what your layout is communicating and test what color-blind people actually see. Fast, clear, done.",
+    features: [],
     image: "/images/screen_analysis.png",
   },
   {
@@ -39,8 +39,8 @@ const suiteTiers: Tier[] = [
     tagline: "Code cleanup",
     price: "$1,500",
     priceNote: "flat fee per repository",
-    description: "Color names like Blue-500 and Gray-300 mean nothing to the computer. I scan your code, find every one, and rename them so your whole team knows exactly why each color is there.",
-    features: ["See every color name in your code", "Know what needs to change", "Get a clear plan"],
+    description: "Your developers are in the back room naming code variables like they're working a Sephora counter. \"Hey, did you deploy Slate-200 or Charcoal-300?\" Nobody knows what that means! I scan your repository and rename every color so your whole team actually understands why it's there.",
+    features: [],
     image: "/images/token_auditor.png",
   },
   {
@@ -48,17 +48,17 @@ const suiteTiers: Tier[] = [
     tagline: "Color science",
     price: "$3,500",
     priceNote: "flat fee",
-    description: "Colors talk to the brain. I test your full palette to see exactly what it makes people feel. Safe and ready to act. Or unsure and confused.",
-    features: ["See if your colors work together", "Know how people feel when they look", "See what works and what does not"],
+    description: "Colors make people feel things. If your checkout button is a weird, aggressive shade of red, people aren't thinking, \"Let me buy this.\" They're thinking, \"Oh snap, am I overdrawn? Is the FBI tracking me?\" They hesitate. I test your full palette to make sure your users feel safe, happy, and ready to drop their credit card numbers.",
+    features: [],
     image: "/images/colors_comparison.png",
   },
   {
     name: "The Color Code Book",
     tagline: "Guide",
     price: "Free",
-    description: "A clear set of rules for picking colors that mean something. Pick it up and know exactly what to do.",
-    features: ["A simple color naming system", "Rules your whole team can follow", "Ready to use on day one"],
-    addon: { label: "Want me to set it up in your system for you?", price: "+ $1,800" },
+    description: "We are throwing out the abstract nonsense. No more engineering teams arguing over whether a button should be \"Midnight-700\" or \"Abyss-800\" like they're reading a poetry book. I give you a clean, bulletproof naming structure where the code actually tells your developers exactly what the color does on the screen. No translation needed.",
+    features: [],
+    addon: { label: "Want me to just stop by and set all these rules up in your system for you?", price: "+ $1,800" + " per repository." },
   },
 ]
 

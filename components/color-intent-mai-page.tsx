@@ -59,8 +59,8 @@ function scrollToSection(id: string) {
   requestAnimationFrame(animate)
 }
 
-const defaultHeroSubhead = "It’s a silent tax on your conversion and a broken promise to your user. You can see it, but you can’t map it yet."
-const defaultHeroSupport = "15 minutes changes that."
+const defaultHeroSubhead = "That means you know your app looks a little crazy, but you don’t know how to fix it without destroying the whole code."
+const defaultHeroSupport = "So what do you do? You don’t spend six months in meetings talking about feelings and branding. You take the 15-minute Color Call. 15 minutes! That’s less time than it takes for me to figure out what I want to watch on Netflix. You sit down with a professional, he points out exactly where the money is leaking out of your software, and you fix it. Stop shipping sloppy work and get your money back!"
 
 const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   qualifier: <QualifierMai />,
@@ -401,18 +401,18 @@ export function ColorIntentMaiPage() {
 
             <div
   role="text"
-  aria-label="I fix the colors costing you."
+  aria-label="You can see it, but you can't map it yet."
   className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
-  <p className="m-0">I fix the colors costing you.</p>
+  <p className="m-0">Your color is costing you.</p>
 </div>
 
             <h1
               className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6"
               style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontStyle: "italic" }}
             >
-              Your color is <span className="highlighter">broken</span>.
+              "You can see it, but you can't <span className="highlighter">map it</span> yet."
             </h1>
             <p
               className="text-xl md:text-2xl text-muted-foreground mb-4"
