@@ -3,19 +3,15 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 type Theme = "light" | "dark"
-type FontSize = "normal" | "large" | "extra-large"
+export type FontSize = "normal" | "large" | "extra-large"
 
 interface ThemeContextType {
   theme: Theme
   toggleTheme: () => void
   fontSize: FontSize
   setFontSize: (size: FontSize) => void
-  animationsEnabled: boolean
-  toggleAnimations: () => void
   highContrast: boolean
   toggleHighContrast: () => void
-  readingFocus: boolean
-  toggleReadingFocus: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -23,22 +19,20 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light")
   const [fontSize, setFontSize] = useState<FontSize>("normal")
-  const [animationsEnabled, setAnimationsEnabled] = useState(true)
   const [highContrast, setHighContrast] = useState(false)
-  const [readingFocus, setReadingFocus] = useState(false)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
-    const savedAnimations = localStorage.getItem("animationsEnabled")
     const savedHighContrast = localStorage.getItem("highContrast")
-    const savedReadingFocus = localStorage.getItem("readingFocus")
 
     if (savedTheme) setTheme(savedTheme)
     if (savedFontSize) setFontSize(savedFontSize)
-    if (savedAnimations !== null) setAnimationsEnabled(savedAnimations === "true")
     if (savedHighContrast !== null) setHighContrast(savedHighContrast === "true")
-    if (savedReadingFocus !== null) setReadingFocus(savedReadingFocus === "true")
+
+    // Settings from removed options (animations, reading focus)
+    localStorage.removeItem("animationsEnabled")
+    localStorage.removeItem("readingFocus")
   }, [])
 
   useEffect(() => {
@@ -57,14 +51,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     root.classList.add(`font-${fontSize}`)
     localStorage.setItem("fontSize", fontSize)
 
-    // Animations
-    if (!animationsEnabled) {
-      root.classList.add("no-animations")
-    } else {
-      root.classList.remove("no-animations")
-    }
-    localStorage.setItem("animationsEnabled", String(animationsEnabled))
-
     // High contrast
     if (highContrast) {
       root.classList.add("high-contrast")
@@ -72,30 +58,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       root.classList.remove("high-contrast")
     }
     localStorage.setItem("highContrast", String(highContrast))
-
-    // Reading focus — toggle class on html; CSS :hover rules handle the actual highlighting
-    if (readingFocus) {
-      root.classList.add("reading-focus")
-    } else {
-      root.classList.remove("reading-focus")
-    }
-    localStorage.setItem("readingFocus", String(readingFocus))
-  }, [theme, fontSize, animationsEnabled, highContrast, readingFocus])
+  }, [theme, fontSize, highContrast])
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"))
   }
 
-  const toggleAnimations = () => {
-    setAnimationsEnabled((prev) => !prev)
-  }
-
   const toggleHighContrast = () => {
     setHighContrast((prev) => !prev)
-  }
-
-  const toggleReadingFocus = () => {
-    setReadingFocus((prev) => !prev)
   }
 
   return (
@@ -105,12 +75,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         toggleTheme,
         fontSize,
         setFontSize,
-        animationsEnabled,
-        toggleAnimations,
         highContrast,
         toggleHighContrast,
-        readingFocus,
-        toggleReadingFocus,
       }}
     >
       {children}

@@ -80,6 +80,7 @@ export const intentOptions: IntentOption[] = [
 /** Section IDs for intent-driven ordering */
 export type SectionId =
   | "qualifier"
+  | "palette-read"
   | "contact"
   | "story"
   | "proof"
@@ -87,49 +88,27 @@ export type SectionId =
   | "roi-calculator"
 
 /** Default section order
- *  Fast path: qualifier → proof → contact (act now or keep scrolling for context)
+ *  Story arc: the problem → proof in their own colors → what it costs → the fix → talk.
+ *  "qualifier" is kept as a section but left out of the arc.
  */
 const defaultSectionOrder: SectionId[] = [
-  "qualifier",
-  "story",
   "proof",
-  "contact",
-  "services",
+  "palette-read",
+  "story",
   "roi-calculator",
+  "services",
+  "contact",
 ]
 
-/** Intent-specific section order: surface the most relevant content first */
+/** Intent-specific section order: surface the most relevant content first. Contact always closes. */
 export function getSectionOrderForIntent(intent: IntentId | null): SectionId[] {
   if (!intent) return defaultSectionOrder
   switch (intent) {
     case "prove-roi":
-      return [
-        "qualifier",
-        "story",
-        "proof",
-        "roi-calculator",
-        "contact",
-        "services",
-      ]
-    case "accessibility":
-      return [
-        "qualifier",
-        "story",
-        "proof",
-        "contact",
-        "services",
-        "roi-calculator",
-      ]
+      return ["proof", "roi-calculator", "palette-read", "story", "services", "contact"]
     case "fix-design-system":
     case "scale":
-      return [
-        "qualifier",
-        "story",
-        "proof",
-        "services",
-        "contact",
-        "roi-calculator",
-      ]
+      return ["proof", "palette-read", "services", "story", "roi-calculator", "contact"]
     default:
       return defaultSectionOrder
   }

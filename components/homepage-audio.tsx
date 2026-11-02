@@ -189,9 +189,9 @@ export function HomepageAudio({ variant = "floating" }: { variant?: "floating" |
                 onKeyDown={handleKeyDown}
                 className={cn(
                   "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 shrink-0",
-                  "bg-[#f7f0e6] dark:bg-background border border-[#e8e0d5] dark:border-white/20 backdrop-blur-sm",
+                  "bg-surface-warm border border-surface-warm-line backdrop-blur-sm",
                   "hover:bg-white dark:hover:bg-muted hover:scale-105",
-                  "focus:outline-none focus:ring-2 focus:ring-[#06b6d4] focus:ring-offset-2",
+                  "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
                   isFading && "opacity-70"
                 )}
                 aria-label={isPlaying ? "Pause audio" : "Play audio"}

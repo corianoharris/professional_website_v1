@@ -11,8 +11,9 @@
   --card-foreground: #333333;
   --popover: #ffffff;
   --popover-foreground: #333333;
-  --primary: #06b6d4;
+  --primary: #0e7490;            /* Deep cyan (trust): 5.4:1 with white, and stands out on white pages */
   --primary-foreground: #ffffff;
+  --primary-hover: #155e75;      /* Darker on hover: 7.3:1 with white */
   --secondary: #107C10;
   --secondary-foreground: #ffffff;
   --muted: #f5f5f5;
@@ -23,7 +24,7 @@
   --destructive-foreground: oklch(1 0 0);
   --border: #e5e5e5;
   --input: #e5e5e5;
-  --ring: #06b6d4;
+  --ring: #0e7490;
   --chart-1: oklch(0.65 0.24 200);
   --chart-2: oklch(0.75 0.22 35);
   --chart-3: oklch(0.7 0.26 330);
@@ -44,8 +45,8 @@
      evoking calm, understanding, and belonging in 0.05 seconds." */
 
   /* Trust - Builds confidence and reduces anxiety (cyan) */
-  --intent-trust: #06b6d4;                /* Primary trust color - the brave first whisper */
-  --intent-trust-hover: #0891b2;         /* Deeper trust on interaction */
+  --intent-trust: #0e7490;                /* Primary trust color. 5.4:1 on white, and under white text */
+  --intent-trust-hover: #155e75;         /* Deeper trust on interaction */
   --intent-trust-subtle: #a5f3fc;        /* Gentle trust for backgrounds */
 
   /* Calm - Reduces cognitive load and creates peace (cyan) */
@@ -56,7 +57,7 @@
   /* Belonging - Creates connection and authenticity (purple) */
   --intent-belonging: #7c3aed;           /* Primary belonging color - connection */
   --intent-belonging-hover: #6d28d9;     /* Stronger connection on interaction */
-  --intent-belonging-subtle: #e9d5ff;    /* Gentle invitation */
+  --intent-belonging-subtle: #f3e8ff;    /* Gentle invitation. Belonging text on it is 4.8:1 */
 
   /* Vulnerability - The birthplace of trust (purple) */
   --intent-vulnerability: #7c3aed;       /* Primary vulnerability color - courage */
@@ -69,14 +70,38 @@
   --intent-attention-subtle: #dbeafe;    /* Gentle guidance */
 
   /* Growth - Signals progress and forward movement (teal) */
-  --intent-growth: #14b8a6;              /* Primary growth color - advancement */
-  --intent-growth-hover: #0d9488;        /* Accelerated progress */
+  --intent-growth: #0f766e;              /* Primary growth color - advancement. 5.5:1 on white, ΔE 21 from primary */
+  --intent-growth-hover: #115e59;        /* Accelerated progress */
   --intent-growth-subtle: #ccfbf1;       /* Gentle advancement */
 
+  /* Done - Success states (green). Kept apart from growth: teal sits too close to trust cyan (ΔE 5.8) */
+  --intent-done: #166534;                /* 7.1:1 on white, ΔE 13.9 from primary */
+  --intent-done-subtle: #dcfce7;         /* Done text on it is 6.5:1 */
+
   /* Energy - Drives action and creates urgency (orange) */
-  --intent-energy: #f97316;              /* Primary energy color - urgency */
-  --intent-energy-hover: #ea580c;        /* Increased urgency */
+  --intent-energy: #c2410c;              /* Primary energy color. 5.2:1 on white, and under white text */
+  --intent-energy-hover: #9a3412;        /* Increased urgency */
   --intent-energy-subtle: #ffedd5;       /* Gentle motivation */
+
+  /* Solid fills under white text. Same in both themes */
+  --intent-belonging-solid: #7c3aed;     /* 5.7:1 with white */
+  --intent-belonging-solid-hover: #6d28d9;
+  --intent-energy-solid: #c2410c;        /* 5.2:1 with white */
+  --intent-energy-solid-hover: #9a3412;
+
+  /* Page chrome: lavender page, warm cream hero and nav */
+  --surface-page: #f7f4ff;
+  --surface-warm: #f7f0e6;
+  --surface-warm-line: #e8e0d5;
+
+  /* Feature panel: navy in light mode, card in dark mode */
+  --panel: #0f172a;
+  --panel-foreground: #ffffff;
+  --panel-muted: #b8bfcc;                /* 9.7:1 on the panel */
+  --panel-line: rgb(255 255 255 / 0.15);
+  --panel-trust: #67e8f9;
+  --panel-growth: #2dd4bf;
+  --panel-energy: #fb923c;
 
   /* Understanding - Facilitates clarity and comprehension (cyan/blue) */
   --intent-understanding: #06b6d4;       /* Primary understanding color - clarity */
@@ -95,7 +120,7 @@
   --color-text-muted: oklch(0.5 0.02 270);     /* Muted text - low contrast */
 
   /* Status colors - Maps to intent colors */
-  --color-status-success: var(--intent-growth);            /* Success → growth */
+  --color-status-success: var(--intent-done);              /* Success → done */
   --color-status-warning: var(--intent-energy);           /* Warning → energy */
   --color-status-error: oklch(0.577 0.245 27.325);       /* Destructive red */
 
@@ -170,7 +195,8 @@
   --popover: oklch(0.18 0.02 270);
   --popover-foreground: oklch(0.98 0.01 120);
   --primary: oklch(0.65 0.24 200);
-  --primary-foreground: oklch(1 0 0);
+  --primary-foreground: #083344; /* 5.3:1 on cyan; white was 2.5:1 */
+  --primary-hover: #22d3ee;      /* Brighter on hover: 7.7:1 with dark text */
   --secondary: oklch(0.75 0.22 35);
   --secondary-foreground: oklch(0.15 0.02 270);
   --muted: oklch(0.22 0.02 270);
@@ -209,7 +235,16 @@
   /* Belonging & Vulnerability - Lighter purple for dark backgrounds */
   --intent-belonging: #a78bfa;           /* Lighter belonging for dark mode */
   --intent-belonging-hover: #c4b5fd;     /* Even lighter for hover */
-  --intent-belonging-subtle: #4c1d95;    /* Subtle belonging for dark backgrounds */
+  --intent-belonging-subtle: #2e1065;    /* Subtle belonging for dark backgrounds. Belonging text on it is 5.6:1 */
+
+  --surface-page: var(--background);
+  --surface-warm: var(--background);
+  --surface-warm-line: rgb(255 255 255 / 0.2);
+
+  --panel: oklch(0.18 0.02 270);
+  --panel-foreground: oklch(0.98 0.01 120);
+  --panel-muted: oklch(0.72 0.02 270);
+  --panel-line: oklch(0.3 0.02 270);
 
   --intent-vulnerability: #a78bfa;       /* Lighter vulnerability for dark mode */
   --intent-vulnerability-hover: #c4b5fd;  /* Even lighter for hover */
@@ -224,6 +259,9 @@
   --intent-growth: #2dd4bf;              /* Lighter growth for dark mode */
   --intent-growth-hover: #14b8a6;        /* Standard growth on hover */
   --intent-growth-subtle: #134e4a;       /* Subtle growth for dark backgrounds */
+
+  --intent-done: #86efac;                /* 13.6:1 on dark, ΔE 20.4 from primary */
+  --intent-done-subtle: #14532d;
 
   /* Energy - Lighter orange for dark backgrounds */
   --intent-energy: #fb923c;              /* Lighter energy for dark mode */
@@ -271,6 +309,7 @@
   --popover-foreground: #000000;
   --primary: #0000ff;
   --primary-foreground: #ffffff;
+  --primary-hover: #000099;
   --secondary: #000000;
   --secondary-foreground: #ffffff;
   --muted: #f0f0f0;
@@ -295,6 +334,32 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #000000;
   --sidebar-ring: #0000ff;
+
+  /* Color Code intents at 7:1 or better on white */
+  --intent-trust: #164e63;
+  --intent-growth: #134e4a;
+  --intent-belonging: #4c1d95;
+  --intent-energy: #7c2d12;
+  --intent-attention: #1e3a8a;
+  --intent-done: #14532d;
+  --intent-trust-subtle: #ffffff;
+  --intent-growth-subtle: #ffffff;
+  --intent-belonging-subtle: #ffffff;
+  --intent-done-subtle: #ffffff;
+  --intent-belonging-solid: #4c1d95;
+  --intent-belonging-solid-hover: #2e1065;
+  --intent-energy-solid: #7c2d12;
+  --intent-energy-solid-hover: #431407;
+  --surface-page: #ffffff;
+  --surface-warm: #ffffff;
+  --surface-warm-line: #000000;
+  --panel: #000000;
+  --panel-foreground: #ffffff;
+  --panel-muted: #ffffff;
+  --panel-line: #ffffff;
+  --panel-trust: #67e8f9;
+  --panel-growth: #5eead4;
+  --panel-energy: #fdba74;
 }
 
 /* High contrast dark mode */
@@ -308,6 +373,7 @@
   --popover-foreground: #ffffff;
   --primary: #00ffff;
   --primary-foreground: #000000;
+  --primary-hover: #66ffff;
   --secondary: #ffffff;
   --secondary-foreground: #000000;
   --muted: #1a1a1a;
@@ -332,11 +398,30 @@
   --sidebar-accent-foreground: #000000;
   --sidebar-border: #ffffff;
   --sidebar-ring: #00ffff;
+
+  /* Color Code intents at 7:1 or better on black */
+  --intent-trust: #67e8f9;
+  --intent-growth: #5eead4;
+  --intent-belonging: #c4b5fd;
+  --intent-energy: #fdba74;
+  --intent-attention: #93c5fd;
+  --intent-done: #86efac;
+  --intent-trust-subtle: #000000;
+  --intent-growth-subtle: #000000;
+  --intent-belonging-subtle: #000000;
+  --intent-done-subtle: #000000;
+  --surface-page: #000000;
+  --surface-warm: #000000;
+  --surface-warm-line: #ffffff;
+  --panel: #000000;
+  --panel-foreground: #ffffff;
+  --panel-muted: #ffffff;
+  --panel-line: #ffffff;
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -345,6 +430,39 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  /* Color Code intents */
+  --color-trust: var(--intent-trust);
+  --color-trust-hover: var(--intent-trust-hover);
+  --color-trust-subtle: var(--intent-trust-subtle);
+  --color-growth: var(--intent-growth);
+  --color-growth-hover: var(--intent-growth-hover);
+  --color-growth-subtle: var(--intent-growth-subtle);
+  --color-belonging: var(--intent-belonging);
+  --color-belonging-hover: var(--intent-belonging-hover);
+  --color-belonging-subtle: var(--intent-belonging-subtle);
+  --color-energy: var(--intent-energy);
+  --color-energy-hover: var(--intent-energy-hover);
+  --color-energy-subtle: var(--intent-energy-subtle);
+  --color-attention: var(--intent-attention);
+  --color-attention-hover: var(--intent-attention-hover);
+  --color-attention-subtle: var(--intent-attention-subtle);
+  --color-belonging-solid: var(--intent-belonging-solid);
+  --color-belonging-solid-hover: var(--intent-belonging-solid-hover);
+  --color-energy-solid: var(--intent-energy-solid);
+  --color-energy-solid-hover: var(--intent-energy-solid-hover);
+  --color-done: var(--intent-done);
+  --color-done-subtle: var(--intent-done-subtle);
+  --color-surface-page: var(--surface-page);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-warm-line: var(--surface-warm-line);
+  --color-panel: var(--panel);
+  --color-panel-foreground: var(--panel-foreground);
+  --color-panel-muted: var(--panel-muted);
+  --color-panel-line: var(--panel-line);
+  --color-panel-trust: var(--panel-trust);
+  --color-panel-growth: var(--panel-growth);
+  --color-panel-energy: var(--panel-energy);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -475,91 +593,6 @@
     font-size: 20px;
   }
 
-  /* Disable animations when accessibility preference is set */
-  html.no-animations *,
-  html.no-animations *::before,
-  html.no-animations *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  /* Chat-specific font sizes - smaller on mobile, larger on desktop */
-  .chat-font-normal {
-    font-size: 14px;
-  }
-
-  .chat-font-large {
-    font-size: 16px;
-  }
-
-  .chat-font-extra-large {
-    font-size: 18px;
-  }
-
-  @media (min-width: 640px) {
-    .chat-font-normal {
-      font-size: 16px;
-    }
-
-    .chat-font-large {
-      font-size: 18px;
-    }
-
-    .chat-font-extra-large {
-      font-size: 20px;
-    }
-  }
-
-  /* Chat-specific animation controls */
-  .chat-no-animations *,
-  .chat-no-animations *::before,
-  .chat-no-animations *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  /* Chat-specific high contrast mode */
-  .chat-high-contrast {
-    --background: #ffffff;
-    --foreground: #000000;
-    --card: #ffffff;
-    --card-foreground: #000000;
-    --muted: #f0f0f0;
-    --muted-foreground: #000000;
-    --border: #000000;
-    --input: #ffffff;
-  }
-
-  .chat-high-contrast.dark {
-    --background: #000000;
-    --foreground: #ffffff;
-    --card: #000000;
-    --card-foreground: #ffffff;
-    --muted: #1a1a1a;
-    --muted-foreground: #ffffff;
-    --border: #ffffff;
-    --input: #000000;
-  }
-
-  .chat-high-contrast * {
-    text-shadow: none !important;
-  }
-
-  .chat-high-contrast button,
-  .chat-high-contrast [role="button"],
-  .chat-high-contrast input {
-    border: 2px solid currentColor !important;
-  }
-
-  .chat-high-contrast button:focus,
-  .chat-high-contrast input:focus,
-  .chat-high-contrast textarea:focus {
-    outline: 3px solid var(--ring) !important;
-    outline-offset: 2px !important;
-  }
-
   /* High contrast mode enhancements */
   html.high-contrast * {
     /* Ensure all text has maximum contrast */
@@ -684,98 +717,6 @@
     font-weight: 700 !important;
   }
 
-  /* Reading Focus Mode — pure CSS :hover, zero JavaScript.
-     The browser handles :hover at the compositor level — no event loop,
-     no DOM class churn, no flicker. ThemeProvider toggles html.reading-focus. */
-
-  /* Shared highlight style (inset box-shadow = no layout shift) */
-  html.reading-focus p:hover,
-  html.reading-focus li:hover,
-  html.reading-focus blockquote:hover,
-  html.reading-focus h1:hover,
-  html.reading-focus h2:hover,
-  html.reading-focus h3:hover,
-  html.reading-focus h4:hover,
-  html.reading-focus h5:hover,
-  html.reading-focus h6:hover,
-  html.reading-focus dd:hover,
-  html.reading-focus dt:hover {
-    background-color: rgba(124, 58, 237, 0.1);
-    box-shadow: inset 0 0 0 2px rgba(124, 58, 237, 0.35);
-    border-radius: 4px;
-  }
-
-  /* When a nested text element is hovered, cancel the parent highlight so
-     only the innermost element is highlighted (:has() supported in all
-     modern browsers: Chrome 105+, Firefox 121+, Safari 15.4+) */
-  html.reading-focus li:hover:has(p:hover),
-  html.reading-focus blockquote:hover:has(p:hover) {
-    background-color: transparent;
-    box-shadow: none;
-  }
-
-  /* Never highlight inside interactive elements */
-  html.reading-focus button p:hover,
-  html.reading-focus a p:hover,
-  html.reading-focus button li:hover,
-  html.reading-focus a li:hover {
-    background-color: transparent;
-    box-shadow: none;
-  }
-
-  /* Dark mode */
-  html.dark.reading-focus p:hover,
-  html.dark.reading-focus li:hover,
-  html.dark.reading-focus blockquote:hover,
-  html.dark.reading-focus h1:hover,
-  html.dark.reading-focus h2:hover,
-  html.dark.reading-focus h3:hover,
-  html.dark.reading-focus h4:hover,
-  html.dark.reading-focus h5:hover,
-  html.dark.reading-focus h6:hover,
-  html.dark.reading-focus dd:hover,
-  html.dark.reading-focus dt:hover {
-    background-color: rgba(167, 139, 250, 0.15);
-    box-shadow: inset 0 0 0 2px rgba(167, 139, 250, 0.4);
-  }
-
-  html.dark.reading-focus li:hover:has(p:hover),
-  html.dark.reading-focus blockquote:hover:has(p:hover) {
-    background-color: transparent;
-    box-shadow: none;
-  }
-
-  /* High contrast */
-  html.high-contrast.reading-focus p:hover,
-  html.high-contrast.reading-focus li:hover,
-  html.high-contrast.reading-focus blockquote:hover,
-  html.high-contrast.reading-focus h1:hover,
-  html.high-contrast.reading-focus h2:hover,
-  html.high-contrast.reading-focus h3:hover,
-  html.high-contrast.reading-focus h4:hover,
-  html.high-contrast.reading-focus h5:hover,
-  html.high-contrast.reading-focus h6:hover,
-  html.high-contrast.reading-focus dd:hover,
-  html.high-contrast.reading-focus dt:hover {
-    background-color: rgba(0, 0, 255, 0.15);
-    box-shadow: inset 0 0 0 3px rgba(0, 0, 255, 0.8);
-  }
-
-  html.high-contrast.dark.reading-focus p:hover,
-  html.high-contrast.dark.reading-focus li:hover,
-  html.high-contrast.dark.reading-focus blockquote:hover,
-  html.high-contrast.dark.reading-focus h1:hover,
-  html.high-contrast.dark.reading-focus h2:hover,
-  html.high-contrast.dark.reading-focus h3:hover,
-  html.high-contrast.dark.reading-focus h4:hover,
-  html.high-contrast.dark.reading-focus h5:hover,
-  html.high-contrast.dark.reading-focus h6:hover,
-  html.high-contrast.dark.reading-focus dd:hover,
-  html.high-contrast.dark.reading-focus dt:hover {
-    background-color: rgba(0, 255, 255, 0.15);
-    box-shadow: inset 0 0 0 3px rgba(0, 255, 255, 0.8);
-  }
-
   /* Bigger cursor for better visibility - site-wide */
   * {
    cursor: auto !important; /* Default cursor */
@@ -880,28 +821,28 @@
     letter-spacing: -0.02em;
   }
 
-  /* Sub-headers - Modern, readable (Space Grotesk) */
+  /* Sub-headers - Modern, readable (Inter) */
   .font-editorial-subheader {
-    font-family: var(--font-space-grotesk), sans-serif;
+    font-family: var(--font-inter), sans-serif;
     font-weight: 600;
     letter-spacing: 0.01em;
   }
 
-  /* Body content - Editorial serif (Playfair Display) */
+  /* Body content - (Inter) */
   .font-editorial-body {
-    font-family: var(--font-playfair), 'Georgia', serif;
+    font-family: var(--font-inter), 'Georgia', serif;
     font-weight: 400;
     line-height: 1.7;
   }
 
   /* Magazine-style typography */
   .font-serif {
-    font-family: var(--font-playfair), 'Georgia', 'Times New Roman', serif;
+    font-family: var(--font-inter), 'Georgia', 'Times New Roman', serif;
   }
 
   /* Modern magazine-style font for paragraphs */
   .font-magazine {
-    font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
   /* Drop cap styling */
@@ -929,7 +870,7 @@
     font-weight: 800;
   }
 
-  /* Sub-headers - Modern, readable (Space Grotesk) */
+  /* Sub-headers - Modern, readable (Inter) */
   .font-hero-subtitle,
   .font-about-subtitle,
   .font-expertise-subtitle,
@@ -938,11 +879,11 @@
   .font-engagement-subtitle,
   .font-blog-subtitle,
   .font-contact-subtitle {
-    font-family: var(--font-space-grotesk), sans-serif;
+    font-family: var(--font-inter), sans-serif;
     font-weight: 600;
   }
 
-  /* Body content - Editorial serif (Playfair Display) */
+  /* Body content - (Inter) */
   .font-hero-content,
   .font-about-content,
   .font-expertise-content,
@@ -951,7 +892,7 @@
   .font-engagement-content,
   .font-blog-content,
   .font-contact-content {
-    font-family: var(--font-playfair), 'Georgia', serif;
+    font-family: var(--font-inter), 'Georgia', serif;
     font-weight: 400;
     line-height: 1.7;
   }
@@ -1151,46 +1092,6 @@
   animation-delay: 0.3s;
 }
 
-/* Microsoft AI-style section reveal - soothing, calming transitions */
-.section-reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: opacity, transform;
-}
-
-.section-reveal.section-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.section-reveal .stagger-child {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: opacity, transform;
-}
-
-.section-reveal.section-revealed .stagger-child {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Respect reduced-motion: skip animation entirely */
-@media (prefers-reduced-motion: reduce) {
-  .section-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-    will-change: auto;
-  }
-  .section-reveal .stagger-child {
-    opacity: 1;
-    transform: none;
-    transition: none;
-    will-change: auto;
-  }
-}
 
 /* Interactive card hover - subtle lift only */
 .interactive-card {
@@ -1319,8 +1220,6 @@
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .section-reveal,
-  .section-reveal .stagger-child,
   .hero-animate,
   .intent-float-in > *,
   .intent-float-in-sections > *,
@@ -1333,14 +1232,6 @@
   .intent-float-in-sections > *,
   .fade-in-on-scroll,
   .animate-fade-in {
-    opacity: 1;
-    transform: none;
-  }
-  .section-reveal {
-    opacity: 1;
-    transform: none;
-  }
-  .section-reveal.section-revealed .stagger-child {
     opacity: 1;
     transform: none;
   }

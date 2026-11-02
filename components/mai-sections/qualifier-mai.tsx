@@ -4,16 +4,16 @@ import { MaiScrollSection } from "@/components/mai-scroll-section"
 
 const bullets = [
   {
-    heading: "You actually own a product with a UI.",
-    body: "And no, UI isn't a new rapper. It's your User Interface, the face of your business. If your UI looks crazy, your whole company looks crazy.",
+    heading: "You have a product people use every day.",
+    body: "Its colors are the first thing they read. Before a word, before a button.",
   },
   {
-    heading: "You know color leaves the station with every single deploy.",
-    body: 'Every time your dev team pushes an update, the colors shift. It\'s like a train leaving the station without checking if the track is finished. One day it\'s sleek, the next day it\'s a sickly neon green because "Kevin" in engineering thought it looked modern. Now your users think they logged into a scam website.',
+    heading: "Your colors drift with every release.",
+    body: "Nobody decided that. It just happened, one deploy at a time. Your users noticed before you did.",
   },
   {
-    heading: "You believe accessibility is a promise, not a corporate checklist.",
-    body: "Most companies treat accessibility like a terms-and-conditions page. You just scroll to the bottom, click 'I agree,' and pray nobody sues you. But if you treat color-blind users like an afterthought, you broke a promise. You built an app for everyone, but made the text so light they need a magnifying glass and a flashlight just to find the checkout button.",
+    heading: "You see accessibility as a promise.",
+    body: "Not a checklist. If someone can't read your checkout button, you broke that promise to them.",
   },
 ]
 
@@ -21,10 +21,10 @@ export function QualifierMai() {
   return (
     <MaiScrollSection id="qualifier" title="Is this for you?">
       <p className="text-lg md:text-xl text-muted-foreground mb-8">
-        Half of y&apos;all love shipping sloppy work. You look at a glitched layout at 4:55 PM on a Friday and say, &ldquo;Looks good from my house. Hit deploy, I got happy hour in ten minutes.&rdquo; If that&apos;s you, close the tab. I don&apos;t want your money.
+        I work with people who care how their work lands. If that&apos;s you, keep reading.
       </p>
       <p className="text-base font-semibold text-foreground mb-6">
-        I only work with people who refuse to ship sloppy work:
+        You&apos;re in the right place if:
       </p>
       <ul className="space-y-6">
         {bullets.map((b) => (

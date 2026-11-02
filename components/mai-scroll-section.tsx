@@ -1,7 +1,5 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
-
 interface MaiScrollSectionProps {
   id: string
   title: string
@@ -12,7 +10,7 @@ interface MaiScrollSectionProps {
 }
 
 /**
- * Microsoft AI-style section: content and text reveal together when user scrolls.
+ * Page section: title, optional subtitle, content. Renders as-is, with no scroll animation.
  */
 export function MaiScrollSection({
   id,
@@ -22,34 +20,6 @@ export function MaiScrollSection({
   variant = "default",
   layout = "center",
 }: MaiScrollSectionProps) {
-  const ref = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    // If inside intent-float-in, start visible so the section-level animation controls the reveal
-    if (el.closest(".intent-float-in")) {
-      setIsVisible(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-          }
-        })
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -80px 0px" }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
   const bgClass =
     variant === "muted"
       ? "bg-muted/20"
@@ -59,19 +29,14 @@ export function MaiScrollSection({
 
   return (
     <section
-      ref={ref}
       id={id}
-      className={`py-16 md:py-24 px-6 transition-all duration-900 scroll-mt-24 ${bgClass}`}
+      className={`py-16 md:py-24 px-6 scroll-mt-24 ${bgClass}`}
     >
-      <div
-        className={`max-w-4xl mx-auto transition-all duration-900 ${
-          isVisible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-8"
-        }`}
-        style={{ transitionTimingFunction: "cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}
-      >
-        <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${variant === "dark" ? "text-background" : "text-foreground"}`}>
+      <div className="max-w-4xl mx-auto">
+        <h2
+          className={`text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-balance mb-4 ${variant === "dark" ? "text-background" : "text-foreground"}`}
+          style={{ fontFamily: "var(--font-baloo2), sans-serif" }}
+        >
           {title}
         </h2>
         {subtitle && (

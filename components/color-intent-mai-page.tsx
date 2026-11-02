@@ -2,68 +2,52 @@
 
 import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { MessageCircle, Moon, Sun, Menu, X, ChevronDown } from "lucide-react"
+import { Moon, Sun, Menu, X } from "lucide-react"
 import { sendGAEvent } from "@next/third-parties/google"
-import { useAIChat } from "@/components/ai-chat-context"
 import { useTheme } from "@/components/theme-provider"
 import { getSectionOrderForIntent, type SectionId } from "@/lib/intent-landing"
 import { ServicesMai, ProofMai, QualifierMai, ContactMai } from "@/components/mai-sections"
 import { RoiCalculatorSection } from "@/components/roi-calculator-section"
+import { PaletteReadSection } from "@/components/palette-read-section"
 
 import { HomepageAudio } from "@/components/homepage-audio"
 import { Button } from "@/components/ui/button"
 import { AccessibilityControls } from "@/components/accessibility-controls"
 
-const navLinks = [
+// In page order. "Sound familiar?" sits right under the hero, so it needs no link.
+const navLinks: { href: string; label: string; event?: string }[] = [
+  { href: "#palette-read", label: "Check your colors", event: "palette_read_open" },
+  { href: "#roi-calculator", label: "Cost" },
   { href: "#services", label: "Services" },
 ]
-const exploreLinks = [
-  { href: "#story", label: "What happened" },
-  { href: "#proof", label: "Sound familiar?" },
-  { href: "#roi-calculator", label: "ROI Calculator" },
-]
+
+function goToNavLink(link: (typeof navLinks)[number], location: "nav" | "mobile_nav") {
+  if (link.event) sendGAEvent("event", link.event, { location })
+  scrollToSection(link.href.slice(1))
+}
+
+// While a nav link is scrolling the page, the header stays put instead of hiding
+let navScrollUntil = 0
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id)
   if (!el) return
 
+  navScrollUntil = Date.now() + 1200
+  window.addEventListener("scrollend", () => { navScrollUntil = 0 }, { once: true })
+
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  if (prefersReducedMotion) {
-    el.scrollIntoView({ block: "start" })
-    return
-  }
-
   const headerOffset = 80
-  const elementPosition = el.getBoundingClientRect().top
-
-  // If the element is already in view (below the header and above the bottom), skip scroll
-  if (elementPosition >= headerOffset && elementPosition <= window.innerHeight) return
-
-  const targetY = elementPosition + window.scrollY - headerOffset
-  const startY = window.scrollY
-  const distance = targetY - startY
-  const duration = 1800 // Slow, deliberate scroll
-  let startTime: number | null = null
-
-  const easeInOutCubic = (t: number) =>
-    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-
-  function animate(currentTime: number) {
-    if (startTime === null) startTime = currentTime
-    const elapsed = currentTime - startTime
-    const progress = Math.min(elapsed / duration, 1)
-    const eased = easeInOutCubic(progress)
-    window.scrollTo(0, startY + distance * eased)
-    if (progress < 1) requestAnimationFrame(animate)
-  }
-  requestAnimationFrame(animate)
+  const top = el.getBoundingClientRect().top + window.scrollY - headerOffset
+  window.scrollTo({ top, behavior: prefersReducedMotion ? "auto" : "smooth" })
 }
 
-const defaultHeroSubhead = "That means you know your app looks a little crazy, but you don’t know how to fix it without destroying the whole code."
-const defaultHeroSupport = "So what do you do? You don’t spend six months in meetings talking about feelings and branding. You take the 15-minute Color Call. 15 minutes! That’s less time than it takes for me to figure out what I want to watch on Netflix. You sit down with a professional, he points out exactly where the money is leaking out of your software, and you fix it. Stop shipping sloppy work and get your money back!"
+const defaultHeroSubhead = "Something in your app looks off. You can't fix it without breaking something else."
+const defaultHeroSupport = "Skip the six months of meetings. Take a 15-minute call. I'll show you where color is costing you money, and what to fix first."
 
 const SECTION_MAP: Record<SectionId, React.ReactNode> = {
   qualifier: <QualifierMai />,
+  "palette-read": <PaletteReadSection />,
   contact: <ContactMai />,
   story: null, // hidden until real testimonial is ready
   proof: <ProofMai />,
@@ -86,14 +70,10 @@ function IntentDrivenSections({ intent }: { intent: null }) {
 
 export function ColorIntentMaiPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [exploreOpen, setExploreOpen] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(true)
-  const exploreWrapperRef = useRef<HTMLDivElement>(null)
-  const exploreTriggerRef = useRef<HTMLButtonElement>(null)
   const lastScrollY = useRef(0)
   const mobileMenuOpenRef = useRef(false)
   const { theme, toggleTheme } = useTheme()
-  const { toggleChat } = useAIChat()
   const intent = null
 
   useEffect(() => {
@@ -105,7 +85,7 @@ export function ColorIntentMaiPage() {
       const currentScrollY = window.scrollY
       const delta = currentScrollY - lastScrollY.current
 
-      if (currentScrollY < 10) {
+      if (currentScrollY < 10 || Date.now() < navScrollUntil) {
         setHeaderVisible(true)
       } else if (delta > 8 && currentScrollY > 80 && !mobileMenuOpenRef.current) {
         setHeaderVisible(false)
@@ -119,7 +99,7 @@ export function ColorIntentMaiPage() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Scroll to hash section after mount (e.g. navigating back to /#blog)
+  // Scroll to hash section after mount (e.g. arriving at /#services)
   // Use instant scroll — no animation — so the page doesn't flicker at the top
   useEffect(() => {
     const hash = window.location.hash
@@ -135,77 +115,8 @@ export function ColorIntentMaiPage() {
     return () => clearTimeout(timer)
   }, [])
 
-  // Focus first menu item when dropdown opens
-  useEffect(() => {
-    if (exploreOpen) {
-      const firstItem = exploreWrapperRef.current?.querySelector<HTMLButtonElement>(
-        '[role="menuitem"]'
-      )
-      firstItem?.focus()
-    }
-  }, [exploreOpen])
-
-  const closeExplore = () => setExploreOpen(false)
-
-  const handleExploreTriggerKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      closeExplore()
-      exploreTriggerRef.current?.focus()
-      e.preventDefault()
-      return
-    }
-    if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
-      e.preventDefault()
-      if (!exploreOpen) {
-        setExploreOpen(true)
-      } else {
-        const first = exploreWrapperRef.current?.querySelector<HTMLButtonElement>(
-          '[role="menuitem"]'
-        )
-        first?.focus()
-      }
-    }
-  }
-
-  const handleExploreMenuKeyDown = (e: React.KeyboardEvent, index: number) => {
-    const items = exploreWrapperRef.current?.querySelectorAll<HTMLButtonElement>(
-      '[role="menuitem"]'
-    )
-    if (!items?.length) return
-
-    switch (e.key) {
-      case "Escape":
-        closeExplore()
-        exploreTriggerRef.current?.focus()
-        e.preventDefault()
-        break
-      case "ArrowDown":
-        e.preventDefault()
-        items[(index + 1) % items.length].focus()
-        break
-      case "ArrowUp":
-        e.preventDefault()
-        items[(index - 1 + items.length) % items.length].focus()
-        break
-      case "Enter":
-      case " ":
-        e.preventDefault()
-        scrollToSection(exploreLinks[index].href.slice(1))
-        closeExplore()
-        exploreTriggerRef.current?.focus()
-        break
-    }
-  }
-
-  const handleExploreBlur = (e: React.FocusEvent) => {
-    // Blur doesn't bubble, so we attach to trigger + each menuitem
-    if (!exploreWrapperRef.current?.contains(e.relatedTarget as Node)) {
-      closeExplore()
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-[#f7f4ff] dark:bg-background">
+    <div className="min-h-screen bg-surface-page">
       {/* Spacer so content isn't hidden under fixed header */}
       <div className="h-20 shrink-0" aria-hidden />
       <div>
@@ -218,23 +129,11 @@ export function ColorIntentMaiPage() {
           }}
         >
         <div className="relative max-w-4xl mx-auto">
-        <div className="flex h-14 items-center justify-between px-4 md:px-6 rounded-full border border-[#e8e0d5] dark:border-white/20 bg-[#f7f0e6]/95 dark:bg-background/95 backdrop-blur gap-2 md:gap-0">
-          {/* Left: Chat - ask a question */}
-          <div className="flex items-center shrink-0">
-            <button
-              onClick={() => { sendGAEvent("event", "chat_open", { location: "nav" }); toggleChat() }}
-              className="p-2 rounded-lg hover:bg-white/60 text-foreground transition-colors flex items-center gap-2"
-              aria-label="Ask a question"
-            >
-              <MessageCircle className="w-5 h-5 shrink-0" />
-              <span className="hidden sm:inline text-sm font-medium">Chat</span>
-            </button>
-          </div>
-
-          {/* Center: Brand - shorter on mobile */}
+        <div className="flex h-14 items-center justify-between px-4 md:px-6 rounded-full border border-surface-warm-line bg-surface-warm/95 backdrop-blur gap-2 md:gap-0">
+          {/* Brand */}
           <button
             onClick={() => scrollToSection("hero")}
-            className="flex items-center gap-1.5 md:gap-2 text-base md:text-xl font-bold tracking-tight text-foreground hover:text-[#06b6d4] transition-colors min-w-0 shrink"
+            className="flex items-center gap-1.5 md:gap-2 text-base md:text-xl font-bold tracking-tight text-foreground hover:text-trust transition-colors min-w-0 shrink"
           >
             <img src="/favicon.svg" alt="" className="w-5 h-5 md:w-6 md:h-6 shrink-0" aria-hidden />
             <span className="truncate md:whitespace-normal">Coriano Harris</span>
@@ -242,55 +141,16 @@ export function ColorIntentMaiPage() {
 
           {/* Right: Nav + theme */}
           <div className="flex items-center gap-2 md:gap-3 shrink-0">
-            <nav className="hidden md:flex items-center gap-5" aria-label="Main navigation">
+            <nav className="hidden md:flex items-center gap-1 mr-1" aria-label="Main navigation">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => scrollToSection(link.href.slice(1))}
-                  className="text-sm font-medium text-foreground hover:text-[#06b6d4] transition-colors"
+                  onClick={() => goToNavLink(link, "nav")}
+                  className="rounded-full px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-white/70 hover:text-trust dark:hover:bg-muted/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   {link.label}
                 </button>
               ))}
-              <div ref={exploreWrapperRef} className="relative">
-                <button
-                  ref={exploreTriggerRef}
-                  onClick={() => setExploreOpen(!exploreOpen)}
-                  onBlur={handleExploreBlur}
-                  onKeyDown={handleExploreTriggerKeyDown}
-                  className="text-sm font-medium text-foreground hover:text-[#7c3aed] transition-colors flex items-center gap-1"
-                  aria-expanded={exploreOpen}
-                  aria-haspopup="menu"
-                  aria-controls="explore-menu"
-                >
-                  Explore
-                  <ChevronDown className={`w-4 h-4 transition-transform ${exploreOpen ? "rotate-180" : ""}`} />
-                </button>
-                {exploreOpen && (
-                  <div
-                    id="explore-menu"
-                    role="menu"
-                    aria-label="Explore sections"
-                    className="absolute top-full right-0 mt-1 py-2 w-36 rounded-lg bg-background dark:bg-card border border-border shadow-lg"
-                  >
-                    {exploreLinks.map((link, index) => (
-                      <button
-                        key={link.href}
-                        role="menuitem"
-                        onClick={() => {
-                          scrollToSection(link.href.slice(1))
-                          closeExplore()
-                        }}
-                        onBlur={handleExploreBlur}
-                        onKeyDown={(e) => handleExploreMenuKeyDown(e, index)}
-                        className="block w-full text-left px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-[#7c3aed]"
-                      >
-                        {link.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
             </nav>
             <button
               onClick={toggleTheme}
@@ -305,9 +165,9 @@ export function ColorIntentMaiPage() {
             <Button
               onClick={() => { sendGAEvent("event", "cta_click", { label: "book_call", location: "nav" }); scrollToSection("contact") }}
               size="sm"
-              className="bg-[#f97316] hover:bg-[#ea580c] text-white text-xs md:text-sm px-3 md:px-4 h-8 md:h-9 shrink-0"
+              className="bg-energy-solid hover:bg-energy-solid-hover text-white text-xs md:text-sm px-3 md:px-4 h-8 md:h-9 shrink-0"
             >
-              15-min call
+              Book a call
             </Button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -323,29 +183,16 @@ export function ColorIntentMaiPage() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden mt-2 mx-4 rounded-xl border border-[#e8e0d5] dark:border-white/20 bg-[#f7f0e6] dark:bg-background px-6 py-4">
-            <nav className="flex flex-col gap-2">
+          <div className="md:hidden mt-2 mx-4 rounded-xl border border-surface-warm-line bg-surface-warm px-6 py-4">
+            <nav className="flex flex-col gap-2" aria-label="Main navigation">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => {
-                    scrollToSection(link.href.slice(1))
+                    goToNavLink(link, "mobile_nav")
                     setMobileMenuOpen(false)
                   }}
-                  className="text-sm font-medium text-foreground hover:text-[#06b6d4] py-2 text-left"
-                >
-                  {link.label}
-                </button>
-              ))}
-              <p className="text-xs uppercase tracking-wider text-muted-foreground pt-2 mt-2 border-t border-border/40">Explore</p>
-              {exploreLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => {
-                    scrollToSection(link.href.slice(1))
-                    setMobileMenuOpen(false)
-                  }}
-                  className="text-sm text-foreground/80 hover:text-[#7c3aed] py-1.5 text-left pl-2"
+                  className="-mx-3 rounded-lg px-3 py-2 text-left text-sm font-medium text-foreground transition-colors hover:bg-white/70 hover:text-trust dark:hover:bg-muted/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   {link.label}
                 </button>
@@ -372,7 +219,7 @@ export function ColorIntentMaiPage() {
         {/* Hero - Warm gradient, serif heading, Color Intent content */}
         <section
           id="hero"
-          className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden px-6 py-20 bg-[#f7f0e6] dark:bg-background"
+          className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden px-6 py-20 bg-surface-warm"
         >
           {/* Warm gradient background - peach/orange/gold (light mode) - opaque base prevents intent bg flicker on scroll */}
           <div
@@ -387,7 +234,7 @@ export function ColorIntentMaiPage() {
           <div className="relative z-10 max-w-4xl mx-auto text-center">
             {/* Headshot — human face anchors the trust claim */}
             <div className="flex justify-center mb-5">
-              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-4 ring-[#f97316]/30 shadow-xl">
+              <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-4 ring-energy/30 shadow-xl">
                 <Image
                   src="/images/my-image.jpg"
                   alt="Coriano Harris"
@@ -403,26 +250,23 @@ export function ColorIntentMaiPage() {
   role="text"
   aria-label="You can see it, but you can't map it yet."
   className="text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center justify-center gap-1.5"
-  style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
 >
   <p className="m-0">Your color is costing you.</p>
 </div>
 
             <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-6"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontStyle: "italic" }}
+              className="text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-foreground mb-6 text-balance"
+              style={{ fontFamily: "var(--font-baloo2), sans-serif" }}
             >
               "You can see it, but you can't <span className="highlighter">map it</span> yet."
             </h1>
             <p
-              className="text-xl md:text-2xl text-muted-foreground mb-4"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
+              className="text-xl md:text-2xl font-medium text-muted-foreground mb-4 text-balance"
             >
               {defaultHeroSubhead}
             </p>
             <p
               className="text-base md:text-lg text-foreground/90 mb-10 max-w-xl mx-auto"
-              style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
             >
               {defaultHeroSupport}
             </p>
@@ -435,13 +279,13 @@ export function ColorIntentMaiPage() {
       </main>
 
       {/* Footer - CTA repeat, newsletter, contact */}
-      <footer className="bg-[#0f172a] dark:bg-[#f7f0e6] text-white dark:text-neutral-900 py-16 border-t border-white/10 dark:border-neutral-200">
+      <footer className="bg-panel text-panel-foreground py-16 border-t border-panel-line">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="flex flex-col items-center text-center gap-10">
             <div className="flex flex-wrap justify-center gap-6">
               <a
                 href="mailto:me@corianoharris.com"
-                className="text-sm text-white/80 dark:text-neutral-600 hover:text-white dark:hover:text-neutral-900 transition-colors"
+                className="text-sm text-panel-muted hover:text-panel-foreground transition-colors"
               >
                 Contact
               </a>
@@ -449,22 +293,16 @@ export function ColorIntentMaiPage() {
                 href="https://www.linkedin.com/in/corianoharris/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-white/80 dark:text-neutral-600 hover:text-white dark:hover:text-neutral-900 transition-colors"
+                className="text-sm text-panel-muted hover:text-panel-foreground transition-colors"
               >
                 LinkedIn
               </a>
-              <a
-                href="/blog"
-                className="text-sm text-white/80 dark:text-neutral-600 hover:text-white dark:hover:text-neutral-900 transition-colors"
-              >
-                Blog
-              </a>
             </div>
-            <div className="pt-6 border-t border-white/20 dark:border-neutral-200 w-full max-w-md space-y-1">
-              <p className="text-sm text-white/70 dark:text-neutral-600" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
+            <div className="pt-6 border-t border-panel-line w-full max-w-md space-y-1">
+              <p className="text-sm text-panel-muted" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
                 © {new Date().getFullYear()} Coriano Harris
               </p>
-              <p className="text-xs text-white/60 dark:text-neutral-500" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
+              <p className="text-xs text-panel-muted" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
                 The Color Code™
               </p>
             </div>

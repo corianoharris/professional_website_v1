@@ -1,10 +1,46 @@
 "use client"
 
 import { useState } from "react"
+import { ArrowRight } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
 import { MaiScrollSection } from "@/components/mai-scroll-section"
 
 const COLOR_UI_TICKET_RATIO = 0.3
+
+const display = { fontFamily: "var(--font-baloo2), sans-serif" }
+const money = (n: number) => `$${n.toLocaleString()}`
+
+interface Lever {
+  id: string
+  label: string
+  value: number
+  set: (v: number) => void
+  min: number
+  max: number
+  step: number
+  format: (v: number) => string
+}
+
+function LeverGroup({ title, swatch, levers }: { title: string; swatch: string; levers: Lever[] }) {
+  return (
+    <fieldset className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6">
+      <legend className="sr-only">{title}</legend>
+      <div className="flex items-center gap-2" aria-hidden>
+        <span className="h-2.5 w-2.5 rounded-full" style={{ background: swatch }} />
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</span>
+      </div>
+      {levers.map((l) => (
+        <div key={l.id} className="flex flex-col gap-2">
+          <div className="flex items-baseline justify-between gap-3 text-sm">
+            <label htmlFor={l.id} className="font-medium">{l.label}</label>
+            <span className="text-lg font-bold tabular-nums" style={display}>{l.format(l.value)}</span>
+          </div>
+          <Slider id={l.id} min={l.min} max={l.max} step={l.step} value={[l.value]} onValueChange={([v]) => l.set(v)} />
+        </div>
+      ))}
+    </fieldset>
+  )
+}
 
 export function RoiCalculatorSection() {
   const [supportTickets, setSupportTickets] = useState(20)
@@ -37,162 +73,79 @@ export function RoiCalculatorSection() {
   }
 
   const roi = calculateROI()
+  // Share of the total, drawn to scale. A tiny share still gets a visible sliver.
+  const supportShare = roi.totalAnnualCost > 0 ? (roi.annualSupportCost / roi.totalAnnualCost) * 100 : 0
 
   return (
-    <MaiScrollSection id="roi-calculator" title="How much is it costing you?" variant="muted">
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-
-        {/* Left Column - Sliders */}
-        <div className="rounded-xl border border-border bg-background p-6 space-y-6">
-          <h3 className="text-lg font-semibold">Pull the levers. See what's leaking.</h3>
-
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <label htmlFor="supportTickets" className="font-medium">Support tickets / month</label>
-              <span className="font-semibold text-[#14b8a6]">{supportTickets}</span>
-            </div>
-            <p className="text-xs text-muted-foreground mb-2">We estimate ~30% relate to color and UI confusion.</p>
-            <Slider
-              id="supportTickets"
-              min={0}
-              max={200}
-              step={5}
-              value={[supportTickets]}
-              onValueChange={([v]) => setSupportTickets(v)}
-            />
-          </div>
-
-          <div>
-            <div className="flex justify-between text-sm mb-2">
-              <label htmlFor="avgResolutionTime" className="font-medium">Avg resolution time (min)</label>
-              <span className="font-semibold text-[#14b8a6]">{avgResolutionTime}</span>
-            </div>
-            <Slider
-              id="avgResolutionTime"
-              min={0}
-              max={120}
-              step={5}
-              value={[avgResolutionTime]}
-              onValueChange={([v]) => setAvgResolutionTime(v)}
-            />
-          </div>
-
-          <div>
-            <div className="flex justify-between text-sm mb-2">
-              <label htmlFor="avgHourlyRate" className="font-medium">Support hourly rate ($)</label>
-              <span className="font-semibold text-[#14b8a6]">${avgHourlyRate}</span>
-            </div>
-            <Slider
-              id="avgHourlyRate"
-              min={0}
-              max={200}
-              step={5}
-              value={[avgHourlyRate]}
-              onValueChange={([v]) => setAvgHourlyRate(v)}
-            />
-          </div>
-
-          <div className="border-t border-border pt-6">
-            <h4 className="text-sm font-semibold mb-4 text-muted-foreground">Revenue Impact</h4>
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <label htmlFor="monthlyUsers" className="font-medium">Monthly active users</label>
-                  <span className="font-semibold text-[#14b8a6]">{monthlyUsers.toLocaleString()}</span>
-                </div>
-                <Slider
-                  id="monthlyUsers"
-                  min={0}
-                  max={100000}
-                  step={1000}
-                  value={[monthlyUsers]}
-                  onValueChange={([v]) => setMonthlyUsers(v)}
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <label htmlFor="conversionRate" className="font-medium">Conversion rate (%)</label>
-                  <span className="font-semibold text-[#14b8a6]">{conversionRate}%</span>
-                </div>
-                <Slider
-                  id="conversionRate"
-                  min={0}
-                  max={10}
-                  step={0.1}
-                  value={[conversionRate]}
-                  onValueChange={([v]) => setConversionRate(v)}
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm mb-2">
-                  <label htmlFor="avgDealValue" className="font-medium">Avg deal value ($)</label>
-                  <span className="font-semibold text-[#14b8a6]">${avgDealValue.toLocaleString()}</span>
-                </div>
-                <Slider
-                  id="avgDealValue"
-                  min={0}
-                  max={50000}
-                  step={500}
-                  value={[avgDealValue]}
-                  onValueChange={([v]) => setAvgDealValue(v)}
-                />
-              </div>
-            </div>
-          </div>
+    <MaiScrollSection id="roi-calculator" title="How much is it costing you?" subtitle="Move the sliders to match your product. The total updates as you go.">
+      <div className="grid items-start gap-6 md:grid-cols-[1fr_1.1fr]">
+        <div className="flex flex-col gap-6">
+          <LeverGroup
+            title="Support"
+            swatch="var(--intent-growth)"
+            levers={[
+              { id: "supportTickets", label: "Support tickets a month", value: supportTickets, set: setSupportTickets, min: 0, max: 200, step: 5, format: String },
+              { id: "avgResolutionTime", label: "Minutes to resolve one", value: avgResolutionTime, set: setAvgResolutionTime, min: 0, max: 120, step: 5, format: String },
+              { id: "avgHourlyRate", label: "Support cost an hour", value: avgHourlyRate, set: setAvgHourlyRate, min: 0, max: 200, step: 5, format: money },
+            ]}
+          />
+          <LeverGroup
+            title="Revenue"
+            swatch="var(--intent-energy)"
+            levers={[
+              { id: "monthlyUsers", label: "Monthly active users", value: monthlyUsers, set: setMonthlyUsers, min: 0, max: 100000, step: 1000, format: (v) => v.toLocaleString() },
+              { id: "conversionRate", label: "Conversion rate", value: conversionRate, set: setConversionRate, min: 0, max: 10, step: 0.1, format: (v) => `${v.toFixed(1)}%` },
+              { id: "avgDealValue", label: "Average deal value", value: avgDealValue, set: setAvgDealValue, min: 0, max: 50000, step: 500, format: money },
+            ]}
+          />
         </div>
 
-        {/* Right Column - Results */}
-        <div className="space-y-4">
-          <div className="rounded-xl border border-border bg-background p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Support Ticket Costs</h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <div className="flex justify-between">
-                <span>Monthly:</span>
-                <span className="font-semibold text-foreground">${roi.monthlySupportCost.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between border-t border-border pt-2">
-                <span>Annual:</span>
-                <span className="font-semibold text-foreground">${roi.annualSupportCost.toLocaleString()}</span>
-              </div>
-            </div>
+        {/* The answer */}
+        <div className="flex flex-col gap-6 rounded-2xl border border-transparent bg-panel p-8 text-panel-foreground dark:border-border" aria-live="polite">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-semibold uppercase tracking-wider text-panel-muted">Color confusion costs you</span>
+            <p className="text-5xl font-extrabold leading-none tabular-nums md:text-6xl" style={display}>
+              {money(roi.totalAnnualCost)}
+            </p>
+            <span className="text-sm text-panel-muted">a year</span>
           </div>
 
-          <div className="rounded-xl border border-border bg-background p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Revenue you're leaving on the table</h3>
-            <p className="text-xs text-foreground/70 font-medium mb-3">
-              A 1% conversion lift is conservative. Most clients see 2–3x that.
-            </p>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <div className="flex justify-between">
-                <span>Monthly:</span>
-                <span className="font-semibold text-foreground">${roi.monthlyOpportunityCost.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between border-t border-border pt-2">
-                <span>Annual:</span>
-                <span className="font-semibold text-foreground">${roi.annualOpportunityCost.toLocaleString()}</span>
-              </div>
+          <div className="flex flex-col gap-3">
+            <div className="flex h-4 overflow-hidden rounded-full bg-panel-line" role="img" aria-label={`Support is ${supportShare.toFixed(0)}% of the total. Lost revenue is ${(100 - supportShare).toFixed(0)}%.`}>
+              <span className="min-w-[3px] bg-panel-growth transition-[width] duration-300" style={{ width: `${supportShare}%` }} />
+              <span className="flex-1 bg-panel-energy" />
             </div>
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div className="flex flex-col gap-0.5">
+                <dt className="flex items-center gap-2 text-panel-muted">
+                  <span className="h-2 w-2 rounded-full bg-panel-growth" aria-hidden /> Support time
+                </dt>
+                <dd className="text-xl font-bold tabular-nums" style={display}>{money(roi.annualSupportCost)}</dd>
+                <dd className="text-xs text-panel-muted tabular-nums">{money(roi.monthlySupportCost)} a month</dd>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <dt className="flex items-center gap-2 text-panel-muted">
+                  <span className="h-2 w-2 rounded-full bg-panel-energy" aria-hidden /> Lost revenue
+                </dt>
+                <dd className="text-xl font-bold tabular-nums" style={display}>{money(roi.annualOpportunityCost)}</dd>
+                <dd className="text-xs text-panel-muted tabular-nums">{money(roi.monthlyOpportunityCost)} a month</dd>
+              </div>
+            </dl>
           </div>
 
-          <div className="rounded-xl border border-[#14b8a6]/40 bg-[#14b8a6]/5 dark:bg-[#14b8a6]/10 p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-[#14b8a6] mb-2">Total Annual Cost</h3>
-            <p className="text-3xl font-bold text-[#14b8a6] mb-4 transition-all duration-300">
-              ${roi.totalAnnualCost.toLocaleString()}
-            </p>
-            <p className="text-sm text-muted-foreground mb-4">
-              That number will still be there Monday morning. The 15-min call is free.
-            </p>
+          <div className="flex flex-col gap-4 border-t border-panel-line pt-6">
+            <p className="text-sm text-panel-muted">That number doesn&apos;t go away on its own. The first call is free.</p>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center w-full rounded-lg bg-[#f97316] hover:bg-[#ea580c] text-white text-sm font-semibold px-4 py-2.5 transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-energy-solid px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-energy-solid-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-panel-energy focus-visible:ring-offset-2 focus-visible:ring-offset-panel"
             >
-              Book the free 15-min call
+              Book the free 15-min call <ArrowRight className="h-4 w-4" aria-hidden />
             </a>
+            <p className="text-xs text-panel-muted">
+              Assumes 30% of tickets come from color and UI confusion, and a 1-point conversion lift. Most clients see 2 to 3 times that.
+            </p>
           </div>
         </div>
-
       </div>
     </MaiScrollSection>
   )

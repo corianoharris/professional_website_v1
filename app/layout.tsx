@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Baloo_2, Space_Grotesk, Playfair_Display, Raleway, Cinzel_Decorative, Bungee, Monoton, Fascinate } from "next/font/google"
+import { Inter, Baloo_2, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { GoogleTagManager } from "@next/third-parties/google"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -8,54 +8,21 @@ import { MobileScrollFix } from "@/components/mobile-scroll-fix"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+const jetbrainsMono = JetBrains_Mono({ weight: ["400", "500"], subsets: ["latin"], variable: "--font-jetbrains-mono" })
 const baloo2 = Baloo_2({
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["500", "700", "800"],
   subsets: ["latin"],
   variable: "--font-baloo2"
-})
-const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-space-grotesk"
-})
-const playfairDisplay = Playfair_Display({
-  weight: ["400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-  variable: "--font-playfair"
-})
-const raleway = Raleway({
-  weight: ["400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-  variable: "--font-raleway"
-})
-const cinzelDecorative = Cinzel_Decorative({
-  weight: ["400"],
-  subsets: ["latin"],
-  variable: "--font-cinzel-decorative"
-})
-const bungee = Bungee({
-  weight: ["400"],
-  subsets: ["latin"],
-  variable: "--font-bungee"
-})
-const monoton = Monoton({
-  weight: ["400"],
-  subsets: ["latin"],
-  variable: "--font-monoton"
-})
-const fascinate = Fascinate({
-  weight: ["400"],
-  subsets: ["latin"],
-  variable: "--font-fascinate"
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 
 export const metadata: Metadata = {
-  title: "Coriano Harris | Product Designer & Full-Stack Developer",
+  title: "Coriano Harris | Product Architect & Color Scientist",
   description:
-    "Product Designer & Full-Stack Developer. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. The Color Code™.",
+    "Product Architect & Color Scientist. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. The Color Code™.",
   manifest: "/manifest.json",
+
   metadataBase: new URL(siteUrl),
   icons: {
     icon: [
@@ -101,7 +68,7 @@ export default function RootLayout({
         <link rel="preload" href="/favicon.svg" as="image" />
       </head>
       <body
-        className={`${inter.className} ${baloo2.variable} ${spaceGrotesk.variable} ${playfairDisplay.variable} ${raleway.variable} ${cinzelDecorative.variable} ${bungee.variable} ${monoton.variable} ${fascinate.variable} font-sans antialiased`}
+        className={`${inter.className} ${inter.variable} ${baloo2.variable} ${jetbrainsMono.variable} font-sans antialiased`}
         style={{
           backgroundColor: "var(--background)",
         }}
