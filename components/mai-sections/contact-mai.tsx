@@ -23,9 +23,10 @@ import DOMPurify from "dompurify"
 import { PALETTE_AUDIT_EVENT } from "@/components/palette-read-section"
 
 const services = [
-  { name: "Screen Color Checker", type: "Primary" },
+  { name: "Page check report", type: "Primary" },
+  { name: "Palette mood report", type: "Primary" },
   { name: "The Color Naming Cleaner", type: "Primary" },
-  { name: "The Color Mood Finder", type: "Primary" },
+  { name: "Palette mood testing", type: "Primary" },
   { name: "The Color Code System", type: "Primary" },
 ]
 
