@@ -9,10 +9,12 @@ import "./globals.css"
 import "./color-code.css"
 
 // Headings: Unbounded. Prices and big numbers: Bricolage Grotesque. Body: Instrument Sans. Hex values and data: JetBrains Mono.
-const unbounded = Unbounded({ weight: ["600", "700"], subsets: ["latin"], variable: "--font-unbounded" })
-const bricolage = Bricolage_Grotesque({ weight: ["600", "700", "800"], subsets: ["latin"], variable: "--font-bricolage" })
-const instrument = Instrument_Sans({ weight: ["400", "500", "600"], subsets: ["latin"], variable: "--font-instrument" })
-const jetbrainsMono = JetBrains_Mono({ weight: ["400", "500"], subsets: ["latin"], variable: "--font-jetbrains-mono" })
+// All four are variable fonts: loading them without a weight list uses the standard variable files
+// (a weight list makes Next request dynamic subsets, which Turbopack's dev server can fail to resolve).
+const unbounded = Unbounded({ subsets: ["latin"], variable: "--font-unbounded" })
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage" })
+const instrument = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument" })
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" })
 
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 
