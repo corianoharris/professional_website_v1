@@ -1,26 +1,25 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Baloo_2, JetBrains_Mono } from "next/font/google"
+import { Unbounded, Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { GoogleTagManager } from "@next/third-parties/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { MobileScrollFix } from "@/components/mobile-scroll-fix"
 import "./globals.css"
+import "./color-code.css"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+// Headings: Unbounded. Prices and big numbers: Bricolage Grotesque. Body: Instrument Sans. Hex values and data: JetBrains Mono.
+const unbounded = Unbounded({ weight: ["600", "700"], subsets: ["latin"], variable: "--font-unbounded" })
+const bricolage = Bricolage_Grotesque({ weight: ["600", "700", "800"], subsets: ["latin"], variable: "--font-bricolage" })
+const instrument = Instrument_Sans({ weight: ["400", "500", "600"], subsets: ["latin"], variable: "--font-instrument" })
 const jetbrainsMono = JetBrains_Mono({ weight: ["400", "500"], subsets: ["latin"], variable: "--font-jetbrains-mono" })
-const baloo2 = Baloo_2({
-  weight: ["500", "700", "800"],
-  subsets: ["latin"],
-  variable: "--font-baloo2"
-})
 
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://corianoharris.com"
 
 export const metadata: Metadata = {
   title: "Coriano Harris | Product Architect & Color Scientist",
   description:
-    "Product Architect & Color Scientist. Real color systems build real trust. Color Intent Technology for B2B SaaS. 5–10× ROI year one. The Color Code™.",
+    "Product architect and color scientist. I find the colors that make users pause, flood support and fail audits, and fix them so they stay fixed. The Color Code™.",
   manifest: "/manifest.json",
 
   metadataBase: new URL(siteUrl),
@@ -68,7 +67,7 @@ export default function RootLayout({
         <link rel="preload" href="/favicon.svg" as="image" />
       </head>
       <body
-        className={`${inter.className} ${inter.variable} ${baloo2.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${instrument.className} ${instrument.variable} ${unbounded.variable} ${bricolage.variable} ${jetbrainsMono.variable} antialiased`}
         style={{
           backgroundColor: "var(--background)",
         }}

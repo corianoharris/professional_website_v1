@@ -1,62 +1,69 @@
-"use client"
-
-import { ArrowDown } from "lucide-react"
-import { MaiScrollSection } from "@/components/mai-scroll-section"
-
-const display = { fontFamily: "var(--font-baloo2), sans-serif" }
-
-/** What color confusion looks like from the inside. Each symptom wears the intent it breaks. */
+/** What color confusion looks like from the inside. Each symptom is a full-bleed block in the intent it breaks. */
 const symptoms = [
   {
+    n: "01",
     where: "At the button",
+    intent: "Trust · #0e7490 · 5.4:1",
     line: "Users pause before they click.",
     detail: "The main action looks like everything else, so they read instead of act.",
-    swatch: "var(--intent-trust)",
+    bg: "var(--trust-s)",
   },
   {
+    n: "02",
     where: "In support",
+    intent: "Growth · #0f766e · 5.5:1",
     line: "The same question, every week.",
     detail: "Was that saved? Did it go through? Color was supposed to answer that.",
-    swatch: "var(--intent-growth)",
+    bg: "var(--growth-s)",
   },
   {
+    n: "03",
     where: "In the audit",
+    intent: "Energy · #c2440c · 5.1:1",
     line: "The contrast check fails again.",
     detail: "Someone fixes one screen. The next release brings it back.",
-    swatch: "var(--intent-energy)",
+    bg: "var(--energy-s)",
   },
 ]
 
 export function ProofMai() {
   return (
-    <MaiScrollSection id="proof" title="Sound familiar?" variant="muted">
-      <div className="flex flex-col gap-8">
-        <ul className="grid gap-4 md:grid-cols-3">
-          {symptoms.map((s) => (
-            <li key={s.where} className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-6">
-              <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ background: s.swatch }} aria-hidden />
-                {s.where}
-              </span>
-              <p className="text-2xl font-extrabold leading-tight" style={display}>{s.line}</p>
-              <p className="text-sm text-muted-foreground">{s.detail}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex flex-col gap-4 border-t border-border pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-xl text-lg text-muted-foreground">
-            That pause costs you. It shows up in support tickets, and in deals that quietly don&apos;t close.{" "}
-            <span className="font-semibold text-foreground">I find where the color is broken. Then I fix it.</span>
+    <section id="proof" aria-labelledby="proof-title">
+      <h2 id="proof-title" className="sr-only">
+        Sound familiar?
+      </h2>
+      <div className="blocks">
+        {symptoms.map((s) => (
+          <div key={s.n} className="block" style={{ background: s.bg }}>
+            <div className="wrap">
+              <div className="meta label">
+                <span className="big" aria-hidden>
+                  {s.n}
+                </span>
+                <span>
+                  {s.where}
+                  <br />
+                  {s.intent}
+                </span>
+              </div>
+              <div>
+                <h3>{s.line}</h3>
+                <p>{s.detail}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="verdict">
+        <div className="wrap">
+          <p>
+            Sound familiar? <b>That pause shows up in tickets, and in deals that quietly don&apos;t close.</b>
           </p>
-          <a
-            href="#palette-read"
-            className="inline-flex w-fit shrink-0 items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold transition-colors hover:border-trust hover:text-trust"
-          >
-            See it in your colors <ArrowDown className="h-4 w-4" aria-hidden />
+          <a className="btn btn-line" href="#palette-read">
+            See it in your colors ↓
           </a>
         </div>
       </div>
-    </MaiScrollSection>
+    </section>
   )
 }
