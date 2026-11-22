@@ -45,7 +45,7 @@ export const PRESETS: { id: string; label: string; palette: Palette }[] = [
   {
     id: "site",
     label: "This site",
-    palette: { bg: "#ffffff", text: "#333333", primary: "#0e7490", buttonText: "#ffffff", link: "#7c3aed", success: "#166534", error: "#e7000b" },
+    palette: { bg: "#fbf9ff", text: "#1b1724", primary: "#c2440c", buttonText: "#ffffff", link: "#1b1724", success: "#166534", error: "#be123c" },
   },
 ]
 
@@ -92,7 +92,7 @@ function deutan(h: string): Vec3 {
 }
 const deltaEDeutan = (a: string, b: string) => dist(oklab(deutan(a)), oklab(deutan(b)))
 
-function hue(h: string): number | null {
+export function hue(h: string): number | null {
   const [r, g, b] = toRgb(h)
   const max = Math.max(r, g, b)
   const min = Math.min(r, g, b)
@@ -102,20 +102,27 @@ function hue(h: string): number | null {
   return (x * 60 + 360) % 360
 }
 
+/** Hue ranges (degrees, [from, to)) for each Color Code intent. Alarm wraps around 0°. */
+export const INTENT_BANDS: readonly [from: number, to: number, intent: string][] = [
+  [0, 18, "Alarm"],
+  [18, 45, "Energy"],
+  [45, 65, "Caution"],
+  [65, 165, "Done"],
+  [165, 182, "Growth"],
+  [182, 200, "Trust"],
+  [200, 250, "Attention"],
+  [250, 300, "Belonging"],
+  [300, 340, "Warmth"],
+  [340, 360, "Alarm"],
+]
+
 /** Hue → Color Code intent */
-export function intentOf(h: string) {
-  const x = hue(h)
+export function intentOfHue(x: number | null) {
   if (x === null) return "Neutral"
-  if (x < 18 || x >= 340) return "Alarm"
-  if (x < 45) return "Energy"
-  if (x < 65) return "Caution"
-  if (x < 165) return "Done"
-  if (x < 182) return "Growth"
-  if (x < 200) return "Trust"
-  if (x < 250) return "Attention"
-  if (x < 300) return "Belonging"
-  return "Warmth"
+  return INTENT_BANDS.find(([from, to]) => x >= from && x < to)?.[2] ?? "Alarm"
 }
+
+export const intentOf = (h: string) => intentOfHue(hue(h))
 
 const EXPECTED: Partial<Record<RoleId, string[]>> = {
   primary: ["Trust", "Belonging", "Energy", "Attention"],

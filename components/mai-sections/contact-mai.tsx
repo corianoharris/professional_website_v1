@@ -3,11 +3,6 @@
 import type React from "react"
 import { useState, useMemo, useEffect } from "react"
 import { sendGAEvent } from "@next/third-parties/google"
-import { MaiScrollSection } from "@/components/mai-scroll-section"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,37 +12,45 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Send, Mail, Linkedin, AlertCircle } from "lucide-react"
+import { Mail, Linkedin } from "lucide-react"
 import { Filter } from "bad-words"
 import DOMPurify from "dompurify"
 import { PALETTE_AUDIT_EVENT } from "@/components/palette-read-section"
 
-const services = [
-  { name: "Page check report", type: "Primary" },
-  { name: "Palette mood report", type: "Primary" },
-  { name: "The Color Naming Cleaner", type: "Primary" },
-  { name: "Palette mood testing", type: "Primary" },
-  { name: "The Color Code System", type: "Primary" },
+const EMAIL = "me@corianoharris.com"
+
+/** The free call comes first and starts checked: every "Book a call" button lands here. */
+const topics = [
+  { id: "call", name: "Free 15-min call", short: "Free 15-min call" },
+  { id: "page", name: "Page check report", short: "Page check report" },
+  { id: "mood", name: "Palette mood report", short: "Palette mood report" },
+  { id: "clean", name: "The Color Naming Cleaner", short: "Naming Cleaner" },
+  { id: "test", name: "Palette mood testing", short: "Mood testing" },
+  { id: "system", name: "The Color Code System", short: "Color Code System" },
 ]
 
-export function ContactMai() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-    services: [] as string[],
-  })
-  const [errors, setErrors] = useState({ name: "", email: "", message: "" })
-  const [showBadWordsModal, setShowBadWordsModal] = useState(false)
+type Field = "name" | "email" | "message"
+const LIMITS: Record<Field, number> = { name: 50, email: 100, message: 1000 }
+const noErrors: Record<Field, string> = { name: "", email: "", message: "" }
 
-  // "Get the full audit" in the palette read prefills the message with its findings
+export function ContactMai() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" })
+  const [chosen, setChosen] = useState<string[]>(["Free 15-min call"])
+  const [errors, setErrors] = useState(noErrors)
+  const [showLanguageDialog, setShowLanguageDialog] = useState(false)
+
+  // "Get the full audit" in the palette check prefills the message with its findings
   useEffect(() => {
     const onAudit = (e: Event) => {
       const message = (e as CustomEvent<string>).detail
-      setFormData((d) => ({ ...d, message }))
+      setForm((d) => ({ ...d, message }))
+      setChosen((c) => (c.includes("Page check report") ? c : [...c, "Page check report"]))
       setErrors((err) => ({ ...err, message: "" }))
       const field = document.getElementById("contact-message")
-      field?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" })
+      document.getElementById("contact")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start",
+      })
       field?.focus({ preventScroll: true })
     }
     window.addEventListener(PALETTE_AUDIT_EVENT, onAudit)
@@ -56,236 +59,157 @@ export function ContactMai() {
 
   const filter = useMemo(() => (typeof window !== "undefined" ? new Filter() : null), [])
 
-  const limits = { name: { min: 2, max: 50 }, email: { min: 5, max: 100 }, message: { min: 10, max: 1000 } }
+  const toggleTopic = (name: string) =>
+    setChosen((prev) => (prev.includes(name) ? prev.filter((s) => s !== name) : [...prev, name]))
 
-  const handleServiceToggle = (name: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      services: prev.services.includes(name)
-        ? prev.services.filter((s) => s !== name)
-        : [...prev.services, name],
-    }))
-  }
-
-  const validateForm = () => {
-    const newErrors = { name: "", email: "", message: "" }
-    let isValid = true
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required"
-      isValid = false
-    } else if (formData.name.trim().length < limits.name.min) {
-      newErrors.name = `Name must be at least ${limits.name.min} characters`
-      isValid = false
-    } else if (formData.name.trim().length > limits.name.max) {
-      newErrors.name = `Name must be no more than ${limits.name.max} characters`
-      isValid = false
+  const validate = () => {
+    const next: Record<Field, string> = {
+      name: form.name.trim().length < 2 ? "Enter your name, at least 2 characters." : "",
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) ? "" : "Enter an email like you@company.com.",
+      message: form.message.trim().length < 10 ? "Tell me a little more, at least 10 characters." : "",
     }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-      isValid = false
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
-      isValid = false
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required"
-      isValid = false
-    } else if (formData.message.trim().length < limits.message.min) {
-      newErrors.message = `Message must be at least ${limits.message.min} characters`
-      isValid = false
-    }
-
-    setErrors(newErrors)
-    if (!isValid) {
-      setTimeout(() => {
-        const first = document.querySelector('[id="contact-name"], [id="contact-email"], [id="contact-message"]') as HTMLElement
-        first?.scrollIntoView({ behavior: "smooth", block: "center" })
-        first?.focus()
-      }, 100)
-    }
-    return isValid
+    setErrors(next)
+    const first = (Object.keys(next) as Field[]).find((k) => next[k])
+    if (first) document.getElementById(`contact-${first}`)?.focus()
+    return !first
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) return
+    if (!validate()) return
 
-    const sanitizedName = DOMPurify.sanitize(formData.name, { ALLOWED_TAGS: [] })
-    const sanitizedEmail = DOMPurify.sanitize(formData.email, { ALLOWED_TAGS: [] })
-    const sanitizedMessage = DOMPurify.sanitize(formData.message, { ALLOWED_TAGS: [] })
+    const clean = (s: string) => DOMPurify.sanitize(s, { ALLOWED_TAGS: [] })
+    const name = clean(form.name)
+    const email = clean(form.email)
+    const message = clean(form.message)
 
-    if (filter && (filter.isProfane(sanitizedName) || filter.isProfane(sanitizedEmail) || filter.isProfane(sanitizedMessage))) {
-      setShowBadWordsModal(true)
+    if (filter && (filter.isProfane(name) || filter.isProfane(email) || filter.isProfane(message))) {
+      setShowLanguageDialog(true)
       return
     }
 
-    const subject = encodeURIComponent(`Inquiry about ${formData.services.join(", ") || "your services"}`)
+    const subject = encodeURIComponent(chosen.length ? chosen.join(", ") : "Your services")
     const body = encodeURIComponent(
-      `Name: ${sanitizedName}\nEmail: ${sanitizedEmail}\n\nServices: ${formData.services.join(", ")}\n\nMessage:\n${sanitizedMessage}`,
+      `Name: ${name}\nEmail: ${email}\n\nInterested in: ${chosen.join(", ") || "Not sure yet"}\n\n${message}`,
     )
-    sendGAEvent("event", "form_submit", { form: "contact", services: formData.services.join(", ") || "none" })
-    window.location.href = `mailto:me@corianoharris.com?subject=${subject}&body=${body}`
+    sendGAEvent("event", "form_submit", { form: "contact", services: chosen.join(", ") || "none" })
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
 
     setTimeout(() => {
-      setFormData({ name: "", email: "", message: "", services: [] })
-      setErrors({ name: "", email: "", message: "" })
+      setForm({ name: "", email: "", message: "" })
+      setChosen(["Free 15-min call"])
+      setErrors(noErrors)
     }, 100)
   }
 
-  const handleFieldChange = (field: string, value: string) => {
-    const maxLen = { name: 50, email: 100, message: 1000 }[field as keyof typeof errors]
-    const sanitized = typeof window !== "undefined" ? DOMPurify.sanitize(value.slice(0, maxLen), { ALLOWED_TAGS: [] }) : value.slice(0, maxLen)
-    setFormData((prev) => ({ ...prev, [field]: sanitized }))
-    if (errors[field as keyof typeof errors]) setErrors((prev) => ({ ...prev, [field]: "" }))
+  const change = (field: Field, value: string) => {
+    const capped = value.slice(0, LIMITS[field])
+    setForm((prev) => ({ ...prev, [field]: capped }))
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }))
   }
+
+  const fieldProps = (field: Field) => ({
+    id: `contact-${field}`,
+    value: form[field],
+    maxLength: LIMITS[field],
+    "aria-invalid": !!errors[field],
+    "aria-describedby": errors[field] ? `contact-${field}-error` : undefined,
+  })
+
+  const ErrorText = ({ field }: { field: Field }) =>
+    errors[field] ? (
+      <p className="err" id={`contact-${field}-error`}>
+        {errors[field]}
+      </p>
+    ) : null
 
   return (
     <>
-      <AlertDialog open={showBadWordsModal} onOpenChange={setShowBadWordsModal}>
+      <AlertDialog open={showLanguageDialog} onOpenChange={setShowLanguageDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2 text-destructive">
-              <AlertCircle className="w-5 h-5" />
-              Inappropriate Content Detected
-            </AlertDialogTitle>
+            <AlertDialogTitle>Please reword your message</AlertDialogTitle>
             <AlertDialogDescription>
-              Your message contains inappropriate language. Please revise before submitting.
+              Some of the wording was flagged by the language filter. Edit it and send again.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => setShowBadWordsModal(false)}>I Understand</AlertDialogAction>
+            <AlertDialogAction onClick={() => setShowLanguageDialog(false)}>Edit message</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      <MaiScrollSection
-        id="contact"
-        title="Talk to me."
-        subtitle="Fifteen minutes. Free. You leave knowing the one thing to fix first."
-      >
-        <div className="grid items-start gap-6 md:grid-cols-5">
-          {/* Form */}
-          <div className="rounded-2xl border border-border bg-card p-6 md:col-span-3 md:p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-2">
-                  Name
-                </label>
-                <Input
-                  id="contact-name"
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={(e) => handleFieldChange("name", e.target.value)}
-                  className={`h-12 border-2 ${errors.name ? "border-amber-500" : "border-border"}`}
-                  aria-invalid={!!errors.name}
-                />
-                {errors.name && (
-                  <p className="mt-2 text-sm text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" /> {errors.name}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="contact-email" className="block text-sm font-medium text-foreground mb-2">
-                  Email
-                </label>
-                <Input
-                  id="contact-email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={(e) => handleFieldChange("email", e.target.value)}
-                  className={`h-12 border-2 ${errors.email ? "border-amber-500" : "border-border"}`}
-                  aria-invalid={!!errors.email}
-                />
-                {errors.email && (
-                  <p className="mt-2 text-sm text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" /> {errors.email}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Services you're interested in</label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {services.map((s) => (
-                    <div key={s.name} className="flex items-center gap-2">
-                      <Checkbox
-                        id={`svc-${s.name}`}
-                        checked={formData.services.includes(s.name)}
-                        onCheckedChange={() => handleServiceToggle(s.name)}
-                        className="border-2"
-                      />
-                      <label htmlFor={`svc-${s.name}`} className="text-sm cursor-pointer">
-                        {s.name}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label htmlFor="contact-message" className="block text-sm font-medium text-foreground mb-2">
-                  Message
-                </label>
-                <Textarea
-                  id="contact-message"
-                  placeholder="Tell me about your vision and what results you're looking for..."
-                  rows={5}
-                  value={formData.message}
-                  onChange={(e) => handleFieldChange("message", e.target.value)}
-                  className={`border-2 resize-y min-h-30 ${errors.message ? "border-amber-500" : "border-border"}`}
-                  aria-invalid={!!errors.message}
-                />
-                {errors.message && (
-                  <p className="mt-2 text-sm text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" /> {errors.message}
-                  </p>
-                )}
-              </div>
-              <Button type="submit" className="w-full md:w-auto bg-primary hover:bg-primary-hover text-primary-foreground">
-                <Send className="w-4 h-4 mr-2" />
-                Send message
-              </Button>
-            </form>
-          </div>
-
-          {/* What happens next */}
-          <aside className="flex flex-col gap-6 rounded-2xl border border-transparent bg-panel p-6 text-panel-foreground md:col-span-2 md:p-8 dark:border-border">
-            <h3 className="text-2xl font-extrabold leading-tight" style={{ fontFamily: "var(--font-baloo2), sans-serif" }}>
-              What happens next
-            </h3>
-            <ol className="flex flex-col gap-4 text-sm">
-              {[
-                "Your email app opens with this message. Nothing is saved here.",
-                "I reply with a time for the call.",
-                "On the call, I show you where your color is costing you.",
-              ].map((step, i) => (
-                <li key={step} className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-panel-trust text-xs font-bold text-panel tabular-nums">{i + 1}</span>
-                  <span className="text-panel-muted">{step}</span>
-                </li>
-              ))}
+      <section id="contact" className="contact">
+        <div className="wrap grid">
+          <div>
+            <span className="label">Contact</span>
+            <h2>Talk to me.</h2>
+            <p className="lede">Fifteen minutes. Free. You leave knowing the one thing to fix first.</p>
+            <ol className="steps">
+              <li>Your email app opens with this message. Nothing is saved here.</li>
+              <li>I reply within two business days with a time for the call.</li>
+              <li>On the call, I show you where your color is costing you.</li>
             </ol>
-            <div className="flex flex-col gap-3 border-t border-panel-line pt-6 text-sm">
-              <a href="mailto:me@corianoharris.com" className="inline-flex items-center gap-2 font-medium text-panel-trust hover:underline">
+            <div className="reach">
+              <a href={`mailto:${EMAIL}`} className="mono email-pill">
                 <Mail className="h-4 w-4" aria-hidden />
-                me@corianoharris.com
+                {EMAIL}
               </a>
-              <a
-                href="https://www.linkedin.com/in/corianoharris/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-medium text-panel-trust hover:underline"
-              >
+              <a href="https://www.linkedin.com/in/corianoharris/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-4 w-4" aria-hidden />
                 LinkedIn
               </a>
             </div>
-          </aside>
+          </div>
+
+          <div className="formcard">
+            <form onSubmit={handleSubmit} noValidate>
+              <div className="field">
+                <label htmlFor="contact-name">Name</label>
+                <input type="text" autoComplete="name" {...fieldProps("name")} onChange={(e) => change("name", e.target.value)} />
+                <ErrorText field="name" />
+              </div>
+              <div className="field">
+                <label htmlFor="contact-email">Work email</label>
+                <input type="email" autoComplete="email" {...fieldProps("email")} onChange={(e) => change("email", e.target.value)} />
+                <ErrorText field="email" />
+              </div>
+              <fieldset className="topics">
+                <legend>What do you want to talk about?</legend>
+                <div className="opts">
+                  {topics.map((t) => (
+                    <label key={t.id}>
+                      <input
+                        type="checkbox"
+                        id={`topic-${t.id}`}
+                        checked={chosen.includes(t.name)}
+                        onChange={() => toggleTopic(t.name)}
+                      />
+                      <span>{t.short}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+              <div className="field">
+                <label htmlFor="contact-message">What&apos;s going on with your colors?</label>
+                <textarea
+                  rows={5}
+                  placeholder="The screen, the product, where users get stuck."
+                  {...fieldProps("message")}
+                  onChange={(e) => change("message", e.target.value)}
+                />
+                <ErrorText field="message" />
+              </div>
+              <div>
+                <button type="submit" className="btn btn-hot">
+                  Write the email →
+                </button>
+              </div>
+              <p className="form-note">Opens your email app with this message filled in. Nothing is saved on this site.</p>
+            </form>
+          </div>
         </div>
-      </MaiScrollSection>
+      </section>
     </>
   )
 }

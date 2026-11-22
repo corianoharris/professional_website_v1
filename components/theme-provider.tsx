@@ -26,7 +26,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
     const savedHighContrast = localStorage.getItem("highContrast")
 
+    // No saved choice yet: follow the visitor's system setting
     if (savedTheme) setTheme(savedTheme)
+    else if (window.matchMedia("(prefers-color-scheme: dark)").matches) setTheme("dark")
     if (savedFontSize) setFontSize(savedFontSize)
     if (savedHighContrast !== null) setHighContrast(savedHighContrast === "true")
 
